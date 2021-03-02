@@ -70,6 +70,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\Contract.cs" />
+    <Compile Include="Models\Insured.cs" />
+    <Compile Include="Models\Policy.cs" />
+    <Compile Include="Models\RuleViolation.cs" />
     <Compile Include="Repository\ContractRepository.cs" />
     <Compile Include="Repository\InsuredRepository.cs" />
     <Compile Include="Repository\PolicyRepository.cs" />
