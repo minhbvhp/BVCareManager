@@ -98,7 +98,7 @@
                         </StackPanel>
 
                         <StackPanel Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center">
-                            
+                            <controls:InsuredModify/>
                         </StackPanel>
 
 
