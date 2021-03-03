@@ -52,6 +52,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Dragablz, Version=0.0.3.223, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Dragablz.0.0.3.223\lib\net45\Dragablz.dll</HintPath>
+    </Reference>
     <Reference Include="MaterialDesignColors, Version=2.0.0.2422, Culture=neutral, PublicKeyToken=df2a72020bd7962a, processorArchitecture=MSIL">
       <HintPath>packages\MaterialDesignColors.2.0.0\lib\net452\MaterialDesignColors.dll</HintPath>
     </Reference>
@@ -79,6 +82,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controls\InsuredModify.xaml.cs">
+      <DependentUpon>InsuredModify.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\InsuredNew.xaml.cs">
+      <DependentUpon>InsuredNew.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Models\Contract.cs" />
     <Compile Include="Models\Insured.cs" />
     <Compile Include="Models\Policy.cs" />
@@ -86,6 +95,14 @@
     <Compile Include="Repository\ContractRepository.cs" />
     <Compile Include="Repository\InsuredRepository.cs" />
     <Compile Include="Repository\PolicyRepository.cs" />
+    <Page Include="Controls\InsuredModify.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\InsuredNew.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -140,7 +157,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Controls\" />
     <Folder Include="ViewModels\" />
     <Folder Include="Views\" />
   </ItemGroup>

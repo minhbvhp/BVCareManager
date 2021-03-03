@@ -4,8 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BVCareManager"
+        xmlns:controls="clr-namespace:BVCareManager.Controls"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800"
+        xmlns:dragablz="clr-namespace:Dragablz;assembly=Dragablz"       
+        Title="MainWindow" Height="600" Width="800"
         
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -14,10 +16,103 @@
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
         Background="{DynamicResource MaterialDesignPaper}"
-        FontFamily="{DynamicResource MaterialDesignFont}">
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        
+        ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None">
+
     <Grid>
-        <materialDesign:Card Padding="32" Margin="16">
-            <TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}">My First Material Design App</TextBlock>
-        </materialDesign:Card>
+        <Grid Height="60" VerticalAlignment="Top" Background="#FF31577E">
+            <TextBlock Text="Công ty TNHH Federal Mogul" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"
+                       FontSize="22" FontFamily="iCiel Gotham Thin" />
+            <Button HorizontalAlignment="Right" VerticalAlignment="Center" 
+                    Background="{x:Null}" BorderBrush="{x:Null}" Click="ButtonClose_Click">
+                <materialDesign:PackIcon Kind="Power"/>
+            </Button>
+        </Grid>
+
+        <Grid Margin="0, 60, 0, 0">
+            <dragablz:TabablzControl>
+                <dragablz:TabablzControl.InterTabController>
+                    <dragablz:InterTabController/>
+                </dragablz:TabablzControl.InterTabController>
+
+                <TabItem Header="TẠO MỚI">
+                    <controls:InsuredNew/>
+                </TabItem>
+
+                <TabItem Header="SỬA">
+                    <Grid Margin="25">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Left">
+                            <Grid Margin="0, 0, 0, 10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <ComboBox Grid.Column="0"  materialDesign:HintAssist.Hint="Mục"
+                                          Style="{StaticResource MaterialDesignFloatingHintComboBox}" Margin="0, 0, 10, 0">
+                                    <ComboBoxItem>
+                                        Người
+                                    </ComboBoxItem>
+                                    <ComboBoxItem>
+                                        Đơn bảo hiểm
+                                    </ComboBoxItem>
+                                    <ComboBoxItem>
+                                        Hợp đồng
+                                    </ComboBoxItem>
+                                </ComboBox>
+
+                                <TextBox Grid.Column="1"
+                                         materialDesign:HintAssist.Hint="Tìm kiếm" 
+                                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+
+                                <Button Grid.Column="2"
+                                    Style="{StaticResource MaterialDesignFloatingActionButton}"
+                                    materialDesign:ButtonProgressAssist.IsIndicatorVisible="True"
+                                    materialDesign:ButtonProgressAssist.Value="-1"
+                                    materialDesign:ButtonProgressAssist.IsIndeterminate="True"
+                                    Content="{materialDesign:PackIcon DotsHorizontal}"
+                                    Width="20" Height="20" HorizontalAlignment="Center"/>
+
+                            </Grid>
+
+                            <ListView ItemsSource="{Binding Items1}">
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn DisplayMemberBinding="{Binding Code}" Header="ID"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding Name}" Header="Name"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding Description}" Header="Description"/>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center">
+                            
+                        </StackPanel>
+
+
+                    </Grid>
+                </TabItem>
+
+                <TabItem Header="DOWNLOAD">
+                    <TextBlock Text="Hello" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </TabItem>
+                
+                
+
+
+            </dragablz:TabablzControl>
+        </Grid>
     </Grid>
 </Window>

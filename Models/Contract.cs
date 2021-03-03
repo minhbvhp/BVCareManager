@@ -13,7 +13,6 @@ namespace BVCareManager.Models
         {
             get { return (GetRuleViolations().Count() == 0); }
         }
-
         public IEnumerable<RuleViolation> GetRuleViolations()
         {
             if (String.IsNullOrEmpty(Id))

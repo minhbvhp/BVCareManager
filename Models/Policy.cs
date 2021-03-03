@@ -14,6 +14,7 @@ namespace BVCareManager.Models
             get { return (GetRuleViolations().Count() == 0); }
         }
 
+
         public IEnumerable<RuleViolation> GetRuleViolations()
         {
             if (String.IsNullOrEmpty(Number.ToString()))
@@ -30,9 +31,6 @@ namespace BVCareManager.Models
 
             if (String.IsNullOrEmpty(ToDate.ToString()))
                 yield return new RuleViolation("Không được để trống ngày kết thúc hiệu lực", "ToDate");
-
-            if (Premium <= 0)
-                yield return new RuleViolation("Số phí bảo hiểm phải lớn hơn 0", "Premium");
 
             if (FromDate >= ToDate)
                 yield return new RuleViolation("Ngày bắt đầu hiệu lực phải trước ngày kết thúc", "FromDate");

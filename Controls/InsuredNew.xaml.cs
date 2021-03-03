@@ -12,24 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using BVCareManager.Models;
-using BVCareManager.Repository;
 
-namespace BVCareManager
+namespace BVCareManager.Controls
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for InsuredNew.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class InsuredNew : UserControl
     {
-        public MainWindow()
+        public InsuredNew()
         {
             InitializeComponent();
-        }
-
-        private void ButtonClose_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
         }
     }
 }
