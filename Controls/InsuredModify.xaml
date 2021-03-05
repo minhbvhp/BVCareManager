@@ -12,7 +12,7 @@
             <materialDesign:Flipper.FrontContent>
                 <Grid Height="256" Width="200">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="160" />
+                        <RowDefinition Height="150"/>
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     <materialDesign:ColorZone Mode="PrimaryLight" VerticalAlignment="Stretch">
@@ -20,7 +20,7 @@
                     </materialDesign:ColorZone>
                     <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <TextBlock HorizontalAlignment="Center">                                                
-                            Trần Khoa Minh
+                            <Run Text="{Binding Name}"></Run>
                         </TextBlock>
                         <Button Style="{StaticResource MaterialDesignFlatButton}" 
                             Command="{x:Static materialDesign:Flipper.FlipCommand}" Margin="0 4 0 0">
@@ -29,6 +29,7 @@
                     </StackPanel>
                 </Grid>
             </materialDesign:Flipper.FrontContent>
+            
             <materialDesign:Flipper.BackContent>
                 <Grid Height="256" Width="200">
                     <Grid.RowDefinitions>
@@ -54,15 +55,16 @@
                             <RowDefinition />
                             <RowDefinition />
                         </Grid.RowDefinitions>
-                        <TextBox materialDesign:HintAssist.Hint="First name" materialDesign:HintAssist.IsFloating="True" Margin="0 12 0 0">
-                            James
-                        </TextBox>
-                        <TextBox Grid.Row="1" materialDesign:HintAssist.Hint="Last name" 
+                        <TextBox materialDesign:HintAssist.Hint="Số CCCD"
                                  materialDesign:HintAssist.IsFloating="True" Margin="0 12 0 0">
-                            Willock
+                            0123456789
+                        </TextBox>
+                        <TextBox Grid.Row="1" materialDesign:HintAssist.Hint="Họ tên" 
+                                 materialDesign:HintAssist.IsFloating="True" Margin="0 12 0 0">
+                            Trần Khoa Minh
                         </TextBox>
                         
-                        <Button Grid.Row="2" Style="{StaticResource MaterialDesignFlatButton}" 
+                        <Button Grid.Row="3" Style="{StaticResource MaterialDesignFlatButton}" 
                             Command="{x:Static materialDesign:Flipper.FlipCommand}" Margin="0 4 10 0">
                             CONFIRM
                         </Button>

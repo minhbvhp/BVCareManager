@@ -12,17 +12,15 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using BVCareManager.Models;
-using BVCareManager.Repository;
 
-namespace BVCareManager
+namespace BVCareManager.Controls
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for ContractNew.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class ContractNew : UserControl
     {
-        public MainWindow()
+        public ContractNew()
         {
             InitializeComponent();
         }

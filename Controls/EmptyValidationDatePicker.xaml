@@ -1,0 +1,22 @@
+﻿<UserControl x:Class="BVCareManager.Controls.EmptyValidationDatePicker"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BVCareManager.Controls"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:viewmodel="clr-namespace:BVCareManager.ViewModels"
+             mc:Ignorable="d" 
+             d:DesignHeight="100" d:DesignWidth="400">
+    <Grid>
+        <DatePicker x:Name="FutureDatePicker" materialDesign:HintAssist.Hint="Future Date">
+            <DatePicker.SelectedDate>
+                <Binding Path="FutureValidatingDate" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <viewmodel:NotEmptyValidationRule ValidatesOnTargetUpdated="True"/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </DatePicker.SelectedDate>
+        </DatePicker>
+    </Grid>
+</UserControl>

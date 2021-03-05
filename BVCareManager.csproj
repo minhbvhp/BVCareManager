@@ -82,11 +82,26 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controls\ContractNew.xaml.cs">
+      <DependentUpon>ContractNew.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\EmptyValidationDatePicker.xaml.cs">
+      <DependentUpon>EmptyValidationDatePicker.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\EmptyValidationTextBox.xaml.cs">
+      <DependentUpon>EmptyValidationTextBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\InsuredModify.xaml.cs">
       <DependentUpon>InsuredModify.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\InsuredNew.xaml.cs">
       <DependentUpon>InsuredNew.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\PolicyNew.xaml.cs">
+      <DependentUpon>PolicyNew.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\TopControlBar.xaml.cs">
+      <DependentUpon>TopControlBar.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\Contract.cs" />
     <Compile Include="Models\Insured.cs" />
@@ -95,11 +110,36 @@
     <Compile Include="Repository\ContractRepository.cs" />
     <Compile Include="Repository\InsuredRepository.cs" />
     <Compile Include="Repository\PolicyRepository.cs" />
+    <Compile Include="ViewModels\ContractViewModel.cs" />
+    <Compile Include="ViewModels\InsuredViewModel.cs" />
+    <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\NotEmptyValidationRule.cs" />
+    <Compile Include="ViewModels\PolicyViewModel.cs" />
+    <Page Include="Controls\ContractNew.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\EmptyValidationDatePicker.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\EmptyValidationTextBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\InsuredModify.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\InsuredNew.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\PolicyNew.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\TopControlBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -139,6 +179,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <Resource Include="Fonts\Gotham-Thin.otf" />
     <None Include="Models\BVCareManager.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>BVCareManager.designer.cs</LastGenOutput>
@@ -157,7 +198,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="ViewModels\" />
     <Folder Include="Views\" />
   </ItemGroup>
   <ItemGroup>
