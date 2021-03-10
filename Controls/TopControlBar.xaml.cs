@@ -30,5 +30,11 @@ namespace BVCareManager.Controls
             Window parrentWindown = Window.GetWindow(this);
             parrentWindown.Close();
         }
+
+        private void ButtonMinimize_Click(object sender, RoutedEventArgs e)
+        {
+            Window parrentWindown = Window.GetWindow(this);
+            parrentWindown.WindowState = WindowState.Minimized;
+        }
     }
 }

@@ -9,7 +9,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="350" d:DesignWidth="350">
     <Grid>
-        <GroupBox Header="Card Group Box" Style="{DynamicResource MaterialDesignCardGroupBox}" Margin="16">
+        <GroupBox Header="Card Group Box" Style="{DynamicResource MaterialDesignCardGroupBox}" Margin="0 16 0 0">
             <GroupBox.HeaderTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">

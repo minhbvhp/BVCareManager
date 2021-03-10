@@ -11,10 +11,18 @@
         <Grid Height="60" VerticalAlignment="Top" Background="#FF31577E">
             <TextBlock Text="Công ty TNHH Federal Mogul" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"
                        FontSize="22" FontFamily="{StaticResource iCielGothamThin}" />
-            <Button HorizontalAlignment="Right" VerticalAlignment="Top" 
-                    Background="{x:Null}" BorderBrush="{x:Null}" Click="ButtonClose_Click">
-                <materialDesign:PackIcon Kind="Power" Width="30" Height="30"/>
-            </Button>
+
+            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                <Button HorizontalAlignment="Right" VerticalAlignment="Top" 
+                        Background="{x:Null}" BorderBrush="{x:Null}" Click="ButtonMinimize_Click">
+                    <materialDesign:PackIcon Kind="WindowMinimize" Width="20" Height="20"/>
+                </Button>
+
+                <Button HorizontalAlignment="Right" VerticalAlignment="Top" 
+                        Background="{x:Null}" BorderBrush="{x:Null}" Click="ButtonClose_Click">
+                    <materialDesign:PackIcon Kind="Power" Width="20" Height="20"/>
+                </Button>
+            </StackPanel>
         </Grid>
     </Grid>
 </UserControl>

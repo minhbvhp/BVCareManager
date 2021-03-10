@@ -12,24 +12,20 @@ namespace BVCareManager.ViewModels
     class MainViewModel
     {
         private InsuredRepository insuredRepository = new InsuredRepository();
-        public IEnumerable<Insured> AllInsureds { get; set; }
+        public IEnumerable<Insured> AllInsureds
+        {
+            get
+            {
+                return insuredRepository.FindAllInsureds().ToList();
+            }
+        }
         public Insured Insured
         {
             get
             {
-                Insured insured = insuredRepository.GetInsured("3");
+                Insured insured = insuredRepository.GetInsured("1");
                 return insured;
             }
         }
-
-        public IEnumerable<Insured> Index()
-        {
-            var insureds = insuredRepository.FindAllInsureds().ToList();
-            AllInsureds = insureds;
-            return AllInsureds;
-        }
-
-
-
     }
 }

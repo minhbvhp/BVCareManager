@@ -55,14 +55,18 @@
                         <GroupBox Header="Mục" 
                                   Style="{DynamicResource MaterialDesignGroupBox}" Margin="32"
                                   materialDesign:ColorZoneAssist.Mode="SecondaryMid">
-                            <ListBox IsEnabled="{Binding IsChecked, ElementName=EnableListBox}">
+                            <ListBox x:Name="CreateNewListBox" 
+                                     IsEnabled="{Binding IsChecked, ElementName=EnableListBox}"
+                                     SelectionChanged="CreateNewListBox_SelectionChanged">
                                 <TextBlock>Nhân viên</TextBlock>
                                 <TextBlock>Hợp đồng</TextBlock>
                                 <TextBlock>Đơn bảo hiểm</TextBlock>
                             </ListBox>
                         </GroupBox>
-                        
-                        <controls:PolicyNew VerticalAlignment="Top" Grid.RowSpan="2" Grid.Column="2" Margin="16"/>
+
+                        <DockPanel x:Name="CreateNewDockPanel" VerticalAlignment="Top" Grid.RowSpan="2" Grid.Column="2" Margin="16">
+                            
+                        </DockPanel>
                         
                         <Button Margin="0, 0, 30, 30" HorizontalAlignment="Right"
                                 Grid.Row="3" Grid.Column="2"
@@ -121,14 +125,15 @@
                             </Grid>
                         </DockPanel>
 
-                        <DockPanel Grid.Row="1">
-                            <DataGrid Margin="0 8 0 0" ItemsSource="{Binding Items3}"
-                                      CanUserSortColumns="True" CanUserAddRows="False">
-                                <DataGridTextColumn Binding="{Binding Name}" Header="Số CCCD">
-                                </DataGridTextColumn>
-                                <DataGridTextColumn Binding="{Binding Name}" Header="Họ tên"/>
-                                <DataGridTextColumn Binding="{Binding Name}" Header="Ghi chú"/>
-                            </DataGrid>
+                        <DockPanel Grid.Row="1" DataContext="{StaticResource MainViewModel}">
+                            <ListView ItemsSource="{Binding AllInsureds}">
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn DisplayMemberBinding="{Binding Id}" Header="Số CCCD" />
+                                        <GridViewColumn DisplayMemberBinding="{Binding Name}" Header="Họ tên" />
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
                         </DockPanel>
 
                         <DockPanel Grid.RowSpan="2" Grid.Column="1" Margin="16"

@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using BVCareManager.Models;
 using BVCareManager.Repository;
+using BVCareManager.Controls;
 
 namespace BVCareManager
 {
@@ -25,6 +26,28 @@ namespace BVCareManager
         public MainWindow()
         {
             InitializeComponent();
+            CreateNewListBox.SelectedIndex = 0;
+        }
+
+        private void CreateNewListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            CreateNewDockPanel.Children.Clear();
+            int createNewListBoxIndex = CreateNewListBox.SelectedIndex;
+
+            switch (createNewListBoxIndex)
+            {
+                case 0:
+                    CreateNewDockPanel.Children.Add(new InsuredNew());
+                    break;
+
+                case 1:
+                    CreateNewDockPanel.Children.Add(new ContractNew());
+                    break;
+
+                case 2:
+                    CreateNewDockPanel.Children.Add(new PolicyNew());
+                    break;
+            }
         }
     }
 }
