@@ -49,5 +49,26 @@ namespace BVCareManager
                     break;
             }
         }
+
+        private void ButtonSearch_Click(object sender, RoutedEventArgs e)
+        {
+            DockPanelSearchResult.Children.Clear();
+            int searchCategory = ComboBoxSearchCategory.SelectedIndex;
+
+            switch (searchCategory)
+            {
+                case 0:
+                    DockPanelSearchResult.Children.Add(new ListViewInsured());
+                    break;
+
+                case 1:
+                    DockPanelSearchResult.Children.Add(new ListViewPolicy());
+                    break;
+
+                case 2:
+                    DockPanelSearchResult.Children.Add(new ListViewContract());
+                    break;
+            }
+        }
     }
 }

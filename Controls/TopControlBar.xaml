@@ -15,12 +15,17 @@
             <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
                 <Button HorizontalAlignment="Right" VerticalAlignment="Top" 
                         Background="{x:Null}" BorderBrush="{x:Null}" Click="ButtonMinimize_Click">
-                    <materialDesign:PackIcon Kind="WindowMinimize" Width="20" Height="20"/>
+                    <materialDesign:PackIcon Kind="WindowMinimize" Width="12" Height="12"/>
+                </Button>
+
+                <Button HorizontalAlignment="Right" VerticalAlignment="Top" 
+                        Background="{x:Null}" BorderBrush="{x:Null}" Click="ButtonResize_Click">
+                    <materialDesign:PackIcon x:Name="ResizeIcon" Kind="WindowMaximize" Width="12" Height="12"/>
                 </Button>
 
                 <Button HorizontalAlignment="Right" VerticalAlignment="Top" 
                         Background="{x:Null}" BorderBrush="{x:Null}" Click="ButtonClose_Click">
-                    <materialDesign:PackIcon Kind="Power" Width="20" Height="20"/>
+                    <materialDesign:PackIcon Kind="Power" Width="12" Height="12"/>
                 </Button>
             </StackPanel>
         </Grid>

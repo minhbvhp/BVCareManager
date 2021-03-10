@@ -24,18 +24,20 @@
                         </TextBlock>
                         <Button Style="{StaticResource MaterialDesignFlatButton}" 
                             Command="{x:Static materialDesign:Flipper.FlipCommand}" Margin="0 4 0 0">
-                        EDIT
+                            SỬA
                         </Button>
                     </StackPanel>
                 </Grid>
             </materialDesign:Flipper.FrontContent>
-            
+
             <materialDesign:Flipper.BackContent>
                 <Grid Height="256" Width="200">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
+                    
                     <materialDesign:ColorZone Mode="SecondaryMid" Padding="6">
                         <StackPanel Orientation="Horizontal">
                             <Button Style="{StaticResource MaterialDesignToolForegroundButton}" 
@@ -43,11 +45,11 @@
                                 <materialDesign:PackIcon Kind="ArrowLeft" HorizontalAlignment="Right" />
                             </Button>
                             <TextBlock Margin="8 0 0 0" VerticalAlignment="Center">
-                                EDIT USER
+                                SỬA
                             </TextBlock>
                         </StackPanel>
-
                     </materialDesign:ColorZone>
+                    
                     <Grid Grid.Row="1" Margin="0 6 0 0" HorizontalAlignment="Center" VerticalAlignment="Top" Width="172">
                         <Grid.RowDefinitions>
                             <RowDefinition />
@@ -63,12 +65,14 @@
                                  materialDesign:HintAssist.IsFloating="True" Margin="0 12 0 0">
                             Trần Khoa Minh
                         </TextBox>
-                        
-                        <Button Grid.Row="3" Style="{StaticResource MaterialDesignFlatButton}" 
-                            Command="{x:Static materialDesign:Flipper.FlipCommand}" Margin="0 4 10 0">
-                            CONFIRM
-                        </Button>
                     </Grid>
+
+                    <DockPanel Grid.Row="2">
+                        <Button Style="{StaticResource MaterialDesignFlatButton}" 
+                            Command="{x:Static materialDesign:Flipper.FlipCommand}" Margin="0 0 0 0">
+                            ĐỒNG Ý
+                        </Button>
+                    </DockPanel>
                 </Grid>
             </materialDesign:Flipper.BackContent>
         </materialDesign:Flipper>

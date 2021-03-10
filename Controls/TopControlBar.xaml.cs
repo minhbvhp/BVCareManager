@@ -36,5 +36,24 @@ namespace BVCareManager.Controls
             Window parrentWindown = Window.GetWindow(this);
             parrentWindown.WindowState = WindowState.Minimized;
         }
+
+        private void ButtonResize_Click(object sender, RoutedEventArgs e)
+        {
+            Window parrentWindown = Window.GetWindow(this);
+
+            if (parrentWindown.WindowState == WindowState.Normal)
+            {
+                ResizeIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.WindowRestore;
+                parrentWindown.WindowState = WindowState.Maximized;
+            }
+            else
+            {
+                ResizeIcon.Kind = MaterialDesignThemes.Wpf.PackIconKind.WindowMaximize;
+                parrentWindown.WindowState = WindowState.Normal;
+            }
+
+        }
+
+        
     }
 }

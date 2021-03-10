@@ -1,0 +1,26 @@
+﻿<UserControl x:Class="BVCareManager.Controls.ListViewPolicy"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BVCareManager.Controls"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:viewmodel="clr-namespace:BVCareManager.ViewModels"
+             mc:Ignorable="d" 
+             d:DesignHeight="350" d:DesignWidth="600">
+    <Grid>
+        <ListView ItemsSource="{Binding ListPolicies}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn DisplayMemberBinding="{Binding Number}" Header="Số đơn" />
+                    <GridViewColumn DisplayMemberBinding="{Binding ContractId}" Header="Số hợp đồng" />
+                    <GridViewColumn DisplayMemberBinding="{Binding InsuredId}" Header="Số CCCD" />
+                    <GridViewColumn DisplayMemberBinding="{Binding InsuredName}" Header="Họ tên" />
+                    <GridViewColumn DisplayMemberBinding="{Binding FromDate}" Header="Từ ngày" />
+                    <GridViewColumn DisplayMemberBinding="{Binding ToDate}" Header="Đến ngày" />
+                    <GridViewColumn DisplayMemberBinding="{Binding Premium}" Header="Phí bảo hiểm" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
+</UserControl>

@@ -61,7 +61,9 @@
     <Reference Include="MaterialDesignThemes.Wpf, Version=4.0.0.2422, Culture=neutral, PublicKeyToken=df2a72020bd7962a, processorArchitecture=MSIL">
       <HintPath>packages\MaterialDesignThemes.4.0.0\lib\net452\MaterialDesignThemes.Wpf.dll</HintPath>
     </Reference>
-    <Reference Include="System" />
+    <Reference Include="System">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5.2\System.dll</HintPath>
+    </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Linq" />
     <Reference Include="System.Xml" />
@@ -96,6 +98,15 @@
     </Compile>
     <Compile Include="Controls\InsuredNew.xaml.cs">
       <DependentUpon>InsuredNew.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ListViewContract.xaml.cs">
+      <DependentUpon>ListViewContract.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ListViewInsured.xaml.cs">
+      <DependentUpon>ListViewInsured.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ListViewPolicy.xaml.cs">
+      <DependentUpon>ListViewPolicy.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\PolicyNew.xaml.cs">
       <DependentUpon>PolicyNew.xaml</DependentUpon>
@@ -132,6 +143,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\InsuredNew.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ListViewContract.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ListViewInsured.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ListViewPolicy.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
