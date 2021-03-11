@@ -9,7 +9,8 @@ namespace BVCareManager.ViewModels
     class InsuredViewModel
     {
         private string _inputId;
-        public string InputId {
+        public string InputId
+        {
             get
             {
                 return _inputId;
@@ -17,8 +18,8 @@ namespace BVCareManager.ViewModels
             set
             {
                 _inputId = value;
-
             }
+        }
         public string InputName { get; set; }
 
         
