@@ -12,7 +12,7 @@ namespace BVCareManager.ViewModels
     class MainViewModel
     {
         private InsuredRepository insuredRepository = new InsuredRepository();
-        public IEnumerable<Insured> AllInsureds
+        public IEnumerable<Insured> ListInsureds
         {
             get
             {

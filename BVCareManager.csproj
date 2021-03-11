@@ -121,6 +121,7 @@
     <Compile Include="Repository\ContractRepository.cs" />
     <Compile Include="Repository\InsuredRepository.cs" />
     <Compile Include="Repository\PolicyRepository.cs" />
+    <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\ContractViewModel.cs" />
     <Compile Include="ViewModels\InsuredViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />

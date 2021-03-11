@@ -8,13 +8,19 @@ namespace BVCareManager.ViewModels
 {
     class InsuredViewModel
     {
-        public string Id { get; private set; }
-        public string Name { get; private set; }
+        private string _inputId;
+        public string InputId {
+            get
+            {
+                return _inputId;
+            }
+            set
+            {
+                _inputId = value;
 
-        public InsuredViewModel(string id, string name)
-        {
-            Id = id;
-            Name = name;
-        }
+            }
+        public string InputName { get; set; }
+
+        
     }
 }
