@@ -7,7 +7,7 @@
              xmlns:local="clr-namespace:BVCareManager.Controls"
              xmlns:viewmodel="clr-namespace:BVCareManager.ViewModels"
              mc:Ignorable="d" 
-             d:DesignHeight="350" d:DesignWidth="350">
+             d:DesignHeight="350" d:DesignWidth="350" MaxWidth="350">
     <Grid>
         <GroupBox Header="Card Group Box" Style="{DynamicResource MaterialDesignCardGroupBox}" Margin="0 16 0 0">
             <GroupBox.HeaderTemplate>
@@ -20,8 +20,29 @@
             </GroupBox.HeaderTemplate>
 
             <StackPanel>
-                <local:EmptyValidationTextBox x:Name="Minh" Margin="0, 0, 0, 20"/>
-                <local:EmptyValidationTextBox Margin="0, 0, 0, 20"/>
+                <TextBox x:Name="TextBoxInsuredId" Margin="20" materialDesign:HintAssist.Hint="Số CMT/CCCD">
+                    <TextBox.Text>
+                        <Binding Path="Field" UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <viewmodel:NotEmptyValidationRule ValidatesOnTargetUpdated="True"/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+
+                <TextBox x:Name="TextBoxInsuredName" Margin="20" materialDesign:HintAssist.Hint="Họ tên">
+                    <TextBox.Text>
+                        <Binding Path="Field" UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <viewmodel:NotEmptyValidationRule ValidatesOnTargetUpdated="True"/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+
+                <viewmodel:Class1 materialDesign:HintAssist.Hint="Minh">
+                                        
+                </viewmodel:Class1>
             </StackPanel>
         </GroupBox>
     </Grid>

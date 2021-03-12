@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -23,6 +24,19 @@ namespace BVCareManager.Controls
         public ContractNew()
         {
             InitializeComponent();
+        }
+
+        private void TextBoxAnnualPremiumPerInsured_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = (new Regex("[^0-9\\s]+").IsMatch(e.Text));
+        }
+
+        private void TextBoxAnnualPremiumPerInsured_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key != Key.Space)
+                e.Handled = false;
+            else
+                e.Handled = true;
         }
     }
 }

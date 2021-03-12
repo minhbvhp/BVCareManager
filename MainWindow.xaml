@@ -52,7 +52,7 @@
                                                  HorizontalAlignment="Center" VerticalAlignment="Top"
                                                  Foreground="{StaticResource PrimaryHueLightBrush}"/>
 
-                        <GroupBox Header="Mục" 
+                        <GroupBox Header="Mục" MaxWidth="350" MaxHeight="200" VerticalAlignment="Top"
                                   Style="{DynamicResource MaterialDesignGroupBox}" Margin="32"
                                   materialDesign:ColorZoneAssist.Mode="SecondaryMid">
                             <ListBox x:Name="CreateNewListBox" 
@@ -64,7 +64,8 @@
                             </ListBox>
                         </GroupBox>
 
-                        <DockPanel x:Name="CreateNewDockPanel" VerticalAlignment="Top" Grid.RowSpan="2" Grid.Column="2" Margin="16">
+                        <DockPanel x:Name="CreateNewDockPanel" 
+                                   VerticalAlignment="Top" Grid.RowSpan="2" Grid.Column="2" Margin="16">
                             
                         </DockPanel>
                         
@@ -72,7 +73,8 @@
                                 Grid.Row="3" Grid.Column="2"
                                 Style="{StaticResource MaterialDesignFloatingActionAccentButton}"
                                 ToolTip="MaterialDesignFloatingActionAccentButton"
-                                Height="60" Width="60">
+                                Height="60" Width="60"                                
+                                IsEnabled="{Binding FuncToEvaluate}" >
                             <materialDesign:PackIcon Kind="Add" Height="32" Width="32"/>
                         </Button>
                     </Grid>

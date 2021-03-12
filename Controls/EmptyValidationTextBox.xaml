@@ -9,7 +9,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="100" d:DesignWidth="400">
     <Grid>
-        <TextBox materialDesign:HintAssist.Hint="Field">
+        <TextBox>
             <TextBox.Text>
                 <Binding Path="Field" UpdateSourceTrigger="PropertyChanged">
                     <Binding.ValidationRules>
