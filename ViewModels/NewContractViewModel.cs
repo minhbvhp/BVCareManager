@@ -8,6 +8,6 @@ namespace BVCareManager.ViewModels
 {
     class NewContractViewModel
     {
-        public string Id { get; private set; }
+        
     }
 }

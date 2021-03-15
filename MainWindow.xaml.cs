@@ -26,8 +26,7 @@ namespace BVCareManager
     public partial class MainWindow : Window
     {
         List<string> Results = new List<string>();
-        object createNewGroupBoxViewModel = new object();
-        NewInsuredViewModel currentNewGroupBoxViewModel;
+        object createNewGroupBoxViewModel;
         public MainWindow()
         {
             InitializeComponent();
@@ -43,26 +42,25 @@ namespace BVCareManager
             {
                 case 0:
                     CreateNewDockPanel.Children.Add(new InsuredNew());
-                    createNewGroupBoxViewModel = new NewInsuredViewModel() as NewInsuredViewModel;
+                    createNewGroupBoxViewModel = new NewInsuredViewModel();
                     
                     break;
 
                 case 1:
                     CreateNewDockPanel.Children.Add(new ContractNew());
-                    createNewGroupBoxViewModel = new NewContractViewModel()as NewContractViewModel;
+                    createNewGroupBoxViewModel = new NewContractViewModel();
                     break;
 
                 case 2:
                     CreateNewDockPanel.Children.Add(new PolicyNew());
-                    createNewGroupBoxViewModel = new NewPolicyViewModel() as NewPolicyViewModel;
+                    createNewGroupBoxViewModel = new NewPolicyViewModel();
                     break;
 
                 default:
                     break;
             }
 
-            CreateNewDockPanel.DataContext = createNewGroupBoxViewModel;
-            CreateNewButton.DataContext = createNewGroupBoxViewModel;
+            CreateNewGrid.DataContext = createNewGroupBoxViewModel;
         }
 
         private void ButtonSearch_Click(object sender, RoutedEventArgs e)
@@ -86,35 +84,5 @@ namespace BVCareManager
             }
         }
 
-        private void CreateNewButton_Click(object sender, RoutedEventArgs e)
-        {
-            Results.Clear();
-
-            if (createNewGroupBoxViewModel is NewInsuredViewModel)
-                currentNewGroupBoxViewModel = (NewInsuredViewModel)createNewGroupBoxViewModel;
-
-            InsuredRepository insuredRepository = new InsuredRepository();
-
-            Insured newInsured = new Insured();
-            newInsured.Id = currentNewGroupBoxViewModel.InputId;
-            newInsured.Name = currentNewGroupBoxViewModel.InputName;
-
-
-            if (insuredRepository.GetInsured(newInsured.Id) == null)
-            {
-                insuredRepository.Add(newInsured);
-                insuredRepository.Save();
-            }
-            else
-            {
-                Results.Add("Số CMT/CCCD này đã tồn tại");
-            }
-
-            if (Results.Count > 0)
-            {
-                foreach (string result in Results)
-                    MessageBox.Show(result);
-            }
-        }
     }
 }

@@ -1,15 +1,20 @@
 ﻿using BVCareManager.Models;
+using BVCareManager.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 
 namespace BVCareManager.ViewModels
 {
     class NewInsuredViewModel : BaseViewModel
     {
+        private List<string> _results = new List<string>();
+        public List<string> Results { get { return _results; } }
+
         private string _inputId;
         public string InputId
         {
@@ -19,7 +24,7 @@ namespace BVCareManager.ViewModels
             }
             set
             {
-                SetProperty(ref _inputId, value);
+                SetProperty(ref _inputId, value);                
             }
         }
 
@@ -36,21 +41,53 @@ namespace BVCareManager.ViewModels
             }
         }
 
-        public bool IsValid
+        public ICommand AddCommand { get; set; }
+
+
+        public NewInsuredViewModel()
         {
-            get { return (GetRuleViolations().Count() == 0); }
+            InsuredRepository insuredRepository = new InsuredRepository();
+
+            AddCommand = new RelayCommand<object>((p) =>
+            {
+                _results.Clear();
+
+                if (string.IsNullOrEmpty(this.InputId))
+                {
+                    return false;
+                }
+
+                if (string.IsNullOrEmpty(this.InputName))
+                {
+                    return false;
+                }
+
+                var creatingInsured = insuredRepository.GetInsured(this.InputId);
+                if (creatingInsured != null)
+                {                  
+                    _results.Add("Nhân viên này đã tồn tại");
+                    return false;
+                }
+
+                return true;
+
+            }, (p) =>
+            {
+                
+                Insured newInsured = new Insured();
+                newInsured.Id = this.InputId;
+                newInsured.Name = this.InputName;
+
+                insuredRepository.Add(newInsured);
+                insuredRepository.Save();
+
+                if (Results != null && Results.Count > 0)
+                    foreach (string result in Results)
+                        MessageBox.Show(result);
+                else
+                    return;
+
+            });
         }
-
-        public IEnumerable<RuleViolation> GetRuleViolations()
-        {
-            if (String.IsNullOrEmpty(InputId))
-                yield return new RuleViolation("Không được để trống số CMND/CCCD", "Id");
-
-            if (String.IsNullOrEmpty(InputName))
-                yield return new RuleViolation("Không được để trống họ tên", "Name");
-
-            yield break;
-        }
-
     }
 }
