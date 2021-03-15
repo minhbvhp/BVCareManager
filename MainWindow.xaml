@@ -34,7 +34,7 @@
                 </dragablz:TabablzControl.InterTabController>
 
                 <TabItem Header="TẠO MỚI">
-                    <Grid>
+                    <Grid x:Name="CreateNewGrid">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="5*"/>
                             <ColumnDefinition Width="*"/>
@@ -69,12 +69,13 @@
                             
                         </DockPanel>
                         
-                        <Button Margin="0, 0, 30, 30" HorizontalAlignment="Right"
+                        <Button x:Name="CreateNewButton" Margin="0, 0, 30, 30" HorizontalAlignment="Right"
                                 Grid.Row="3" Grid.Column="2"
                                 Style="{StaticResource MaterialDesignFloatingActionAccentButton}"
                                 ToolTip="MaterialDesignFloatingActionAccentButton"
                                 Height="60" Width="60"                                
-                                IsEnabled="{Binding FuncToEvaluate}" >
+                                IsEnabled="{Binding IsValid}"
+                                Click="CreateNewButton_Click">
                             <materialDesign:PackIcon Kind="Add" Height="32" Width="32"/>
                         </Button>
                     </Grid>

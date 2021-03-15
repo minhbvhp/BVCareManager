@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace BVCareManager.ViewModels
 {
-    class PolicyViewModel
+    class NewContractViewModel
     {
+        public string Id { get; private set; }
     }
 }

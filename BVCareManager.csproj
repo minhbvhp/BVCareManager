@@ -126,13 +126,12 @@
     <Compile Include="Repository\InsuredRepository.cs" />
     <Compile Include="Repository\PolicyRepository.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
-    <Compile Include="ViewModels\Class1.cs" />
-    <Compile Include="ViewModels\ContractViewModel.cs" />
-    <Compile Include="ViewModels\InsuredViewModel.cs" />
+    <Compile Include="ViewModels\NewContractViewModel.cs" />
+    <Compile Include="ViewModels\NewInsuredViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\NotEmptyValidationRule.cs" />
     <Compile Include="ViewModels\NumberFormatConverter.cs" />
-    <Compile Include="ViewModels\PolicyViewModel.cs" />
+    <Compile Include="ViewModels\NewPolicyViewModel.cs" />
     <Page Include="Controls\ContractNew.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

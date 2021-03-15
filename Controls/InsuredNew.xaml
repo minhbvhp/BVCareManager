@@ -8,6 +8,10 @@
              xmlns:viewmodel="clr-namespace:BVCareManager.ViewModels"
              mc:Ignorable="d" 
              d:DesignHeight="350" d:DesignWidth="350" MaxWidth="350">
+    <UserControl.Resources>
+        <viewmodel:NewInsuredViewModel x:Key="NewInsuredViewModel"/>
+    </UserControl.Resources>
+    
     <Grid>
         <GroupBox Header="Card Group Box" Style="{DynamicResource MaterialDesignCardGroupBox}" Margin="0 16 0 0">
             <GroupBox.HeaderTemplate>
@@ -22,7 +26,7 @@
             <StackPanel>
                 <TextBox x:Name="TextBoxInsuredId" Margin="20" materialDesign:HintAssist.Hint="Số CMT/CCCD">
                     <TextBox.Text>
-                        <Binding Path="Field" UpdateSourceTrigger="PropertyChanged">
+                        <Binding Path="InputId" UpdateSourceTrigger="PropertyChanged">
                             <Binding.ValidationRules>
                                 <viewmodel:NotEmptyValidationRule ValidatesOnTargetUpdated="True"/>
                             </Binding.ValidationRules>
@@ -32,17 +36,13 @@
 
                 <TextBox x:Name="TextBoxInsuredName" Margin="20" materialDesign:HintAssist.Hint="Họ tên">
                     <TextBox.Text>
-                        <Binding Path="Field" UpdateSourceTrigger="PropertyChanged">
+                        <Binding Path="InputName" UpdateSourceTrigger="PropertyChanged">
                             <Binding.ValidationRules>
                                 <viewmodel:NotEmptyValidationRule ValidatesOnTargetUpdated="True"/>
                             </Binding.ValidationRules>
                         </Binding>
                     </TextBox.Text>
                 </TextBox>
-
-                <viewmodel:Class1 materialDesign:HintAssist.Hint="Minh">
-                                        
-                </viewmodel:Class1>
             </StackPanel>
         </GroupBox>
     </Grid>
