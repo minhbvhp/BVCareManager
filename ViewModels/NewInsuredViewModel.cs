@@ -68,6 +68,8 @@ namespace BVCareManager.ViewModels
 
         public NewInsuredViewModel()
         {
+            _isOk = false;
+            OnPropertyChanged("IsOk");
             ErrorsList = new ObservableCollection<string>();
             InsuredRepository insuredRepository = new InsuredRepository();
 
@@ -77,20 +79,17 @@ namespace BVCareManager.ViewModels
 
                 if (string.IsNullOrEmpty(this.InputId))
                 {
-                    _isOk = false;
                     return false;
                 }
 
                 if (string.IsNullOrEmpty(this.InputName))
                 {
-                    _isOk = false;
                     return false;
                 }
 
                 var creatingInsured = insuredRepository.GetInsured(this.InputId);
                 if (creatingInsured != null)
                 {
-                    _isOk = false;
                     _errorsList.Add("Nhân viên này đã tồn tại");
                     return false;
                 }
