@@ -123,10 +123,12 @@
     <Compile Include="Repository\PolicyRepository.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\BooleanVisibilityConverter.cs" />
+    <Compile Include="ViewModels\NewBaseViewModel.cs" />
     <Compile Include="ViewModels\NewContractViewModel.cs" />
     <Compile Include="ViewModels\NewInsuredViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\NewPolicyViewModel.cs" />
+    <Compile Include="ViewModels\Result.cs" />
     <Page Include="Controls\ContractNew.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

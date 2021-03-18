@@ -11,32 +11,8 @@ using System.Windows.Input;
 
 namespace BVCareManager.ViewModels
 {
-    class NewInsuredViewModel : BaseViewModel
+    class NewInsuredViewModel : NewBaseViewModel
     {
-        private bool _isOk;
-        public bool IsOk
-        {
-            get
-            {
-                return _isOk;
-            }
-         }
-        public string Success { get
-            {
-                return "Đã tạo thành công";
-            } }
-        private ObservableCollection<string> _errorsList = new ObservableCollection<string>();
-        public ObservableCollection<string> ErrorsList {
-            get
-            {
-                return _errorsList;
-            }
-            private set
-            {
-
-            }
-        }
-
         private string _inputId;
         public string InputId
         {
@@ -68,9 +44,6 @@ namespace BVCareManager.ViewModels
 
         public NewInsuredViewModel()
         {
-            _isOk = false;
-            OnPropertyChanged("IsOk");
-            ErrorsList = new ObservableCollection<string>();
             InsuredRepository insuredRepository = new InsuredRepository();
 
             AddCommand = new RelayCommand<object>((p) =>
@@ -87,15 +60,25 @@ namespace BVCareManager.ViewModels
                     return false;
                 }
 
-                var creatingInsured = insuredRepository.GetInsured(this.InputId);
-                if (creatingInsured != null)
+                if (this.InputId.Length > 30)
                 {
-                    _errorsList.Add("Nhân viên này đã tồn tại");
+                    UpdateResult(Result.HasError, "Độ dài tối đa của số CMT/CCCD là 30 ký tự");
                     return false;
                 }
 
+                if (this.InputName.Length > 30)
+                {
+                    UpdateResult(Result.HasError, "Độ dài tối đa của Họ tên nhân viên là 50 ký tự");
+                    return false;
+                }
 
-                OnPropertyChanged("IsOk");
+                var creatingInsured = insuredRepository.GetInsured(this.InputId);
+                if (creatingInsured != null)
+                {
+                    UpdateResult(Result.HasError, "Số CMT/CCCD này đã tồn tại");
+                    return false;
+                }
+
                 return true;
 
             }, (p) =>
@@ -108,9 +91,7 @@ namespace BVCareManager.ViewModels
                 insuredRepository.Add(newInsured);
                 insuredRepository.Save();
 
-                _isOk = true;
-
-                OnPropertyChanged("IsOk");
+                UpdateResult(Result.Successful);
 
                 InputId = null;
                 InputName = null;

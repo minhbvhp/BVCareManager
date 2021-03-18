@@ -5,8 +5,6 @@
     <Style TargetType="TextBlock" 
            x:Key="SuccessStyle">
         <Setter Property="Foreground" Value="Green"/>
+        <Setter Property="FontWeight" Value="Bold"/>
     </Style>
-    
-    
-    
 </ResourceDictionary>
