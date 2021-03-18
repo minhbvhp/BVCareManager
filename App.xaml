@@ -70,6 +70,7 @@
 
                 <!-- CustomNotification Style -->
                 <ResourceDictionary Source="NotificationStyle.xaml"/>
+                <ResourceDictionary Source="SuccessStyle.xaml"/>
 
             </ResourceDictionary.MergedDictionaries>
 

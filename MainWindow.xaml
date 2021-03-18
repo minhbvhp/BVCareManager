@@ -22,6 +22,7 @@
         ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None">
     <Window.Resources>
         <viewModels:MainViewModel x:Key="MainViewModel"/>
+        <viewModels:BooleanVisibilityConverter x:Key="visibilityConverter"/>
     </Window.Resources>
     
     <Grid>
@@ -70,8 +71,13 @@
                         </DockPanel>
 
                         <StackPanel Grid.Row="3" Grid.ColumnSpan="3" Grid.Column="0">
+                            <TextBlock HorizontalAlignment="Left" Margin="30, 0, 0, 0"
+                                       Text="{Binding Success, Mode=OneWay}"
+                                       Style="{StaticResource SuccessStyle}"
+                                       Visibility="{Binding IsOk, Converter={StaticResource visibilityConverter}}"/>
+
                             <ListBox HorizontalAlignment="Left" Margin="30, 0, 0, 0"
-                                     ItemsSource="{Binding Results, Mode=OneWay}">
+                                     ItemsSource="{Binding ErrorsList, Mode=OneWay}">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <TextBlock Style="{StaticResource NotificationStyle}">

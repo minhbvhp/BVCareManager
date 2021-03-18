@@ -13,13 +13,23 @@ namespace BVCareManager.ViewModels
 {
     class NewInsuredViewModel : BaseViewModel
     {
-        private string _added;
-        private ObservableCollection<string> _results = new ObservableCollection<string>();
-        public ObservableCollection<string> Results {
+        private bool _isOk;
+        public bool IsOk
+        {
             get
             {
-
-                return _results;
+                return _isOk;
+            }
+         }
+        public string Success { get
+            {
+                return "Đã tạo thành công";
+            } }
+        private ObservableCollection<string> _errorsList = new ObservableCollection<string>();
+        public ObservableCollection<string> ErrorsList {
+            get
+            {
+                return _errorsList;
             }
             private set
             {
@@ -58,30 +68,35 @@ namespace BVCareManager.ViewModels
 
         public NewInsuredViewModel()
         {
-            Results = new ObservableCollection<string>();
+            ErrorsList = new ObservableCollection<string>();
             InsuredRepository insuredRepository = new InsuredRepository();
 
             AddCommand = new RelayCommand<object>((p) =>
             {
-                _results.Clear();
+                _errorsList.Clear();
 
                 if (string.IsNullOrEmpty(this.InputId))
                 {
+                    _isOk = false;
                     return false;
                 }
 
                 if (string.IsNullOrEmpty(this.InputName))
                 {
+                    _isOk = false;
                     return false;
                 }
 
                 var creatingInsured = insuredRepository.GetInsured(this.InputId);
                 if (creatingInsured != null)
-                {                  
-                    _results.Add("Nhân viên này đã tồn tại");
+                {
+                    _isOk = false;
+                    _errorsList.Add("Nhân viên này đã tồn tại");
                     return false;
                 }
 
+
+                OnPropertyChanged("IsOk");
                 return true;
 
             }, (p) =>
@@ -93,6 +108,10 @@ namespace BVCareManager.ViewModels
 
                 insuredRepository.Add(newInsured);
                 insuredRepository.Save();
+
+                _isOk = true;
+
+                OnPropertyChanged("IsOk");
 
                 InputId = null;
                 InputName = null;

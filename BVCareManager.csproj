@@ -122,6 +122,7 @@
     <Compile Include="Repository\InsuredRepository.cs" />
     <Compile Include="Repository\PolicyRepository.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
+    <Compile Include="ViewModels\BooleanVisibilityConverter.cs" />
     <Compile Include="ViewModels\NewContractViewModel.cs" />
     <Compile Include="ViewModels\NewInsuredViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
@@ -183,6 +184,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="NotificationStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SuccessStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -1,0 +1,12 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:BVCareManager">
+
+    <Style TargetType="TextBlock" 
+           x:Key="SuccessStyle">
+        <Setter Property="Foreground" Value="Green"/>
+    </Style>
+    
+    
+    
+</ResourceDictionary>
