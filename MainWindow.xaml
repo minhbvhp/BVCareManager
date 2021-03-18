@@ -68,15 +68,30 @@
                                    VerticalAlignment="Top" Grid.RowSpan="2" Grid.Column="2" Margin="16">
                             
                         </DockPanel>
-                        
-                        <Button x:Name="CreateNewButton" Margin="0, 0, 30, 30" HorizontalAlignment="Right"
-                                Grid.Row="3" Grid.Column="2"
-                                Style="{StaticResource MaterialDesignFloatingActionAccentButton}"
-                                ToolTip="Thêm mới"
-                                Height="60" Width="60"
-                                Command="{Binding AddCommand}">
-                            <materialDesign:PackIcon Kind="Add" Height="32" Width="32"/>
-                        </Button>
+
+                        <StackPanel Grid.Row="3" Grid.ColumnSpan="3" Grid.Column="0">
+                            <ListBox HorizontalAlignment="Left" Margin="30, 0, 0, 0"
+                                     ItemsSource="{Binding Results, Mode=OneWay}">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Style="{StaticResource NotificationStyle}">
+                                            <Run Text="*"/>
+                                            <Run Text="{Binding Mode=OneWay}"/>
+                                        </TextBlock>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                            
+                            
+                            <Button x:Name="CreateNewButton" Margin="0, 0, 30, 30" HorizontalAlignment="Right"
+                                    Style="{StaticResource MaterialDesignFloatingActionAccentButton}"
+                                    ToolTip="Thêm mới"
+                                    Height="60" Width="60"
+                                    Command="{Binding AddCommand}">
+                                <materialDesign:PackIcon Kind="Add" Height="32" Width="32"/>
+                            </Button>
+                        </StackPanel>
+
                     </Grid>
                 </TabItem>
 

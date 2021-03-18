@@ -2,6 +2,7 @@
 using BVCareManager.Repository;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,8 +13,19 @@ namespace BVCareManager.ViewModels
 {
     class NewInsuredViewModel : BaseViewModel
     {
-        private List<string> _results = new List<string>();
-        public List<string> Results { get { return _results; } }
+        private string _added;
+        private ObservableCollection<string> _results = new ObservableCollection<string>();
+        public ObservableCollection<string> Results {
+            get
+            {
+
+                return _results;
+            }
+            private set
+            {
+
+            }
+        }
 
         private string _inputId;
         public string InputId
@@ -23,8 +35,8 @@ namespace BVCareManager.ViewModels
                 return _inputId;
             }
             set
-            {
-                SetProperty(ref _inputId, value);                
+            {                
+                SetProperty(ref _inputId, value);
             }
         }
 
@@ -46,6 +58,7 @@ namespace BVCareManager.ViewModels
 
         public NewInsuredViewModel()
         {
+            Results = new ObservableCollection<string>();
             InsuredRepository insuredRepository = new InsuredRepository();
 
             AddCommand = new RelayCommand<object>((p) =>
@@ -81,11 +94,8 @@ namespace BVCareManager.ViewModels
                 insuredRepository.Add(newInsured);
                 insuredRepository.Save();
 
-                if (Results != null && Results.Count > 0)
-                    foreach (string result in Results)
-                        MessageBox.Show(result);
-                else
-                    return;
+                InputId = null;
+                InputName = null;
 
             });
         }

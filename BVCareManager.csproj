@@ -125,8 +125,6 @@
     <Compile Include="ViewModels\NewContractViewModel.cs" />
     <Compile Include="ViewModels\NewInsuredViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
-    <Compile Include="ViewModels\NotEmptyValidationRule.cs" />
-    <Compile Include="ViewModels\NumberFormatConverter.cs" />
     <Compile Include="ViewModels\NewPolicyViewModel.cs" />
     <Page Include="Controls\ContractNew.xaml">
       <SubType>Designer</SubType>
@@ -168,6 +166,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="EmptyTextBoxStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -180,6 +182,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="NotificationStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\BVCareManager.designer.cs">

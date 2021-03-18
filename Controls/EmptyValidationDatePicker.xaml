@@ -11,11 +11,7 @@
     <Grid>
         <DatePicker x:Name="FutureDatePicker" materialDesign:HintAssist.Hint="Future Date">
             <DatePicker.SelectedDate>
-                <Binding Path="FutureValidatingDate" UpdateSourceTrigger="PropertyChanged">
-                    <Binding.ValidationRules>
-                        <viewmodel:NotEmptyValidationRule ValidatesOnTargetUpdated="True"/>
-                    </Binding.ValidationRules>
-                </Binding>
+                <Binding Path="FutureValidatingDate" UpdateSourceTrigger="PropertyChanged"/>
             </DatePicker.SelectedDate>
         </DatePicker>
     </Grid>

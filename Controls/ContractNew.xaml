@@ -8,10 +8,6 @@
              xmlns:viewmodel="clr-namespace:BVCareManager.ViewModels"
              mc:Ignorable="d" 
              d:DesignHeight="400" d:DesignWidth="350" MaxWidth="350">
-    <UserControl.Resources>
-        <viewmodel:NumberFormatConverter x:Key="numberFormatConverter"/>
-    </UserControl.Resources>
-    
     <Grid>
         <GroupBox Header="Card Group Box" Style="{DynamicResource MaterialDesignCardGroupBox}" Margin="0 16 0 0">
             <GroupBox.HeaderTemplate>
@@ -26,31 +22,19 @@
             <StackPanel>
                 <TextBox x:Name="TextBoxContractId" Margin="20" materialDesign:HintAssist.Hint="Số hợp đồng">
                     <TextBox.Text>
-                        <Binding Path="Field" UpdateSourceTrigger="PropertyChanged">
-                            <Binding.ValidationRules>
-                                <viewmodel:NotEmptyValidationRule ValidatesOnTargetUpdated="True"/>
-                            </Binding.ValidationRules>
-                        </Binding>
+                        <Binding Path="Field" UpdateSourceTrigger="PropertyChanged"/>
                     </TextBox.Text>
                 </TextBox>
 
                 <DatePicker x:Name="DatePickerFromDate" Margin="20" materialDesign:HintAssist.Hint="Từ ngày">
                     <DatePicker.SelectedDate>
-                        <Binding Path="FutureValidatingDate" UpdateSourceTrigger="PropertyChanged">
-                            <Binding.ValidationRules>
-                                <viewmodel:NotEmptyValidationRule ValidatesOnTargetUpdated="True"/>
-                            </Binding.ValidationRules>
-                        </Binding>
+                        <Binding Path="FutureValidatingDate" UpdateSourceTrigger="PropertyChanged"/>
                     </DatePicker.SelectedDate>
                 </DatePicker>
 
                 <DatePicker x:Name="DatePickerToDate" Margin="20" materialDesign:HintAssist.Hint="Đến ngày">
                     <DatePicker.SelectedDate>
-                        <Binding Path="FutureValidatingDate" UpdateSourceTrigger="PropertyChanged">
-                            <Binding.ValidationRules>
-                                <viewmodel:NotEmptyValidationRule ValidatesOnTargetUpdated="True"/>
-                            </Binding.ValidationRules>
-                        </Binding>
+                        <Binding Path="FutureValidatingDate" UpdateSourceTrigger="PropertyChanged"/>
                     </DatePicker.SelectedDate>
                 </DatePicker>
 
@@ -60,11 +44,7 @@
                          PreviewKeyDown="TextBoxAnnualPremiumPerInsured_PreviewKeyDown">
                     <TextBox.Text>
                         <Binding Path="Field" UpdateSourceTrigger="PropertyChanged" StringFormat="{}{0:#,0}}"
-                                 Mode="TwoWay" Converter="{StaticResource numberFormatConverter}">
-                            <Binding.ValidationRules>
-                                <viewmodel:NotEmptyValidationRule ValidatesOnTargetUpdated="True"/>
-                            </Binding.ValidationRules>
-                        </Binding>
+                                 Mode="TwoWay"/>
                     </TextBox.Text>
                 </TextBox>
 

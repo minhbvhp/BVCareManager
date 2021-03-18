@@ -42,8 +42,7 @@ namespace BVCareManager
             {
                 case 0:
                     CreateNewDockPanel.Children.Add(new InsuredNew());
-                    createNewGroupBoxViewModel = new NewInsuredViewModel();
-                    
+                    createNewGroupBoxViewModel = new NewInsuredViewModel();                    
                     break;
 
                 case 1:

@@ -6,8 +6,11 @@
              StartupUri="MainWindow.xaml">
 
     <Application.Resources>
+        
         <ResourceDictionary>
+            
             <ResourceDictionary.MergedDictionaries>
+                
                 <!-- primary color -->
                 <ResourceDictionary>
                     <!-- include your primary palette -->
@@ -26,6 +29,8 @@
                         <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Menu.xaml" />
                         <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.DeepPurple.xaml" />
                         <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
+
+                        
                         <!--
                         <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/MaterialDesignColor.purple.xaml" />
                         -->
@@ -58,7 +63,17 @@
                 <!-- Include the Dragablz Material Design style -->
                 <ResourceDictionary Source="pack://application:,,,/Dragablz;component/Themes/materialdesign.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+
+
+                <!-- CustomEmptyBox Style -->
+                <ResourceDictionary Source="EmptyTextBoxStyle.xaml"/>
+
+                <!-- CustomNotification Style -->
+                <ResourceDictionary Source="NotificationStyle.xaml"/>
+
             </ResourceDictionary.MergedDictionaries>
+
+            
 
             <!-- tell Dragablz tab control to use the Material Design theme -->
             <Style TargetType="{x:Type dragablz:TabablzControl}" BasedOn="{StaticResource MaterialDesignTabablzControlStyle}" />

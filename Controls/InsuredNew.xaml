@@ -22,22 +22,18 @@
             </GroupBox.HeaderTemplate>
 
             <StackPanel>
-                <TextBox x:Name="TextBoxInsuredId" Margin="20" materialDesign:HintAssist.Hint="Số CMT/CCCD">
+                <TextBox x:Name="TextBoxInsuredId" Margin="20" materialDesign:HintAssist.Hint="Số CMT/CCCD"
+                         Style="{StaticResource EmptyTextboxStyle}">
                     <TextBox.Text>
                         <Binding Path="InputId" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
-                            <Binding.ValidationRules>
-                                <viewmodel:NotEmptyValidationRule ValidatesOnTargetUpdated="True"/>
-                            </Binding.ValidationRules>
                         </Binding>
                     </TextBox.Text>
                 </TextBox>
 
-                <TextBox x:Name="TextBoxInsuredName" Margin="20" materialDesign:HintAssist.Hint="Họ tên">
+                <TextBox x:Name="TextBoxInsuredName" Margin="20" materialDesign:HintAssist.Hint="Họ tên"
+                         Style="{StaticResource EmptyTextboxStyle}">
                     <TextBox.Text>
                         <Binding Path="InputName" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
-                            <Binding.ValidationRules>
-                                <viewmodel:NotEmptyValidationRule ValidatesOnTargetUpdated="True"/>
-                            </Binding.ValidationRules>
                         </Binding>
                     </TextBox.Text>
                 </TextBox>
