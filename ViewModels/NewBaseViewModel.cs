@@ -11,11 +11,12 @@ namespace BVCareManager.ViewModels
     {
         protected bool _isOk;
 
-        protected void UpdateResult(Result result, string errorMessage="Lỗi")
+        protected async void UpdateResultAsync(Result result, string errorMessage="Lỗi")
         {
             if (result == Result.Successful)
             {
                 _isOk = true;
+                
             }
             else if (result == Result.HasError)
             {
@@ -24,6 +25,12 @@ namespace BVCareManager.ViewModels
                 
             }
             OnPropertyChanged("IsOk");
+
+            if (IsOk)
+            {
+                await Task.Delay(3000);
+                IsOk = false;
+            }
         }
 
         public bool IsOk

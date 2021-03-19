@@ -21,7 +21,10 @@ namespace BVCareManager.ViewModels
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            throw new NotImplementedException();
+            if ((Visibility)value == Visibility.Visible)
+                return true;
+            else
+                return false;
         }
     }
 }
