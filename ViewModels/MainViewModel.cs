@@ -12,6 +12,8 @@ namespace BVCareManager.ViewModels
     class MainViewModel
     {
         private InsuredRepository insuredRepository = new InsuredRepository();
+        private ContractRepository contractRepository = new ContractRepository();
+        private PolicyRepository policyRepository = new PolicyRepository();
         public IEnumerable<Insured> ListInsureds
         {
             get
@@ -19,12 +21,19 @@ namespace BVCareManager.ViewModels
                 return insuredRepository.FindAllInsureds().ToList();
             }
         }
-        public Insured Insured
+        public IEnumerable<Contract> ListContracts
         {
             get
             {
-                Insured insured = insuredRepository.GetInsured("1");
-                return insured;
+                return contractRepository.FindAllContracts().ToList();
+            }
+        }
+
+        public IEnumerable<Policy> ListPolicies
+        {
+            get
+            {
+                return policyRepository.FindAllPolicies().ToList();
             }
         }
     }

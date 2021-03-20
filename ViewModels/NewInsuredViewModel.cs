@@ -21,13 +21,13 @@ namespace BVCareManager.ViewModels
                 return _inputId;
             }
             set
-            {                
+            {
                 SetProperty(ref _inputId, value);
             }
         }
 
         private string _inputName;
-        public string InputName 
+        public string InputName
         {
             get
             {
@@ -48,8 +48,6 @@ namespace BVCareManager.ViewModels
 
             AddCommand = new RelayCommand<object>((p) =>
             {
-                _errorsList.Clear();
-
                 if (string.IsNullOrEmpty(this.InputId))
                 {
                     return false;
@@ -63,28 +61,43 @@ namespace BVCareManager.ViewModels
                 if (this.InputId.Length > 30)
                 {
                     UpdateResultAsync(Result.HasError, "Độ dài tối đa của số CMT/CCCD là 30 ký tự");
-                    return false;
+                }
+                else
+                {
+                    UpdateResultAsync(Result.ExcludeError, "Độ dài tối đa của số CMT/CCCD là 30 ký tự");
                 }
 
                 if (this.InputName.Length > 30)
                 {
                     UpdateResultAsync(Result.HasError, "Độ dài tối đa của Họ tên nhân viên là 50 ký tự");
-                    return false;
+                }
+                else
+                {
+                    UpdateResultAsync(Result.ExcludeError, "Độ dài tối đa của Họ tên nhân viên là 50 ký tự");
                 }
 
-                
                 var creatingInsured = insuredRepository.GetInsured(this.InputId);
                 if (creatingInsured != null)
                 {
                     UpdateResultAsync(Result.HasError, "Số CMT/CCCD này đã tồn tại");
-                    return false;
+                }
+                else
+                {
+                    UpdateResultAsync(Result.ExcludeError, "Số CMT/CCCD này đã tồn tại");
                 }
 
-                return true;
 
+                if (_errorsList.Count > 0)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
             }, (p) =>
             {
-                
+
                 Insured newInsured = new Insured();
                 newInsured.Id = this.InputId;
                 newInsured.Name = this.InputName;

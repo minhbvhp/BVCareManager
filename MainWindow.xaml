@@ -73,15 +73,20 @@
                         <StackPanel Grid.Row="3" Grid.ColumnSpan="3" Grid.Column="0">
                             <TextBlock HorizontalAlignment="Left" Margin="30, 0, 0, 0"
                                        Style="{StaticResource SuccessStyle}"
-                                       Visibility="{Binding IsOk, Converter={StaticResource visibilityConverter}}"
-                                       Focusable="False">
+                                       Visibility="{Binding IsOk, Converter={StaticResource visibilityConverter}}">
                                 <Run Text="√"/>
                                 <Run Text="{Binding Success, Mode=OneWay}"/>
                             </TextBlock>
 
                             <ListBox HorizontalAlignment="Left" Margin="30, 0, 0, 0"
                                      ItemsSource="{Binding ErrorsList, Mode=OneWay}"
-                                     Focusable="False">
+                                     Focusable="False"
+                                     IsEnabled="False">
+                                <ListBox.ItemContainerStyle>
+                                    <Style TargetType="ListBoxItem">
+                                        <Setter Property="Focusable" Value="False"/>
+                                    </Style>
+                                </ListBox.ItemContainerStyle>
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <TextBlock Style="{StaticResource NotificationStyle}">

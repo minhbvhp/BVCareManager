@@ -10,5 +10,6 @@ namespace BVCareManager.ViewModels
     {
         Successful,
         HasError,
+        ExcludeError,
     }
 }

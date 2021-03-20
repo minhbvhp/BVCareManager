@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace BVCareManager.ViewModels
 {
@@ -11,19 +12,29 @@ namespace BVCareManager.ViewModels
     {
         protected bool _isOk;
 
-        protected async void UpdateResultAsync(Result result, string errorMessage="Lỗi")
+        protected async void UpdateResultAsync(Result result, string errorMessage = null)
         {
             if (result == Result.Successful)
             {
                 _isOk = true;
-                
+
             }
             else if (result == Result.HasError)
             {
-                _errorsList.Add(errorMessage);
+                if (!_errorsList.Contains(errorMessage))
+                    _errorsList.Add(errorMessage);
+
                 _isOk = false;
-                
+
             }
+            else if (result == Result.ExcludeError)
+            {
+                if (_errorsList.Contains(errorMessage))
+                    _errorsList.Remove(errorMessage);
+
+                _isOk = false;
+            }
+
             OnPropertyChanged("IsOk");
 
             if (IsOk)
@@ -46,7 +57,7 @@ namespace BVCareManager.ViewModels
 
         }
 
-        public string Success { get {return "Đã tạo thành công"; } }
+        public string Success { get { return "Đã tạo thành công"; } }
 
         protected ObservableCollection<string> _errorsList = new ObservableCollection<string>();
         public ObservableCollection<string> ErrorsList
@@ -54,10 +65,6 @@ namespace BVCareManager.ViewModels
             get
             {
                 return _errorsList;
-            }
-            private set
-            {
-
             }
         }
     }

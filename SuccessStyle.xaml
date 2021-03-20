@@ -7,7 +7,8 @@
            x:Key="SuccessStyle">
         <Setter Property="Foreground" Value="Green"/>
         <Setter Property="FontWeight" Value="Bold"/>
-        
+        <Setter Property="Focusable" Value="False"/>
+
 
         <Style.Triggers>
             <DataTrigger Binding="{Binding IsOk}" Value="True">
