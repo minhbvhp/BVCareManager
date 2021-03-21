@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 
 namespace BVCareManager.ViewModels
 {
@@ -67,5 +68,7 @@ namespace BVCareManager.ViewModels
                 return _errorsList;
             }
         }
+
+        public ICommand AddCommand { get; set; }
     }
 }

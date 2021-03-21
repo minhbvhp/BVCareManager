@@ -6,8 +6,13 @@
              xmlns:local="clr-namespace:BVCareManager.Controls"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:viewmodel="clr-namespace:BVCareManager.ViewModels"
+             xmlns:converter="clr-namespace:BVCareManager.Converter"
              mc:Ignorable="d" 
              d:DesignHeight="400" d:DesignWidth="350" MaxWidth="350">
+    <UserControl.Resources>
+        
+    </UserControl.Resources>
+    
     <Grid>
         <GroupBox Header="Card Group Box" Style="{DynamicResource MaterialDesignCardGroupBox}" Margin="0 16 0 0">
             <GroupBox.HeaderTemplate>
@@ -20,30 +25,38 @@
             </GroupBox.HeaderTemplate>
 
             <StackPanel>
-                <TextBox x:Name="TextBoxContractId" Margin="20" materialDesign:HintAssist.Hint="Số hợp đồng">
+                <TextBox Style="{StaticResource EmptyTextboxStyle}" Margin="20" materialDesign:HintAssist.Hint="Số hợp đồng">
                     <TextBox.Text>
-                        <Binding Path="Field" UpdateSourceTrigger="PropertyChanged"/>
+                        <Binding Path="InputId" UpdateSourceTrigger="PropertyChanged"/>
                     </TextBox.Text>
                 </TextBox>
 
-                <DatePicker x:Name="DatePickerFromDate" Margin="20" materialDesign:HintAssist.Hint="Từ ngày">
+                <DatePicker Style="{StaticResource EmptyDatePickerStyle}"
+                            Margin="20" materialDesign:HintAssist.Hint="Từ ngày">
                     <DatePicker.SelectedDate>
-                        <Binding Path="FutureValidatingDate" UpdateSourceTrigger="PropertyChanged"/>
+                        <Binding Path="InputFromDate"
+                                 UpdateSourceTrigger="PropertyChanged" 
+                                 Mode="TwoWay"/>
                     </DatePicker.SelectedDate>
                 </DatePicker>
 
-                <DatePicker x:Name="DatePickerToDate" Margin="20" materialDesign:HintAssist.Hint="Đến ngày">
+                <DatePicker Style="{StaticResource EmptyDatePickerStyle}"
+                            Margin="20" materialDesign:HintAssist.Hint="Đến ngày">
                     <DatePicker.SelectedDate>
-                        <Binding Path="FutureValidatingDate" UpdateSourceTrigger="PropertyChanged"/>
+                        <Binding Path="InputToDate" 
+                                 UpdateSourceTrigger="PropertyChanged"
+                                 Mode="TwoWay"/>
                     </DatePicker.SelectedDate>
                 </DatePicker>
 
-                <TextBox x:Name="TextBoxAnnualPremiumPerInsured" Margin="20"
+                <TextBox Style="{StaticResource EmptyTextboxStyle}" Margin="20"
                          materialDesign:HintAssist.Hint="Phí bảo hiểm/người" 
                          PreviewTextInput="TextBoxAnnualPremiumPerInsured_PreviewTextInput"
                          PreviewKeyDown="TextBoxAnnualPremiumPerInsured_PreviewKeyDown">
                     <TextBox.Text>
-                        <Binding Path="Field" UpdateSourceTrigger="PropertyChanged" StringFormat="{}{0:#,0}}"
+                        <Binding Path="InputAnnualPremiumPerInsured" UpdateSourceTrigger="PropertyChanged" 
+                                 FallbackValue="0"
+                                 StringFormat="{}{0:N0}}"
                                  Mode="TwoWay"/>
                     </TextBox.Text>
                 </TextBox>

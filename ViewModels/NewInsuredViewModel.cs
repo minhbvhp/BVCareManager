@@ -39,11 +39,9 @@ namespace BVCareManager.ViewModels
             }
         }
 
-        public ICommand AddCommand { get; set; }
-
-
         public NewInsuredViewModel()
         {
+            _errorsList.Clear();
             InsuredRepository insuredRepository = new InsuredRepository();
 
             AddCommand = new RelayCommand<object>((p) =>

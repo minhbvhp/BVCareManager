@@ -68,6 +68,9 @@
                 <!-- CustomEmptyBox Style -->
                 <ResourceDictionary Source="EmptyTextBoxStyle.xaml"/>
 
+                <!-- CustomDatepicker Style -->
+                <ResourceDictionary Source="EmptyDatePickerStyle.xaml"/>
+
                 <!-- CustomNotification Style -->
                 <ResourceDictionary Source="NotificationStyle.xaml"/>
                 <ResourceDictionary Source="SuccessStyle.xaml"/>
