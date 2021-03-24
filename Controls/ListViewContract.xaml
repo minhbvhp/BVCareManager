@@ -6,16 +6,25 @@
              xmlns:local="clr-namespace:BVCareManager.Controls"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:viewmodel="clr-namespace:BVCareManager.ViewModels"
+             xmlns:converter="clr-namespace:BVCareManager.Converter"
              mc:Ignorable="d" 
              d:DesignHeight="350" d:DesignWidth="600">
+    <UserControl.Resources>
+        <converter:NumberFormatConverter x:Key="NumberFormatConverter"/>
+    </UserControl.Resources>
+    
     <Grid>
         <ListView ItemsSource="{Binding ListContracts}">
             <ListView.View>
                 <GridView>
                     <GridViewColumn DisplayMemberBinding="{Binding Id}" Header="Số hợp đồng" />
-                    <GridViewColumn DisplayMemberBinding="{Binding FromDate}" Header="Từ ngày" />
-                    <GridViewColumn DisplayMemberBinding="{Binding ToDate}" Header="Đến ngày" />
-                    <GridViewColumn DisplayMemberBinding="{Binding TotalPremium}" Header="Tổng phí" />
+                    <GridViewColumn DisplayMemberBinding="{Binding FromDate, StringFormat=d, 
+                        ConverterCulture='en-GB'}" Header="Từ ngày" />
+                    <GridViewColumn DisplayMemberBinding="{Binding ToDate, StringFormat=d, 
+                        ConverterCulture='en-GB'}" Header="Đến ngày" />
+                    <GridViewColumn DisplayMemberBinding="{Binding AnnualPremiumPerInsured, 
+                        Converter={StaticResource NumberFormatConverter}, ConverterCulture='is-IS'}" 
+                                    Header="Tổng phí" />
                 </GridView>
             </ListView.View>
         </ListView>

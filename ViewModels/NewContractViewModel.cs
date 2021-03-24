@@ -1,4 +1,5 @@
-﻿using BVCareManager.Models;
+﻿using BVCareManager.Converter;
+using BVCareManager.Models;
 using BVCareManager.Repository;
 using System;
 using System.Collections.Generic;
@@ -23,8 +24,8 @@ namespace BVCareManager.ViewModels
             }
         }
 
-        private DateTime _inputFromDate;
-        public DateTime InputFromDate
+        private DateTime? _inputFromDate;
+        public DateTime? InputFromDate
         {
             get
             {
@@ -36,8 +37,8 @@ namespace BVCareManager.ViewModels
             }
         }
 
-        private DateTime _inputToDate;
-        public DateTime InputToDate
+        private DateTime? _inputToDate;
+        public DateTime? InputToDate
         {
             get
             {
@@ -49,7 +50,7 @@ namespace BVCareManager.ViewModels
             }
         }
 
-        private int _inputAnnualPremiumPerInsured = 0;
+        private int _inputAnnualPremiumPerInsured;
         public int InputAnnualPremiumPerInsured
         {
             get
@@ -82,34 +83,40 @@ namespace BVCareManager.ViewModels
 
                 if (this.InputFromDate == null)
                 {
-                    InputFromDate = defaultFromDate;
                     return false;
                 }
 
                 if (this.InputToDate == null)
                 {
-                    InputToDate = defaultToDate;
                     return false;
                 }
 
+                if (this.InputId.Length > 50)
+                {
+                    UpdateResultAsync(Result.HasError, "Độ dài tối đa của số Hợp đồng là 50 ký tự");
+                }
+                else
+                {
+                    UpdateResultAsync(Result.ExcludeError, "Độ dài tối đa của số Hợp đồng là 50 ký tự");
+                }
 
-                //if (this.InputId.Length > 30)
-                //{
-                //    UpdateResultAsync(Result.HasError, "Độ dài tối đa của số CMT/CCCD là 30 ký tự");
-                //}
-                //else
-                //{
-                //    UpdateResultAsync(Result.ExcludeError, "Độ dài tối đa của số CMT/CCCD là 30 ký tự");
-                //}
+                if (this.InputFromDate > this.InputToDate)
+                {
+                    UpdateResultAsync(Result.HasError, "Ngày bắt đầu hiệu lực phải trước ngày kết thúc");
+                }
+                else
+                {
+                    UpdateResultAsync(Result.ExcludeError, "Ngày bắt đầu hiệu lực phải trước ngày kết thúc");
+                }
 
-                //if (this.InputName.Length > 30)
-                //{
-                //    UpdateResultAsync(Result.HasError, "Độ dài tối đa của Họ tên nhân viên là 50 ký tự");
-                //}
-                //else
-                //{
-                //    UpdateResultAsync(Result.ExcludeError, "Độ dài tối đa của Họ tên nhân viên là 50 ký tự");
-                //}
+                if (this.InputAnnualPremiumPerInsured == 0)
+                {
+                    UpdateResultAsync(Result.HasError, "Phí bảo hiểm phải lớn hơn 0");
+                }
+                else
+                {
+                    UpdateResultAsync(Result.ExcludeError, "Phí bảo hiểm phải lớn hơn 0");
+                }
 
                 var creatingContract = contractRepository.GetContract(InputId);
                 if (creatingContract != null)
@@ -137,7 +144,7 @@ namespace BVCareManager.ViewModels
                 newContract.Id = this.InputId;
                 newContract.FromDate = (DateTime)this.InputFromDate;
                 newContract.ToDate = (DateTime)this.InputToDate;
-                newContract.AnnualPremiumPerInsured = (int)this.InputAnnualPremiumPerInsured;
+                newContract.AnnualPremiumPerInsured = this.InputAnnualPremiumPerInsured;
 
                 contractRepository.Add(newContract);
                 contractRepository.Save();

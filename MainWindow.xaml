@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:BVCareManager"
         xmlns:controls="clr-namespace:BVCareManager.Controls"
         xmlns:viewModels="clr-namespace:BVCareManager.ViewModels"
+        xmlns:converter="clr-namespace:BVCareManager.Converter"
         mc:Ignorable="d"
         xmlns:dragablz="clr-namespace:Dragablz;assembly=Dragablz"       
         Title="MainWindow" Height="600" Width="800"
@@ -22,7 +23,7 @@
         ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None">
     <Window.Resources>
         <viewModels:MainViewModel x:Key="MainViewModel"/>
-        <viewModels:BooleanVisibilityConverter x:Key="visibilityConverter"/>
+        <converter:BooleanVisibilityConverter x:Key="visibilityConverter"/>
     </Window.Resources>
     
     <Grid>

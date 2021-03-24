@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BVCareManager.ViewModels
+namespace BVCareManager.Converter
 {
     enum Result
     {
