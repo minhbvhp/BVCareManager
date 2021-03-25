@@ -9,24 +9,42 @@
              xmlns:converter="clr-namespace:BVCareManager.Converter"
              mc:Ignorable="d" 
              d:DesignHeight="350" d:DesignWidth="600">
+    
     <UserControl.Resources>
         <converter:NumberFormatConverter x:Key="NumberFormatConverter"/>
     </UserControl.Resources>
     
     <Grid>
-        <ListView ItemsSource="{Binding ListContracts}">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn DisplayMemberBinding="{Binding Id}" Header="Số hợp đồng" />
-                    <GridViewColumn DisplayMemberBinding="{Binding FromDate, StringFormat=d, 
-                        ConverterCulture='en-GB'}" Header="Từ ngày" />
-                    <GridViewColumn DisplayMemberBinding="{Binding ToDate, StringFormat=d, 
-                        ConverterCulture='en-GB'}" Header="Đến ngày" />
-                    <GridViewColumn DisplayMemberBinding="{Binding AnnualPremiumPerInsured, 
-                        Converter={StaticResource NumberFormatConverter}, ConverterCulture='is-IS'}" 
-                                    Header="Tổng phí" />
-                </GridView>
-            </ListView.View>
-        </ListView>
+        <DataGrid ItemsSource="{Binding ListContracts}" AutoGenerateColumns="False" 
+                  IsReadOnly="True" ClipboardCopyMode="None" ColumnWidth="*">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Id}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="Số hợp đồng" TextWrapping="Wrap"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+
+                <DataGridTextColumn Binding="{Binding FromDate, StringFormat=d, 
+                        ConverterCulture='en-GB'}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="Từ ngày" TextWrapping="Wrap"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+
+                <DataGridTextColumn Binding="{Binding ToDate, StringFormat=d, 
+                        ConverterCulture='en-GB'}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="Đến ngày" TextWrapping="Wrap"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+
+                <DataGridTextColumn Binding="{Binding AnnualPremiumPerInsured, 
+                        Converter={StaticResource NumberFormatConverter}, ConverterCulture='is-IS'}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="Tổng phí" TextWrapping="Wrap"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </UserControl>

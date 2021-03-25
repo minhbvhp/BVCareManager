@@ -9,13 +9,21 @@
              mc:Ignorable="d" 
              d:DesignHeight="350" d:DesignWidth="600">
     <Grid>
-        <ListView ItemsSource="{Binding ListInsureds}">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn DisplayMemberBinding="{Binding Id}" Header="Số CCCD" />
-                    <GridViewColumn DisplayMemberBinding="{Binding Name}" Header="Họ tên" />
-                </GridView>
-            </ListView.View>
-        </ListView>
+        <DataGrid ItemsSource="{Binding ListInsureds}" AutoGenerateColumns="False" 
+                  IsReadOnly="True" ClipboardCopyMode="None" ColumnWidth="*">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Id}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="Số CCCD" TextWrapping="Wrap"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+
+                <DataGridTextColumn Binding="{Binding Name}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="Họ tên" TextWrapping="Wrap"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </UserControl>

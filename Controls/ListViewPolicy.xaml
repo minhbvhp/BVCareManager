@@ -6,21 +6,63 @@
              xmlns:local="clr-namespace:BVCareManager.Controls"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:viewmodel="clr-namespace:BVCareManager.ViewModels"
+             xmlns:converter="clr-namespace:BVCareManager.Converter"
              mc:Ignorable="d" 
              d:DesignHeight="350" d:DesignWidth="600">
+    
+    <UserControl.Resources>
+        <converter:NumberFormatConverter x:Key="NumberFormatConverter"/>
+    </UserControl.Resources>
+    
     <Grid>
-        <ListView ItemsSource="{Binding ListPolicies}">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn DisplayMemberBinding="{Binding Number}" Header="Số đơn" />
-                    <GridViewColumn DisplayMemberBinding="{Binding ContractId}" Header="Số hợp đồng" />
-                    <GridViewColumn DisplayMemberBinding="{Binding InsuredId}" Header="Số CCCD" />
-                    <GridViewColumn DisplayMemberBinding="{Binding InsuredName}" Header="Họ tên" />
-                    <GridViewColumn DisplayMemberBinding="{Binding FromDate}" Header="Từ ngày" />
-                    <GridViewColumn DisplayMemberBinding="{Binding ToDate}" Header="Đến ngày" />
-                    <GridViewColumn DisplayMemberBinding="{Binding Premium}" Header="Phí bảo hiểm" />
-                </GridView>
-            </ListView.View>
-        </ListView>
+        <DataGrid ItemsSource="{Binding ListPolicies}" AutoGenerateColumns="False" 
+                  IsReadOnly="True" ClipboardCopyMode="None" ColumnWidth="*">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Number}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="Số đơn" TextWrapping="Wrap"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+
+                <DataGridTextColumn Binding="{Binding ContractId}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="Số hợp đồng" TextWrapping="Wrap"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+
+                <DataGridTextColumn Binding="{Binding InsuredId}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="Số CCCD" TextWrapping="Wrap"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+
+                <DataGridTextColumn Binding="{Binding InsuredName}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="Họ tên" TextWrapping="Wrap"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+
+                <DataGridTextColumn Binding="{Binding FromDate, StringFormat=d, 
+                        ConverterCulture='en-GB'}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="Từ ngày" TextWrapping="Wrap"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+
+                <DataGridTextColumn Binding="{Binding ToDate, StringFormat=d, 
+                        ConverterCulture='en-GB'}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="Đến ngày" TextWrapping="Wrap"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+
+                <DataGridTextColumn Binding="{Binding Premium, 
+                        Converter={StaticResource NumberFormatConverter}, ConverterCulture='is-IS'}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="Phí bảo hiểm" TextWrapping="Wrap"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </UserControl>

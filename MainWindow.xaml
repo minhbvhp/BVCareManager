@@ -114,7 +114,7 @@
                 <TabItem Header="HỒ SƠ KHAI THÁC">
                     <Grid Margin="25">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="2*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
 
@@ -131,8 +131,9 @@
                                     <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
 
-                                <ComboBox x:Name="ComboBoxSearchCategory"
-                                          Grid.Column="0"  materialDesign:HintAssist.Hint="Mục" VerticalAlignment="Top"
+                                <ComboBox x:Name="ComboBoxSearchCategory" Width="100"
+                                          Grid.Column="0"  materialDesign:HintAssist.Hint="Mục" 
+                                          VerticalAlignment="Top" HorizontalAlignment="Right"
                                           Style="{StaticResource MaterialDesignFloatingHintComboBox}" Margin="0, 0, 10, 0">
                                     <ComboBoxItem>
                                         Nhân viên
@@ -145,17 +146,22 @@
                                     </ComboBoxItem>
                                 </ComboBox>
 
-                                <TextBox Grid.Column="1" VerticalAlignment="Top"
+                                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                    <TextBox Width="200"
+                                         VerticalAlignment="Top" HorizontalAlignment="Left"
                                          materialDesign:HintAssist.Hint="Tìm kiếm" 
                                          Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
 
-                                <Button x:Name="ButtonSearch" Click="ButtonSearch_Click"
-                                        Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Top"
+                                    <Button x:Name="ButtonSearch" Click="ButtonSearch_Click"
+                                        HorizontalAlignment="Left" VerticalAlignment="Top"
                                         Width="32" Height="32"
                                         Style="{StaticResource MaterialDesignFloatingActionDarkButton}"
                                         ToolTip="MaterialDesignFloatingActionDarkButton">
-                                    <materialDesign:PackIcon Kind="Search" Height="24" Width="24" />
-                                </Button>
+                                        <materialDesign:PackIcon Kind="Search" Height="24" Width="24" />
+                                    </Button>
+                                </StackPanel>
+
+                                
 
                             </Grid>
                         </DockPanel>
