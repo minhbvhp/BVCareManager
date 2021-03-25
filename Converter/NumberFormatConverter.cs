@@ -10,12 +10,15 @@ namespace BVCareManager.Converter
 {
     class NumberFormatConverter : IValueConverter
     {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object Convert(object value, Type targetType, object parameter=null, CultureInfo culture=null)
         {
             if (value is int)
             {
                 if ((int)value != 0)
-                    return ((int)value).ToString("N0", culture);
+                    if (parameter != null)
+                        return ((int)value).ToString(parameter.ToString(), culture);
+                    else
+                        return ((int)value).ToString();
                 else
                     return String.Empty;
             }

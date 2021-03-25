@@ -18,7 +18,9 @@
         <DataGrid ItemsSource="{Binding ListPolicies}" AutoGenerateColumns="False" 
                   IsReadOnly="True" ClipboardCopyMode="None" ColumnWidth="*">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Number}">
+
+                <DataGridTextColumn Binding="{Binding Number, 
+                        Converter={StaticResource NumberFormatConverter}}">
                     <DataGridTextColumn.Header>
                         <TextBlock Text="Số đơn" TextWrapping="Wrap"/>
                     </DataGridTextColumn.Header>
@@ -57,7 +59,7 @@
                 </DataGridTextColumn>
 
                 <DataGridTextColumn Binding="{Binding Premium, 
-                        Converter={StaticResource NumberFormatConverter}, ConverterCulture='is-IS'}">
+                        Converter={StaticResource NumberFormatConverter}, ConverterParameter='N0', ConverterCulture='is-IS'}">
                     <DataGridTextColumn.Header>
                         <TextBlock Text="Phí bảo hiểm" TextWrapping="Wrap"/>
                     </DataGridTextColumn.Header>

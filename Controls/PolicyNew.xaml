@@ -6,8 +6,14 @@
              xmlns:local="clr-namespace:BVCareManager.Controls"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:viewmodel="clr-namespace:BVCareManager.ViewModels"
+             xmlns:converter="clr-namespace:BVCareManager.Converter"
              mc:Ignorable="d" 
-             d:DesignHeight="350" d:DesignWidth="350">
+             d:DesignHeight="450" d:DesignWidth="350">
+    
+    <UserControl.Resources>
+        <converter:NumberFormatConverter x:Key="NumberFormatConverter"/>
+    </UserControl.Resources>
+    
     <Grid>
         <GroupBox Header="Card Group Box" Style="{DynamicResource MaterialDesignCardGroupBox}" Margin="0 16 0 0">
             <GroupBox.HeaderTemplate>
@@ -20,11 +26,50 @@
             </GroupBox.HeaderTemplate>
 
             <StackPanel>
-                <local:EmptyValidationTextBox Margin="0, 0, 0, 20"/>
-                <local:EmptyValidationTextBox Margin="0, 0, 0, 20"/>
-                <local:EmptyValidationTextBox Margin="0, 0, 0, 20"/>
-                <local:EmptyValidationDatePicker Margin="0, 0, 0, 20"/>
-                <local:EmptyValidationDatePicker Margin="0, 0, 0, 20"/>
+                <TextBox Style="{StaticResource EmptyTextboxStyle}" Margin="20"
+                         materialDesign:HintAssist.Hint="Số đơn" 
+                         PreviewTextInput="TextBox_PreviewTextInput"
+                         PreviewKeyDown="TextBox_PreviewKeyDown">
+                    <TextBox.Text>
+                        <Binding Path="InputNumber" UpdateSourceTrigger="PropertyChanged" 
+                                 Mode="TwoWay"
+                                 Converter="{StaticResource NumberFormatConverter}"/>
+                    </TextBox.Text>
+                </TextBox>
+                
+                <TextBox Style="{StaticResource EmptyTextboxStyle}"
+                         Margin="20" materialDesign:HintAssist.Hint="Số hợp đồng">
+                    <TextBox.Text>
+                        <Binding Path="InputContractId" UpdateSourceTrigger="PropertyChanged"/>
+                    </TextBox.Text>
+                </TextBox>
+
+                <TextBox Style="{StaticResource EmptyTextboxStyle}"
+                         Margin="20" materialDesign:HintAssist.Hint="Số CMT/CCCD"
+                         ToolTip="{Binding InsuredName}">
+                    <TextBox.Text>
+                        <Binding Path="InputInsuredId" UpdateSourceTrigger="PropertyChanged"/>
+                    </TextBox.Text>
+                </TextBox>
+
+                <DatePicker Style="{StaticResource EmptyDatePickerStyle}"
+                            Margin="20" materialDesign:HintAssist.Hint="Từ ngày">
+                    <DatePicker.SelectedDate>
+                        <Binding Path="InputFromDate"
+                                 UpdateSourceTrigger="PropertyChanged" 
+                                 Mode="TwoWay"/>
+                    </DatePicker.SelectedDate>
+                </DatePicker>
+
+                <DatePicker Style="{StaticResource EmptyDatePickerStyle}"
+                            Margin="20" materialDesign:HintAssist.Hint="Đến ngày">
+                    <DatePicker.SelectedDate>
+                        <Binding Path="InputToDate" 
+                                 UpdateSourceTrigger="PropertyChanged"
+                                 Mode="TwoWay"/>
+                    </DatePicker.SelectedDate>
+                </DatePicker>
+
             </StackPanel>
         </GroupBox>
     </Grid>

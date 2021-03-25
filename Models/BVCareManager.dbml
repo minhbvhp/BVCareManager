@@ -7,18 +7,6 @@
       <Association Name="Insured_Policy" Member="Policies" ThisKey="Id" OtherKey="InsuredId" Type="Policy" />
     </Type>
   </Table>
-  <Table Name="dbo.Policies" Member="Policies">
-    <Type Name="Policy">
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Number" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
-      <Column Name="ContractId" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="InsuredId" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
-      <Column Name="FromDate" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
-      <Column Name="ToDate" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
-      <Association Name="Insured_Policy" Member="Insured" ThisKey="InsuredId" OtherKey="Id" Type="Insured" IsForeignKey="true" />
-      <Association Name="Contract_Policy" Member="Contract" ThisKey="ContractId" OtherKey="Id" Type="Contract" IsForeignKey="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.Contracts" Member="Contracts">
     <Type Name="Contract">
       <Column Name="Id" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
@@ -26,6 +14,18 @@
       <Column Name="ToDate" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
       <Column Name="AnnualPremiumPerInsured" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Association Name="Contract_Policy" Member="Policies" ThisKey="Id" OtherKey="ContractId" Type="Policy" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Policies" Member="Policies">
+    <Type Name="Policy">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Number" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ContractId" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="InsuredId" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="FromDate" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="ToDate" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Association Name="Contract_Policy" Member="Contract" ThisKey="ContractId" OtherKey="Id" Type="Contract" IsForeignKey="true" />
+      <Association Name="Insured_Policy" Member="Insured" ThisKey="InsuredId" OtherKey="Id" Type="Insured" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

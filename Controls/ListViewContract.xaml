@@ -39,7 +39,7 @@
                 </DataGridTextColumn>
 
                 <DataGridTextColumn Binding="{Binding AnnualPremiumPerInsured, 
-                        Converter={StaticResource NumberFormatConverter}, ConverterCulture='is-IS'}">
+                        Converter={StaticResource NumberFormatConverter}, ConverterParameter='N0', ConverterCulture='is-IS'}">
                     <DataGridTextColumn.Header>
                         <TextBlock Text="Tổng phí" TextWrapping="Wrap"/>
                     </DataGridTextColumn.Header>
