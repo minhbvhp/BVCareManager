@@ -68,7 +68,6 @@
 
                         <DockPanel x:Name="CreateNewDockPanel" 
                                    VerticalAlignment="Top" Grid.RowSpan="2" Grid.Column="2" Margin="16">
-                            
                         </DockPanel>
 
                         <StackPanel Grid.Row="3" Grid.ColumnSpan="3" Grid.Column="0">
@@ -103,7 +102,7 @@
                                     Style="{StaticResource MaterialDesignFloatingActionAccentButton}"
                                     ToolTip="Thêm mới"
                                     Height="60" Width="60"
-                                    Command="{Binding AddCommand}">
+                                    Command="{Binding AddCommand}" IsDefault="True">
                                 <materialDesign:PackIcon Kind="Add" Height="32" Width="32"/>
                             </Button>
                         </StackPanel>
@@ -152,12 +151,12 @@
                                          materialDesign:HintAssist.Hint="Tìm kiếm" 
                                          Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
 
-                                    <Button x:Name="ButtonSearch" Click="ButtonSearch_Click"
+                                    <Button x:Name="ButtonSearch" Click="ButtonSearch_Click" IsDefault="True"
                                         HorizontalAlignment="Left" VerticalAlignment="Top"
                                         Width="32" Height="32"
                                         Style="{StaticResource MaterialDesignFloatingActionDarkButton}"
                                         ToolTip="MaterialDesignFloatingActionDarkButton">
-                                        <materialDesign:PackIcon Kind="Search" Height="24" Width="24" />
+                                        <materialDesign:PackIcon Kind="Search" Height="24" Width="24"/>
                                     </Button>
                                 </StackPanel>
 
