@@ -3,6 +3,7 @@ using BVCareManager.Models;
 using BVCareManager.Repository;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,29 +25,33 @@ namespace BVCareManager.ViewModels
             }
         }
 
-        private string _inputContractId;
-        public string InputContractId
+        public ObservableCollection<String> ListContractId
         {
             get
             {
-                return _inputContractId;
-            }
-            set
-            {
-                SetProperty(ref _inputContractId, value);
+                ContractRepository contractRepository = new ContractRepository();
+
+                var _listContract = from contract in contractRepository.FindAllContracts()
+                                   select contract;
+
+                var ListContract = new ObservableCollection<String>();
+
+                foreach (var lC in _listContract)
+                    ListContract.Add(lC.Id + " - " + lC.AnnualPremiumPerInsured.ToString());
+
+                return ListContract;
             }
         }
-
-        private string _inputInsuredId;
-        public string InputInsuredId
+        public ObservableCollection<Insured> ListInsuredId
         {
             get
             {
-                return _inputInsuredId;
-            }
-            set
-            {
-                SetProperty(ref _inputInsuredId, value);
+                InsuredRepository insuredRepository = new InsuredRepository();
+
+                var _listInsured = from insured in insuredRepository.FindAllInsureds()
+                                    select insured;
+                var ListInsured = new ObservableCollection<Insured>(_listInsured);
+                return ListInsured;
             }
         }
 
@@ -97,16 +102,6 @@ namespace BVCareManager.ViewModels
                     return false;
                 }
 
-                if (string.IsNullOrEmpty(this.InputContractId))
-                {
-                    return false;
-                }
-
-                if (string.IsNullOrEmpty(this.InputInsuredId))
-                {
-                    return false;
-                }
-
                 if (this.InputFromDate == null)
                 {
                     return false;
@@ -135,12 +130,6 @@ namespace BVCareManager.ViewModels
                     UpdateResultAsync(Result.ExcludeError, "Ngày bắt đầu hiệu lực phải trước ngày kết thúc");
                 }
 
-
-                #region Checking Insured/Contract in Database
-                insuredRepository.GetInsured()
-                #endregion
-
-
                 if (_errorsList.Count > 0)
                 {
                     return false;
@@ -154,8 +143,8 @@ namespace BVCareManager.ViewModels
 
                 Policy newPolicy = new Policy();
                 newPolicy.Number = this.InputNumber;
-                newPolicy.ContractId = this.InputContractId;
-                newPolicy.InsuredId = this.InputInsuredId;
+                //newPolicy.ContractId = this.InputContractId;
+                //newPolicy.InsuredId = this.InputInsuredId;
                 newPolicy.FromDate = (DateTime)this.InputFromDate;
                 newPolicy.ToDate = (DateTime)this.InputToDate;
 
@@ -165,8 +154,6 @@ namespace BVCareManager.ViewModels
                 UpdateResultAsync(Result.Successful);
 
                 InputNumber = 0;
-                InputContractId = null;
-                InputInsuredId = null;
                 InputFromDate = defaultFromDate;
                 InputToDate = defaultToDate;
 

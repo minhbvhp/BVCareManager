@@ -36,13 +36,9 @@
                                  Converter="{StaticResource NumberFormatConverter}"/>
                     </TextBox.Text>
                 </TextBox>
-                
-                <TextBox Style="{StaticResource EmptyTextboxStyle}"
-                         Margin="20" materialDesign:HintAssist.Hint="Số hợp đồng">
-                    <TextBox.Text>
-                        <Binding Path="InputContractId" UpdateSourceTrigger="PropertyChanged"/>
-                    </TextBox.Text>
-                </TextBox>
+
+                <ComboBox Margin="20" materialDesign:HintAssist.Hint="Số hợp đồng"
+                          ItemsSource="{Binding ListContractId}"/>
 
                 <TextBox Style="{StaticResource EmptyTextboxStyle}"
                          Margin="20" materialDesign:HintAssist.Hint="Số CMT/CCCD"
