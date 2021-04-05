@@ -26,7 +26,8 @@
             </GroupBox.HeaderTemplate>
 
             <StackPanel>
-                <TextBox Style="{StaticResource EmptyTextboxStyle}" Margin="20" materialDesign:HintAssist.Hint="Số hợp đồng">
+                <TextBox Style="{StaticResource EmptyTextboxStyle}"
+                         Margin="20" materialDesign:HintAssist.Hint="Số hợp đồng">
                     <TextBox.Text>
                         <Binding Path="InputId" UpdateSourceTrigger="PropertyChanged"/>
                     </TextBox.Text>

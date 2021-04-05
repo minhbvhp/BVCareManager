@@ -16,7 +16,7 @@ namespace BVCareManager.ViewModels
         {
             get
             {
-                return _inputId;
+                return  _inputId;
             }
             set
             {
@@ -141,7 +141,7 @@ namespace BVCareManager.ViewModels
             {
 
                 Contract newContract = new Contract();
-                newContract.Id = this.InputId;
+                newContract.Id = this.InputId.Trim(' ').ToUpper();
                 newContract.FromDate = (DateTime)this.InputFromDate;
                 newContract.ToDate = (DateTime)this.InputToDate;
                 newContract.AnnualPremiumPerInsured = this.InputAnnualPremiumPerInsured;

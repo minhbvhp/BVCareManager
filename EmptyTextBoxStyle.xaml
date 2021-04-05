@@ -3,7 +3,10 @@
                     xmlns:local="clr-namespace:BVCareManager"
                     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
 
-    <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignTextBox}" x:Key="EmptyTextboxStyle">
+    <Style TargetType="TextBox" 
+           BasedOn="{StaticResource MaterialDesignFloatingHintTextBox}" 
+           x:Key="EmptyTextboxStyle">
+
         <Style.Triggers>
             <MultiTrigger>
                 <MultiTrigger.Conditions>

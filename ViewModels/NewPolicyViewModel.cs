@@ -6,12 +6,40 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace BVCareManager.ViewModels
 {
     class NewPolicyViewModel : NewBaseViewModel
     {
+        private string _selectedContractId;
+        public string SelectedContractId
+        {
+            get
+            {
+                return _selectedContractId;
+            }
+            set
+            {
+                SetProperty(ref _selectedContractId, value);
+            }
+        }
+
+        private string _selectedInsuredId;
+        public string SelectedInsuredId
+        {
+            get
+            {
+                return _selectedInsuredId;
+            }
+            set
+            {
+                SetProperty(ref _selectedInsuredId, value);
+            }
+        }
+
         private int _inputNumber;
         public int InputNumber
         {
@@ -25,33 +53,37 @@ namespace BVCareManager.ViewModels
             }
         }
 
-        public ObservableCollection<String> ListContractId
+        public ObservableCollection<String> ContractList
         {
             get
             {
                 ContractRepository contractRepository = new ContractRepository();
 
-                var _listContract = from contract in contractRepository.FindAllContracts()
+                var _allContract = from contract in contractRepository.FindAllContracts()
                                    select contract;
 
-                var ListContract = new ObservableCollection<String>();
+                var AllContract = new ObservableCollection<String>();
 
-                foreach (var lC in _listContract)
-                    ListContract.Add(lC.Id + " - " + lC.AnnualPremiumPerInsured.ToString());
+                foreach (var contract in _allContract)
+                    AllContract.Add(contract.Id);
 
-                return ListContract;
+                return AllContract;
             }
         }
-        public ObservableCollection<Insured> ListInsuredId
+        public ObservableCollection<String> InsuredList
         {
             get
             {
                 InsuredRepository insuredRepository = new InsuredRepository();
 
-                var _listInsured = from insured in insuredRepository.FindAllInsureds()
+                var _allInsured = from insured in insuredRepository.FindAllInsureds()
                                     select insured;
-                var ListInsured = new ObservableCollection<Insured>(_listInsured);
-                return ListInsured;
+                var AllInsured = new ObservableCollection<String>();
+
+                foreach (var insured in _allInsured)
+                    AllInsured.Add(insured.Name + " - " + insured.Id);
+
+                return AllInsured;
             }
         }
 
@@ -143,8 +175,12 @@ namespace BVCareManager.ViewModels
 
                 Policy newPolicy = new Policy();
                 newPolicy.Number = this.InputNumber;
-                //newPolicy.ContractId = this.InputContractId;
-                //newPolicy.InsuredId = this.InputInsuredId;
+
+                newPolicy.ContractId = this.SelectedContractId.Trim(' ');
+
+                Regex insuredIdRegex = new Regex(@"[^-]+$");
+                newPolicy.InsuredId = insuredIdRegex.Match(this.SelectedInsuredId).ToString().Trim(' ');
+
                 newPolicy.FromDate = (DateTime)this.InputFromDate;
                 newPolicy.ToDate = (DateTime)this.InputToDate;
 

@@ -38,15 +38,12 @@
                 </TextBox>
 
                 <ComboBox Margin="20" materialDesign:HintAssist.Hint="Số hợp đồng"
-                          ItemsSource="{Binding ListContractId}"/>
+                          ItemsSource="{Binding ContractList}"
+                          SelectedItem="{Binding SelectedContractId}"/>
 
-                <TextBox Style="{StaticResource EmptyTextboxStyle}"
-                         Margin="20" materialDesign:HintAssist.Hint="Số CMT/CCCD"
-                         ToolTip="{Binding InsuredName}">
-                    <TextBox.Text>
-                        <Binding Path="InputInsuredId" UpdateSourceTrigger="PropertyChanged"/>
-                    </TextBox.Text>
-                </TextBox>
+                <ComboBox Margin="20" materialDesign:HintAssist.Hint="Nhân viên"
+                          ItemsSource="{Binding InsuredList}" IsEditable="True"
+                          SelectedItem="{Binding SelectedInsuredId}"/>
 
                 <DatePicker Style="{StaticResource EmptyDatePickerStyle}"
                             Margin="20" materialDesign:HintAssist.Hint="Từ ngày">

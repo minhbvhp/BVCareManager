@@ -98,8 +98,8 @@ namespace BVCareManager.ViewModels
             {
 
                 Insured newInsured = new Insured();
-                newInsured.Id = this.InputId;
-                newInsured.Name = this.InputName;
+                newInsured.Id = this.InputId.Trim(' ');
+                newInsured.Name = this.InputName.Trim(' ');
 
                 insuredRepository.Add(newInsured);
                 insuredRepository.Save();
