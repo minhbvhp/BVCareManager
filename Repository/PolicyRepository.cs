@@ -17,9 +17,16 @@ namespace BVCareManager.Repository
             return db.Policies;
         }
 
-        public Policy GetPolicy(int id)
+        public Policy GetPolicyById(int id)
         {
             return db.Policies.SingleOrDefault(policy => policy.Id == id);
+        }
+
+        public Policy GetPolicyByIndex(int policyNumber, string contractId)
+        {
+            return db.Policies.SingleOrDefault
+                (policy => 
+                (policy.Number == policyNumber && policy.ContractId == contractId));
         }
 
         //Insert/Delete Methods

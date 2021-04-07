@@ -8,7 +8,7 @@
              xmlns:viewmodel="clr-namespace:BVCareManager.ViewModels"
              xmlns:converter="clr-namespace:BVCareManager.Converter"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="350">
+             d:DesignHeight="500" d:DesignWidth="350">
     
     <UserControl.Resources>
         <converter:NumberFormatConverter x:Key="NumberFormatConverter"/>
@@ -37,13 +37,15 @@
                     </TextBox.Text>
                 </TextBox>
 
-                <ComboBox Margin="20" materialDesign:HintAssist.Hint="Số hợp đồng"
+                <ComboBox Style="{StaticResource EmptyComboBoxStyle}"
+                          Margin="20" materialDesign:HintAssist.Hint="Số hợp đồng"
                           ItemsSource="{Binding ContractList}"
                           SelectedItem="{Binding SelectedContractId}"/>
 
-                <ComboBox Margin="20" materialDesign:HintAssist.Hint="Nhân viên"
+                <ComboBox Style="{StaticResource EmptyComboBoxStyle}"
+                          Margin="20" materialDesign:HintAssist.Hint="Nhân viên"
                           ItemsSource="{Binding InsuredList}" IsEditable="True"
-                          SelectedItem="{Binding SelectedInsuredId}"/>
+                          SelectedItem="{Binding SelectedInsuredId, Mode=TwoWay}"/>
 
                 <DatePicker Style="{StaticResource EmptyDatePickerStyle}"
                             Margin="20" materialDesign:HintAssist.Hint="Từ ngày">

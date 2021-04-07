@@ -65,6 +65,9 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
 
 
+                <!-- CustomComboBox Style -->
+                <ResourceDictionary Source="EmptyComboBoxStyle.xaml"/>
+                
                 <!-- CustomEmptyBox Style -->
                 <ResourceDictionary Source="EmptyTextBoxStyle.xaml"/>
 

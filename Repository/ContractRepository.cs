@@ -22,6 +22,14 @@ namespace BVCareManager.Repository
             return db.Contracts.SingleOrDefault(contract => contract.Id == id);
         }
 
+        public bool IsInForce(DateTime? fromDate, DateTime? toDate, Contract contract)
+        {
+            if (fromDate < contract.FromDate || toDate > contract.ToDate)
+                return false;
+
+            return true;
+        }
+
         //Insert/Delete Methods
         public void Add(Contract contract)
         {

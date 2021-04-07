@@ -46,7 +46,7 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="3*"/>
                             <RowDefinition Height="2*"/>
-                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
                         
                         <materialDesign:PackIcon Width="50" Height="50" Margin="0, 32, 0, 0"
@@ -110,7 +110,7 @@
                     </Grid>
                 </TabItem>
 
-                <TabItem Header="HỒ SƠ KHAI THÁC">
+                <TabItem Margin="50" Header="KHAI THÁC (SỬA)">
                     <Grid Margin="25">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="2*"/>

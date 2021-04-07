@@ -27,16 +27,28 @@ namespace BVCareManager.ViewModels
             }
         }
 
+        private string _selectedInsured;
         private string _selectedInsuredId;
         public string SelectedInsuredId
         {
             get
             {
+                Regex insuredIdRegex = new Regex(@"[^-]+$");
+
+                if (_selectedInsured != null)
+                {
+                    _selectedInsuredId = insuredIdRegex.Match(this._selectedInsured).ToString().Trim(' ');
+                }
+                else
+                {
+                    _selectedInsuredId = String.Empty;
+                }
+
                 return _selectedInsuredId;
             }
             set
             {
-                SetProperty(ref _selectedInsuredId, value);
+                SetProperty(ref _selectedInsured, value);
             }
         }
 
@@ -123,6 +135,7 @@ namespace BVCareManager.ViewModels
             DateTime defaultToDate = new DateTime(now.Year, 12, 31);
             _inputFromDate = defaultFromDate;
             _inputToDate = defaultToDate;
+            
 
             _errorsList.Clear();
             PolicyRepository policyRepository = new PolicyRepository();
@@ -162,6 +175,42 @@ namespace BVCareManager.ViewModels
                     UpdateResultAsync(Result.ExcludeError, "Ngày bắt đầu hiệu lực phải trước ngày kết thúc");
                 }
 
+                Contract checkingContract = contractRepository.GetContract(this.SelectedContractId);
+                String fromDateContract = String.Format("{0:dd/MM/yyyy}", checkingContract.FromDate);
+                String toDateContract = String.Format("{0:dd/MM/yyyy}", checkingContract.ToDate);
+
+                string errorString = String.Format(
+                        "Thời hạn của đơn bảo hiểm phải phù hợp thời hạn Hợp đồng ({0} - {1})",
+                        fromDateContract, toDateContract);
+
+                if (!contractRepository.IsInForce(this.InputFromDate, this.InputToDate, checkingContract))
+                {
+                    UpdateResultAsync(Result.HasError, errorString);
+                }
+                else
+                {
+                    UpdateResultAsync(Result.ExcludeError, errorString);
+                }
+
+
+                if (policyRepository.GetPolicyByIndex(this.InputNumber, this.SelectedContractId) != null)
+                {
+                    UpdateResultAsync(Result.HasError, "Đơn bảo hiểm này đã tồn tại");
+                }
+                else
+                {
+                    UpdateResultAsync(Result.ExcludeError, "Đơn bảo hiểm này đã tồn tại");
+                }
+
+                if (this.SelectedInsuredId == String.Empty)
+                {
+                    UpdateResultAsync(Result.HasError, "Chưa có nhân viên này");
+                }
+                else
+                {
+                    UpdateResultAsync(Result.ExcludeError, "Chưa có nhân viên này");
+                }
+
                 if (_errorsList.Count > 0)
                 {
                     return false;
@@ -178,8 +227,7 @@ namespace BVCareManager.ViewModels
 
                 newPolicy.ContractId = this.SelectedContractId.Trim(' ');
 
-                Regex insuredIdRegex = new Regex(@"[^-]+$");
-                newPolicy.InsuredId = insuredIdRegex.Match(this.SelectedInsuredId).ToString().Trim(' ');
+                newPolicy.InsuredId = this.SelectedInsuredId;
 
                 newPolicy.FromDate = (DateTime)this.InputFromDate;
                 newPolicy.ToDate = (DateTime)this.InputToDate;
