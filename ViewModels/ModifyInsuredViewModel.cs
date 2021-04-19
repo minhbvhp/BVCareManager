@@ -17,19 +17,18 @@ namespace BVCareManager.ViewModels
         {
             get
             {
-                string insuredSearchText = base.SearchText;
+                string insuredSearchText = base._searchText;
                 if (insuredSearchText != null)
                 {
-                    MessageBox.Show(insuredSearchText);
                     return insuredRepository.SearchInsureds(insuredSearchText);
                 }
                 else
                 {
-                    MessageBox.Show("Loi roi");
-                    return null;
+                    return insuredRepository.FindAllInsureds();
                 }
 
             }
         }
+
     }
 }

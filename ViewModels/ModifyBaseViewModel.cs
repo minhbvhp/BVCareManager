@@ -16,12 +16,12 @@ namespace BVCareManager.ViewModels
             }
         }
 
-        private string _searchText;
+        protected string _searchText;
         public string SearchText {
             get
             {
                 return _searchText;
-            } 
+            }
             set
             {
                 SetProperty(ref _searchText, value);

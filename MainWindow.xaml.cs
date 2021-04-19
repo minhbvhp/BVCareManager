@@ -86,7 +86,7 @@ namespace BVCareManager
                     break;
             }
 
-            ModifyDockPanel.DataContext = searchAndModifyViewModel;
+            ModifyGrid.DataContext = searchAndModifyViewModel;
         }
     }
 }
