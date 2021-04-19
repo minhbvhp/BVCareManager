@@ -106,9 +106,6 @@
     <Compile Include="Controls\ListViewContract.xaml.cs">
       <DependentUpon>ListViewContract.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\ListViewInsured.xaml.cs">
-      <DependentUpon>ListViewInsured.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\ListViewPolicy.xaml.cs">
       <DependentUpon>ListViewPolicy.xaml</DependentUpon>
     </Compile>
@@ -127,6 +124,8 @@
     <Compile Include="Repository\PolicyRepository.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="Converter\BooleanVisibilityConverter.cs" />
+    <Compile Include="ViewModels\ModifyBaseViewModel.cs" />
+    <Compile Include="ViewModels\ModifyInsuredViewModel.cs" />
     <Compile Include="ViewModels\NewBaseViewModel.cs" />
     <Compile Include="ViewModels\NewContractViewModel.cs" />
     <Compile Include="ViewModels\NewInsuredViewModel.cs" />
@@ -154,10 +153,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\ListViewContract.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\ListViewInsured.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -22,6 +22,11 @@ namespace BVCareManager.Repository
             return db.Insureds.SingleOrDefault(insured => insured.Id == id);
         }
 
+        public IQueryable<Insured> SearchInsureds(string inputText)
+        {
+            return db.Insureds.Where(insured => insured.Id == "1");
+        }
+
         //Insert/Delete Methods
         public void Add(Insured insured)
         {

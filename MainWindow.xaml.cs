@@ -16,6 +16,7 @@ using BVCareManager.Models;
 using BVCareManager.ViewModels;
 using BVCareManager.Repository;
 using BVCareManager.Controls;
+using BVCareManager.Converter;
 
 namespace BVCareManager
 {
@@ -27,10 +28,12 @@ namespace BVCareManager
     {
         List<string> Results = new List<string>();
         object createNewGroupBoxViewModel;
+        object searchAndModifyViewModel;
         public MainWindow()
         {
             InitializeComponent();
             CreateNewListBox.SelectedIndex = 0;
+            ComboBoxSearchCategory.SelectedIndex = 0;
         }
 
         private void CreateNewListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -64,24 +67,26 @@ namespace BVCareManager
 
         private void ButtonSearch_Click(object sender, RoutedEventArgs e)
         {
-            DockPanelSearchResult.Children.Clear();
+            ModifyDockPanel.Children.Clear();
             int searchCategory = ComboBoxSearchCategory.SelectedIndex;
 
             switch (searchCategory)
             {
                 case 0:
-                    DockPanelSearchResult.Children.Add(new ListViewInsured());
+                    ModifyDockPanel.Children.Add(new InsuredModify());
+                    searchAndModifyViewModel = new ModifyInsuredViewModel();
                     break;
 
                 case 1:
-                    DockPanelSearchResult.Children.Add(new ListViewPolicy());
+
                     break;
 
                 case 2:
-                    DockPanelSearchResult.Children.Add(new ListViewContract());
+
                     break;
             }
-        }
 
+            ModifyDockPanel.DataContext = searchAndModifyViewModel;
+        }
     }
 }

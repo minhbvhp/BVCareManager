@@ -6,75 +6,108 @@
              xmlns:local="clr-namespace:BVCareManager.Controls"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="600" d:DesignWidth="800">
     <Grid>
-        <materialDesign:Flipper Style="{StaticResource MaterialDesignCardFlipper}">
-            <materialDesign:Flipper.FrontContent>
-                <Grid Height="256" Width="200">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="150"/>
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-                    <materialDesign:ColorZone Mode="PrimaryLight" VerticalAlignment="Stretch">
-                        <materialDesign:PackIcon Kind="Account" Height="128" Width="128" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                    </materialDesign:ColorZone>
-                    <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <TextBlock HorizontalAlignment="Center">                                                
-                            <Run Text="{Binding Name}"></Run>
-                        </TextBlock>
-                        <Button Style="{StaticResource MaterialDesignFlatButton}" 
-                            Command="{x:Static materialDesign:Flipper.FlipCommand}" Margin="0 4 0 0">
-                            SỬA
-                        </Button>
-                    </StackPanel>
-                </Grid>
-            </materialDesign:Flipper.FrontContent>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="8*"/>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
 
-            <materialDesign:Flipper.BackContent>
-                <Grid Height="256" Width="200">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-                    
-                    <materialDesign:ColorZone Mode="SecondaryMid" Padding="6">
-                        <StackPanel Orientation="Horizontal">
-                            <Button Style="{StaticResource MaterialDesignToolForegroundButton}" 
-                                Command="{x:Static materialDesign:Flipper.FlipCommand}" HorizontalAlignment="Left">
-                                <materialDesign:PackIcon Kind="ArrowLeft" HorizontalAlignment="Right" />
-                            </Button>
-                            <TextBlock Margin="8 0 0 0" VerticalAlignment="Center">
-                                SỬA
-                            </TextBlock>
-                        </StackPanel>
-                    </materialDesign:ColorZone>
-                    
-                    <Grid Grid.Row="1" Margin="0 6 0 0" HorizontalAlignment="Center" VerticalAlignment="Top" Width="172">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Column="0" Margin="0 0 100 0">
+            <DataGrid ItemsSource="{Binding ListInsureds}" AutoGenerateColumns="False" 
+                  IsReadOnly="True" ClipboardCopyMode="None" ColumnWidth="*">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding Id}">
+                        <DataGridTextColumn.Header>
+                            <TextBlock Text="Số CCCD" TextWrapping="Wrap"/>
+                        </DataGridTextColumn.Header>
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn Binding="{Binding Name}">
+                        <DataGridTextColumn.Header>
+                            <TextBlock Text="Họ tên" TextWrapping="Wrap"/>
+                        </DataGridTextColumn.Header>
+                    </DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+
+        <StackPanel Grid.Column="1" Margin="0 50 0 0">
+            <materialDesign:Flipper Style="{StaticResource MaterialDesignCardFlipper}">
+                <materialDesign:Flipper.FrontContent>
+                    <Grid Height="256" Width="200">
                         <Grid.RowDefinitions>
-                            <RowDefinition />
-                            <RowDefinition />
-                            <RowDefinition />
-                            <RowDefinition />
+                            <RowDefinition Height="150"/>
+                            <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
-                        <TextBox materialDesign:HintAssist.Hint="Số CCCD"
-                                 materialDesign:HintAssist.IsFloating="True" Margin="0 12 0 0">
-                            0123456789
-                        </TextBox>
-                        <TextBox Grid.Row="1" materialDesign:HintAssist.Hint="Họ tên" 
-                                 materialDesign:HintAssist.IsFloating="True" Margin="0 12 0 0">
-                            Trần Khoa Minh
-                        </TextBox>
+                        <materialDesign:ColorZone Mode="PrimaryLight" VerticalAlignment="Stretch">
+                            <materialDesign:PackIcon Kind="Account" Height="128" Width="128" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                        </materialDesign:ColorZone>
+                        <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <TextBlock HorizontalAlignment="Center">                                                
+                            <Run Text="{Binding Name}"></Run>
+                            </TextBlock>
+                            <Button Style="{StaticResource MaterialDesignFlatButton}" 
+                            Command="{x:Static materialDesign:Flipper.FlipCommand}" Margin="0 4 0 0">
+                                SỬA
+                            </Button>
+                        </StackPanel>
                     </Grid>
+                </materialDesign:Flipper.FrontContent>
 
-                    <DockPanel Grid.Row="2">
-                        <Button Style="{StaticResource MaterialDesignFlatButton}" 
+                <materialDesign:Flipper.BackContent>
+                    <Grid Height="256" Width="200">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+
+                        <materialDesign:ColorZone Mode="SecondaryMid" Padding="6">
+                            <StackPanel Orientation="Horizontal">
+                                <Button Style="{StaticResource MaterialDesignToolForegroundButton}" 
+                                Command="{x:Static materialDesign:Flipper.FlipCommand}" HorizontalAlignment="Left">
+                                    <materialDesign:PackIcon Kind="ArrowLeft" HorizontalAlignment="Right" />
+                                </Button>
+                                <TextBlock Margin="8 0 0 0" VerticalAlignment="Center">
+                                SỬA
+                                </TextBlock>
+                            </StackPanel>
+                        </materialDesign:ColorZone>
+
+                        <Grid Grid.Row="1" Margin="0 6 0 0" HorizontalAlignment="Center" VerticalAlignment="Top" Width="172">
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <TextBox materialDesign:HintAssist.Hint="Số CCCD"
+                                 materialDesign:HintAssist.IsFloating="True" Margin="0 12 0 0">
+                                0123456789
+                            </TextBox>
+                            <TextBox Grid.Row="1" materialDesign:HintAssist.Hint="Họ tên" 
+                                 materialDesign:HintAssist.IsFloating="True" Margin="0 12 0 0">
+                                Trần Khoa Minh
+                            </TextBox>
+                        </Grid>
+
+                        <DockPanel Grid.Row="2">
+                            <Button Style="{StaticResource MaterialDesignFlatButton}" 
                             Command="{x:Static materialDesign:Flipper.FlipCommand}" Margin="0 0 0 0">
-                            ĐỒNG Ý
-                        </Button>
-                    </DockPanel>
-                </Grid>
-            </materialDesign:Flipper.BackContent>
-        </materialDesign:Flipper>
+                                ĐỒNG Ý
+                            </Button>
+                        </DockPanel>
+                    </Grid>
+                </materialDesign:Flipper.BackContent>
+            </materialDesign:Flipper>
+        </StackPanel >
+
     </Grid>
 </UserControl>
