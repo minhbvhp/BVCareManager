@@ -69,12 +69,13 @@ namespace BVCareManager
         {
             ModifyDockPanel.Children.Clear();
             int searchCategory = ComboBoxSearchCategory.SelectedIndex;
+            string searchText = SearchTextBox.Text;
 
             switch (searchCategory)
             {
                 case 0:
                     ModifyDockPanel.Children.Add(new InsuredModify());
-                    searchAndModifyViewModel = new ModifyInsuredViewModel();
+                    searchAndModifyViewModel = new ModifyInsuredViewModel(searchText);
                     break;
 
                 case 1:

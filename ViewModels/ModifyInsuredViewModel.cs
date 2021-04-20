@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
 
 namespace BVCareManager.ViewModels
 {
@@ -17,8 +16,8 @@ namespace BVCareManager.ViewModels
         {
             get
             {
-                string insuredSearchText = base._searchText;
-                if (insuredSearchText != null)
+                string insuredSearchText = SearchText;
+                if (!String.IsNullOrEmpty(insuredSearchText))
                 {
                     return insuredRepository.SearchInsureds(insuredSearchText);
                 }
@@ -28,6 +27,11 @@ namespace BVCareManager.ViewModels
                 }
 
             }
+        }
+
+        public ModifyInsuredViewModel(string searchText)
+        {
+            this.SearchText = searchText;
         }
 
     }

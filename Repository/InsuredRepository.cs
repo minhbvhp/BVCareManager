@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BVCareManager.Models;
+using BVCareManager.Converter;
 
 namespace BVCareManager.Repository
 {
@@ -24,7 +25,7 @@ namespace BVCareManager.Repository
 
         public IQueryable<Insured> SearchInsureds(string inputText)
         {
-            return db.Insureds.Where(insured => insured.Id == "1");
+            return db.Insureds.Where(insured => insured.Name.Contains(inputText));
         }
 
         //Insert/Delete Methods
