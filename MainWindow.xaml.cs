@@ -26,7 +26,6 @@ namespace BVCareManager
     /// 
     public partial class MainWindow : Window
     {
-        List<string> Results = new List<string>();
         object createNewGroupBoxViewModel;
         object searchAndModifyViewModel;
         public MainWindow()

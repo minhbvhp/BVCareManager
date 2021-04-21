@@ -58,7 +58,6 @@
                                   Style="{DynamicResource MaterialDesignGroupBox}" Margin="32"
                                   materialDesign:ColorZoneAssist.Mode="SecondaryMid">
                             <ListBox x:Name="CreateNewListBox" 
-                                     IsEnabled="{Binding IsChecked, ElementName=EnableListBox}"
                                      SelectionChanged="CreateNewListBox_SelectionChanged">
                                 <TextBlock>Nhân viên</TextBlock>
                                 <TextBlock>Hợp đồng</TextBlock>

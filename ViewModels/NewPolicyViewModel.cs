@@ -176,20 +176,23 @@ namespace BVCareManager.ViewModels
                 }
 
                 Contract checkingContract = contractRepository.GetContract(this.SelectedContractId);
-                String fromDateContract = String.Format("{0:dd/MM/yyyy}", checkingContract.FromDate);
-                String toDateContract = String.Format("{0:dd/MM/yyyy}", checkingContract.ToDate);
 
-                string errorString = String.Format(
+                if (checkingContract != null)
+                {
+                    String fromDateContract = String.Format("{0:dd/MM/yyyy}", checkingContract.FromDate);
+                    String toDateContract = String.Format("{0:dd/MM/yyyy}", checkingContract.ToDate);
+                    string errorString = String.Format(
                         "Thời hạn của đơn bảo hiểm phải phù hợp thời hạn Hợp đồng ({0} - {1})",
                         fromDateContract, toDateContract);
 
-                if (!contractRepository.IsInForce(this.InputFromDate, this.InputToDate, checkingContract))
-                {
-                    UpdateResultAsync(Result.HasError, errorString);
-                }
-                else
-                {
-                    UpdateResultAsync(Result.ExcludeError, errorString);
+                    if (!contractRepository.IsInForce(this.InputFromDate, this.InputToDate, checkingContract))
+                    {
+                        UpdateResultAsync(Result.HasError, errorString);
+                    }
+                    else
+                    {
+                        UpdateResultAsync(Result.ExcludeError, errorString);
+                    }
                 }
 
 

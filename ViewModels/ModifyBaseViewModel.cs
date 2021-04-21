@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace BVCareManager.ViewModels
 {
@@ -17,5 +18,7 @@ namespace BVCareManager.ViewModels
         }
 
         public string SearchText {get; set;}
+
+        public ICommand ModifyCommand { get; set; }
     }
 }

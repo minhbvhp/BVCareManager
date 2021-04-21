@@ -96,7 +96,6 @@ namespace BVCareManager.ViewModels
                 }
             }, (p) =>
             {
-
                 Insured newInsured = new Insured();
                 newInsured.Id = this.InputId.Trim(' ');
                 newInsured.Name = this.InputName.Trim(' ');
