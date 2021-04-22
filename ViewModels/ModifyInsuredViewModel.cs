@@ -64,6 +64,9 @@ namespace BVCareManager.ViewModels
             {
                 insuredRepository.Delete(SelectedInsured);
                 insuredRepository.Save();
+
+                SelectedInsured = null;
+                
             });
         }
 

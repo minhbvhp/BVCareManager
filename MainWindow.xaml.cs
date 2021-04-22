@@ -31,6 +31,7 @@ namespace BVCareManager
         public MainWindow()
         {
             InitializeComponent();
+            MyTabs.SelectedIndex = 0;
             CreateNewListBox.SelectedIndex = 0;
             ComboBoxSearchCategory.SelectedIndex = 0;
         }
@@ -87,6 +88,25 @@ namespace BVCareManager
             }
 
             ModifyGrid.DataContext = searchAndModifyViewModel;
+        }
+
+        private void MyTabs_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            UpdateTabs();
+        }
+
+        private void UpdateTabs()
+        {
+            if (NewTab.IsSelected)
+            {
+                ModifyDockPanel.Children.Clear();
+                SearchTextBox.Text = String.Empty;
+            }
+            else if (ModifyTab.IsSelected)
+            {
+                CreateNewListBox.SelectedIndex = 0;
+                CreateNewGrid.DataContext = new NewInsuredViewModel();
+            }
         }
     }
 }

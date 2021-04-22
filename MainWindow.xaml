@@ -30,12 +30,12 @@
         <controls:TopControlBar/>
 
         <Grid Margin="0, 60, 0, 0">
-            <dragablz:TabablzControl>
+            <dragablz:TabablzControl x:Name="MyTabs" SelectionChanged="MyTabs_SelectionChanged">
                 <dragablz:TabablzControl.InterTabController>
                     <dragablz:InterTabController/>
                 </dragablz:TabablzControl.InterTabController>
 
-                <TabItem Header="TẠO MỚI">
+                <TabItem x:Name="NewTab" Header="TẠO MỚI">
                     <Grid x:Name="CreateNewGrid">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="5*"/>
@@ -72,7 +72,7 @@
                         <StackPanel Grid.Row="3" Grid.ColumnSpan="3" Grid.Column="0">
                             <TextBlock HorizontalAlignment="Left" Margin="30, 0, 0, 0"
                                        Style="{StaticResource SuccessStyle}"
-                                       Visibility="{Binding IsOk, Converter={StaticResource visibilityConverter}}">
+                                       Visibility="{Binding IsOk, Converter={StaticResource visibilityConverter}, FallbackValue=Collapsed}">
                                 <Run Text="√"/>
                                 <Run Text="{Binding Success, Mode=OneWay}"/>
                             </TextBlock>
@@ -112,7 +112,7 @@
                     </Grid>
                 </TabItem>
 
-                <TabItem Margin="50" Header="KHAI THÁC (SỬA)">
+                <TabItem x:Name="ModifyTab" Margin="50" Header="KHAI THÁC (SỬA)">
                     <Grid x:Name="ModifyGrid" Margin="25">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="2*"/>
@@ -166,11 +166,11 @@
                     </Grid>
                 </TabItem>
 
-                <TabItem Header="BỒI THƯỜNG">
+                <TabItem x:Name="ClaimTab" Header="BỒI THƯỜNG">
                     <TextBlock Text="Hello" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 </TabItem>
 
-                <TabItem Header="DOWNLOAD">
+                <TabItem x:Name="ReportTab" Header="BÁO CÁO">
                     <TextBlock Text="Hello" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 </TabItem>
                 
