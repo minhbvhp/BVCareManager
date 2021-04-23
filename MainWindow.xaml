@@ -31,9 +31,6 @@
 
         <Grid Margin="0, 60, 0, 0">
             <dragablz:TabablzControl x:Name="MyTabs" SelectionChanged="MyTabs_SelectionChanged">
-                <dragablz:TabablzControl.InterTabController>
-                    <dragablz:InterTabController/>
-                </dragablz:TabablzControl.InterTabController>
 
                 <TabItem x:Name="NewTab" Header="TẠO MỚI">
                     <Grid x:Name="CreateNewGrid">
@@ -95,8 +92,6 @@
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
                             </ListBox>
-
-                            
                         </StackPanel>
 
                         <Canvas Style="{x:Null}" Grid.Column="2" Grid.Row="3">
@@ -155,7 +150,7 @@
                                         Width="32" Height="32"
                                         Style="{StaticResource MaterialDesignFloatingActionDarkButton}"
                                         Click="ButtonSearch_Click">
-                                        
+
                                         <materialDesign:PackIcon Kind="Search" Height="24" Width="24"/>
                                     </Button>
                                 </StackPanel>
@@ -163,6 +158,34 @@
                         </DockPanel>
 
                         <DockPanel x:Name="ModifyDockPanel" Grid.RowSpan="2" Grid.Row="1" Grid.ColumnSpan="2"/>
+
+                        <StackPanel Grid.Row="2" Grid.ColumnSpan="2" Grid.Column="0">
+                            <TextBlock HorizontalAlignment="Left" Margin="30, 0, 0, 0"
+                                       Style="{StaticResource SuccessStyle}"
+                                       Visibility="{Binding IsOk, Converter={StaticResource visibilityConverter}, FallbackValue=Collapsed}">
+                                        <Run Text="√"/>
+                                        <Run Text="{Binding Success, Mode=OneWay}"/>
+                            </TextBlock>
+
+                            <ListBox HorizontalAlignment="Left" Margin="30, 0, 0, 0"
+                                     ItemsSource="{Binding ErrorsList, Mode=OneWay}"
+                                     Focusable="False"
+                                     IsEnabled="False">
+                                <ListBox.ItemContainerStyle>
+                                    <Style TargetType="ListBoxItem">
+                                        <Setter Property="Focusable" Value="False"/>
+                                    </Style>
+                                </ListBox.ItemContainerStyle>
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Style="{StaticResource NotificationStyle}">
+                                            <Run Text="*"/>
+                                            <Run Text="{Binding Mode=OneWay}"/>
+                                        </TextBlock>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </StackPanel>
                     </Grid>
                 </TabItem>
 

@@ -88,6 +88,9 @@ namespace BVCareManager
             }
 
             ModifyGrid.DataContext = searchAndModifyViewModel;
+
+            CreateNewListBox.SelectedIndex = 0;
+            CreateNewGrid.DataContext = new NewInsuredViewModel();
         }
 
         private void MyTabs_SelectionChanged(object sender, SelectionChangedEventArgs e)

@@ -39,11 +39,6 @@ namespace BVCareManager.Repository
             db.Insureds.DeleteOnSubmit(insured);
         }
 
-        public void Modify(Insured insured)
-        {
-            
-        }
-
         public void Save()
         {
             db.SubmitChanges();

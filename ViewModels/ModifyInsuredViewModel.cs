@@ -1,7 +1,9 @@
-﻿using BVCareManager.Models;
+﻿using BVCareManager.Converter;
+using BVCareManager.Models;
 using BVCareManager.Repository;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,36 +38,60 @@ namespace BVCareManager.ViewModels
                 OnPropertyChanged("IsInsuredSelected");
             }
         }
-        public IEnumerable<Insured> ListInsureds
+
+        private IEnumerable<Insured> _listInsureds;
+        public ObservableCollection<Insured> ListInsureds
         {
             get
             {
                 string insuredSearchText = SearchText;
                 if (!String.IsNullOrEmpty(insuredSearchText))
                 {
-                    return insuredRepository.SearchInsureds(insuredSearchText);
+                    _listInsureds = insuredRepository.SearchInsureds(insuredSearchText);
                 }
                 else
                 {
-                    return insuredRepository.FindAllInsureds();
+                    _listInsureds = insuredRepository.FindAllInsureds();
                 }
+
+                return new ObservableCollection<Insured>(_listInsureds);
 
             }
         }
 
         public ModifyInsuredViewModel(string searchText)
         {
+            _errorsList.Clear();
             this.SearchText = searchText;
 
             ModifyCommand = new RelayCommand<object>((p) =>
             {
-                return true;
+                if (string.IsNullOrEmpty(SelectedInsured.Name))
+                    return false;
+
+                if (SelectedInsured.Name.Length > 30)
+                {
+                    UpdateResultAsync(Result.HasError, "Độ dài tối đa của Họ tên nhân viên là 50 ký tự");
+                }
+                else
+                {
+                    UpdateResultAsync(Result.ExcludeError, "Độ dài tối đa của Họ tên nhân viên là 50 ký tự");
+                }
+
+                if (_errorsList.Count > 0)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
             }, (p) =>
             {
-                insuredRepository.Delete(SelectedInsured);
                 insuredRepository.Save();
 
                 SelectedInsured = null;
+                OnPropertyChanged("ListInsureds");
                 
             });
         }
