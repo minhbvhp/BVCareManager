@@ -22,21 +22,23 @@
             </GroupBox.HeaderTemplate>
 
             <StackPanel>
-                <TextBox Margin="20" materialDesign:HintAssist.Hint="Số CMT/CCCD"
-                         Style="{StaticResource EmptyTextboxStyle}">
-                    <TextBox.Text>
-                        <Binding Path="InputId" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
-                        </Binding>
-                    </TextBox.Text>
-                </TextBox>
+                <StackPanel.Style>
+                    <Style>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsStartOver, UpdateSourceTrigger=PropertyChanged}" Value="True">
+                                <Setter Property="FocusManager.FocusedElement" Value="{Binding ElementName=InsuredIdTextBox}"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </StackPanel.Style>
+                
+                <TextBox x:Name="InsuredIdTextBox" Margin="20" materialDesign:HintAssist.Hint="Số CMT/CCCD"
+                         Style="{StaticResource EmptyTextboxStyle}"
+                         Text="{Binding InputId, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
 
                 <TextBox Margin="20" materialDesign:HintAssist.Hint="Họ tên"
-                         Style="{StaticResource EmptyTextboxStyle}">
-                    <TextBox.Text>
-                        <Binding Path="InputName" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
-                        </Binding>
-                    </TextBox.Text>
-                </TextBox>
+                         Style="{StaticResource EmptyTextboxStyle}"
+                         Text="{Binding InputName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
             </StackPanel>
         </GroupBox>
     </Grid>

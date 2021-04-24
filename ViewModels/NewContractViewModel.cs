@@ -156,6 +156,10 @@ namespace BVCareManager.ViewModels
                 InputToDate = defaultToDate;
                 InputAnnualPremiumPerInsured = 0;
 
+                IsStartOver = true;
+                OnPropertyChanged("IsStartOver");
+                IsStartOver = false;
+
             });
         }
 

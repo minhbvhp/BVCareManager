@@ -108,6 +108,9 @@ namespace BVCareManager.ViewModels
                 InputId = null;
                 InputName = null;
 
+                IsStartOver = true;
+                OnPropertyChanged("IsStartOver");
+                IsStartOver = false;
             });
         }
     }

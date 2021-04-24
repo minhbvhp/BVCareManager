@@ -20,7 +20,7 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Column="0" Margin="0 0 100 0">
-            <DataGrid x:Name="InsuredsResultDataGrid" ItemsSource="{Binding ListInsureds, Mode=OneWay}" AutoGenerateColumns="False" 
+            <DataGrid x:Name="InsuredsResultDataGrid" ItemsSource="{Binding ListInsureds}" AutoGenerateColumns="False" 
                       IsReadOnly="True" ClipboardCopyMode="None" ColumnWidth="*" HeadersVisibility="All"
                       LoadingRow="InsuredsResultDataGrid_LoadingRow" SelectedItem="{Binding SelectedInsured}">
                 <DataGrid.Columns>
@@ -51,7 +51,20 @@
                     </Grid.RowDefinitions>
 
                     <materialDesign:ColorZone Mode="PrimaryLight" VerticalAlignment="Stretch">
-                        <materialDesign:PackIcon Kind="Account" Height="128" Width="128" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                        <StackPanel Margin="5">
+                            <Canvas Style="{x:Null}">
+                                <Button Height="25" Width="30" Canvas.Right="0" Canvas.Top="0"
+                                        ToolTip="Xóa"
+                                        Style="{StaticResource MaterialDesignIconForegroundButton}"
+                                        Command="{Binding DeleteCommand}">
+                                    <materialDesign:PackIcon Kind="Delete" Height="20" Width="20" Foreground="IndianRed"/>
+                                </Button>
+                            </Canvas>
+
+                            <materialDesign:PackIcon Kind="Account" Height="128" Width="128" 
+                                                 VerticalAlignment="Center" HorizontalAlignment="Center" />
+                        </StackPanel>
+                        
                     </materialDesign:ColorZone>
 
                     <StackPanel Grid.Row="1" Margin="20" VerticalAlignment="Top">
@@ -65,11 +78,11 @@
                                  materialDesign:HintAssist.Hint="Họ tên"
                                  materialDesign:HintAssist.IsFloating="True" 
                                  Margin="0 20 0 0"
-                                 Text="{Binding SelectedInsured.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                 Text="{Binding OnModifyingInsuredName, Mode=TwoWay}"/>
                     </StackPanel>
 
                     <Button Width="80" Grid.Row="2" Style="{StaticResource MaterialDesignFlatButton}" 
-                        Command="{Binding ModifyCommand}" IsDefault="True">
+                        Command="{Binding ModifyCommand}">
                         SỬA
                     </Button>
                 </Grid>

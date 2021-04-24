@@ -26,16 +26,22 @@
             </GroupBox.HeaderTemplate>
 
             <StackPanel>
-                <TextBox Style="{StaticResource EmptyTextboxStyle}" Margin="20"
+                <StackPanel.Style>
+                    <Style>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsStartOver, UpdateSourceTrigger=PropertyChanged}" Value="True">
+                                <Setter Property="FocusManager.FocusedElement" Value="{Binding ElementName=PolicyNumberTextBox}"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </StackPanel.Style>
+
+                <TextBox x:Name="PolicyNumberTextBox" Style="{StaticResource EmptyTextboxStyle}" Margin="20"
                          materialDesign:HintAssist.Hint="Số đơn" 
                          PreviewTextInput="TextBox_PreviewTextInput"
-                         PreviewKeyDown="TextBox_PreviewKeyDown">
-                    <TextBox.Text>
-                        <Binding Path="InputNumber" UpdateSourceTrigger="PropertyChanged" 
-                                 Mode="TwoWay"
-                                 Converter="{StaticResource NumberFormatConverter}"/>
-                    </TextBox.Text>
-                </TextBox>
+                         PreviewKeyDown="TextBox_PreviewKeyDown"
+                         Text="{Binding InputNumber, UpdateSourceTrigger=PropertyChanged, 
+                         Mode=TwoWay, Converter={StaticResource NumberFormatConverter}}"/>
 
                 <ComboBox Style="{StaticResource EmptyComboBoxStyle}"
                           Margin="20" materialDesign:HintAssist.Hint="Số hợp đồng"
@@ -48,22 +54,12 @@
                           SelectedItem="{Binding SelectedInsuredId, Mode=TwoWay}"/>
 
                 <DatePicker Style="{StaticResource EmptyDatePickerStyle}"
-                            Margin="20" materialDesign:HintAssist.Hint="Từ ngày">
-                    <DatePicker.SelectedDate>
-                        <Binding Path="InputFromDate"
-                                 UpdateSourceTrigger="PropertyChanged" 
-                                 Mode="TwoWay"/>
-                    </DatePicker.SelectedDate>
-                </DatePicker>
+                            Margin="20" materialDesign:HintAssist.Hint="Từ ngày"
+                            SelectedDate="{Binding InputFromDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
 
                 <DatePicker Style="{StaticResource EmptyDatePickerStyle}"
-                            Margin="20" materialDesign:HintAssist.Hint="Đến ngày">
-                    <DatePicker.SelectedDate>
-                        <Binding Path="InputToDate" 
-                                 UpdateSourceTrigger="PropertyChanged"
-                                 Mode="TwoWay"/>
-                    </DatePicker.SelectedDate>
-                </DatePicker>
+                            Margin="20" materialDesign:HintAssist.Hint="Đến ngày"
+                            SelectedDate="{Binding InputToDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
 
             </StackPanel>
         </GroupBox>

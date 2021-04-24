@@ -35,9 +35,21 @@ namespace BVCareManager.ViewModels
             set 
             {
                 SetProperty(ref _selectedInsured, value);
+
+                if (value != null)
+                {
+                    OnModifyingInsuredName = value.Name;
+                }
+                else
+                {
+                    OnModifyingInsuredName = String.Empty;
+                }
+
                 OnPropertyChanged("IsInsuredSelected");
+                OnPropertyChanged("OnModifyingInsuredName");
             }
         }
+        public string OnModifyingInsuredName {get; set;}
 
         private IEnumerable<Insured> _listInsureds;
         public ObservableCollection<Insured> ListInsureds
@@ -66,10 +78,13 @@ namespace BVCareManager.ViewModels
 
             ModifyCommand = new RelayCommand<object>((p) =>
             {
-                if (string.IsNullOrEmpty(SelectedInsured.Name))
+                if (SelectedInsured == null)
                     return false;
 
-                if (SelectedInsured.Name.Length > 30)
+                if (string.IsNullOrEmpty(OnModifyingInsuredName))
+                    return false;
+
+                if (OnModifyingInsuredName.Length > 30)
                 {
                     UpdateResultAsync(Result.HasError, "Độ dài tối đa của Họ tên nhân viên là 50 ký tự");
                 }
@@ -88,11 +103,28 @@ namespace BVCareManager.ViewModels
                 }
             }, (p) =>
             {
+                SelectedInsured.Name = OnModifyingInsuredName;
                 insuredRepository.Save();
 
                 SelectedInsured = null;
                 OnPropertyChanged("ListInsureds");
                 
+            });
+
+            DeleteCommand = new RelayCommand<object>((p) =>
+            {
+                if (SelectedInsured == null)
+                    return false;
+
+                    return true;
+            }, (p) =>
+            {
+                insuredRepository.Delete(SelectedInsured);
+                insuredRepository.Save();
+
+                SelectedInsured = null;
+                OnPropertyChanged("ListInsureds");
+
             });
         }
 

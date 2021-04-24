@@ -244,6 +244,9 @@ namespace BVCareManager.ViewModels
                 InputFromDate = defaultFromDate;
                 InputToDate = defaultToDate;
 
+                IsStartOver = true;
+                OnPropertyChanged("IsStartOver");
+                IsStartOver = false;
             });
         }
     }

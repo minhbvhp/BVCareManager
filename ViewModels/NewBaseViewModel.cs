@@ -12,6 +12,17 @@ namespace BVCareManager.ViewModels
 {
     class NewBaseViewModel : BaseViewModel
     {
+        private bool _isStartOver;
+        public bool IsStartOver {
+            get
+            {
+                return _isStartOver;
+            }
+            set 
+            {
+                SetProperty(ref _isStartOver, value);
+            }
+        }
         protected bool _isOk;
 
         protected async void UpdateResultAsync(Result result, string errorMessage = null)

@@ -22,6 +22,7 @@ namespace BVCareManager.ViewModels
         public string SearchText {get; set;}
 
         public ICommand ModifyCommand { get; set; }
+        public ICommand DeleteCommand { get; set; }
 
         protected bool _isOk;
 
