@@ -10,7 +10,7 @@ using System.Windows;
 [assembly: AssemblyTitle("BVCareManager")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Microsoft")]
+[assembly: AssemblyCompany("Bảo Việt Hải Phòng")]
 [assembly: AssemblyProduct("BVCareManager")]
 [assembly: AssemblyCopyright("Copyright © Microsoft 2021")]
 [assembly: AssemblyTrademark("")]
