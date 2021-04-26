@@ -238,6 +238,7 @@ namespace BVCareManager.ViewModels
                 policyRepository.Add(newPolicy);
                 policyRepository.Save();
 
+                Success = "Đã tạo đơn bảo hiểm";
                 UpdateResultAsync(Result.Successful);
 
                 InputNumber = 0;

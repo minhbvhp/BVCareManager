@@ -103,6 +103,7 @@ namespace BVCareManager.ViewModels
                 insuredRepository.Add(newInsured);
                 insuredRepository.Save();
 
+                Success = "Đã tạo nhân viên";
                 UpdateResultAsync(Result.Successful);
 
                 InputId = null;

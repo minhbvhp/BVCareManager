@@ -39,55 +39,96 @@
             </DataGrid>
         </StackPanel>
 
-        <StackPanel Grid.Column="1" Margin="0 35 0 0" 
+        <materialDesign:DialogHost Grid.Column="1"
+                                   Margin="0 35 0 0" Height="Auto" Width="200" VerticalAlignment="Top"
                     Visibility="{Binding IsInsuredSelected, Converter={StaticResource BooleanToVisibilityConverter}}">
-
-            <materialDesign:Card>
-                <Grid Height="350" Width="200">
+            
+            <materialDesign:DialogHost.DialogContent>
+                <Grid Height="200" Width="150" Margin="8">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="150"/>
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="50" />
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="40"/>
                     </Grid.RowDefinitions>
 
-                    <materialDesign:ColorZone Mode="PrimaryLight" VerticalAlignment="Stretch">
-                        <StackPanel Margin="5">
-                            <Canvas Style="{x:Null}">
-                                <Button Height="25" Width="30" Canvas.Right="0" Canvas.Top="0"
-                                        ToolTip="Xóa"
-                                        Style="{StaticResource MaterialDesignIconForegroundButton}"
-                                        Command="{Binding DeleteCommand}">
-                                    <materialDesign:PackIcon Kind="Delete" Height="20" Width="20" Foreground="IndianRed"/>
-                                </Button>
-                            </Canvas>
-
-                            <materialDesign:PackIcon Kind="Account" Height="128" Width="128" 
-                                                 VerticalAlignment="Center" HorizontalAlignment="Center" />
-                        </StackPanel>
+                    <StackPanel VerticalAlignment="Center">
+                        <materialDesign:PackIcon HorizontalAlignment="Center" Margin="0 0 0 5"
+                                                 Kind="Warning" Height="40" Width="40" Foreground="Red"/>
                         
-                    </materialDesign:ColorZone>
+                        <TextBlock Grid.Row="1" HorizontalAlignment="Center" 
+                                   TextWrapping="Wrap" TextAlignment="Justify" Foreground="Red"
+                                   Text="Toàn bộ Đơn bảo hiểm liên quan đến nhân viên này sẽ bị xóa."/>
+                    </StackPanel>
 
-                    <StackPanel Grid.Row="1" Margin="20" VerticalAlignment="Top">
-                        <TextBox materialDesign:HintAssist.Hint="Số CCCD"
+                    <TextBlock Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center"
+                               TextAlignment="Justify" FontWeight="Bold" FontSize="14"
+                               Text="Chắc chắn xóa chứ ?"/>
+
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Button Grid.Column="0" Width="60"
+                                Style="{StaticResource MaterialDesignFlatButton}" Content="OK"/>
+
+                        <Button Grid.Column="1" Width="Auto"
+                                Style="{StaticResource MaterialDesignFlatButton}" Content="Cancel" 
+                                Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" IsCancel="True"/>
+                    </Grid>
+                </Grid>
+            </materialDesign:DialogHost.DialogContent>
+
+            <StackPanel>
+                <materialDesign:Card>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="150"/>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="50" />
+                        </Grid.RowDefinitions>
+
+                        <materialDesign:ColorZone Mode="PrimaryLight" VerticalAlignment="Stretch">
+                            <StackPanel Margin="5">
+                                <Canvas Style="{x:Null}">
+                                    <Button Height="25" Width="30" Canvas.Right="0" Canvas.Top="0"
+                                    ToolTip="Xóa"
+                                    Style="{StaticResource MaterialDesignIconForegroundButton}"
+                                    Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}">
+                                        <materialDesign:PackIcon Kind="Delete" Height="20" Width="20" Foreground="IndianRed"/>
+                                    </Button>
+                                </Canvas>
+
+                                <materialDesign:PackIcon Kind="Account" Height="128" Width="128" Margin="0 10 0 0"
+                                            VerticalAlignment="Center" HorizontalAlignment="Center" />
+
+                            </StackPanel>
+                        </materialDesign:ColorZone>
+
+                        <StackPanel Grid.Row="1" Margin="20" VerticalAlignment="Top">
+                            <TextBox materialDesign:HintAssist.Hint="Số CCCD"
                                  materialDesign:HintAssist.IsFloating="True"
                                  Margin="0 10 0 0"
                                  Text="{Binding SelectedInsured.Id, Mode=OneWay}"
                                  IsEnabled="False"/>
 
-                        <TextBox Style="{StaticResource EmptyTextboxStyle}"
+                            <TextBox Style="{StaticResource EmptyTextboxStyle}"
                                  materialDesign:HintAssist.Hint="Họ tên"
                                  materialDesign:HintAssist.IsFloating="True" 
                                  Margin="0 20 0 0"
                                  Text="{Binding OnModifyingInsuredName, Mode=TwoWay}"/>
-                    </StackPanel>
+                        </StackPanel>
 
-                    <Button Width="80" Grid.Row="2" Style="{StaticResource MaterialDesignFlatButton}" 
+                        <Button Width="80" Grid.Row="2" Style="{StaticResource MaterialDesignFlatButton}" 
                         Command="{Binding ModifyCommand}">
-                        SỬA
-                    </Button>
-                </Grid>
-            </materialDesign:Card>
-        </StackPanel >
+                            SỬA
+                        </Button>
+                    </Grid>
+                </materialDesign:Card>
+            </StackPanel >
+
+        </materialDesign:DialogHost>
 
     </Grid>
 </UserControl>

@@ -149,6 +149,7 @@ namespace BVCareManager.ViewModels
                 contractRepository.Add(newContract);
                 contractRepository.Save();
 
+                Success = "Đã tạo hợp đồng";
                 UpdateResultAsync(Result.Successful);
 
                 InputId = null;

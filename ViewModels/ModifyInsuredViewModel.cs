@@ -106,6 +106,9 @@ namespace BVCareManager.ViewModels
                 SelectedInsured.Name = OnModifyingInsuredName;
                 insuredRepository.Save();
 
+                Success = "Đã sửa thông tin nhân viên";
+                UpdateResultAsync(Result.Successful);
+
                 SelectedInsured = null;
                 OnPropertyChanged("ListInsureds");
                 
@@ -121,6 +124,9 @@ namespace BVCareManager.ViewModels
             {
                 insuredRepository.Delete(SelectedInsured);
                 insuredRepository.Save();
+
+                Success = "Đã xóa nhân viên";
+                UpdateResultAsync(Result.Successful);
 
                 SelectedInsured = null;
                 OnPropertyChanged("ListInsureds");

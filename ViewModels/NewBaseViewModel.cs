@@ -23,63 +23,6 @@ namespace BVCareManager.ViewModels
                 SetProperty(ref _isStartOver, value);
             }
         }
-        protected bool _isOk;
-
-        protected async void UpdateResultAsync(Result result, string errorMessage = null)
-        {
-            if (result == Result.Successful)
-            {
-                _isOk = true;
-
-            }
-            else if (result == Result.HasError)
-            {
-                if (!_errorsList.Contains(errorMessage))
-                    _errorsList.Add(errorMessage);
-
-                _isOk = false;
-
-            }
-            else if (result == Result.ExcludeError)
-            {
-                if (_errorsList.Contains(errorMessage))
-                    _errorsList.Remove(errorMessage);
-
-                _isOk = false;
-            }
-
-            OnPropertyChanged("IsOk");
-
-            if (IsOk)
-            {
-                await Task.Delay(3000);
-                IsOk = false;
-            }
-        }
-
-        public bool IsOk
-        {
-            get
-            {
-                return _isOk;
-            }
-            set
-            {
-                SetProperty(ref _isOk, value);
-            }
-
-        }
-
-        public string Success { get { return "Đã tạo thành công"; } }
-
-        protected ObservableCollection<string> _errorsList = new ObservableCollection<string>();
-        public ObservableCollection<string> ErrorsList
-        {
-            get
-            {
-                return _errorsList;
-            }
-        }
 
         public ICommand AddCommand { get; set; }
     }

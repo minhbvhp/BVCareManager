@@ -15,71 +15,15 @@ namespace BVCareManager.ViewModels
         {
             get
             {
-                return new List<String> { "Nhân viên", "Đơn bảo hiểm", "Hợp đồng"};
+                return new List<String> { "Nhân viên", "Đơn bảo hiểm", "Hợp đồng" };
             }
         }
 
-        public string SearchText {get; set;}
+        public string SearchText { get; set; }
 
         public ICommand ModifyCommand { get; set; }
         public ICommand DeleteCommand { get; set; }
 
-        protected bool _isOk;
-
-        protected async void UpdateResultAsync(Result result, string errorMessage = null)
-        {
-            if (result == Result.Successful)
-            {
-                _isOk = true;
-
-            }
-            else if (result == Result.HasError)
-            {
-                if (!_errorsList.Contains(errorMessage))
-                    _errorsList.Add(errorMessage);
-
-                _isOk = false;
-
-            }
-            else if (result == Result.ExcludeError)
-            {
-                if (_errorsList.Contains(errorMessage))
-                    _errorsList.Remove(errorMessage);
-
-                _isOk = false;
-            }
-
-            OnPropertyChanged("IsOk");
-
-            if (IsOk)
-            {
-                await Task.Delay(3000);
-                IsOk = false;
-            }
-        }
-
-        public bool IsOk
-        {
-            get
-            {
-                return _isOk;
-            }
-            set
-            {
-                SetProperty(ref _isOk, value);
-            }
-
-        }
-
-        public string Success { get { return "Đã sửa thành công"; } }
-
-        protected ObservableCollection<string> _errorsList = new ObservableCollection<string>();
-        public ObservableCollection<string> ErrorsList
-        {
-            get
-            {
-                return _errorsList;
-            }
-        }
+        
     }
 }

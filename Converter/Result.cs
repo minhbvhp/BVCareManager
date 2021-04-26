@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BVCareManager.Converter
 {
-    enum Result
+    public enum Result
     {
         Successful,
         HasError,
