@@ -153,7 +153,6 @@
     <Compile Include="ViewModels\NewBaseViewModel.cs" />
     <Compile Include="ViewModels\NewContractViewModel.cs" />
     <Compile Include="ViewModels\NewInsuredViewModel.cs" />
-    <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\NewPolicyViewModel.cs" />
     <Compile Include="Converter\Result.cs" />
     <Page Include="Controls\ContractNew.xaml">
