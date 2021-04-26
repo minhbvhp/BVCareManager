@@ -21,6 +21,19 @@ namespace BVCareManager.ViewModels
 
         public string SearchText { get; set; }
 
+        private bool _isModifyDialogOpen;
+        public bool IsModifyDialogOpen
+        {
+            get
+            {
+                return _isModifyDialogOpen;
+            }
+            set
+            {
+                SetProperty(ref _isModifyDialogOpen, value);
+            }
+        }
+
         public ICommand ModifyCommand { get; set; }
         public ICommand DeleteCommand { get; set; }
 

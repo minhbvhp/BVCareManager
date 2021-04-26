@@ -190,7 +190,7 @@
                 </TabItem>
 
                 <TabItem x:Name="ClaimTab" Header="BỒI THƯỜNG">
-                    <TextBlock Text="Hello" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    
                 </TabItem>
 
                 <TabItem x:Name="ReportTab" Header="BÁO CÁO">

@@ -39,7 +39,7 @@
             </DataGrid>
         </StackPanel>
 
-        <materialDesign:DialogHost Grid.Column="1"
+        <materialDesign:DialogHost Grid.Column="1" IsOpen="{Binding IsModifyDialogOpen}"
                                    Margin="0 35 0 0" Height="Auto" Width="200" VerticalAlignment="Top"
                     Visibility="{Binding IsInsuredSelected, Converter={StaticResource BooleanToVisibilityConverter}}">
             
@@ -71,10 +71,13 @@
                         </Grid.ColumnDefinitions>
 
                         <Button Grid.Column="0" Width="60"
-                                Style="{StaticResource MaterialDesignFlatButton}" Content="OK"/>
+                                Background="{StaticResource SecondaryDeleteBrush}"
+                                BorderBrush="{StaticResource SecondaryDeleteBrush}"                          
+                                Content="Xóa"
+                                Command="{Binding DeleteCommand}"/>
 
                         <Button Grid.Column="1" Width="Auto"
-                                Style="{StaticResource MaterialDesignFlatButton}" Content="Cancel" 
+                                Style="{StaticResource MaterialDesignRaisedLightButton}" Content="Giữ" 
                                 Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" IsCancel="True"/>
                     </Grid>
                 </Grid>
@@ -96,7 +99,8 @@
                                     ToolTip="Xóa"
                                     Style="{StaticResource MaterialDesignIconForegroundButton}"
                                     Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}">
-                                        <materialDesign:PackIcon Kind="Delete" Height="20" Width="20" Foreground="IndianRed"/>
+                                        <materialDesign:PackIcon Kind="Delete" Height="20" Width="20" 
+                                                                 Foreground="{StaticResource SecondaryDeleteBrush}"/>
                                     </Button>
                                 </Canvas>
 
@@ -120,9 +124,9 @@
                                  Text="{Binding OnModifyingInsuredName, Mode=TwoWay}"/>
                         </StackPanel>
 
-                        <Button Width="80" Grid.Row="2" Style="{StaticResource MaterialDesignFlatButton}" 
+                        <Button Width="100" Grid.Row="2" Style="{StaticResource MaterialDesignFlatButton}" 
                         Command="{Binding ModifyCommand}">
-                            SỬA
+                            CẬP NHẬT
                         </Button>
                     </Grid>
                 </materialDesign:Card>

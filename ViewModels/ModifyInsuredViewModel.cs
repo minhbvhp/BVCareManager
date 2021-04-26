@@ -1,6 +1,7 @@
 ﻿using BVCareManager.Converter;
 using BVCareManager.Models;
 using BVCareManager.Repository;
+using MaterialDesignThemes.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -73,6 +74,7 @@ namespace BVCareManager.ViewModels
 
         public ModifyInsuredViewModel(string searchText)
         {
+            IsModifyDialogOpen = false;
             _errorsList.Clear();
             this.SearchText = searchText;
 
@@ -122,8 +124,10 @@ namespace BVCareManager.ViewModels
                     return true;
             }, (p) =>
             {
+                IsModifyDialogOpen = false;
+
                 insuredRepository.Delete(SelectedInsured);
-                insuredRepository.Save();
+                insuredRepository.Save();                
 
                 Success = "Đã xóa nhân viên";
                 UpdateResultAsync(Result.Successful);
