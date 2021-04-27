@@ -7,7 +7,7 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:converter="clr-namespace:BVCareManager.Converter"
              mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="800">
+             d:DesignHeight="800" d:DesignWidth="800">
     <UserControl.Resources>
         <converter:NumberFormatConverter x:Key="NumberFormatConverter"/>
     </UserControl.Resources>
@@ -21,7 +21,7 @@
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="5*"/>
+            <RowDefinition Height="7*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
@@ -50,18 +50,18 @@
                         </DataGridTextColumn.Header>
                     </DataGridTextColumn>
 
-                    <DataGridTextColumn Binding="{Binding TotalPremium, 
+                    <!--<DataGridTextColumn Binding="{Binding TotalPremium, 
                         Converter={StaticResource NumberFormatConverter}, ConverterParameter='N0', ConverterCulture='is-IS'}">
                         <DataGridTextColumn.Header>
                             <TextBlock Text="Tổng phí" TextWrapping="Wrap"/>
                         </DataGridTextColumn.Header>
-                    </DataGridTextColumn>
+                    </DataGridTextColumn>-->
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>
 
         <materialDesign:DialogHost Grid.Column="1" IsOpen="{Binding IsModifyDialogOpen}"
-                                   Margin="0 35 0 0" Height="Auto" Width="200" VerticalAlignment="Top"
+                                   Height="Auto" Width="200" VerticalAlignment="Top"
                     Visibility="{Binding IsContractSelected, Converter={StaticResource BooleanToVisibilityConverter}}">
 
             <materialDesign:DialogHost.DialogContent>
@@ -110,7 +110,7 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="150"/>
                             <RowDefinition Height="*" />
-                            <RowDefinition Height="50" />
+                            <RowDefinition Height="40" />
                         </Grid.RowDefinitions>
 
                         <materialDesign:ColorZone Mode="PrimaryLight" VerticalAlignment="Stretch">
@@ -134,33 +134,32 @@
                         <StackPanel Grid.Row="1" Margin="20" VerticalAlignment="Top">
                             <TextBox materialDesign:HintAssist.Hint="Số hợp đồng"
                                  materialDesign:HintAssist.IsFloating="True"
-                                 Margin="0 10 0 0"
                                  Text="{Binding SelectedContract.Id, Mode=OneWay}"
                                  IsEnabled="False"/>
 
                             <DatePicker Style="{StaticResource EmptyDatePickerStyle}"
                                  materialDesign:HintAssist.Hint="Từ ngày"
                                  materialDesign:HintAssist.IsFloating="True" 
-                                 Margin="0 20 0 0"
-                                 Text="{Binding OnModifyingContractFromDate, Mode=TwoWay}"/>
+                                 Margin="0 5 0 0"
+                                 SelectedDate="{Binding OnModifyingContractFromDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
 
                             <DatePicker Style="{StaticResource EmptyDatePickerStyle}"
                                  materialDesign:HintAssist.Hint="Đến ngày"
                                  materialDesign:HintAssist.IsFloating="True" 
-                                 Margin="0 20 0 0"
-                                 Text="{Binding OnModifyingContractToDate, Mode=TwoWay}"/>
+                                 Margin="0 5 0 0"
+                                 SelectedDate="{Binding OnModifyingContractToDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
 
                             <TextBox Style="{StaticResource EmptyTextboxStyle}"
                                      materialDesign:HintAssist.Hint="Phí bảo hiểm/người"
                                      materialDesign:HintAssist.IsFloating="True"
-                                     Margin="0 10 0 0"
+                                     Margin="0 5 0 0"
                                      Text="{Binding OnModifyingContractAnnualPremiumPerInsured, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,
-                                     Converter={StaticResource NumberFormatConverter}, ConverterParameter='N0', ConverterCulture='is-IS'}"
-                                     IsEnabled="False"/>
+                                     Converter={StaticResource NumberFormatConverter}, ConverterParameter='N0', ConverterCulture='is-IS'}"/>
                         </StackPanel>
 
-                        <Button Width="100" Grid.Row="2" Style="{StaticResource MaterialDesignFlatButton}" 
-                        Command="{Binding ModifyCommand}">
+                        <Button Width="100" Grid.Row="2" Margin="0 0 0 5"
+                                Style="{StaticResource MaterialDesignFlatButton}" 
+                                Command="{Binding ModifyCommand}">
                             CẬP NHẬT
                         </Button>
                     </Grid>

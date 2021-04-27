@@ -17,6 +17,11 @@ namespace BVCareManager.Repository
             return db.Contracts;
         }
 
+        public IQueryable<Contract> SearchContracts(string inputText)
+        {
+            return db.Contracts.Where(contract => contract.Id.Contains(inputText));
+        }
+
         public Contract GetContract(string id)
         {
             return db.Contracts.SingleOrDefault(contract => contract.Id == id);

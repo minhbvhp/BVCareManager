@@ -41,16 +41,24 @@ namespace BVCareManager.ViewModels
                 if (value != null)
                 {
                     OnModifyingContractFromDate = value.FromDate;
+                    OnModifyingContractToDate = value.ToDate;
+                    OnModifyingContractAnnualPremiumPerInsured = value.AnnualPremiumPerInsured;
                 }
                 else
                 {
                     OnModifyingContractFromDate = DateTime.Today;
+                    OnModifyingContractToDate = DateTime.Today;
+                    OnModifyingContractAnnualPremiumPerInsured = 0;
                 }
 
                 OnPropertyChanged("IsContractSelected");
-                OnPropertyChanged("OnModifyingContractName");
+                OnPropertyChanged("OnModifyingContractFromDate");
+                OnPropertyChanged("OnModifyingContractToDate");
+                OnPropertyChanged("OnModifyingContractAnnualPremiumPerInsured");
             }
         }
+
+        public int OnModifyingContractAnnualPremiumPerInsured { get; set; }
         public DateTime OnModifyingContractFromDate { get; set; }
         public DateTime OnModifyingContractToDate { get; set; }
 
@@ -62,11 +70,11 @@ namespace BVCareManager.ViewModels
                 string ContractSearchText = SearchText;
                 if (!String.IsNullOrEmpty(ContractSearchText))
                 {
-                    //_listContracts = ContractRepository.SearchContracts(ContractSearchText);
+                    _listContracts = contractRepository.SearchContracts(ContractSearchText);
                 }
                 else
                 {
-                    //_listContracts = ContractRepository.FindAllContracts();
+                    _listContracts = contractRepository.FindAllContracts();
                 }
 
                 return new ObservableCollection<Contract>(_listContracts);
@@ -85,17 +93,19 @@ namespace BVCareManager.ViewModels
                 if (SelectedContract == null)
                     return false;
 
-                //if (string.IsNullOrEmpty(OnModifyingContractFromDate))
-                //    return false;
+                if (OnModifyingContractFromDate > OnModifyingContractToDate)
+                {
+                    UpdateResultAsync(Result.HasError, "Ngày bắt đầu hiệu lực phải trước ngày kết thúc");
+                }
 
-                //if (OnModifyingContractName.Length > 30)
-                //{
-                //    UpdateResultAsync(Result.HasError, "Độ dài tối đa của Họ tên nhân viên là 50 ký tự");
-                //}
-                //else
-                //{
-                //    UpdateResultAsync(Result.ExcludeError, "Độ dài tối đa của Họ tên nhân viên là 50 ký tự");
-                //}
+                if (OnModifyingContractAnnualPremiumPerInsured == 0)
+                {
+                    UpdateResultAsync(Result.HasError, "Phí bảo hiểm phải lớn hơn 0");
+                }
+                else
+                {
+                    UpdateResultAsync(Result.ExcludeError, "Phí bảo hiểm phải lớn hơn 0");
+                }
 
                 if (_errorsList.Count > 0)
                 {
@@ -109,9 +119,11 @@ namespace BVCareManager.ViewModels
             {
                 SelectedContract.FromDate = OnModifyingContractFromDate;
                 SelectedContract.ToDate = OnModifyingContractToDate;
+                SelectedContract.AnnualPremiumPerInsured = OnModifyingContractAnnualPremiumPerInsured;
+
                 contractRepository.Save();
 
-                Success = "Đã sửa thông tin nhân viên";
+                Success = "Đã sửa thông tin Hợp đồng";
                 UpdateResultAsync(Result.Successful);
 
                 SelectedContract = null;
@@ -132,7 +144,7 @@ namespace BVCareManager.ViewModels
                 contractRepository.Delete(SelectedContract);
                 contractRepository.Save();
 
-                Success = "Đã xóa nhân viên";
+                Success = "Đã xóa Hợp đồng";
                 UpdateResultAsync(Result.Successful);
 
                 SelectedContract = null;

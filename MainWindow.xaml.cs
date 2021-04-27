@@ -68,24 +68,24 @@ namespace BVCareManager
         private void ButtonSearch_Click(object sender, RoutedEventArgs e)
         {
             ModifyDockPanel.Children.Clear();
-            int searchCategory = ComboBoxSearchCategory.SelectedIndex;
+            string searchCategory = ComboBoxSearchCategory.SelectedItem.ToString();
             string searchText = SearchTextBox.Text;
 
             switch (searchCategory)
             {
-                case 0:
+                case "Nhân viên":
                     ModifyDockPanel.Children.Add(new InsuredModify());
                     searchAndModifyViewModel = new ModifyInsuredViewModel(searchText);
                     break;
 
-                case 1:
+                case "Hợp đồng":
                     ModifyDockPanel.Children.Add(new ContractModify());
                     searchAndModifyViewModel = new ModifyContractViewModel(searchText);
                     break;
 
-                case 2:
-                    ModifyDockPanel.Children.Add(new PolicyModify());
-                    searchAndModifyViewModel = new ModifyPolicyViewModel(searchText);
+                case "Đơn bảo hiểm":
+                    //ModifyDockPanel.Children.Add(new PolicyModify());
+                    //searchAndModifyViewModel = new ModifyPolicyViewModel(searchText);
                     break;
             }
 
