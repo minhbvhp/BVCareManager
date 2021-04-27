@@ -111,6 +111,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controls\ContractModify.xaml.cs">
+      <DependentUpon>ContractModify.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\ContractNew.xaml.cs">
       <DependentUpon>ContractNew.xaml</DependentUpon>
     </Compile>
@@ -125,9 +128,6 @@
     </Compile>
     <Compile Include="Controls\InsuredNew.xaml.cs">
       <DependentUpon>InsuredNew.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\ListViewContract.xaml.cs">
-      <DependentUpon>ListViewContract.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\ListViewPolicy.xaml.cs">
       <DependentUpon>ListViewPolicy.xaml</DependentUpon>
@@ -149,12 +149,17 @@
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="Converter\BooleanVisibilityConverter.cs" />
     <Compile Include="ViewModels\ModifyBaseViewModel.cs" />
+    <Compile Include="ViewModels\ModifyContractViewModel.cs" />
     <Compile Include="ViewModels\ModifyInsuredViewModel.cs" />
     <Compile Include="ViewModels\NewBaseViewModel.cs" />
     <Compile Include="ViewModels\NewContractViewModel.cs" />
     <Compile Include="ViewModels\NewInsuredViewModel.cs" />
     <Compile Include="ViewModels\NewPolicyViewModel.cs" />
     <Compile Include="Converter\Result.cs" />
+    <Page Include="Controls\ContractModify.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\ContractNew.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -172,10 +177,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\InsuredNew.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\ListViewContract.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

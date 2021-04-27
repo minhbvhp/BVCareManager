@@ -16,13 +16,18 @@ using System.Windows.Shapes;
 namespace BVCareManager.Controls
 {
     /// <summary>
-    /// Interaction logic for ListViewContract.xaml
+    /// Interaction logic for ContractModify.xaml
     /// </summary>
-    public partial class ListViewContract : UserControl
+    public partial class ContractModify : UserControl
     {
-        public ListViewContract()
+        public ContractModify()
         {
             InitializeComponent();
+        }
+
+        private void ContractsResultDataGrid_LoadingRow(object sender, DataGridRowEventArgs e)
+        {
+            e.Row.Header = (e.Row.GetIndex() + 1).ToString();
         }
     }
 }

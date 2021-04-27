@@ -79,11 +79,13 @@ namespace BVCareManager
                     break;
 
                 case 1:
-
+                    ModifyDockPanel.Children.Add(new ContractModify());
+                    searchAndModifyViewModel = new ModifyContractViewModel(searchText);
                     break;
 
                 case 2:
-
+                    ModifyDockPanel.Children.Add(new PolicyModify());
+                    searchAndModifyViewModel = new ModifyPolicyViewModel(searchText);
                     break;
             }
 
