@@ -50,12 +50,12 @@
                         </DataGridTextColumn.Header>
                     </DataGridTextColumn>
 
-                    <!--<DataGridTextColumn Binding="{Binding TotalPremium, 
+                    <DataGridTextColumn Binding="{Binding TotalPremium, 
                         Converter={StaticResource NumberFormatConverter}, ConverterParameter='N0', ConverterCulture='is-IS'}">
                         <DataGridTextColumn.Header>
                             <TextBlock Text="Tổng phí" TextWrapping="Wrap"/>
                         </DataGridTextColumn.Header>
-                    </DataGridTextColumn>-->
+                    </DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>
