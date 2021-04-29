@@ -17,6 +17,11 @@ namespace BVCareManager.Repository
             return db.Policies;
         }
 
+        public IQueryable<Policy> SearchPolicies(string inputText)
+        {
+            return db.Policies.Where(policy => policy.InsuredId.Contains(inputText));
+        }
+
         public Policy GetPolicyById(int id)
         {
             return db.Policies.SingleOrDefault(policy => policy.Id == id);

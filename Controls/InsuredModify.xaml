@@ -54,10 +54,13 @@
                     <StackPanel VerticalAlignment="Center">
                         <materialDesign:PackIcon HorizontalAlignment="Center" Margin="0 0 0 5"
                                                  Kind="Warning" Height="40" Width="40" Foreground="Red"/>
-                        
+
                         <TextBlock Grid.Row="1" HorizontalAlignment="Center" 
-                                   TextWrapping="Wrap" TextAlignment="Justify" Foreground="Red"
-                                   Text="Toàn bộ Đơn bảo hiểm liên quan đến nhân viên này sẽ bị xóa."/>
+                                   TextWrapping="Wrap" TextAlignment="Justify" Foreground="Red">
+                            <Run Text="Toàn bộ"/>
+                            <Run FontWeight="Bold" Text="Đơn bảo hiểm"/>
+                            <Run Text="của nhân viên này cũng sẽ bị xóa."/>
+                        </TextBlock>
                     </StackPanel>
 
                     <TextBlock Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center"

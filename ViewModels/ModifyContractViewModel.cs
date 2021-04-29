@@ -59,8 +59,8 @@ namespace BVCareManager.ViewModels
         }
 
         public int OnModifyingContractAnnualPremiumPerInsured { get; set; }
-        public DateTime OnModifyingContractFromDate { get; set; }
-        public DateTime OnModifyingContractToDate { get; set; }
+        public DateTime? OnModifyingContractFromDate { get; set; }
+        public DateTime? OnModifyingContractToDate { get; set; }
 
         private IEnumerable<Contract> _listContracts;
         public ObservableCollection<Contract> ListContracts
@@ -93,6 +93,12 @@ namespace BVCareManager.ViewModels
                 if (SelectedContract == null)
                     return false;
 
+                if (OnModifyingContractFromDate == null)
+                    return false;
+
+                if (OnModifyingContractToDate == null)
+                    return false;
+
                 if (OnModifyingContractFromDate > OnModifyingContractToDate)
                 {
                     UpdateResultAsync(Result.HasError, "Ngày bắt đầu hiệu lực phải trước ngày kết thúc");
@@ -117,8 +123,8 @@ namespace BVCareManager.ViewModels
                 }
             }, (p) =>
             {
-                SelectedContract.FromDate = OnModifyingContractFromDate;
-                SelectedContract.ToDate = OnModifyingContractToDate;
+                SelectedContract.FromDate = OnModifyingContractFromDate ?? SelectedContract.FromDate;
+                SelectedContract.ToDate = OnModifyingContractToDate ?? SelectedContract.ToDate;
                 SelectedContract.AnnualPremiumPerInsured = OnModifyingContractAnnualPremiumPerInsured;
 
                 contractRepository.Save();

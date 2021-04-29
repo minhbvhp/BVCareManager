@@ -129,8 +129,8 @@
     <Compile Include="Controls\InsuredNew.xaml.cs">
       <DependentUpon>InsuredNew.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\ListViewPolicy.xaml.cs">
-      <DependentUpon>ListViewPolicy.xaml</DependentUpon>
+    <Compile Include="Controls\PolicyModify.xaml.cs">
+      <DependentUpon>PolicyModify.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\PolicyNew.xaml.cs">
       <DependentUpon>PolicyNew.xaml</DependentUpon>
@@ -153,6 +153,7 @@
     <Compile Include="ViewModels\ModifyBaseViewModel.cs" />
     <Compile Include="ViewModels\ModifyContractViewModel.cs" />
     <Compile Include="ViewModels\ModifyInsuredViewModel.cs" />
+    <Compile Include="ViewModels\ModifyPolicyViewModel.cs" />
     <Compile Include="ViewModels\NewBaseViewModel.cs" />
     <Compile Include="ViewModels\NewContractViewModel.cs" />
     <Compile Include="ViewModels\NewInsuredViewModel.cs" />
@@ -182,7 +183,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\ListViewPolicy.xaml">
+    <Page Include="Controls\PolicyModify.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

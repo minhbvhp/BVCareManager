@@ -16,13 +16,18 @@ using System.Windows.Shapes;
 namespace BVCareManager.Controls
 {
     /// <summary>
-    /// Interaction logic for ListViewPolicy.xaml
+    /// Interaction logic for PolicyModify.xaml
     /// </summary>
-    public partial class ListViewPolicy : UserControl
+    public partial class PolicyModify : UserControl
     {
-        public ListViewPolicy()
+        public PolicyModify()
         {
             InitializeComponent();
+        }
+
+        private void PoliciesResultDataGrid_LoadingRow(object sender, DataGridRowEventArgs e)
+        {
+            e.Row.Header = (e.Row.GetIndex() + 1).ToString();
         }
     }
 }

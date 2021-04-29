@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="BVCareManager.Controls.ContractModify"
+﻿<UserControl x:Class="BVCareManager.Controls.PolicyModify"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -13,7 +13,6 @@
         <converter:NumberFormatConverter x:Key="NumberFormatConverter"/>
     </UserControl.Resources>
     
-    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="8*"/>
@@ -27,13 +26,32 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Column="0" Margin="0 0 100 0">
-            <DataGrid x:Name="ContractsResultDataGrid" ItemsSource="{Binding ListContracts}" AutoGenerateColumns="False" 
+            <DataGrid x:Name="PoliciesResultDataGrid" ItemsSource="{Binding ListPolicies}" AutoGenerateColumns="False" 
                       IsReadOnly="True" ClipboardCopyMode="None" ColumnWidth="*" HeadersVisibility="All"
-                      LoadingRow="ContractsResultDataGrid_LoadingRow" SelectedItem="{Binding SelectedContract}">
+                      LoadingRow="PoliciesResultDataGrid_LoadingRow" SelectedItem="{Binding SelectedPolicy}">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding Id}">
+                    <DataGridTextColumn Binding="{Binding Number, 
+                        Converter={StaticResource NumberFormatConverter}}">
                         <DataGridTextColumn.Header>
-                            <TextBlock Text="Số hợp đồng" TextWrapping="Wrap"/>
+                            <TextBlock Text="Số đơn" TextWrapping="Wrap"/>
+                        </DataGridTextColumn.Header>
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn Binding="{Binding ContractId}">
+                        <DataGridTextColumn.Header>
+                            <TextBlock Text="Hợp đồng" TextWrapping="Wrap"/>
+                        </DataGridTextColumn.Header>
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn Binding="{Binding InsuredId}">
+                        <DataGridTextColumn.Header>
+                            <TextBlock Text="Số CCCD" TextWrapping="Wrap"/>
+                        </DataGridTextColumn.Header>
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn Binding="{Binding InsuredName}">
+                        <DataGridTextColumn.Header>
+                            <TextBlock Text="Họ tên" TextWrapping="Wrap"/>
                         </DataGridTextColumn.Header>
                     </DataGridTextColumn>
 
@@ -51,10 +69,10 @@
                         </DataGridTextColumn.Header>
                     </DataGridTextColumn>
 
-                    <DataGridTextColumn Binding="{Binding TotalPremium, 
+                    <DataGridTextColumn Binding="{Binding Premium, 
                         Converter={StaticResource NumberFormatConverter}, ConverterParameter='N0', ConverterCulture='is-IS'}">
                         <DataGridTextColumn.Header>
-                            <TextBlock Text="Tổng phí" TextWrapping="Wrap"/>
+                            <TextBlock Text="Phí" TextWrapping="Wrap"/>
                         </DataGridTextColumn.Header>
                     </DataGridTextColumn>
                 </DataGrid.Columns>
@@ -63,7 +81,7 @@
 
         <materialDesign:DialogHost Grid.Column="1" IsOpen="{Binding IsModifyDialogOpen}"
                                    Height="Auto" Width="200" VerticalAlignment="Top"
-                    Visibility="{Binding IsContractSelected, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    Visibility="{Binding IsPolicieselected, Converter={StaticResource BooleanToVisibilityConverter}}">
 
             <materialDesign:DialogHost.DialogContent>
                 <Grid Height="200" Width="150" Margin="8">
@@ -76,13 +94,6 @@
                     <StackPanel VerticalAlignment="Center">
                         <materialDesign:PackIcon HorizontalAlignment="Center" Margin="0 0 0 5"
                                                  Kind="Warning" Height="40" Width="40" Foreground="Red"/>
-
-                        <TextBlock Grid.Row="1" HorizontalAlignment="Center" 
-                                   TextWrapping="Wrap" TextAlignment="Justify" Foreground="Red">                            
-                            <Run Text="Toàn bộ"/>
-                            <Run FontWeight="Bold" Text="Đơn bảo hiểm"/>
-                            <Run Text="của Hợp đồng này cũng sẽ bị xóa."/>
-                        </TextBlock>
                     </StackPanel>
 
                     <TextBlock Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center"
@@ -112,7 +123,7 @@
                 <materialDesign:Card>
                     <Grid>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="150"/>
+                            <RowDefinition Height="120"/>
                             <RowDefinition Height="*" />
                             <RowDefinition Height="40" />
                         </Grid.RowDefinitions>
@@ -129,36 +140,37 @@
                                     </Button>
                                 </Canvas>
 
-                                <materialDesign:PackIcon Kind="Contract" Height="120" Width="120" Margin="0 10 0 0"
-                                            VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                <materialDesign:PackIcon Kind="FileDocumentBoxes" 
+                                                         Height="80" Width="80" Margin="0 20 0 0"
+                                                         VerticalAlignment="Center" HorizontalAlignment="Center" />
 
                             </StackPanel>
                         </materialDesign:ColorZone>
 
                         <StackPanel Grid.Row="1" Margin="20 10 20 20" VerticalAlignment="Top">
-                            <TextBox materialDesign:HintAssist.Hint="Số hợp đồng"
+                            <TextBox materialDesign:HintAssist.Hint="Số đơn"
                                  materialDesign:HintAssist.IsFloating="True"
-                                 Text="{Binding SelectedContract.Id, Mode=OneWay}"
+                                 Text="{Binding SelectedPolicy.Id, Mode=OneWay}"
                                  IsEnabled="False"/>
 
-                            <DatePicker Style="{StaticResource EmptyDatePickerStyle}"
-                                 materialDesign:HintAssist.Hint="Từ ngày"
-                                 materialDesign:HintAssist.IsFloating="True" 
-                                 Margin="0 8 0 0"
-                                 SelectedDate="{Binding OnModifyingContractFromDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                            <ComboBox Style="{StaticResource EmptyComboBoxStyle}"
+                                      materialDesign:HintAssist.Hint="Số hợp đồng"
+                                      ItemsSource="{Binding ContractList}"
+                                      SelectedItem="{Binding OnModifyingPolicyContractId}"/>
+
+                            <ComboBox Style="{StaticResource EmptyComboBoxStyle}"
+                                      materialDesign:HintAssist.Hint="Nhân viên"
+                                      ItemsSource="{Binding InsuredList}" IsEditable="True"
+                                      SelectedItem="{Binding OnModifyingPolicyInsuredtId, Mode=TwoWay}"/>
 
                             <DatePicker Style="{StaticResource EmptyDatePickerStyle}"
-                                 materialDesign:HintAssist.Hint="Đến ngày"
-                                 materialDesign:HintAssist.IsFloating="True" 
-                                 Margin="0 8 0 0"
-                                 SelectedDate="{Binding OnModifyingContractToDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                                        materialDesign:HintAssist.Hint="Từ ngày"
+                                        SelectedDate="{Binding OnModifyingPolicyFromDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
 
-                            <TextBox Style="{StaticResource EmptyTextboxStyle}"
-                                     materialDesign:HintAssist.Hint="Phí bảo hiểm/người"
-                                     materialDesign:HintAssist.IsFloating="True"
-                                     Margin="0 8 0 0"
-                                     Text="{Binding OnModifyingContractAnnualPremiumPerInsured, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,
-                                     Converter={StaticResource NumberFormatConverter}, ConverterParameter='N0', ConverterCulture='is-IS'}"/>
+                            <DatePicker Style="{StaticResource EmptyDatePickerStyle}"
+                                        materialDesign:HintAssist.Hint="Đến ngày"
+                                        SelectedDate="{Binding OnModifyingPolicyToDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+
                         </StackPanel>
 
                         <Button Width="100" Grid.Row="2" Margin="0 0 0 5"
@@ -171,6 +183,5 @@
             </StackPanel >
 
         </materialDesign:DialogHost>
-
     </Grid>
 </UserControl>
