@@ -24,6 +24,22 @@ namespace BVCareManager.ViewModels
             set
             {
                 SetProperty(ref _selectedContractId, value);
+
+                ContractRepository contractRepository = new ContractRepository();
+
+                if (!String.IsNullOrEmpty(SelectedContractId))
+                {
+                    Contract contract = contractRepository.GetContract(SelectedContractId);
+                    Contract checkingContract = contract;
+                    ErrorsList.Clear();
+                    
+                    InputFromDate = contract.FromDate;
+                    InputToDate = contract.ToDate;
+
+                    OnPropertyChanged("InputFromDate");
+                    OnPropertyChanged("InputToDate");
+
+                }
             }
         }
 
@@ -62,40 +78,6 @@ namespace BVCareManager.ViewModels
             set
             {
                 SetProperty(ref _inputNumber, value);
-            }
-        }
-
-        public ObservableCollection<String> ContractList
-        {
-            get
-            {
-                ContractRepository contractRepository = new ContractRepository();
-
-                var _allContract = from contract in contractRepository.FindAllContracts()
-                                   select contract;
-
-                var AllContract = new ObservableCollection<String>();
-
-                foreach (var contract in _allContract)
-                    AllContract.Add(contract.Id);
-
-                return AllContract;
-            }
-        }
-        public ObservableCollection<String> InsuredList
-        {
-            get
-            {
-                InsuredRepository insuredRepository = new InsuredRepository();
-
-                var _allInsured = from insured in insuredRepository.FindAllInsureds()
-                                    select insured;
-                var AllInsured = new ObservableCollection<String>();
-
-                foreach (var insured in _allInsured)
-                    AllInsured.Add(insured.Name + " - " + insured.Id);
-
-                return AllInsured;
             }
         }
 

@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -65,7 +66,30 @@ namespace BVCareManager.ViewModels
         }
 
         public string OnModifyingPolicyContractId { get; set; }
-        public string OnModifyingPolicyInsuredtId { get; set; }
+
+        private string _selectedInsured;
+        private string _selectedInsuredId;
+        public string OnModifyingPolicyInsuredtId {
+            get
+            {
+                Regex insuredIdRegex = new Regex(@"[^-]+$");
+
+                if (SelectedPolicy != null)
+                {
+                    _selectedInsuredId = insuredIdRegex.Match(this._selectedInsured).ToString().Trim(' ');
+                }
+                else
+                {
+                    _selectedInsuredId = String.Empty;
+                }
+
+                return _selectedInsuredId;
+            }
+            set 
+            {
+                SetProperty(ref _selectedInsured, value);
+            } 
+        }
         public int OnModifyingPolicyPremium { get; set; }
         public DateTime? OnModifyingPolicyFromDate { get; set; }
         public DateTime? OnModifyingPolicyToDate { get; set; }

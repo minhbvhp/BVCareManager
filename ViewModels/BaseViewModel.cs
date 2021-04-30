@@ -1,4 +1,5 @@
 ﻿using BVCareManager.Converter;
+using BVCareManager.Repository;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -132,6 +133,41 @@ namespace BVCareManager.ViewModels
             get
             {
                 return _errorsList;
+            }
+        }
+
+
+        public ObservableCollection<String> ContractList
+        {
+            get
+            {
+                ContractRepository contractRepository = new ContractRepository();
+
+                var _allContract = from contract in contractRepository.FindAllContracts()
+                                   select contract;
+
+                var AllContract = new ObservableCollection<String>();
+
+                foreach (var contract in _allContract)
+                    AllContract.Add(contract.Id);
+
+                return AllContract;
+            }
+        }
+        public ObservableCollection<String> InsuredList
+        {
+            get
+            {
+                InsuredRepository insuredRepository = new InsuredRepository();
+
+                var _allInsured = from insured in insuredRepository.FindAllInsureds()
+                                  select insured;
+                var AllInsured = new ObservableCollection<String>();
+
+                foreach (var insured in _allInsured)
+                    AllInsured.Add(insured.Name + " - " + insured.Id);
+
+                return AllInsured;
             }
         }
     }
