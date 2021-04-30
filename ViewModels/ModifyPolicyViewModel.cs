@@ -42,9 +42,6 @@ namespace BVCareManager.ViewModels
                 if (value != null)
                 {
                     OnModifyingPolicyContractId = value.Contract.Id;
-                    OnModifyingPolicyInsuredtId = value.Insured.Id;
-                    OnModifyingPolicyFromDate = value.FromDate;
-                    OnModifyingPolicyToDate = value.ToDate;
                     OnModifyingPolicyPremium = value.Premium;
                 }
                 else
@@ -57,42 +54,93 @@ namespace BVCareManager.ViewModels
                 }
 
                 OnPropertyChanged("IsPolicySelected");
-                OnPropertyChanged("OnModifyingPolicyContractId");
                 OnPropertyChanged("OnModifyingPolicyInsuredtId");
-                OnPropertyChanged("OnModifyingPolicyFromDate");
-                OnPropertyChanged("OnModifyingPolicyToDate");
-                OnPropertyChanged("OnModifyingPolicyPremium");
             }
         }
 
-        public string OnModifyingPolicyContractId { get; set; }
+        private string _onModifyingPolicyContractId;
+        public string OnModifyingPolicyContractId {
+            get 
+            {
+                return _onModifyingPolicyContractId;
+            }
+            set
+            {
+                SetProperty(ref _onModifyingPolicyContractId, value);
+
+                ContractRepository contractRepository = new ContractRepository();
+
+                if (!String.IsNullOrEmpty(OnModifyingPolicyContractId))
+                {
+                    Contract contract = contractRepository.GetContract(OnModifyingPolicyContractId);
+                    Contract checkingContract = contract;
+                    //ErrorsList.Clear();
+
+                    OnModifyingPolicyFromDate = contract.FromDate;
+                    OnModifyingPolicyToDate = contract.ToDate;
+                }
+            }
+        }
 
         private string _selectedInsured;
-        private string _selectedInsuredId;
-        public string OnModifyingPolicyInsuredtId {
+        public  string OnModifyingPolicyInsuredtId {
             get
             {
-                Regex insuredIdRegex = new Regex(@"[^-]+$");
-
                 if (SelectedPolicy != null)
                 {
-                    _selectedInsuredId = insuredIdRegex.Match(this._selectedInsured).ToString().Trim(' ');
+                    _selectedInsured = SelectedPolicy.Insured.Name + " - " + SelectedPolicy.Insured.Id;
                 }
                 else
                 {
-                    _selectedInsuredId = String.Empty;
+                    _selectedInsured = String.Empty;
                 }
 
-                return _selectedInsuredId;
+                return _selectedInsured;
             }
             set 
             {
                 SetProperty(ref _selectedInsured, value);
             } 
         }
-        public int OnModifyingPolicyPremium { get; set; }
-        public DateTime? OnModifyingPolicyFromDate { get; set; }
-        public DateTime? OnModifyingPolicyToDate { get; set; }
+
+        private int _onModifyingPolicyPremium;
+        public int OnModifyingPolicyPremium
+        {
+            get
+            {
+                return _onModifyingPolicyPremium;
+            }
+            set
+            {
+                SetProperty(ref _onModifyingPolicyPremium, value);
+            }
+        }
+
+        private DateTime? _onModifyingPolicyFromDate;
+        public DateTime? OnModifyingPolicyFromDate
+        {
+            get
+            {
+                return _onModifyingPolicyFromDate;
+            }
+            set
+            {
+                SetProperty(ref _onModifyingPolicyFromDate, value);
+            }
+        }
+
+        private DateTime? _onModifyingPolicyToDate;
+        public DateTime? OnModifyingPolicyToDate
+        {
+            get
+            {
+                return _onModifyingPolicyToDate;
+            }
+            set
+            {
+                SetProperty(ref _onModifyingPolicyToDate, value);
+            }
+        }
 
         private IEnumerable<Policy> _listPolicies;
         public ObservableCollection<Policy> ListPolicies
@@ -125,10 +173,19 @@ namespace BVCareManager.ViewModels
                 if (SelectedPolicy == null)
                     return false;
 
+                if (OnModifyingPolicyContractId == null)
+                    return false;
+
+                if (OnModifyingPolicyInsuredtId == null)
+                    return false;
+
                 if (OnModifyingPolicyFromDate == null)
                     return false;
 
                 if (OnModifyingPolicyToDate == null)
+                    return false;
+
+                if (OnModifyingPolicyInsuredtId == String.Empty)
                     return false;
 
                 if (OnModifyingPolicyFromDate > OnModifyingPolicyToDate)
@@ -136,13 +193,25 @@ namespace BVCareManager.ViewModels
                     UpdateResultAsync(Result.HasError, "Ngày bắt đầu hiệu lực phải trước ngày kết thúc");
                 }
 
-                if (OnModifyingPolicyPremium == 0)
+                ContractRepository contractRepository = new ContractRepository();
+                Contract checkingContract = contractRepository.GetContract(SelectedPolicy.ContractId);
+
+                if (checkingContract != null)
                 {
-                    UpdateResultAsync(Result.HasError, "Phí bảo hiểm phải lớn hơn 0");
-                }
-                else
-                {
-                    UpdateResultAsync(Result.ExcludeError, "Phí bảo hiểm phải lớn hơn 0");
+                    String fromDateContract = String.Format("{0:dd/MM/yyyy}", checkingContract.FromDate);
+                    String toDateContract = String.Format("{0:dd/MM/yyyy}", checkingContract.ToDate);
+                    string errorString = String.Format(
+                        "Thời hạn của đơn bảo hiểm phải phù hợp thời hạn Hợp đồng ({0} - {1})",
+                        fromDateContract, toDateContract);
+
+                    if (!contractRepository.IsInForce(OnModifyingPolicyFromDate, OnModifyingPolicyToDate, checkingContract))
+                    {
+                        UpdateResultAsync(Result.HasError, errorString);
+                    }
+                    else
+                    {
+                        UpdateResultAsync(Result.ExcludeError, errorString);
+                    }
                 }
 
                 if (_errorsList.Count > 0)
@@ -157,10 +226,11 @@ namespace BVCareManager.ViewModels
             {
                 SelectedPolicy.FromDate = OnModifyingPolicyFromDate ?? SelectedPolicy.FromDate;
                 SelectedPolicy.ToDate = OnModifyingPolicyToDate ?? SelectedPolicy.ToDate;
+                SelectedPolicy.ContractId = OnModifyingPolicyContractId;
 
                 policyRepository.Save();
 
-                Success = "Đã sửa thông tin Hợp đồng";
+                Success = "Đã sửa thông tin Đơn bảo hiểm";
                 UpdateResultAsync(Result.Successful);
 
                 SelectedPolicy = null;
@@ -181,7 +251,7 @@ namespace BVCareManager.ViewModels
                 policyRepository.Delete(SelectedPolicy);
                 policyRepository.Save();
 
-                Success = "Đã xóa Hợp đồng";
+                Success = "Đã xóa Đơn bảo hiểm";
                 UpdateResultAsync(Result.Successful);
 
                 SelectedPolicy = null;

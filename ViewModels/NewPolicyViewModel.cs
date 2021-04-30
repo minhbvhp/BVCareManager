@@ -35,10 +35,6 @@ namespace BVCareManager.ViewModels
                     
                     InputFromDate = contract.FromDate;
                     InputToDate = contract.ToDate;
-
-                    OnPropertyChanged("InputFromDate");
-                    OnPropertyChanged("InputToDate");
-
                 }
             }
         }
@@ -113,10 +109,9 @@ namespace BVCareManager.ViewModels
             ContractRepository contractRepository = new ContractRepository();
 
             var now = DateTime.Now;
-            DateTime defaultFromDate = new DateTime(now.Year, 1, 1);
-            DateTime defaultToDate = new DateTime(now.Year, 12, 31);
-            _inputFromDate = defaultFromDate;
-            _inputToDate = defaultToDate;
+
+            InputFromDate = null;
+            InputToDate = null;
             
 
             _errorsList.Clear();
@@ -139,14 +134,8 @@ namespace BVCareManager.ViewModels
                     return false;
                 }
 
-                if (this.InputNumber <=0)
-                {
-                    UpdateResultAsync(Result.HasError, "Số đơn phải là số và lớn hơn 0");
-                }
-                else
-                {
-                    UpdateResultAsync(Result.ExcludeError, "Số đơn phải là số và lớn hơn 0");
-                }
+                if (this.SelectedInsuredId == String.Empty)
+                    return false;
 
                 if (this.InputFromDate > this.InputToDate)
                 {
@@ -177,7 +166,6 @@ namespace BVCareManager.ViewModels
                     }
                 }
 
-
                 if (policyRepository.GetPolicyByIndex(this.InputNumber, this.SelectedContractId) != null)
                 {
                     UpdateResultAsync(Result.HasError, "Đơn bảo hiểm này đã tồn tại");
@@ -185,15 +173,6 @@ namespace BVCareManager.ViewModels
                 else
                 {
                     UpdateResultAsync(Result.ExcludeError, "Đơn bảo hiểm này đã tồn tại");
-                }
-
-                if (this.SelectedInsuredId == String.Empty)
-                {
-                    UpdateResultAsync(Result.HasError, "Chưa có nhân viên này");
-                }
-                else
-                {
-                    UpdateResultAsync(Result.ExcludeError, "Chưa có nhân viên này");
                 }
 
                 if (_errorsList.Count > 0)
@@ -224,8 +203,6 @@ namespace BVCareManager.ViewModels
                 UpdateResultAsync(Result.Successful);
 
                 InputNumber = 0;
-                InputFromDate = defaultFromDate;
-                InputToDate = defaultToDate;
 
                 IsStartOver = true;
                 OnPropertyChanged("IsStartOver");

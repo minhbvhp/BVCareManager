@@ -84,8 +84,8 @@ namespace BVCareManager
                     break;
 
                 case "Đơn bảo hiểm":
-                    //ModifyDockPanel.Children.Add(new PolicyModify());
-                    //searchAndModifyViewModel = new ModifyPolicyViewModel(searchText);
+                    ModifyDockPanel.Children.Add(new PolicyModify());
+                    searchAndModifyViewModel = new ModifyPolicyViewModel(searchText);
                     break;
             }
 
