@@ -161,7 +161,7 @@
                             <ComboBox Style="{StaticResource EmptyComboBoxStyle}"
                                       materialDesign:HintAssist.Hint="Nhân viên"
                                       ItemsSource="{Binding InsuredList}" IsEditable="True"
-                                      SelectedItem="{Binding OnModifyingPolicyInsuredtId, Mode=TwoWay}"/>
+                                      SelectedItem="{Binding OnModifyingPolicyInsuredId, Mode=TwoWay}"/>
 
                             <DatePicker Style="{StaticResource EmptyDatePickerStyle}"
                                         materialDesign:HintAssist.Hint="Từ ngày"

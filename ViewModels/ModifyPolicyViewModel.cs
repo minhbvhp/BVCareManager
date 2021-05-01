@@ -43,18 +43,21 @@ namespace BVCareManager.ViewModels
                 {
                     OnModifyingPolicyContractId = value.Contract.Id;
                     OnModifyingPolicyPremium = value.Premium;
+                    OnModifyingPolicyFromDate = value.FromDate;
+                    OnModifyingPolicyToDate = value.ToDate;
+                    OnModifyingPolicyInsuredId =  value.Insured.Name + " - " + value.InsuredId;
                 }
                 else
                 {
                     OnModifyingPolicyContractId = String.Empty;
-                    OnModifyingPolicyInsuredtId = String.Empty;
-                    OnModifyingPolicyFromDate = DateTime.Today;
-                    OnModifyingPolicyToDate = DateTime.Today;
+                    OnModifyingPolicyInsuredId = String.Empty;
+                    OnModifyingPolicyFromDate = null;
+                    OnModifyingPolicyToDate = null;
                     OnModifyingPolicyPremium = 0;
                 }
 
                 OnPropertyChanged("IsPolicySelected");
-                OnPropertyChanged("OnModifyingPolicyInsuredtId");
+                OnPropertyChanged("OnModifyingPolicyInsuredId");
             }
         }
 
@@ -67,6 +70,7 @@ namespace BVCareManager.ViewModels
             set
             {
                 SetProperty(ref _onModifyingPolicyContractId, value);
+                ErrorsList.Clear();
 
                 ContractRepository contractRepository = new ContractRepository();
 
@@ -74,7 +78,6 @@ namespace BVCareManager.ViewModels
                 {
                     Contract contract = contractRepository.GetContract(OnModifyingPolicyContractId);
                     Contract checkingContract = contract;
-                    //ErrorsList.Clear();
 
                     OnModifyingPolicyFromDate = contract.FromDate;
                     OnModifyingPolicyToDate = contract.ToDate;
@@ -82,24 +85,15 @@ namespace BVCareManager.ViewModels
             }
         }
 
-        private string _selectedInsured;
-        public  string OnModifyingPolicyInsuredtId {
+        private string _onModifyingPolicyInsuredId;
+        public  string OnModifyingPolicyInsuredId {
             get
             {
-                if (SelectedPolicy != null)
-                {
-                    _selectedInsured = SelectedPolicy.Insured.Name + " - " + SelectedPolicy.Insured.Id;
-                }
-                else
-                {
-                    _selectedInsured = String.Empty;
-                }
-
-                return _selectedInsured;
+                return _onModifyingPolicyInsuredId;
             }
             set 
             {
-                SetProperty(ref _selectedInsured, value);
+                SetProperty(ref _onModifyingPolicyInsuredId, value);
             } 
         }
 
@@ -176,7 +170,7 @@ namespace BVCareManager.ViewModels
                 if (OnModifyingPolicyContractId == null)
                     return false;
 
-                if (OnModifyingPolicyInsuredtId == null)
+                if (OnModifyingPolicyInsuredId == null)
                     return false;
 
                 if (OnModifyingPolicyFromDate == null)
@@ -185,16 +179,20 @@ namespace BVCareManager.ViewModels
                 if (OnModifyingPolicyToDate == null)
                     return false;
 
-                if (OnModifyingPolicyInsuredtId == String.Empty)
+                if (OnModifyingPolicyInsuredId == String.Empty)
                     return false;
 
                 if (OnModifyingPolicyFromDate > OnModifyingPolicyToDate)
                 {
                     UpdateResultAsync(Result.HasError, "Ngày bắt đầu hiệu lực phải trước ngày kết thúc");
                 }
+                else
+                {
+                    UpdateResultAsync(Result.ExcludeError, "Ngày bắt đầu hiệu lực phải trước ngày kết thúc");
+                }
 
                 ContractRepository contractRepository = new ContractRepository();
-                Contract checkingContract = contractRepository.GetContract(SelectedPolicy.ContractId);
+                Contract checkingContract = contractRepository.GetContract(OnModifyingPolicyContractId);
 
                 if (checkingContract != null)
                 {
@@ -226,7 +224,12 @@ namespace BVCareManager.ViewModels
             {
                 SelectedPolicy.FromDate = OnModifyingPolicyFromDate ?? SelectedPolicy.FromDate;
                 SelectedPolicy.ToDate = OnModifyingPolicyToDate ?? SelectedPolicy.ToDate;
-                SelectedPolicy.ContractId = OnModifyingPolicyContractId;
+                policyRepository.UpdateContract(SelectedPolicy.ContractId, OnModifyingPolicyContractId);
+
+                Regex insuredIdRegex = new Regex(@"[^-]+$");
+                string updateInsuredId = insuredIdRegex.Match(OnModifyingPolicyInsuredId).ToString().Trim(' ');
+                policyRepository.UpdateInsured(SelectedPolicy.InsuredId, updateInsuredId);
+
 
                 policyRepository.Save();
 

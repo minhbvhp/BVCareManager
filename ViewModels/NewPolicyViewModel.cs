@@ -24,15 +24,16 @@ namespace BVCareManager.ViewModels
             set
             {
                 SetProperty(ref _selectedContractId, value);
+                ErrorsList.Clear();
 
                 ContractRepository contractRepository = new ContractRepository();
 
-                if (!String.IsNullOrEmpty(SelectedContractId))
+                if (!String.IsNullOrEmpty(value))
                 {
-                    Contract contract = contractRepository.GetContract(SelectedContractId);
+                    Contract contract = contractRepository.GetContract(value);
                     Contract checkingContract = contract;
                     ErrorsList.Clear();
-                    
+
                     InputFromDate = contract.FromDate;
                     InputToDate = contract.ToDate;
                 }
