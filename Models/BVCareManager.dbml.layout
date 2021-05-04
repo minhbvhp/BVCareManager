@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="BVCareManager">
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11.5, 8.5" name="BVCareManager">
   <DataContextMoniker Name="/BVCareManagerDataContext" />
   <nestedChildShapes>
     <classShape Id="16d7925e-fdcc-47bc-85f9-88424facefd8" absoluteBounds="0.75, 0.5, 2, 1.1939925130208335">
@@ -20,7 +20,7 @@
         <elementListCompartment Id="927f2436-3913-4e20-9da8-9e967a0c4bc4" absoluteBounds="3.5149999999999997, 1.085, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(4.3125 : 3); (4.3125 : 2.5881982421875)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(4.3125 : 3); (4.3125 : 2.5881982421875)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/BVCareManagerDataContext/Contract/Contract_Policy" />
       <nodes>
         <classShapeMoniker Id="cf38ea51-51de-444b-875f-f67d560082a9" />
@@ -32,6 +32,32 @@
       <nodes>
         <classShapeMoniker Id="16d7925e-fdcc-47bc-85f9-88424facefd8" />
         <classShapeMoniker Id="fd3b2f1f-9361-49e7-aa2d-4a1c008aa314" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="bf2ed84f-2c87-40f0-85e4-4f500e5b63b0" absoluteBounds="6.5, 0.625, 2, 1.9631982421875005">
+      <DataClassMoniker Name="/BVCareManagerDataContext/Claim" />
+      <nestedChildShapes>
+        <elementListCompartment Id="53ad68d5-146e-460e-8ee3-72d45473d873" absoluteBounds="6.515, 1.085, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="cf7dde8a-fd1c-4380-85e6-31e55e78b1f8" absoluteBounds="9.25, 0.875, 2, 1.3862939453125005">
+      <DataClassMoniker Name="/BVCareManagerDataContext/ClaimsProgress" />
+      <nestedChildShapes>
+        <elementListCompartment Id="8cec1bbc-94f3-49ec-856b-a38654052bc6" absoluteBounds="9.265, 1.335, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(5.5 : 1.60659912109375); (6.5 : 1.60659912109375)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/BVCareManagerDataContext/Policy/Policy_Claim" />
+      <nodes>
+        <classShapeMoniker Id="fd3b2f1f-9361-49e7-aa2d-4a1c008aa314" />
+        <classShapeMoniker Id="bf2ed84f-2c87-40f0-85e4-4f500e5b63b0" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(8.5 : 1.56814697265625); (9.25 : 1.56814697265625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/BVCareManagerDataContext/Claim/Claim_ClaimsProgress" />
+      <nodes>
+        <classShapeMoniker Id="bf2ed84f-2c87-40f0-85e4-4f500e5b63b0" />
+        <classShapeMoniker Id="cf7dde8a-fd1c-4380-85e6-31e55e78b1f8" />
       </nodes>
     </associationConnector>
   </nestedChildShapes>

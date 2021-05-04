@@ -1,5 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Database Name="BVCareManager" Class="BVCareManagerDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=(LocalDB)\v12.0;AttachDbFilename=|DataDirectory|\Data\BVCareManagerx86.mdf;Integrated Security=True;Connect Timeout=10;Packet Size=1000" SettingsObjectName="BVCareManager.Properties.Settings" SettingsPropertyName="BVCareManagerConnectionString" Provider="System.Data.SqlClient" />
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="BVCareManagerx86" Class="BVCareManagerDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=(LocalDB)\v12.0;AttachDbFilename=|DataDirectory|\data\BVCareManagerx86.mdf;Integrated Security=True;Connect Timeout=10;Packet Size=1000" SettingsObjectName="BVCareManager.Properties.Settings" SettingsPropertyName="BVCareManagerConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.Insureds" Member="Insureds">
     <Type Name="Insured">
       <Column Name="Id" Type="System.String" DbType="VarChar(30) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
@@ -24,8 +24,29 @@
       <Column Name="InsuredId" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
       <Column Name="FromDate" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
       <Column Name="ToDate" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Association Name="Policy_Claim" Member="Claims" ThisKey="Id" OtherKey="PolicyId" Type="Claim" />
       <Association Name="Contract_Policy" Member="Contract" ThisKey="ContractId" OtherKey="Id" Type="Contract" IsForeignKey="true" />
       <Association Name="Insured_Policy" Member="Insured" ThisKey="InsuredId" OtherKey="Id" Type="Insured" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Claims" Member="Claims">
+    <Type Name="Claim">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="PolicyId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ExaminationDate" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="ReceivedDate" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="PaidDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="TotalPaid" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Claim_ClaimsProgress" Member="ClaimsProgresses" ThisKey="Id" OtherKey="ClaimId" Type="ClaimsProgress" />
+      <Association Name="Policy_Claim" Member="Policy" ThisKey="PolicyId" OtherKey="Id" Type="Policy" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ClaimsProgress" Member="ClaimsProgresses">
+    <Type Name="ClaimsProgress">
+      <Column Name="ClaimId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Date" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="Remarks" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Association Name="Claim_ClaimsProgress" Member="Claim" ThisKey="ClaimId" OtherKey="Id" Type="Claim" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>
