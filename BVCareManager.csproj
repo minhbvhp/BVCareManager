@@ -111,6 +111,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controls\ClaimManager.xaml.cs">
+      <DependentUpon>ClaimManager.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\ContractModify.xaml.cs">
       <DependentUpon>ContractModify.xaml</DependentUpon>
     </Compile>
@@ -159,6 +162,10 @@
     <Compile Include="ViewModels\NewInsuredViewModel.cs" />
     <Compile Include="ViewModels\NewPolicyViewModel.cs" />
     <Compile Include="Converter\Result.cs" />
+    <Page Include="Controls\ClaimManager.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\ContractModify.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

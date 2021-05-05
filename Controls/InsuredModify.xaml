@@ -73,13 +73,13 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
 
-                        <Button Grid.Column="0" Width="60"
+                        <Button Grid.Column="0" Width="60" IsTabStop="False"
                                 Background="{StaticResource SecondaryDeleteBrush}"
                                 BorderBrush="{StaticResource SecondaryDeleteBrush}"                          
                                 Content="Xóa"
                                 Command="{Binding DeleteCommand}"/>
 
-                        <Button Grid.Column="1" Width="Auto"
+                        <Button Grid.Column="1" Width="Auto" IsTabStop="False"
                                 Style="{StaticResource MaterialDesignRaisedLightButton}" Content="Giữ" 
                                 Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" IsCancel="True"/>
                     </Grid>
@@ -99,7 +99,7 @@
                             <StackPanel Margin="5">
                                 <Canvas Style="{x:Null}">
                                     <Button Height="25" Width="30" Canvas.Right="0" Canvas.Top="0"
-                                    ToolTip="Xóa"
+                                    ToolTip="Xóa" IsTabStop="False"
                                     Style="{StaticResource MaterialDesignIconForegroundButton}"
                                     Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}">
                                         <materialDesign:PackIcon Kind="Delete" Height="20" Width="20" 
@@ -114,7 +114,7 @@
                         </materialDesign:ColorZone>
 
                         <StackPanel Grid.Row="1" Margin="20" VerticalAlignment="Top">
-                            <TextBox materialDesign:HintAssist.Hint="Số CCCD"
+                            <TextBox materialDesign:HintAssist.Hint="Số CMT/CCCD"
                                  materialDesign:HintAssist.IsFloating="True"
                                  Margin="0 10 0 0"
                                  Text="{Binding SelectedInsured.Id, Mode=OneWay}"
@@ -127,7 +127,7 @@
                                  Text="{Binding OnModifyingInsuredName, Mode=TwoWay}"/>
                         </StackPanel>
 
-                        <Button Width="100" Grid.Row="2" Style="{StaticResource MaterialDesignFlatButton}" 
+                        <Button Width="100" Grid.Row="2" Style="{StaticResource MaterialDesignFlatButton}" IsTabStop="False"
                         Command="{Binding ModifyCommand}">
                             CẬP NHẬT
                         </Button>

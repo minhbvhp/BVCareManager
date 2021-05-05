@@ -95,13 +95,13 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
 
-                        <Button Grid.Column="0" Width="60"
+                        <Button Grid.Column="0" Width="60" IsTabStop="False"
                                 Background="{StaticResource SecondaryDeleteBrush}"
                                 BorderBrush="{StaticResource SecondaryDeleteBrush}"                          
                                 Content="Xóa"
                                 Command="{Binding DeleteCommand}"/>
 
-                        <Button Grid.Column="1" Width="Auto"
+                        <Button Grid.Column="1" Width="Auto" IsTabStop="False"
                                 Style="{StaticResource MaterialDesignRaisedLightButton}" Content="Giữ" 
                                 Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" IsCancel="True"/>
                     </Grid>
@@ -121,7 +121,7 @@
                             <StackPanel Margin="5">
                                 <Canvas Style="{x:Null}">
                                     <Button Height="25" Width="30" Canvas.Right="0" Canvas.Top="0"
-                                    ToolTip="Xóa"
+                                    ToolTip="Xóa" IsTabStop="False"
                                     Style="{StaticResource MaterialDesignIconForegroundButton}"
                                     Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}">
                                         <materialDesign:PackIcon Kind="Delete" Height="20" Width="20" 
@@ -161,7 +161,7 @@
                                      Converter={StaticResource NumberFormatConverter}, ConverterParameter='N0', ConverterCulture='is-IS'}"/>
                         </StackPanel>
 
-                        <Button Width="100" Grid.Row="2" Margin="0 0 0 5"
+                        <Button Width="100" Grid.Row="2" Margin="0 0 0 5" IsTabStop="False"
                                 Style="{StaticResource MaterialDesignFlatButton}" 
                                 Command="{Binding ModifyCommand}">
                             CẬP NHẬT
