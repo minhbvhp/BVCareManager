@@ -16,23 +16,22 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="100"/>
             <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
 
-        <StackPanel Margin="20 20 0 0">
-            <ComboBox Style="{StaticResource EmptyComboBoxStyle}" VerticalAlignment="Top" Margin="0 0 0 20"
+        <StackPanel Background="{StaticResource MaterialDesignToolBackground}">
+            <ComboBox Style="{StaticResource EmptyComboBoxStyle}" VerticalAlignment="Top" Margin="30"
                   materialDesign:HintAssist.Hint="Nhân viên"
                   ItemsSource="{Binding InsuredList}" IsEditable="True"
                   SelectedItem="{Binding SelectedInsuredName, Mode=TwoWay}"/>
 
-            <TextBox materialDesign:HintAssist.Hint="Số CMT/CCCD"
+            <TextBox materialDesign:HintAssist.Hint="Số CMT/CCCD" Margin="30, 0"
                                  materialDesign:HintAssist.IsFloating="True"
                                  Text="{Binding SelectedInsuredId, Mode=OneWay}"
                                  IsEnabled="False"/>
         </StackPanel>
 
-        <TabControl Grid.Column="2" materialDesign:ColorZoneAssist.Mode="PrimaryLight" TabStripPlacement="Right"
+        <TabControl Grid.Column="1" materialDesign:ColorZoneAssist.Mode="PrimaryLight" TabStripPlacement="Right"
                     Style="{StaticResource MaterialDesignNavigatilRailTabControl}">
             
             <materialDesign:NavigationRailAssist.FloatingContent>
@@ -50,45 +49,47 @@
                             SelectedDate="{Binding InputFromDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
 
                     <StackPanel Margin="0,20">
-                        <ComboBox Style="{StaticResource EmptyComboBoxStyle}" Margin="0 20 0 0"
+                        <ComboBox Style="{StaticResource EmptyComboBoxStyle}"
                               materialDesign:HintAssist.Hint="Đơn bảo hiểm (có hiệu lực)"
                               ItemsSource="{Binding PoliciesList}"
                               SelectedItem="{Binding SelectedPolicy, Mode=TwoWay}"/>
 
-                        <StackPanel HorizontalAlignment="Left" Margin="50, 10">
+                        <StackPanel HorizontalAlignment="Left" Margin="10, 10">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="30"/>
                                     <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="40"/>
+                                    <ColumnDefinition Width="30"/>
+                                    <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
 
-                                <Grid.RowDefinitions>
-                                    <RowDefinition/>
-                                    <RowDefinition/>
-                                </Grid.RowDefinitions>
-
                                 <materialDesign:PackIcon VerticalAlignment="Center" HorizontalAlignment="Center" 
-                                                         Kind="CalendarStart" Height="24" Width="24"/>
+                                                         Kind="CalendarStart" Height="16" Width="16" Foreground="#0c5500"/>
 
-                                <materialDesign:PackIcon Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" 
-                                                         Kind="CalendarEnd" Height="24" Width="24"/>
+                                <materialDesign:PackIcon Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                                                         Kind="CalendarEnd" Height="16" Width="16" Foreground="#de3627"/>
 
-                                <TextBox Grid.Column="1" MinWidth="100" Margin="5"
-                                         IsEnabled="False"
+                                <materialDesign:PackIcon Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                                                         Kind="ArrowRightBold" Height="12" Width="12" Foreground="#FF0D47A1"/>
+
+                                <TextBox Grid.Column="1"
+                                         Foreground="#0c5500" BorderThickness="0.5" BorderBrush="#0c5500"
+                                         IsEnabled="False" FontWeight="DemiBold"
                                          Text="01/01/2021"/>
 
-                                <TextBox Grid.Row="1" Grid.Column="1" Margin="5"
-                                         IsEnabled="False"
+                                <TextBox Grid.Column="4"
+                                         Foreground="#de3627" BorderThickness="0.5" BorderBrush="#de3627"
+                                         IsEnabled="False" FontWeight="DemiBold"
                                          Text="31/12/2021"/>
-
-
+                                
                             </Grid>
                         </StackPanel>
 
                         
                     </StackPanel>
 
-                    <DatePicker Style="{StaticResource EmptyDatePickerStyle}" Margin="0,20"
+                    <DatePicker Style="{StaticResource EmptyDatePickerStyle}" Margin="0,10"
                             materialDesign:HintAssist.Hint="Ngày nhận hồ sơ"
                             SelectedDate="{Binding InputFromDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
 
