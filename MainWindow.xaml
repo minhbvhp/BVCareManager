@@ -194,7 +194,7 @@
                 </TabItem>
 
                 <TabItem x:Name="ReportTab" Header="BÁO CÁO">
-                    <TextBlock Text="Hello" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    
                 </TabItem>
                 
                 
