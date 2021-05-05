@@ -8,33 +8,60 @@ namespace BVCareManager.Models
 {
     public partial class Policy
     {
-        public int Premium {
+        public int AdditionalPremium {
             get
             {
-                int monthsCover = (this.ToDate.Year - this.FromDate.Year) * 12 + this.ToDate.Month - this.FromDate.Month;
-                int _premium = 0;
+                int monthsCover = (this.Contract.ToDate.Year - this.FromDate.Year) * 12 + this.Contract.ToDate.Month - this.FromDate.Month + 1;
+                double _additionalPremium = 0;
                 int _premiumOfContract = this.Contract.AnnualPremiumPerInsured;
 
                 if (monthsCover > 0 && monthsCover <= 3)
                 {
-                    _premium = _premiumOfContract * 30 / 100;
-                } 
+                    _additionalPremium = _premiumOfContract * 30 / 100;
+                }
                 else if (monthsCover > 3 && monthsCover <= 6)
                 {
-                    _premium = _premiumOfContract * 60 / 100;
+                    _additionalPremium = _premiumOfContract * 60 / 100;
                 }
                 else if (monthsCover > 6 && monthsCover <= 9)
                 {
-                    _premium = _premiumOfContract * 85 / 100;
+                    _additionalPremium = _premiumOfContract * 85 / 100;
                 }
                 else
                 {
-                    _premium = _premiumOfContract;
+                    _additionalPremium = _premiumOfContract;
                 }
 
-                return _premium;
+                return (int)Math.Round(_additionalPremium, MidpointRounding.AwayFromZero);
+            }
+        }
+
+        public int RefundPremium {
+            get
+            {
+                double refundDays = (this.Contract.ToDate - this.ToDate).TotalDays;
+                double _refundPremium = this.Contract.AnnualPremiumPerInsured * refundDays / 365;
+
+                return (int)Math.Round(_refundPremium, MidpointRounding.AwayFromZero);
+            }
+        }
+
+        public int Premium {
+            get
+            {
+                return AdditionalPremium - RefundPremium;
             }
             
+        }
+
+        public bool IsShortTerm {
+            get
+            {
+                if (this.FromDate > this.Contract.FromDate || this.ToDate < this.Contract.ToDate)
+                    return true;
+
+                return false;
+            }
         }
     }
 }
