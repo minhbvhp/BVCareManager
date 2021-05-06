@@ -54,7 +54,7 @@
                               ItemsSource="{Binding PoliciesList}"
                               SelectedItem="{Binding SelectedPolicy, Mode=TwoWay}"/>
 
-                        <StackPanel HorizontalAlignment="Left" Margin="10, 10">
+                        <StackPanel HorizontalAlignment="Left" Margin="30, 10">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="30"/>
@@ -97,9 +97,70 @@
                 
             </TabItem>
             
-            <TabItem Header="{materialDesign:PackIcon Kind=Update, Size=24}"
+            <TabItem Header="{materialDesign:PackIcon Kind=NoteEditOutline, Size=24}"
                      ToolTip="Cập nhật hồ sơ"
                      Style="{StaticResource MaterialDesignNavigationRailTabItem}">
+
+                <StackPanel Margin="80 20 80 20" VerticalAlignment="Top">
+                    <DatePicker Style="{StaticResource EmptyDatePickerStyle}" Margin="0 0 0 0"
+                            materialDesign:HintAssist.Hint="Ngày khám"
+                            SelectedDate="{Binding InputFromDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+
+                    <StackPanel HorizontalAlignment="Left" Margin="30, 0">
+                        <TextBox materialDesign:HintAssist.Hint="Số đơn" MinWidth="200"
+                                 materialDesign:HintAssist.IsFloating="True"
+                                 Text="{Binding SelectedInsuredId, Mode=OneWay}"
+                                 IsEnabled="False"/>
+                    </StackPanel>
+
+                    <TextBox Margin="0, 30" Style="{StaticResource EmptyTextboxStyle}"
+                             TextWrapping="Wrap" VerticalAlignment="Stretch" AcceptsReturn="True"
+                             VerticalScrollBarVisibility="Auto" Height="80"
+                             materialDesign:HintAssist.Hint="Nội dung cập nhật"
+                             materialDesign:HintAssist.IsFloating="True"
+                             Text="{Binding SelectedInsuredId, Mode=TwoWay}"/>
+
+
+                    <DatePicker Style="{StaticResource EmptyDatePickerStyle}" Margin="0 0 0 0"
+                            materialDesign:HintAssist.Hint="Ngày cập nhật"
+                            SelectedDate="{Binding InputFromDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                </StackPanel>
+            </TabItem>
+
+            <TabItem Header="{materialDesign:PackIcon Kind=ListStatus, Size=24}"
+                     ToolTip="Tình trạng hồ sơ"
+                     Style="{StaticResource MaterialDesignNavigationRailTabItem}">
+
+                <StackPanel Margin="80 20 80 20" VerticalAlignment="Top">
+                    <DatePicker Style="{StaticResource EmptyDatePickerStyle}" Margin="0 0 0 0"
+                            materialDesign:HintAssist.Hint="Ngày khám"
+                            SelectedDate="{Binding InputFromDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+
+                    <StackPanel HorizontalAlignment="Left" Margin="30, 0">
+                        <TextBox materialDesign:HintAssist.Hint="Số đơn" MinWidth="200"
+                                 materialDesign:HintAssist.IsFloating="True"
+                                 Text="{Binding SelectedInsuredId, Mode=OneWay}"
+                                 IsEnabled="False"/>
+                    </StackPanel>
+
+
+                    <GroupBox Header="Hoàn thành" Margin="0, 30">
+                        <GroupBox.HeaderTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon Kind="ImageArea" Height="32" Width="32" VerticalAlignment="Center" />
+                                    <TextBlock Margin="8,0,0,0" VerticalAlignment="Center" Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
+                                               Text="{Binding}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </GroupBox.HeaderTemplate>
+
+
+                        <TextBlock TextWrapping="Wrap"
+                            Text="Quá trình đang diễn ra Quá trình đang diễn ra Quá trình đang diễn ra Quá trình đang diễn ra Quá trình đang diễn ra"/>
+                    </GroupBox>
+                </StackPanel>
+
                 
             </TabItem>
         </TabControl>
