@@ -8,9 +8,10 @@
              xmlns:converter="clr-namespace:BVCareManager.Converter"
              mc:Ignorable="d" 
              d:DesignHeight="800" d:DesignWidth="800">
-    
+
     <UserControl.Resources>
         <converter:NumberFormatConverter x:Key="NumberFormatConverter"/>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
     </UserControl.Resources>
 
     <Grid>
@@ -50,7 +51,7 @@
 
                     <StackPanel Margin="0,20">
                         <ComboBox Style="{StaticResource EmptyComboBoxStyle}"
-                              materialDesign:HintAssist.Hint="Đơn bảo hiểm (có hiệu lực)"
+                              materialDesign:HintAssist.Hint="Đơn bảo hiểm (hiệu lực phù hợp ngày khám)"
                               ItemsSource="{Binding PoliciesList}"
                               SelectedItem="{Binding SelectedPolicy, Mode=TwoWay}"/>
 
@@ -100,31 +101,76 @@
             <TabItem Header="{materialDesign:PackIcon Kind=NoteEditOutline, Size=24}"
                      ToolTip="Cập nhật hồ sơ"
                      Style="{StaticResource MaterialDesignNavigationRailTabItem}">
+                <materialDesign:DialogHost CloseOnClickAway="True">
+                    <StackPanel Margin="80 20 80 20" VerticalAlignment="Top">
+                        <StackPanel Orientation="Horizontal">
+                            <ComboBox Style="{StaticResource EmptyComboBoxStyle}"
+                            materialDesign:HintAssist.Hint="Ngày khám" MinWidth="150"/>
 
-                <StackPanel Margin="80 20 80 20" VerticalAlignment="Top">
-                    <DatePicker Style="{StaticResource EmptyDatePickerStyle}" Margin="0 0 0 0"
-                            materialDesign:HintAssist.Hint="Ngày khám"
-                            SelectedDate="{Binding InputFromDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                            <Button Margin="20 0 0 0" Style="{StaticResource MaterialDesignIconButton}"
+                                ToolTip="Xem lịch sử hồ sơ"
+                                Height="30" Width="30" VerticalAlignment="Bottom"
+                                Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}">
+                                <materialDesign:PackIcon Kind="History" Height="15" Width="15"/>
+                            </Button>
+                        </StackPanel>
 
-                    <StackPanel HorizontalAlignment="Left" Margin="30, 0">
-                        <TextBox materialDesign:HintAssist.Hint="Số đơn" MinWidth="200"
+
+                        <StackPanel HorizontalAlignment="Left" Margin="30, 0">
+                            <TextBox materialDesign:HintAssist.Hint="Số đơn" MinWidth="200"
                                  materialDesign:HintAssist.IsFloating="True"
                                  Text="{Binding SelectedInsuredId, Mode=OneWay}"
                                  IsEnabled="False"/>
-                    </StackPanel>
+                        </StackPanel>
 
-                    <TextBox Margin="0, 30" Style="{StaticResource EmptyTextboxStyle}"
+                        <TextBox Margin="0, 30" Style="{StaticResource EmptyTextboxStyle}"
                              TextWrapping="Wrap" VerticalAlignment="Stretch" AcceptsReturn="True"
                              VerticalScrollBarVisibility="Auto" Height="80"
                              materialDesign:HintAssist.Hint="Nội dung cập nhật"
                              materialDesign:HintAssist.IsFloating="True"
                              Text="{Binding SelectedInsuredId, Mode=TwoWay}"/>
 
+                        <DatePicker 
+                                    SelectedDate="{Binding InputFromDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
 
-                    <DatePicker Style="{StaticResource EmptyDatePickerStyle}" Margin="0 0 0 0"
-                            materialDesign:HintAssist.Hint="Ngày cập nhật"
-                            SelectedDate="{Binding InputFromDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-                </StackPanel>
+                            <DatePicker.Style>
+                                <Style TargetType="DatePicker" BasedOn="{StaticResource EmptyDatePickerStyle}">
+                                    <Setter Property="materialDesign:HintAssist.Hint" Value="Ngày cập nhật"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsChecked, ElementName=IsClaimClosed}" Value="True">
+                                            <Setter Property="materialDesign:HintAssist.Hint" Value="Ngày đóng hồ sơ"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </DatePicker.Style>
+                        </DatePicker>
+
+                        <StackPanel Orientation="Horizontal" Margin="0 50 0 10">
+                            <TextBlock Text="Cập nhật hồ sơ" FontWeight="DemiBold"/>
+                            <ToggleButton x:Name="IsClaimClosed" 
+                                          Margin="15, 0" Style="{StaticResource MaterialDesignSwitchAccentToggleButton}"
+                                          IsChecked="True" />
+
+                            <TextBlock Text="Đóng hồ sơ" Foreground="#3f8300" FontWeight="SemiBold"/>
+                        </StackPanel>
+
+                        <TextBox x:Name="TotalPaidTextBox"
+                                 Style="{StaticResource EmptyTextboxStyle}"
+                                 materialDesign:HintAssist.Hint="Số tiền bồi thường" 
+                                 PreviewTextInput="TotalPaidTextBox_PreviewTextInput"
+                                 PreviewKeyDown="TotalPaidTextBox_PreviewKeyDown"
+                                 Text="{Binding InputAnnualPremiumPerInsured, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, 
+                                    Converter={StaticResource NumberFormatConverter}, ConverterParameter='N0', ConverterCulture='is-IS'}"
+                                 Visibility="{Binding IsChecked,ElementName=IsClaimClosed,Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                    </StackPanel>
+
+                    <materialDesign:DialogHost.DialogContent>
+                        <TextBlock Text="Lịch sử hồ sơ bồi thường"/>
+                    </materialDesign:DialogHost.DialogContent>
+                </materialDesign:DialogHost>
+                
+                
+
             </TabItem>
 
             <TabItem Header="{materialDesign:PackIcon Kind=ListStatus, Size=24}"
@@ -148,7 +194,7 @@
                         <GroupBox.HeaderTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
-                                    <materialDesign:PackIcon Kind="ImageArea" Height="32" Width="32" VerticalAlignment="Center" />
+                                    <materialDesign:PackIcon Kind="Done" Height="32" Width="32" VerticalAlignment="Center" />
                                     <TextBlock Margin="8,0,0,0" VerticalAlignment="Center" Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
                                                Text="{Binding}" />
                                 </StackPanel>

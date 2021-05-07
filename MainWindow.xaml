@@ -193,7 +193,7 @@
                     <controls:ClaimManager/>
                 </TabItem>
 
-                <TabItem x:Name="ReportTab" Header="BÁO CÁO">
+                <TabItem x:Name="ReportTab" Header="SỐ LIỆU TỔNG QUAN">
                     
                 </TabItem>
                 
