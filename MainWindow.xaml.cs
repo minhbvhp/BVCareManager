@@ -112,6 +112,18 @@ namespace BVCareManager
                 CreateNewListBox.SelectedIndex = 0;
                 CreateNewGrid.DataContext = new NewInsuredViewModel();
             }
+            else if (ClaimTab.IsSelected)
+            {
+                ModifyDockPanel.Children.Clear();
+                CreateNewListBox.SelectedIndex = 0;
+                ClaimControl.DataContext = new ClaimBaseViewModel();
+            }
+        }
+
+        private void TopControlBar_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+                this.DragMove();
         }
     }
 }

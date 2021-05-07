@@ -53,7 +53,5 @@ namespace BVCareManager.Controls
             }
 
         }
-
-        
     }
 }

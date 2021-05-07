@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:BVCareManager.Controls"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:converter="clr-namespace:BVCareManager.Converter"
+             xmlns:viewmodel="clr-namespace:BVCareManager.ViewModels"
              mc:Ignorable="d" 
              d:DesignHeight="800" d:DesignWidth="800">
 
@@ -23,13 +24,7 @@
         <StackPanel Background="{StaticResource MaterialDesignToolBackground}">
             <ComboBox Style="{StaticResource EmptyComboBoxStyle}" VerticalAlignment="Top" Margin="30"
                   materialDesign:HintAssist.Hint="Nhân viên"
-                  ItemsSource="{Binding InsuredList}" IsEditable="True"
-                  SelectedItem="{Binding SelectedInsuredName, Mode=TwoWay}"/>
-
-            <TextBox materialDesign:HintAssist.Hint="Số CMT/CCCD" Margin="30, 0"
-                                 materialDesign:HintAssist.IsFloating="True"
-                                 Text="{Binding SelectedInsuredId, Mode=OneWay}"
-                                 IsEnabled="False"/>
+                  ItemsSource="{Binding InsuredList}" IsEditable="True"/>
         </StackPanel>
 
         <TabControl Grid.Column="1" materialDesign:ColorZoneAssist.Mode="PrimaryLight" TabStripPlacement="Right"
@@ -40,13 +35,17 @@
                         Margin="10, 20" Content="{materialDesign:PackIcon Kind=Add}"/>
             </materialDesign:NavigationRailAssist.FloatingContent>
 
-            <TabItem Header="{materialDesign:PackIcon Kind=TextBoxPlusOutline, Size=24}"
-                     ToolTip="Hồ sơ mới"
-                     Style="{StaticResource MaterialDesignNavigationRailTabItem}">
+            <TabItem Style="{StaticResource MaterialDesignNavigationRailTabItem}">
+                <TabItem.Header>
+                    <StackPanel>
+                        <materialDesign:PackIcon Kind="TextBoxPlusOutline" Height="24" Width="24" HorizontalAlignment="Center"/>
+                        <TextBlock Margin="0 2 0 0" Text="Mới" FontWeight="DemiBold" FontSize="10" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </TabItem.Header>
 
                 <StackPanel Margin="80 20 80 20" VerticalAlignment="Top">
                     <DatePicker Style="{StaticResource EmptyDatePickerStyle}" Margin="0,20"
-                            materialDesign:HintAssist.Hint="Ngày khám"
+                            materialDesign:HintAssist.Hint="Ngày khám" MinWidth="150" HorizontalAlignment="Left"
                             SelectedDate="{Binding InputFromDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
 
                     <StackPanel Margin="0,20">
@@ -71,16 +70,16 @@
                                 <materialDesign:PackIcon Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center" 
                                                          Kind="CalendarEnd" Height="16" Width="16" Foreground="#de3627"/>
 
-                                <materialDesign:PackIcon Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                                <materialDesign:PackIcon Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5 0 0 0" 
                                                          Kind="ArrowRightBold" Height="12" Width="12" Foreground="#FF0D47A1"/>
 
                                 <TextBox Grid.Column="1"
-                                         Foreground="#0c5500" BorderThickness="0.5" BorderBrush="#0c5500"
+                                         Foreground="#0c5500" BorderThickness="0" BorderBrush="#0c5500"
                                          IsEnabled="False" FontWeight="DemiBold"
                                          Text="01/01/2021"/>
 
                                 <TextBox Grid.Column="4"
-                                         Foreground="#de3627" BorderThickness="0.5" BorderBrush="#de3627"
+                                         Foreground="#de3627" BorderThickness="0" BorderBrush="#de3627"
                                          IsEnabled="False" FontWeight="DemiBold"
                                          Text="31/12/2021"/>
                                 
@@ -97,10 +96,15 @@
                 </StackPanel>
                 
             </TabItem>
-            
-            <TabItem Header="{materialDesign:PackIcon Kind=NoteEditOutline, Size=24}"
-                     ToolTip="Cập nhật hồ sơ"
-                     Style="{StaticResource MaterialDesignNavigationRailTabItem}">
+
+            <TabItem Style="{StaticResource MaterialDesignNavigationRailTabItem}">
+                <TabItem.Header>
+                    <StackPanel>
+                        <materialDesign:PackIcon Kind="NoteEditOutline" Height="24" Width="24" HorizontalAlignment="Center"/>
+                        <TextBlock Margin="0 2 0 0" Text="Cập nhật" FontWeight="DemiBold" FontSize="10" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </TabItem.Header>
+
                 <materialDesign:DialogHost CloseOnClickAway="True">
                     <StackPanel Margin="80 20 80 20" VerticalAlignment="Top">
                         <StackPanel Orientation="Horizontal">
@@ -167,19 +171,24 @@
                     <materialDesign:DialogHost.DialogContent>
                         <TextBlock Text="Lịch sử hồ sơ bồi thường"/>
                     </materialDesign:DialogHost.DialogContent>
+                    
                 </materialDesign:DialogHost>
                 
                 
 
             </TabItem>
 
-            <TabItem Header="{materialDesign:PackIcon Kind=ListStatus, Size=24}"
-                     ToolTip="Tình trạng hồ sơ"
-                     Style="{StaticResource MaterialDesignNavigationRailTabItem}">
+            <TabItem Style="{StaticResource MaterialDesignNavigationRailTabItem}">
+                <TabItem.Header>
+                    <StackPanel>
+                        <materialDesign:PackIcon Kind="EyeOutline" Height="24" Width="24" HorizontalAlignment="Center"/>
+                        <TextBlock Margin="0 2 0 0" Text="Xem" FontWeight="DemiBold" FontSize="10" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </TabItem.Header>
 
                 <StackPanel Margin="80 20 80 20" VerticalAlignment="Top">
                     <DatePicker Style="{StaticResource EmptyDatePickerStyle}" Margin="0 0 0 0"
-                            materialDesign:HintAssist.Hint="Ngày khám"
+                            materialDesign:HintAssist.Hint="Ngày khám" MinWidth="150" HorizontalAlignment="Left"
                             SelectedDate="{Binding InputFromDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
 
                     <StackPanel HorizontalAlignment="Left" Margin="30, 0">

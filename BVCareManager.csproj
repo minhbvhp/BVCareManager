@@ -148,11 +148,13 @@
     </Compile>
     <Compile Include="Models\Contract.cs" />
     <Compile Include="Models\Policy.cs" />
+    <Compile Include="Repository\ClaimRepository.cs" />
     <Compile Include="Repository\ContractRepository.cs" />
     <Compile Include="Repository\InsuredRepository.cs" />
     <Compile Include="Repository\PolicyRepository.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="Converter\BooleanVisibilityConverter.cs" />
+    <Compile Include="ViewModels\ClaimBaseViewModel.cs" />
     <Compile Include="ViewModels\ModifyBaseViewModel.cs" />
     <Compile Include="ViewModels\ModifyContractViewModel.cs" />
     <Compile Include="ViewModels\ModifyInsuredViewModel.cs" />

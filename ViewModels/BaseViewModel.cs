@@ -169,6 +169,6 @@ namespace BVCareManager.ViewModels
 
                 return AllInsured;
             }
-        }
+        }        
     }
 }
