@@ -13,6 +13,7 @@
     <UserControl.Resources>
         <converter:NumberFormatConverter x:Key="NumberFormatConverter"/>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        <converter:BooleanVisibilityConverter x:Key="visibilityConverter"/>
     </UserControl.Resources>
 
     <Grid>
@@ -22,13 +23,22 @@
         </Grid.ColumnDefinitions>
 
         <StackPanel Background="{StaticResource MaterialDesignToolBackground}">
-            <ComboBox Style="{StaticResource EmptyComboBoxStyle}" VerticalAlignment="Top" Margin="30"
-                  materialDesign:HintAssist.Hint="Nhân viên"
-                  ItemsSource="{Binding InsuredList}" IsEditable="True"/>
+            <ComboBox Style="{StaticResource EmptyComboBoxStyle}" Margin="30"
+                      materialDesign:HintAssist.Hint="Nhân viên"
+                      ItemsSource="{Binding InsuredList}"
+                      SelectedItem="{Binding SelectedInsuredId}"/>
+
+            <ComboBox Style="{StaticResource EmptyComboBoxStyle}" Margin="30"
+                      materialDesign:HintAssist.Hint="Hợp đồng"
+                      ItemsSource="{Binding ContractList}"
+                      />
+
+            <TextBlock Text="{Binding NameObject}"/>
         </StackPanel>
 
         <TabControl Grid.Column="1" materialDesign:ColorZoneAssist.Mode="PrimaryLight" TabStripPlacement="Right"
-                    Style="{StaticResource MaterialDesignNavigatilRailTabControl}">
+                    Style="{StaticResource MaterialDesignNavigatilRailTabControl}"
+                    >
             
             <materialDesign:NavigationRailAssist.FloatingContent>
                 <Button Style="{StaticResource MaterialDesignFloatingActionAccentButton}" Height="50" Width="50" IsTabStop="False"
@@ -45,14 +55,11 @@
 
                 <StackPanel Margin="80 20 80 20" VerticalAlignment="Top">
                     <DatePicker Style="{StaticResource EmptyDatePickerStyle}" Margin="0,20"
-                            materialDesign:HintAssist.Hint="Ngày khám" MinWidth="150" HorizontalAlignment="Left"
-                            SelectedDate="{Binding InputFromDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                            materialDesign:HintAssist.Hint="Ngày khám" MinWidth="150" HorizontalAlignment="Left"/>
 
                     <StackPanel Margin="0,20">
                         <ComboBox Style="{StaticResource EmptyComboBoxStyle}"
-                              materialDesign:HintAssist.Hint="Đơn bảo hiểm (hiệu lực phù hợp ngày khám)"
-                              ItemsSource="{Binding PoliciesList}"
-                              SelectedItem="{Binding SelectedPolicy, Mode=TwoWay}"/>
+                              materialDesign:HintAssist.Hint="Đơn bảo hiểm (hiệu lực phù hợp ngày khám)"/>
 
                         <StackPanel HorizontalAlignment="Left" Margin="30, 10">
                             <Grid>
@@ -90,8 +97,11 @@
                     </StackPanel>
 
                     <DatePicker Style="{StaticResource EmptyDatePickerStyle}" Margin="0,10"
-                            materialDesign:HintAssist.Hint="Ngày nhận hồ sơ"
-                            SelectedDate="{Binding InputFromDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                            materialDesign:HintAssist.Hint="Ngày nhận hồ sơ"/>
+
+                    <ComboBox Style="{StaticResource EmptyComboBoxStyle}" Margin="30"
+                      ItemsSource="{Binding InsuredList}"
+                              SelectedItem="{Binding}"/>
 
                 </StackPanel>
                 
@@ -109,7 +119,8 @@
                     <StackPanel Margin="80 20 80 20" VerticalAlignment="Top">
                         <StackPanel Orientation="Horizontal">
                             <ComboBox Style="{StaticResource EmptyComboBoxStyle}"
-                            materialDesign:HintAssist.Hint="Ngày khám" MinWidth="150"/>
+                                      materialDesign:HintAssist.Hint="Ngày khám" MinWidth="150"
+                                      ItemsSource="{Binding InsuredList}"/>
 
                             <Button Margin="20 0 0 0" Style="{StaticResource MaterialDesignIconButton}"
                                 ToolTip="Xem lịch sử hồ sơ"
@@ -131,11 +142,9 @@
                              TextWrapping="Wrap" VerticalAlignment="Stretch" AcceptsReturn="True"
                              VerticalScrollBarVisibility="Auto" Height="80"
                              materialDesign:HintAssist.Hint="Nội dung cập nhật"
-                             materialDesign:HintAssist.IsFloating="True"
-                             Text="{Binding SelectedInsuredId, Mode=TwoWay}"/>
+                             materialDesign:HintAssist.IsFloating="True"/>
 
-                        <DatePicker 
-                                    SelectedDate="{Binding InputFromDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                        <DatePicker>
 
                             <DatePicker.Style>
                                 <Style TargetType="DatePicker" BasedOn="{StaticResource EmptyDatePickerStyle}">
@@ -163,8 +172,6 @@
                                  materialDesign:HintAssist.Hint="Số tiền bồi thường" 
                                  PreviewTextInput="TotalPaidTextBox_PreviewTextInput"
                                  PreviewKeyDown="TotalPaidTextBox_PreviewKeyDown"
-                                 Text="{Binding InputAnnualPremiumPerInsured, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, 
-                                    Converter={StaticResource NumberFormatConverter}, ConverterParameter='N0', ConverterCulture='is-IS'}"
                                  Visibility="{Binding IsChecked,ElementName=IsClaimClosed,Converter={StaticResource BooleanToVisibilityConverter}}"/>
                     </StackPanel>
 
@@ -188,13 +195,11 @@
 
                 <StackPanel Margin="80 20 80 20" VerticalAlignment="Top">
                     <DatePicker Style="{StaticResource EmptyDatePickerStyle}" Margin="0 0 0 0"
-                            materialDesign:HintAssist.Hint="Ngày khám" MinWidth="150" HorizontalAlignment="Left"
-                            SelectedDate="{Binding InputFromDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                            materialDesign:HintAssist.Hint="Ngày khám" MinWidth="150" HorizontalAlignment="Left"/>
 
                     <StackPanel HorizontalAlignment="Left" Margin="30, 0">
                         <TextBox materialDesign:HintAssist.Hint="Số đơn" MinWidth="200"
                                  materialDesign:HintAssist.IsFloating="True"
-                                 Text="{Binding SelectedInsuredId, Mode=OneWay}"
                                  IsEnabled="False"/>
                     </StackPanel>
 

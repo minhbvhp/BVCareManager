@@ -1,4 +1,5 @@
 ﻿using BVCareManager.Converter;
+using BVCareManager.Models;
 using BVCareManager.Repository;
 using System;
 using System.Collections.Generic;
@@ -137,7 +138,7 @@ namespace BVCareManager.ViewModels
         }
 
 
-        public ObservableCollection<String> ContractList
+        public ObservableCollection<Contract> ContractList
         {
             get
             {
@@ -146,15 +147,15 @@ namespace BVCareManager.ViewModels
                 var _allContract = from contract in contractRepository.FindAllContracts()
                                    select contract;
 
-                var AllContract = new ObservableCollection<String>();
+                var AllContract = new ObservableCollection<Contract>();
 
                 foreach (var contract in _allContract)
-                    AllContract.Add(contract.Id);
+                    AllContract.Add(contract);
 
                 return AllContract;
             }
         }
-        public ObservableCollection<String> InsuredList
+        public ObservableCollection<Insured> InsuredList
         {
             get
             {
@@ -162,10 +163,10 @@ namespace BVCareManager.ViewModels
 
                 var _allInsured = from insured in insuredRepository.FindAllInsureds()
                                   select insured;
-                var AllInsured = new ObservableCollection<String>();
+                var AllInsured = new ObservableCollection<Insured>();
 
                 foreach (var insured in _allInsured)
-                    AllInsured.Add(insured.Name + " - " + insured.Id);
+                    AllInsured.Add(insured);
 
                 return AllInsured;
             }

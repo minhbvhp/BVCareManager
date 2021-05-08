@@ -8,7 +8,7 @@
              xmlns:viewmodel="clr-namespace:BVCareManager.ViewModels"
              xmlns:converter="clr-namespace:BVCareManager.Converter"
              mc:Ignorable="d" 
-             d:DesignHeight="500" d:DesignWidth="350">
+             d:DesignHeight="488" d:DesignWidth="350" MaxWidth="350">
     
     <UserControl.Resources>
         <converter:NumberFormatConverter x:Key="NumberFormatConverter"/>
@@ -36,29 +36,35 @@
                     </Style>
                 </StackPanel.Style>
 
-                <TextBox x:Name="PolicyNumberTextBox" Style="{StaticResource EmptyTextboxStyle}" Margin="20"
+                <TextBox x:Name="PolicyNumberTextBox" Style="{StaticResource EmptyTextboxStyle}" Margin="30, 15"
                          materialDesign:HintAssist.Hint="Số đơn" 
                          PreviewTextInput="TextBox_PreviewTextInput"
                          PreviewKeyDown="TextBox_PreviewKeyDown"
                          Text="{Binding InputNumber, UpdateSourceTrigger=PropertyChanged, 
                          Mode=TwoWay, Converter={StaticResource NumberFormatConverter}}"/>
 
-                <ComboBox Style="{StaticResource EmptyComboBoxStyle}"
-                          Margin="20" materialDesign:HintAssist.Hint="Số hợp đồng"
+                <ComboBox Style="{StaticResource EmptyComboBoxStyle}" Margin="30, 15"
+                          materialDesign:HintAssist.Hint="Số hợp đồng"
                           ItemsSource="{Binding ContractList}"
-                          SelectedItem="{Binding SelectedContractId}"/>
+                          SelectedValue="{Binding SelectedContractId, Mode=TwoWay}"
+                          SelectedValuePath="Id" DisplayMemberPath="Id"/>
 
-                <ComboBox Style="{StaticResource EmptyComboBoxStyle}"
-                          Margin="20" materialDesign:HintAssist.Hint="Nhân viên"
+                <StackPanel Margin="30, 15">
+                    <ComboBox x:Name="InsuredListComboBox" Style="{StaticResource EmptyComboBoxStyle}" 
+                          materialDesign:HintAssist.Hint="Nhân viên"
                           ItemsSource="{Binding InsuredList}" IsEditable="True"
-                          SelectedItem="{Binding SelectedInsuredId, Mode=TwoWay}"/>
+                          SelectedValue="{Binding SelectedInsuredId, Mode=TwoWay}"
+                          SelectedValuePath="Id" DisplayMemberPath="Name"/>
 
-                <DatePicker Style="{StaticResource EmptyDatePickerStyle}"
-                            Margin="20" materialDesign:HintAssist.Hint="Từ ngày"
+                    <TextBlock Text="{Binding ElementName=InsuredListComboBox, Path=SelectedValue}" FontWeight="DemiBold" FontStyle="Italic"/>
+                </StackPanel>
+
+                <DatePicker Style="{StaticResource EmptyDatePickerStyle}" Margin="30, 15"
+                            materialDesign:HintAssist.Hint="Từ ngày"
                             SelectedDate="{Binding InputFromDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
 
-                <DatePicker Style="{StaticResource EmptyDatePickerStyle}"
-                            Margin="20" materialDesign:HintAssist.Hint="Đến ngày"
+                <DatePicker Style="{StaticResource EmptyDatePickerStyle}" Margin="30, 15"
+                            materialDesign:HintAssist.Hint="Đến ngày"
                             SelectedDate="{Binding InputToDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
 
             </StackPanel>

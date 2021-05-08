@@ -45,7 +45,7 @@ namespace BVCareManager.ViewModels
                     OnModifyingPolicyPremium = value.Premium;
                     OnModifyingPolicyFromDate = value.FromDate;
                     OnModifyingPolicyToDate = value.ToDate;
-                    OnModifyingPolicyInsuredId =  value.Insured.Name + " - " + value.InsuredId;
+                    OnModifyingPolicyInsuredId =  value.Insured.Id;
                 }
                 else
                 {
@@ -225,11 +225,7 @@ namespace BVCareManager.ViewModels
                 SelectedPolicy.FromDate = OnModifyingPolicyFromDate ?? SelectedPolicy.FromDate;
                 SelectedPolicy.ToDate = OnModifyingPolicyToDate ?? SelectedPolicy.ToDate;
                 policyRepository.UpdateContract(SelectedPolicy.ContractId, OnModifyingPolicyContractId);
-
-                Regex insuredIdRegex = new Regex(@"[^-]+$");
-                string updateInsuredId = insuredIdRegex.Match(OnModifyingPolicyInsuredId).ToString().Trim(' ');
-                policyRepository.UpdateInsured(SelectedPolicy.InsuredId, updateInsuredId);
-
+                policyRepository.UpdateInsured(SelectedPolicy.InsuredId, OnModifyingPolicyInsuredId);
 
                 policyRepository.Save();
 

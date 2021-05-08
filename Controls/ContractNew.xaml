@@ -37,18 +37,18 @@
                 </StackPanel.Style>
 
                 <TextBox x:Name="ContractIdTextBox" Style="{StaticResource EmptyTextboxStyle}"
-                         Margin="20" materialDesign:HintAssist.Hint="Số hợp đồng"
+                         Margin="30, 20" materialDesign:HintAssist.Hint="Số hợp đồng"
                          Text="{Binding InputId, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
 
                 <DatePicker Style="{StaticResource EmptyDatePickerStyle}"
-                            Margin="20" materialDesign:HintAssist.Hint="Từ ngày"
+                            Margin="30, 20" materialDesign:HintAssist.Hint="Từ ngày"
                             SelectedDate="{Binding InputFromDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
 
                 <DatePicker Style="{StaticResource EmptyDatePickerStyle}"
-                            Margin="20" materialDesign:HintAssist.Hint="Đến ngày"
+                            Margin="30, 20" materialDesign:HintAssist.Hint="Đến ngày"
                             SelectedDate="{Binding InputToDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
 
-                <TextBox Style="{StaticResource EmptyTextboxStyle}" Margin="20"
+                <TextBox Style="{StaticResource EmptyTextboxStyle}" Margin="30, 20"
                          materialDesign:HintAssist.Hint="Phí bảo hiểm/người" 
                          PreviewTextInput="TextBoxAnnualPremiumPerInsured_PreviewTextInput"
                          PreviewKeyDown="TextBoxAnnualPremiumPerInsured_PreviewKeyDown"

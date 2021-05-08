@@ -40,28 +40,16 @@ namespace BVCareManager.ViewModels
             }
         }
 
-        private string _selectedInsured;
         private string _selectedInsuredId;
         public string SelectedInsuredId
         {
             get
             {
-                Regex insuredIdRegex = new Regex(@"[^-]+$");
-
-                if (_selectedInsured != null)
-                {
-                    _selectedInsuredId = insuredIdRegex.Match(this._selectedInsured).ToString().Trim(' ');
-                }
-                else
-                {
-                    _selectedInsuredId = String.Empty;
-                }
-
                 return _selectedInsuredId;
             }
             set
             {
-                SetProperty(ref _selectedInsured, value);
+                SetProperty(ref _selectedInsuredId, value);
             }
         }
 
@@ -106,7 +94,6 @@ namespace BVCareManager.ViewModels
 
         public NewPolicyViewModel()
         {
-            InsuredRepository insuredRepository = new InsuredRepository();
             ContractRepository contractRepository = new ContractRepository();
 
             var now = DateTime.Now;
@@ -135,7 +122,7 @@ namespace BVCareManager.ViewModels
                     return false;
                 }
 
-                if (this.SelectedInsuredId == String.Empty)
+                if (String.IsNullOrEmpty(SelectedInsuredId))
                     return false;
 
                 if (this.InputFromDate > this.InputToDate)

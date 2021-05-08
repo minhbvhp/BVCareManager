@@ -40,6 +40,19 @@ namespace BVCareManager.ViewModels
             }
         }
 
+        private string _selectedInsuredId;
+        public string SelectedInsuredId
+        {
+            get
+            {
+                return _selectedInsuredId;
+            }
+            set
+            {
+                SetProperty(ref _selectedInsuredId, value);
+            }
+        }
+
         public NewInsuredViewModel()
         {
             _errorsList.Clear();

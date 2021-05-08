@@ -32,13 +32,14 @@
                     </Style>
                 </StackPanel.Style>
                 
-                <TextBox x:Name="InsuredIdTextBox" Margin="20" materialDesign:HintAssist.Hint="Số CMT/CCCD"
+                <TextBox x:Name="InsuredIdTextBox" Margin="30, 20" materialDesign:HintAssist.Hint="Số CMT/CCCD"
                          Style="{StaticResource EmptyTextboxStyle}"
                          Text="{Binding InputId, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
 
-                <TextBox Margin="20" materialDesign:HintAssist.Hint="Họ tên"
+                <TextBox Margin="30, 20" materialDesign:HintAssist.Hint="Họ tên"
                          Style="{StaticResource EmptyTextboxStyle}"
                          Text="{Binding InputName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+
             </StackPanel>
         </GroupBox>
     </Grid>

@@ -24,7 +24,6 @@
     <Window.Resources>
         <viewModels:ModifyBaseViewModel x:Key="ModifyBaseViewModel"/>
         <converter:BooleanVisibilityConverter x:Key="visibilityConverter"/>
-        <viewModels:ClaimBaseViewModel x:Key="ClaimBaseViewModel"/>
     </Window.Resources>
     
     <Grid>
@@ -191,11 +190,15 @@
                 </TabItem>
 
                 <TabItem x:Name="ClaimTab" Header="BỒI THƯỜNG">
-                    <controls:ClaimManager x:Name="ClaimControl"/>
+                    <DockPanel x:Name="ClaimManagerDockPanel">
+                        
+                    </DockPanel>
                 </TabItem>
 
                 <TabItem x:Name="ReportTab" Header="SỐ LIỆU TỔNG QUAN">
-                    
+                    <DockPanel x:Name="ReportDockPanel">
+                        
+                    </DockPanel>
                 </TabItem>
                 
                 

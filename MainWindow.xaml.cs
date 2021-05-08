@@ -45,17 +45,20 @@ namespace BVCareManager
             {
                 case 0:
                     CreateNewDockPanel.Children.Add(new InsuredNew());
-                    createNewGroupBoxViewModel = new NewInsuredViewModel();                    
+                    if (!(createNewGroupBoxViewModel is NewInsuredViewModel))
+                        createNewGroupBoxViewModel = new NewInsuredViewModel();                    
                     break;
 
                 case 1:
                     CreateNewDockPanel.Children.Add(new ContractNew());
-                    createNewGroupBoxViewModel = new NewContractViewModel();
+                    if (!(createNewGroupBoxViewModel is NewContractViewModel))
+                        createNewGroupBoxViewModel = new NewContractViewModel();
                     break;
 
                 case 2:
                     CreateNewDockPanel.Children.Add(new PolicyNew());
-                    createNewGroupBoxViewModel = new NewPolicyViewModel();
+                    if (!(createNewGroupBoxViewModel is NewPolicyViewModel))
+                        createNewGroupBoxViewModel = new NewPolicyViewModel();
                     break;
 
                 default:
@@ -75,24 +78,26 @@ namespace BVCareManager
             {
                 case "Nhân viên":
                     ModifyDockPanel.Children.Add(new InsuredModify());
-                    searchAndModifyViewModel = new ModifyInsuredViewModel(searchText);
+                    if (!(searchAndModifyViewModel is ModifyInsuredViewModel))
+                        searchAndModifyViewModel = new ModifyInsuredViewModel(searchText);
                     break;
 
                 case "Hợp đồng":
                     ModifyDockPanel.Children.Add(new ContractModify());
-                    searchAndModifyViewModel = new ModifyContractViewModel(searchText);
+                    if (!(searchAndModifyViewModel is ModifyContractViewModel))
+                        searchAndModifyViewModel = new ModifyContractViewModel(searchText);
                     break;
 
                 case "Đơn bảo hiểm":
                     ModifyDockPanel.Children.Add(new PolicyModify());
-                    searchAndModifyViewModel = new ModifyPolicyViewModel(searchText);
+                    if (!(searchAndModifyViewModel is ModifyPolicyViewModel))
+                        searchAndModifyViewModel = new ModifyPolicyViewModel(searchText);
                     break;
             }
 
             ModifyGrid.DataContext = searchAndModifyViewModel;
 
             CreateNewListBox.SelectedIndex = 0;
-            CreateNewGrid.DataContext = new NewInsuredViewModel();
         }
 
         private void MyTabs_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -110,13 +115,18 @@ namespace BVCareManager
             else if (ModifyTab.IsSelected)
             {
                 CreateNewListBox.SelectedIndex = 0;
-                CreateNewGrid.DataContext = new NewInsuredViewModel();
+                if (!(CreateNewGrid.DataContext is NewInsuredViewModel))
+                    CreateNewGrid.DataContext = new NewInsuredViewModel();
             }
             else if (ClaimTab.IsSelected)
             {
                 ModifyDockPanel.Children.Clear();
                 CreateNewListBox.SelectedIndex = 0;
-                ClaimControl.DataContext = new ClaimBaseViewModel();
+                ClaimManagerDockPanel.DataContext = new ClaimBaseViewModel("FromMainWindow");
+            }
+            else if (ReportTab.IsSelected)
+            {
+                
             }
         }
 
