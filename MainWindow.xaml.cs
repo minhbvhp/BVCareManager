@@ -107,27 +107,18 @@ namespace BVCareManager
 
         private void UpdateTabs()
         {
-            if (NewTab.IsSelected)
-            {
-                ModifyDockPanel.Children.Clear();
-                SearchTextBox.Text = String.Empty;
-            }
-            else if (ModifyTab.IsSelected)
+            if (!NewTab.IsSelected)
             {
                 CreateNewListBox.SelectedIndex = 0;
                 if (!(CreateNewGrid.DataContext is NewInsuredViewModel))
                     CreateNewGrid.DataContext = new NewInsuredViewModel();
             }
-            else if (ClaimTab.IsSelected)
+            else if (!ModifyTab.IsSelected)
             {
                 ModifyDockPanel.Children.Clear();
-                CreateNewListBox.SelectedIndex = 0;
-                ClaimManagerDockPanel.DataContext = new ClaimBaseViewModel("FromMainWindow");
+                SearchTextBox.Text = String.Empty;
             }
-            else if (ReportTab.IsSelected)
-            {
-                
-            }
+
         }
 
         private void TopControlBar_MouseDown(object sender, MouseButtonEventArgs e)

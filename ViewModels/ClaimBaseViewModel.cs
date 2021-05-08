@@ -11,9 +11,8 @@ using System.Windows.Input;
 
 namespace BVCareManager.ViewModels
 {
-    class ClaimBaseViewModel : BaseViewModel
+    public class ClaimBaseViewModel : BaseViewModel
     {
-        public String NameObject { get;}
         public ICommand AddCommand { get; set; }
         public ICommand ModifyCommand { get; set; }
         public ICommand DeleteCommand { get; set; }
@@ -54,13 +53,6 @@ namespace BVCareManager.ViewModels
             {
                 SetProperty(ref _selectedInsuredId, value);
             }
-        }
-
-        public ClaimBaseViewModel(string nameObject)
-        {
-            NameObject = nameObject;
-            int a = 0;
-
         }
     }
 }

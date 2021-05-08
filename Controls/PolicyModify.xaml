@@ -167,7 +167,7 @@
                                       SelectedValuePath="Id" DisplayMemberPath="Name"/>
 
                                 <TextBlock Text="{Binding ElementName=InsuredListComboBox, Path=SelectedValue}" 
-                                           FontWeight="DemiBold" FontStyle="Italic"/>
+                                           FontWeight="DemiBold" FontStyle="Italic" FontSize="10"/>
                             </StackPanel>
 
                             <DatePicker Style="{StaticResource EmptyDatePickerStyle}"
