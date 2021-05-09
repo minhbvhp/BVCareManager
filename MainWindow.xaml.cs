@@ -96,8 +96,6 @@ namespace BVCareManager
             }
 
             ModifyGrid.DataContext = searchAndModifyViewModel;
-
-            CreateNewListBox.SelectedIndex = 0;
         }
 
         private void MyTabs_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -107,16 +105,22 @@ namespace BVCareManager
 
         private void UpdateTabs()
         {
-            if (!NewTab.IsSelected)
+            if (NewTab.IsSelected == false)
             {
                 CreateNewListBox.SelectedIndex = 0;
-                if (!(CreateNewGrid.DataContext is NewInsuredViewModel))
-                    CreateNewGrid.DataContext = new NewInsuredViewModel();
+                CreateNewGrid.DataContext = new NewInsuredViewModel();
             }
-            else if (!ModifyTab.IsSelected)
+
+            if (ModifyTab.IsSelected == false)
             {
                 ModifyDockPanel.Children.Clear();
                 SearchTextBox.Text = String.Empty;
+            }
+
+            if (ClaimTab.IsSelected == false)
+            {
+                ClaimManagerDockPanel.Children.Clear();
+                InsuredTextBox.Text = String.Empty;
             }
 
         }
@@ -125,6 +129,15 @@ namespace BVCareManager
         {
             if (e.ChangedButton == MouseButton.Left)
                 this.DragMove();
+        }
+
+        private void SearchInsured_Click(object sender, RoutedEventArgs e)
+        {
+            ClaimManagerDockPanel.Children.Clear();
+            string searchText = SearchTextBox.Text;
+
+            ClaimManagerDockPanel.Children.Add(new ClaimManager());
+            ClaimGrid.DataContext = new ClaimBaseViewModel(searchText);
         }
     }
 }

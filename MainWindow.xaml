@@ -24,7 +24,6 @@
     <Window.Resources>
         <viewModels:ModifyBaseViewModel x:Key="ModifyBaseViewModel"/>
         <converter:BooleanVisibilityConverter x:Key="visibilityConverter"/>
-        <viewModels:ClaimBaseViewModel x:Key="ClaimBaseViewModel"/>
     </Window.Resources>
     
     <Grid>
@@ -189,26 +188,35 @@
                 </TabItem>
 
                 <TabItem x:Name="ClaimTab" Header="BỒI THƯỜNG">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="4*"/>
-                        </Grid.ColumnDefinitions>
+                    <Grid x:Name="ClaimGrid">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="90"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
 
-                        <StackPanel x:Name="ClaimStackPanel" Background="{StaticResource MaterialDesignToolBackground}"
-                                    DataContext="{StaticResource ClaimBaseViewModel}">
-                            <ComboBox x:Name="InsuredListComboBox"
-                                      Margin="30"
-                                      materialDesign:HintAssist.Hint="Nhân viên"
-                                      ItemsSource="{Binding InsuredList, UpdateSourceTrigger=PropertyChanged}"
-                                      SelectedValue="{Binding SelectedInsuredId, Mode=TwoWay}"
-                                      SelectedValuePath="Id" DisplayMemberPath="Name"/>
+                        <DockPanel Background="#9B9B9B" Height="100">
+                            <StackPanel Orientation="Horizontal"
+                                        HorizontalAlignment="Center" Margin="0 25 0 0">
+                                <TextBox x:Name="InsuredTextBox" Width="200"
+                                         Foreground="White" BorderBrush="White"
+                                         VerticalAlignment="Top" HorizontalAlignment="Left"
+                                         materialDesign:HintAssist.Hint="Tên nhân viên" 
+                                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
 
-                            <TextBlock Text="{Binding ElementName=InsuredListComboBox, Path=SelectedValue}" 
-                                       FontWeight="DemiBold" FontStyle="Italic"/>
-                        </StackPanel>
+                                <Button x:Name="SearchInsured" IsDefault="True" IsTabStop="False"
+                                        HorizontalAlignment="Left" VerticalAlignment="Top"
+                                        Width="32" Height="32"
+                                        Style="{StaticResource MaterialDesignFloatingActionDarkButton}"
+                                        Click="SearchInsured_Click">
 
-                        <DockPanel Grid.Column="1" x:Name="ClaimManagerDockPanel"/>
+                                    <materialDesign:PackIcon Kind="Search" Height="24" Width="24"/>
+                                </Button>
+                            </StackPanel>
+                        </DockPanel>
+
+                        <DockPanel Grid.Row="1" x:Name="ClaimManagerDockPanel">
+                            <controls:ClaimManager/>
+                        </DockPanel>
                         
                     </Grid>
                 </TabItem>

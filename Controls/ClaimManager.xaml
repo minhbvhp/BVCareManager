@@ -8,7 +8,7 @@
              xmlns:converter="clr-namespace:BVCareManager.Converter"
              xmlns:viewmodel="clr-namespace:BVCareManager.ViewModels"
              mc:Ignorable="d" 
-             d:DesignHeight="800" d:DesignWidth="800">
+             d:DesignHeight="720" d:DesignWidth="1280">
 
     <UserControl.Resources>
         <converter:NumberFormatConverter x:Key="NumberFormatConverter"/>
@@ -18,13 +18,75 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="250"/>
+            <ColumnDefinition Width="4*"/>
         </Grid.ColumnDefinitions>
 
-        <!--<TabControl Grid.Column="1" materialDesign:ColorZoneAssist.Mode="PrimaryLight" TabStripPlacement="Right"
-                    Style="{StaticResource MaterialDesignNavigatilRailTabControl}">
-            
+        <DataGrid x:Name="InsuredsResultDataGrid" ItemsSource="{Binding ListInsureds}" AutoGenerateColumns="False"
+                  Background="#B6B6B6"
+                  IsReadOnly="True" ClipboardCopyMode="None" ColumnWidth="*" HeadersVisibility="All"
+                  SelectedItem="{Binding SelectedInsured}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Id}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="Số CCCD" TextWrapping="Wrap"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+
+                <DataGridTextColumn Binding="{Binding Name}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="Họ tên" TextWrapping="Wrap"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <StackPanel Grid.Column="1" Background="#D1D1D1" 
+                    VerticalAlignment="Stretch" Visibility="{Binding IsInsuredSelected, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <materialDesign:Card VerticalAlignment="Top" HorizontalAlignment="Center" MinWidth="200" Margin="0 40 0 0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="150"/>
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <materialDesign:ColorZone Mode="PrimaryLight" VerticalAlignment="Stretch">
+                        <StackPanel Margin="5">
+                            <materialDesign:PackIcon Kind="Account" Height="128" Width="128" Margin="0 10 0 0"
+                                            VerticalAlignment="Center" HorizontalAlignment="Center" />
+
+                        </StackPanel>
+                    </materialDesign:ColorZone>
+
+                    <StackPanel Grid.Row="1" Margin="20" VerticalAlignment="Top">
+                        <TextBox materialDesign:HintAssist.Hint="Số CMT/CCCD"
+                                 materialDesign:HintAssist.IsFloating="True"
+                                 Margin="0 10 0 0"
+                                 Text="{Binding SelectedInsured.Id, Mode=OneWay}"
+                                 IsEnabled="False"/>
+
+                        <TextBox materialDesign:HintAssist.Hint="Họ tên"
+                             materialDesign:HintAssist.IsFloating="True" 
+                             Margin="0 20 0 0"
+                             Text="{Binding SelectedInsured.Name, Mode=OneWay}"
+                             IsEnabled="False"/>
+                    </StackPanel>
+                </Grid>
+            </materialDesign:Card>
+
+            <Button Style="{StaticResource MaterialDesignIconButton}"
+                    Background="{DynamicResource MaterialDesignBackground}"
+                    Width="50" HorizontalAlignment="Right" Margin="25"
+                    Command="{Binding ShowClaimOptions}">
+                <materialDesign:PackIcon Kind="Play" />
+            </Button>
+        </StackPanel>
+
+        <TabControl Grid.Column="2" TabStripPlacement="Right" Background="#E7E7E7"
+                    Style="{StaticResource MaterialDesignNavigatilRailTabControl}"
+                    Visibility="{Binding IsShowClaimOptions, Converter={StaticResource BooleanToVisibilityConverter}}">
+
             <materialDesign:NavigationRailAssist.FloatingContent>
                 <Button Style="{StaticResource MaterialDesignFloatingActionAccentButton}" Height="50" Width="50" IsTabStop="False"
                         Margin="10, 20" Content="{materialDesign:PackIcon Kind=Add}"/>
@@ -204,6 +266,6 @@
 
                 
             </TabItem>
-        </TabControl>-->
+        </TabControl>
     </Grid>
 </UserControl>
