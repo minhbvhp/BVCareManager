@@ -76,8 +76,69 @@ namespace BVCareManager.ViewModels
             {
                 SetProperty(ref _selectedInsured, value);
                 OnPropertyChanged("IsInsuredSelected");
+                OnPropertyChanged("ListValidPolicies");
             }
         }
+
+        public ObservableCollection<Policy> ListValidPolicies
+        {
+            get
+            {
+                PolicyRepository policyRepository = new PolicyRepository();
+
+                var _validPolicies = from policy in policyRepository.FindAllPolicies()
+                                        where policy.Insured == SelectedInsured &&
+                                              policy.FromDate <= NewExaminationDate &&
+                                              policy.ToDate >= NewExaminationDate
+                                        select policy;
+
+                var ValidPolicies = new ObservableCollection<Policy>();
+
+                foreach (var policy in _validPolicies)
+                    ValidPolicies.Add(policy);
+
+                return ValidPolicies;
+            }
+        }
+
+        private string _validSelectedPolicy;
+        public string ValidSelectedPolicy
+        {
+            get
+            {
+                return _validSelectedPolicy;
+            }
+            set
+            {
+                SetProperty(ref _validSelectedPolicy, value);
+            }
+        }
+
+        private DateTime? _newExaminationDate;
+        public DateTime? NewExaminationDate {
+            get
+            {
+                return _newExaminationDate;
+            }
+            set
+            {
+                SetProperty(ref _newExaminationDate, value);
+                OnPropertyChanged("ListValidPolicies");
+                OnPropertyChanged("IsNewExaminationEntered");
+            }
+        }
+
+        public bool IsNewExaminationEntered {
+            get
+            {
+                if (NewExaminationDate != null)
+                    return true;
+
+                return false;
+            }
+        }
+
+
 
         public ClaimBaseViewModel(string searchText)
         {

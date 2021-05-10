@@ -102,49 +102,57 @@
 
                 <StackPanel Margin="80 20 80 20" VerticalAlignment="Top">
                     <DatePicker Style="{StaticResource EmptyDatePickerStyle}" Margin="0,20"
-                            materialDesign:HintAssist.Hint="Ngày khám" MinWidth="150" HorizontalAlignment="Left"/>
+                                materialDesign:HintAssist.Hint="Ngày khám" MinWidth="150" HorizontalAlignment="Left"
+                                SelectedDate="{Binding NewExaminationDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
 
-                    <StackPanel Margin="0,20">
-                        <ComboBox Style="{StaticResource EmptyComboBoxStyle}"
-                              materialDesign:HintAssist.Hint="Đơn bảo hiểm (hiệu lực phù hợp ngày khám)"/>
+                    <StackPanel Visibility="{Binding IsNewExaminationEntered, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <StackPanel Margin="0,20">
+                            <ComboBox x:Name="PolicyListComboBox" Style="{StaticResource EmptyComboBoxStyle}"
+                                  materialDesign:HintAssist.Hint="Đơn bảo hiểm (hiệu lực phù hợp ngày khám)"
+                                  ItemsSource="{Binding ListValidPolicies}"
+                                  SelectedValue="{Binding ValidSelectedPolicy, Mode=TwoWay}"
+                                  SelectedValuePath="Id" DisplayMemberPath="Number"/>
 
-                        <StackPanel HorizontalAlignment="Left" Margin="30, 10">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="30"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="40"/>
-                                    <ColumnDefinition Width="30"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                </Grid.ColumnDefinitions>
+                            <TextBlock FontWeight="DemiBold" FontStyle="Italic">
+                                <Run Text="Số hợp đồng:"/>
+                                <Run Text="{Binding ElementName=PolicyListComboBox, Path=SelectedItem.ContractId}"/>
+                            </TextBlock>
+                            
+                            <StackPanel HorizontalAlignment="Left" Margin="30, 10">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="30"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="40"/>
+                                        <ColumnDefinition Width="30"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
 
-                                <materialDesign:PackIcon VerticalAlignment="Center" HorizontalAlignment="Center" 
+                                    <materialDesign:PackIcon VerticalAlignment="Center" HorizontalAlignment="Center" 
                                                          Kind="CalendarStart" Height="16" Width="16" Foreground="#0c5500"/>
 
-                                <materialDesign:PackIcon Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                                    <materialDesign:PackIcon Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center" 
                                                          Kind="CalendarEnd" Height="16" Width="16" Foreground="#de3627"/>
 
-                                <materialDesign:PackIcon Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5 0 0 0" 
+                                    <materialDesign:PackIcon Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5 0 0 0" 
                                                          Kind="ArrowRightBold" Height="12" Width="12" Foreground="#FF0D47A1"/>
 
-                                <TextBox Grid.Column="1"
+                                    <TextBox Grid.Column="1"
                                          Foreground="#0c5500" BorderThickness="0" BorderBrush="#0c5500"
                                          IsEnabled="False" FontWeight="DemiBold"
-                                         Text="01/01/2021"/>
+                                         Text="{Binding ElementName=PolicyListComboBox, Path=SelectedItem.FromDate, StringFormat=dd/MM/yyyy}"/>
 
-                                <TextBox Grid.Column="4"
+                                    <TextBox Grid.Column="4"
                                          Foreground="#de3627" BorderThickness="0" BorderBrush="#de3627"
                                          IsEnabled="False" FontWeight="DemiBold"
-                                         Text="31/12/2021"/>
-                                
-                            </Grid>
+                                         Text="{Binding ElementName=PolicyListComboBox, Path=SelectedItem.ToDate, StringFormat=dd/MM/yyyy}"/>
+                                </Grid>
+                            </StackPanel>
                         </StackPanel>
 
-                        
-                    </StackPanel>
-
-                    <DatePicker Style="{StaticResource EmptyDatePickerStyle}" Margin="0,10"
+                        <DatePicker Style="{StaticResource EmptyDatePickerStyle}" Margin="0,10"
                             materialDesign:HintAssist.Hint="Ngày nhận hồ sơ"/>
+                    </StackPanel>
 
                 </StackPanel>
                 
