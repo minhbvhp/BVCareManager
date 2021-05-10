@@ -120,12 +120,6 @@
     <Compile Include="Controls\ContractNew.xaml.cs">
       <DependentUpon>ContractNew.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\EmptyValidationDatePicker.xaml.cs">
-      <DependentUpon>EmptyValidationDatePicker.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\EmptyValidationTextBox.xaml.cs">
-      <DependentUpon>EmptyValidationTextBox.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\InsuredModify.xaml.cs">
       <DependentUpon>InsuredModify.xaml</DependentUpon>
     </Compile>
@@ -173,14 +167,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\ContractNew.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\EmptyValidationDatePicker.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\EmptyValidationTextBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

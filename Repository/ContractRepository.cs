@@ -44,7 +44,6 @@ namespace BVCareManager.Repository
         public void Delete(Contract contract)
         {
             db.Contracts.DeleteOnSubmit(contract);
-            db.Policies.DeleteAllOnSubmit(contract.Policies);
         }
 
         public void Save()

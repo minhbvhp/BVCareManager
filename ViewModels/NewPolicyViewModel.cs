@@ -191,6 +191,7 @@ namespace BVCareManager.ViewModels
                 UpdateResultAsync(Result.Successful);
 
                 InputNumber = 0;
+                SelectedInsuredId = String.Empty;
 
                 IsStartOver = true;
                 OnPropertyChanged("IsStartOver");

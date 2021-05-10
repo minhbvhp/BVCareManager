@@ -224,8 +224,8 @@ namespace BVCareManager.ViewModels
             {
                 SelectedPolicy.FromDate = OnModifyingPolicyFromDate ?? SelectedPolicy.FromDate;
                 SelectedPolicy.ToDate = OnModifyingPolicyToDate ?? SelectedPolicy.ToDate;
-                policyRepository.UpdateContract(SelectedPolicy.ContractId, OnModifyingPolicyContractId);
-                policyRepository.UpdateInsured(SelectedPolicy.InsuredId, OnModifyingPolicyInsuredId);
+                policyRepository.UpdateContract(SelectedPolicy, OnModifyingPolicyContractId);
+                policyRepository.UpdateInsured(SelectedPolicy, OnModifyingPolicyInsuredId);
 
                 policyRepository.Save();
 

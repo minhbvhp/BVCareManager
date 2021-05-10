@@ -43,12 +43,6 @@
                          Text="{Binding InputNumber, UpdateSourceTrigger=PropertyChanged, 
                          Mode=TwoWay, Converter={StaticResource NumberFormatConverter}}"/>
 
-                <ComboBox Style="{StaticResource EmptyComboBoxStyle}" Margin="30, 15"
-                          materialDesign:HintAssist.Hint="Số hợp đồng"
-                          ItemsSource="{Binding ContractList}"
-                          SelectedValue="{Binding SelectedContractId, Mode=TwoWay}"
-                          SelectedValuePath="Id" DisplayMemberPath="Id"/>
-
                 <StackPanel Margin="30, 15">
                     <ComboBox x:Name="InsuredListComboBox" Style="{StaticResource EmptyComboBoxStyle}" 
                           materialDesign:HintAssist.Hint="Nhân viên"
@@ -56,8 +50,19 @@
                           SelectedValue="{Binding SelectedInsuredId, Mode=TwoWay}"
                           SelectedValuePath="Id" DisplayMemberPath="Name"/>
 
-                    <TextBlock Text="{Binding ElementName=InsuredListComboBox, Path=SelectedValue}" FontWeight="DemiBold" FontStyle="Italic"/>
+                    <TextBlock FontWeight="DemiBold" FontStyle="Italic">
+                        <Run Text="Số CMT/CCCD:"/>
+                        <Run Text="{Binding ElementName=InsuredListComboBox, Path=SelectedValue}"/>
+                    </TextBlock>
                 </StackPanel>
+
+                <ComboBox Style="{StaticResource EmptyComboBoxStyle}" Margin="30, 15"
+                          materialDesign:HintAssist.Hint="Số hợp đồng"
+                          ItemsSource="{Binding ContractList}"
+                          SelectedValue="{Binding SelectedContractId, Mode=TwoWay}"
+                          SelectedValuePath="Id" DisplayMemberPath="Id"/>
+
+                
 
                 <DatePicker Style="{StaticResource EmptyDatePickerStyle}" Margin="30, 15"
                             materialDesign:HintAssist.Hint="Từ ngày"

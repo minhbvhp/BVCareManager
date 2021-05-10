@@ -48,18 +48,16 @@ namespace BVCareManager.Repository
         }
 
         //Update Foreign Key Methods
-        public void UpdateContract(string currentContractId, string updateContractId)
+        public void UpdateContract(Policy currentPolicy, string updateContractId)
         {
-            Policy currentPolicy = db.Policies.Single(policy => policy.ContractId == currentContractId);
-            Contract updateContract = db.Contracts.Single(contract => contract.Id == updateContractId);
+            Contract updateContract = db.Contracts.SingleOrDefault(contract => contract.Id == updateContractId);
 
             currentPolicy.Contract = updateContract;
         }
 
-        public void UpdateInsured(string currentInsuredId, string updateInsuredId)
+        public void UpdateInsured(Policy currentPolicy, string updateInsuredId)
         {
-            Policy currentPolicy = db.Policies.Single(policy => policy.InsuredId == currentInsuredId);
-            Insured updateInsured = db.Insureds.Single(insured => insured.Id == updateInsuredId);
+            Insured updateInsured = db.Insureds.SingleOrDefault(insured => insured.Id == updateInsuredId);
 
             currentPolicy.Insured = updateInsured;
         }

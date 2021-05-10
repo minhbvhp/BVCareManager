@@ -27,6 +27,9 @@ namespace BVCareManager.ViewModels
             }
         }
 
+        private DateTime? originalContractFromDate;
+        private DateTime? originalContractToDate;
+
         private Contract _selectedContract;
         public Contract SelectedContract
         {
@@ -40,6 +43,9 @@ namespace BVCareManager.ViewModels
 
                 if (value != null)
                 {
+                    originalContractFromDate = value.FromDate;
+                    originalContractToDate = value.ToDate;
+
                     OnModifyingContractFromDate = value.FromDate;
                     OnModifyingContractToDate = value.ToDate;
                     OnModifyingContractAnnualPremiumPerInsured = value.AnnualPremiumPerInsured;
@@ -126,6 +132,16 @@ namespace BVCareManager.ViewModels
                 SelectedContract.FromDate = OnModifyingContractFromDate ?? SelectedContract.FromDate;
                 SelectedContract.ToDate = OnModifyingContractToDate ?? SelectedContract.ToDate;
                 SelectedContract.AnnualPremiumPerInsured = OnModifyingContractAnnualPremiumPerInsured;
+
+                //Change all period of Policies in SelectedContract
+                foreach (Policy policy in SelectedContract.Policies)
+                {
+                    if (SelectedContract.FromDate != originalContractFromDate || SelectedContract.ToDate != originalContractToDate)
+                    {
+                        policy.FromDate = SelectedContract.FromDate;
+                        policy.ToDate = SelectedContract.ToDate;
+                    }                        
+                }
 
                 contractRepository.Save();
 
