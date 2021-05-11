@@ -38,5 +38,41 @@ namespace BVCareManager.Controls
             else
                 e.Handled = true;
         }
+
+        private void ClaimTabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            UpdateTabs();
+        }
+
+        private void UpdateTabs()
+        {
+            if (NewTabItem.IsSelected)
+            {
+                ClaimActionButton.SetBinding(Button.CommandProperty, new Binding("AddCommand"));
+            }
+            else
+            {
+                NewClaimDatePicker.SelectedDate = null;
+            }
+
+            if (UpdateTabItem.IsSelected)
+            {
+                ClaimActionButton.SetBinding(Button.CommandProperty, new Binding("UpdateCommand"));
+            }
+            else
+            {
+                UpdateClaimComboBox.SelectedItem = String.Empty;
+            }
+
+            if (ViewTabItem.IsSelected)
+            {
+                ClaimActionButton.SetBinding(Button.CommandProperty, new Binding("ViewCommand"));
+            }
+            else
+            {
+                ViewClaimComboBox.SelectedItem = null;
+            }
+
+        }
     }
 }

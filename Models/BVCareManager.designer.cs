@@ -30,18 +30,18 @@ namespace BVCareManager.Models
 		
     #region Extensibility Method Definitions
     partial void OnCreated();
-    partial void InsertInsured(Insured instance);
-    partial void UpdateInsured(Insured instance);
-    partial void DeleteInsured(Insured instance);
-    partial void InsertContract(Contract instance);
-    partial void UpdateContract(Contract instance);
-    partial void DeleteContract(Contract instance);
-    partial void InsertPolicy(Policy instance);
-    partial void UpdatePolicy(Policy instance);
-    partial void DeletePolicy(Policy instance);
     partial void InsertClaim(Claim instance);
     partial void UpdateClaim(Claim instance);
     partial void DeleteClaim(Claim instance);
+    partial void InsertPolicy(Policy instance);
+    partial void UpdatePolicy(Policy instance);
+    partial void DeletePolicy(Policy instance);
+    partial void InsertContract(Contract instance);
+    partial void UpdateContract(Contract instance);
+    partial void DeleteContract(Contract instance);
+    partial void InsertInsured(Insured instance);
+    partial void UpdateInsured(Insured instance);
+    partial void DeleteInsured(Insured instance);
     #endregion
 		
 		public BVCareManagerDataContext() : 
@@ -74,19 +74,11 @@ namespace BVCareManager.Models
 			OnCreated();
 		}
 		
-		public System.Data.Linq.Table<Insured> Insureds
+		public System.Data.Linq.Table<Claim> Claims
 		{
 			get
 			{
-				return this.GetTable<Insured>();
-			}
-		}
-		
-		public System.Data.Linq.Table<Contract> Contracts
-		{
-			get
-			{
-				return this.GetTable<Contract>();
+				return this.GetTable<Claim>();
 			}
 		}
 		
@@ -98,14 +90,6 @@ namespace BVCareManager.Models
 			}
 		}
 		
-		public System.Data.Linq.Table<Claim> Claims
-		{
-			get
-			{
-				return this.GetTable<Claim>();
-			}
-		}
-		
 		public System.Data.Linq.Table<ClaimsProgress> ClaimsProgresses
 		{
 			get
@@ -113,38 +97,70 @@ namespace BVCareManager.Models
 				return this.GetTable<ClaimsProgress>();
 			}
 		}
+		
+		public System.Data.Linq.Table<Contract> Contracts
+		{
+			get
+			{
+				return this.GetTable<Contract>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Insured> Insureds
+		{
+			get
+			{
+				return this.GetTable<Insured>();
+			}
+		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Insureds")]
-	public partial class Insured : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Claims")]
+	public partial class Claim : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private string _Id;
+		private int _Id;
 		
-		private string _Name;
+		private int _PolicyId;
 		
-		private EntitySet<Policy> _Policies;
+		private System.DateTime _ExaminationDate;
+		
+		private System.DateTime _ReceivedDate;
+		
+		private System.Nullable<System.DateTime> _PaidDate;
+		
+		private System.Nullable<int> _TotalPaid;
+		
+		private EntityRef<Policy> _Policy;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
-    partial void OnIdChanging(string value);
+    partial void OnIdChanging(int value);
     partial void OnIdChanged();
-    partial void OnNameChanging(string value);
-    partial void OnNameChanged();
+    partial void OnPolicyIdChanging(int value);
+    partial void OnPolicyIdChanged();
+    partial void OnExaminationDateChanging(System.DateTime value);
+    partial void OnExaminationDateChanged();
+    partial void OnReceivedDateChanging(System.DateTime value);
+    partial void OnReceivedDateChanged();
+    partial void OnPaidDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnPaidDateChanged();
+    partial void OnTotalPaidChanging(System.Nullable<int> value);
+    partial void OnTotalPaidChanged();
     #endregion
 		
-		public Insured()
+		public Claim()
 		{
-			this._Policies = new EntitySet<Policy>(new Action<Policy>(this.attach_Policies), new Action<Policy>(this.detach_Policies));
+			this._Policy = default(EntityRef<Policy>);
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="VarChar(30) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
-		public string Id
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int Id
 		{
 			get
 			{
@@ -163,36 +179,141 @@ namespace BVCareManager.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
-		public string Name
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PolicyId", DbType="Int NOT NULL")]
+		public int PolicyId
 		{
 			get
 			{
-				return this._Name;
+				return this._PolicyId;
 			}
 			set
 			{
-				if ((this._Name != value))
+				if ((this._PolicyId != value))
 				{
-					this.OnNameChanging(value);
+					if (this._Policy.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnPolicyIdChanging(value);
 					this.SendPropertyChanging();
-					this._Name = value;
-					this.SendPropertyChanged("Name");
-					this.OnNameChanged();
+					this._PolicyId = value;
+					this.SendPropertyChanged("PolicyId");
+					this.OnPolicyIdChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Insured_Policy", Storage="_Policies", ThisKey="Id", OtherKey="InsuredId")]
-		public EntitySet<Policy> Policies
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ExaminationDate", DbType="Date NOT NULL")]
+		public System.DateTime ExaminationDate
 		{
 			get
 			{
-				return this._Policies;
+				return this._ExaminationDate;
 			}
 			set
 			{
-				this._Policies.Assign(value);
+				if ((this._ExaminationDate != value))
+				{
+					this.OnExaminationDateChanging(value);
+					this.SendPropertyChanging();
+					this._ExaminationDate = value;
+					this.SendPropertyChanged("ExaminationDate");
+					this.OnExaminationDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ReceivedDate", DbType="Date NOT NULL")]
+		public System.DateTime ReceivedDate
+		{
+			get
+			{
+				return this._ReceivedDate;
+			}
+			set
+			{
+				if ((this._ReceivedDate != value))
+				{
+					this.OnReceivedDateChanging(value);
+					this.SendPropertyChanging();
+					this._ReceivedDate = value;
+					this.SendPropertyChanged("ReceivedDate");
+					this.OnReceivedDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PaidDate", DbType="Date")]
+		public System.Nullable<System.DateTime> PaidDate
+		{
+			get
+			{
+				return this._PaidDate;
+			}
+			set
+			{
+				if ((this._PaidDate != value))
+				{
+					this.OnPaidDateChanging(value);
+					this.SendPropertyChanging();
+					this._PaidDate = value;
+					this.SendPropertyChanged("PaidDate");
+					this.OnPaidDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TotalPaid", DbType="Int")]
+		public System.Nullable<int> TotalPaid
+		{
+			get
+			{
+				return this._TotalPaid;
+			}
+			set
+			{
+				if ((this._TotalPaid != value))
+				{
+					this.OnTotalPaidChanging(value);
+					this.SendPropertyChanging();
+					this._TotalPaid = value;
+					this.SendPropertyChanged("TotalPaid");
+					this.OnTotalPaidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Policy_Claim", Storage="_Policy", ThisKey="PolicyId", OtherKey="Id", IsForeignKey=true)]
+		public Policy Policy
+		{
+			get
+			{
+				return this._Policy.Entity;
+			}
+			set
+			{
+				Policy previousValue = this._Policy.Entity;
+				if (((previousValue != value) 
+							|| (this._Policy.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Policy.Entity = null;
+						previousValue.Claims.Remove(this);
+					}
+					this._Policy.Entity = value;
+					if ((value != null))
+					{
+						value.Claims.Add(this);
+						this._PolicyId = value.Id;
+					}
+					else
+					{
+						this._PolicyId = default(int);
+					}
+					this.SendPropertyChanged("Policy");
+				}
 			}
 		}
 		
@@ -214,180 +335,6 @@ namespace BVCareManager.Models
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
-		}
-		
-		private void attach_Policies(Policy entity)
-		{
-			this.SendPropertyChanging();
-			entity.Insured = this;
-		}
-		
-		private void detach_Policies(Policy entity)
-		{
-			this.SendPropertyChanging();
-			entity.Insured = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Contracts")]
-	public partial class Contract : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private string _Id;
-		
-		private System.DateTime _FromDate;
-		
-		private System.DateTime _ToDate;
-		
-		private int _AnnualPremiumPerInsured;
-		
-		private EntitySet<Policy> _Policies;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(string value);
-    partial void OnIdChanged();
-    partial void OnFromDateChanging(System.DateTime value);
-    partial void OnFromDateChanged();
-    partial void OnToDateChanging(System.DateTime value);
-    partial void OnToDateChanged();
-    partial void OnAnnualPremiumPerInsuredChanging(int value);
-    partial void OnAnnualPremiumPerInsuredChanged();
-    #endregion
-		
-		public Contract()
-		{
-			this._Policies = new EntitySet<Policy>(new Action<Policy>(this.attach_Policies), new Action<Policy>(this.detach_Policies));
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="VarChar(50) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
-		public string Id
-		{
-			get
-			{
-				return this._Id;
-			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FromDate", DbType="Date NOT NULL")]
-		public System.DateTime FromDate
-		{
-			get
-			{
-				return this._FromDate;
-			}
-			set
-			{
-				if ((this._FromDate != value))
-				{
-					this.OnFromDateChanging(value);
-					this.SendPropertyChanging();
-					this._FromDate = value;
-					this.SendPropertyChanged("FromDate");
-					this.OnFromDateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ToDate", DbType="Date NOT NULL")]
-		public System.DateTime ToDate
-		{
-			get
-			{
-				return this._ToDate;
-			}
-			set
-			{
-				if ((this._ToDate != value))
-				{
-					this.OnToDateChanging(value);
-					this.SendPropertyChanging();
-					this._ToDate = value;
-					this.SendPropertyChanged("ToDate");
-					this.OnToDateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AnnualPremiumPerInsured", DbType="Int NOT NULL")]
-		public int AnnualPremiumPerInsured
-		{
-			get
-			{
-				return this._AnnualPremiumPerInsured;
-			}
-			set
-			{
-				if ((this._AnnualPremiumPerInsured != value))
-				{
-					this.OnAnnualPremiumPerInsuredChanging(value);
-					this.SendPropertyChanging();
-					this._AnnualPremiumPerInsured = value;
-					this.SendPropertyChanged("AnnualPremiumPerInsured");
-					this.OnAnnualPremiumPerInsuredChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Contract_Policy", Storage="_Policies", ThisKey="Id", OtherKey="ContractId")]
-		public EntitySet<Policy> Policies
-		{
-			get
-			{
-				return this._Policies;
-			}
-			set
-			{
-				this._Policies.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_Policies(Policy entity)
-		{
-			this.SendPropertyChanging();
-			entity.Contract = this;
-		}
-		
-		private void detach_Policies(Policy entity)
-		{
-			this.SendPropertyChanging();
-			entity.Contract = null;
 		}
 	}
 	
@@ -582,7 +529,7 @@ namespace BVCareManager.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Contract_Policy", Storage="_Contract", ThisKey="ContractId", OtherKey="Id", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Contract_Policy", Storage="_Contract", ThisKey="ContractId", OtherKey="Id", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
 		public Contract Contract
 		{
 			get
@@ -616,7 +563,7 @@ namespace BVCareManager.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Insured_Policy", Storage="_Insured", ThisKey="InsuredId", OtherKey="Id", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Insured_Policy", Storage="_Insured", ThisKey="InsuredId", OtherKey="Id", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
 		public Insured Insured
 		{
 			get
@@ -683,229 +630,6 @@ namespace BVCareManager.Models
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Claims")]
-	public partial class Claim : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _Id;
-		
-		private int _PolicyId;
-		
-		private System.DateTime _ExaminationDate;
-		
-		private System.DateTime _ReceivedDate;
-		
-		private System.Nullable<System.DateTime> _PaidDate;
-		
-		private System.Nullable<int> _TotalPaid;
-		
-		private EntityRef<Policy> _Policy;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnPolicyIdChanging(int value);
-    partial void OnPolicyIdChanged();
-    partial void OnExaminationDateChanging(System.DateTime value);
-    partial void OnExaminationDateChanged();
-    partial void OnReceivedDateChanging(System.DateTime value);
-    partial void OnReceivedDateChanged();
-    partial void OnPaidDateChanging(System.Nullable<System.DateTime> value);
-    partial void OnPaidDateChanged();
-    partial void OnTotalPaidChanging(System.Nullable<int> value);
-    partial void OnTotalPaidChanged();
-    #endregion
-		
-		public Claim()
-		{
-			this._Policy = default(EntityRef<Policy>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int Id
-		{
-			get
-			{
-				return this._Id;
-			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PolicyId", DbType="Int NOT NULL")]
-		public int PolicyId
-		{
-			get
-			{
-				return this._PolicyId;
-			}
-			set
-			{
-				if ((this._PolicyId != value))
-				{
-					if (this._Policy.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnPolicyIdChanging(value);
-					this.SendPropertyChanging();
-					this._PolicyId = value;
-					this.SendPropertyChanged("PolicyId");
-					this.OnPolicyIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ExaminationDate", DbType="Date NOT NULL")]
-		public System.DateTime ExaminationDate
-		{
-			get
-			{
-				return this._ExaminationDate;
-			}
-			set
-			{
-				if ((this._ExaminationDate != value))
-				{
-					this.OnExaminationDateChanging(value);
-					this.SendPropertyChanging();
-					this._ExaminationDate = value;
-					this.SendPropertyChanged("ExaminationDate");
-					this.OnExaminationDateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ReceivedDate", DbType="Date NOT NULL")]
-		public System.DateTime ReceivedDate
-		{
-			get
-			{
-				return this._ReceivedDate;
-			}
-			set
-			{
-				if ((this._ReceivedDate != value))
-				{
-					this.OnReceivedDateChanging(value);
-					this.SendPropertyChanging();
-					this._ReceivedDate = value;
-					this.SendPropertyChanged("ReceivedDate");
-					this.OnReceivedDateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PaidDate", DbType="Date")]
-		public System.Nullable<System.DateTime> PaidDate
-		{
-			get
-			{
-				return this._PaidDate;
-			}
-			set
-			{
-				if ((this._PaidDate != value))
-				{
-					this.OnPaidDateChanging(value);
-					this.SendPropertyChanging();
-					this._PaidDate = value;
-					this.SendPropertyChanged("PaidDate");
-					this.OnPaidDateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TotalPaid", DbType="Int")]
-		public System.Nullable<int> TotalPaid
-		{
-			get
-			{
-				return this._TotalPaid;
-			}
-			set
-			{
-				if ((this._TotalPaid != value))
-				{
-					this.OnTotalPaidChanging(value);
-					this.SendPropertyChanging();
-					this._TotalPaid = value;
-					this.SendPropertyChanged("TotalPaid");
-					this.OnTotalPaidChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Policy_Claim", Storage="_Policy", ThisKey="PolicyId", OtherKey="Id", IsForeignKey=true)]
-		public Policy Policy
-		{
-			get
-			{
-				return this._Policy.Entity;
-			}
-			set
-			{
-				Policy previousValue = this._Policy.Entity;
-				if (((previousValue != value) 
-							|| (this._Policy.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Policy.Entity = null;
-						previousValue.Claims.Remove(this);
-					}
-					this._Policy.Entity = value;
-					if ((value != null))
-					{
-						value.Claims.Add(this);
-						this._PolicyId = value.Id;
-					}
-					else
-					{
-						this._PolicyId = default(int);
-					}
-					this.SendPropertyChanged("Policy");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ClaimsProgress")]
 	public partial class ClaimsProgress
 	{
@@ -966,6 +690,282 @@ namespace BVCareManager.Models
 					this._Remarks = value;
 				}
 			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Contracts")]
+	public partial class Contract : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _Id;
+		
+		private System.DateTime _FromDate;
+		
+		private System.DateTime _ToDate;
+		
+		private int _AnnualPremiumPerInsured;
+		
+		private EntitySet<Policy> _Policies;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(string value);
+    partial void OnIdChanged();
+    partial void OnFromDateChanging(System.DateTime value);
+    partial void OnFromDateChanged();
+    partial void OnToDateChanging(System.DateTime value);
+    partial void OnToDateChanged();
+    partial void OnAnnualPremiumPerInsuredChanging(int value);
+    partial void OnAnnualPremiumPerInsuredChanged();
+    #endregion
+		
+		public Contract()
+		{
+			this._Policies = new EntitySet<Policy>(new Action<Policy>(this.attach_Policies), new Action<Policy>(this.detach_Policies));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="VarChar(50) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FromDate", DbType="Date NOT NULL")]
+		public System.DateTime FromDate
+		{
+			get
+			{
+				return this._FromDate;
+			}
+			set
+			{
+				if ((this._FromDate != value))
+				{
+					this.OnFromDateChanging(value);
+					this.SendPropertyChanging();
+					this._FromDate = value;
+					this.SendPropertyChanged("FromDate");
+					this.OnFromDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ToDate", DbType="Date NOT NULL")]
+		public System.DateTime ToDate
+		{
+			get
+			{
+				return this._ToDate;
+			}
+			set
+			{
+				if ((this._ToDate != value))
+				{
+					this.OnToDateChanging(value);
+					this.SendPropertyChanging();
+					this._ToDate = value;
+					this.SendPropertyChanged("ToDate");
+					this.OnToDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AnnualPremiumPerInsured", DbType="Int NOT NULL")]
+		public int AnnualPremiumPerInsured
+		{
+			get
+			{
+				return this._AnnualPremiumPerInsured;
+			}
+			set
+			{
+				if ((this._AnnualPremiumPerInsured != value))
+				{
+					this.OnAnnualPremiumPerInsuredChanging(value);
+					this.SendPropertyChanging();
+					this._AnnualPremiumPerInsured = value;
+					this.SendPropertyChanged("AnnualPremiumPerInsured");
+					this.OnAnnualPremiumPerInsuredChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Contract_Policy", Storage="_Policies", ThisKey="Id", OtherKey="ContractId")]
+		public EntitySet<Policy> Policies
+		{
+			get
+			{
+				return this._Policies;
+			}
+			set
+			{
+				this._Policies.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Policies(Policy entity)
+		{
+			this.SendPropertyChanging();
+			entity.Contract = this;
+		}
+		
+		private void detach_Policies(Policy entity)
+		{
+			this.SendPropertyChanging();
+			entity.Contract = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Insureds")]
+	public partial class Insured : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _Id;
+		
+		private string _Name;
+		
+		private EntitySet<Policy> _Policies;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(string value);
+    partial void OnIdChanged();
+    partial void OnNameChanging(string value);
+    partial void OnNameChanged();
+    #endregion
+		
+		public Insured()
+		{
+			this._Policies = new EntitySet<Policy>(new Action<Policy>(this.attach_Policies), new Action<Policy>(this.detach_Policies));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="VarChar(30) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this.OnNameChanging(value);
+					this.SendPropertyChanging();
+					this._Name = value;
+					this.SendPropertyChanged("Name");
+					this.OnNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Insured_Policy", Storage="_Policies", ThisKey="Id", OtherKey="InsuredId")]
+		public EntitySet<Policy> Policies
+		{
+			get
+			{
+				return this._Policies;
+			}
+			set
+			{
+				this._Policies.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Policies(Policy entity)
+		{
+			this.SendPropertyChanging();
+			entity.Insured = this;
+		}
+		
+		private void detach_Policies(Policy entity)
+		{
+			this.SendPropertyChanging();
+			entity.Insured = null;
 		}
 	}
 }

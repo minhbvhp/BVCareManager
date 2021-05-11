@@ -16,6 +16,7 @@ namespace BVCareManager.ViewModels
     class ModifyPolicyViewModel : ModifyBaseViewModel
     {
         private PolicyRepository policyRepository = new PolicyRepository();
+        private ContractRepository contractRepository = new ContractRepository();
 
         public bool IsPolicySelected
         {
@@ -70,9 +71,7 @@ namespace BVCareManager.ViewModels
             set
             {
                 SetProperty(ref _onModifyingPolicyContractId, value);
-                ErrorsList.Clear();
-
-                ContractRepository contractRepository = new ContractRepository();
+                ErrorsList.Clear();               
 
                 if (!String.IsNullOrEmpty(OnModifyingPolicyContractId))
                 {
@@ -191,7 +190,6 @@ namespace BVCareManager.ViewModels
                     UpdateResultAsync(Result.ExcludeError, "Ngày bắt đầu hiệu lực phải trước ngày kết thúc");
                 }
 
-                ContractRepository contractRepository = new ContractRepository();
                 Contract checkingContract = contractRepository.GetContract(OnModifyingPolicyContractId);
 
                 if (checkingContract != null)

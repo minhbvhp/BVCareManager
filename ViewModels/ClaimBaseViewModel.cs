@@ -1,4 +1,5 @@
-﻿using BVCareManager.Models;
+﻿using BVCareManager.Converter;
+using BVCareManager.Models;
 using BVCareManager.Repository;
 using System;
 using System.Collections.Generic;
@@ -15,12 +16,16 @@ namespace BVCareManager.ViewModels
     public class ClaimBaseViewModel : BaseViewModel
     {
         private InsuredRepository insuredRepository = new InsuredRepository();
+        private ClaimRepository claimRepository = new ClaimRepository();
+        private PolicyRepository policyRepository = new PolicyRepository();
         public ICommand AddCommand { get; set; }
-        public ICommand ModifyCommand { get; set; }
+        public ICommand UpdateCommand { get; set; }
+        public ICommand ViewCommand { get; set; }
         public ICommand DeleteCommand { get; set; }
         public ICommand ShowClaimOptions { get; set; }
         public string SearchText { get; set; }
 
+    #region New Claim
         private bool _isShowClaimOptions;
         public bool IsShowClaimOptions
         {
@@ -84,8 +89,6 @@ namespace BVCareManager.ViewModels
         {
             get
             {
-                PolicyRepository policyRepository = new PolicyRepository();
-
                 var _validPolicies = from policy in policyRepository.FindAllPolicies()
                                         where policy.Insured == SelectedInsured &&
                                               policy.FromDate <= NewExaminationDate &&
@@ -101,8 +104,8 @@ namespace BVCareManager.ViewModels
             }
         }
 
-        private string _validSelectedPolicy;
-        public string ValidSelectedPolicy
+        private int _validSelectedPolicy;
+        public int ValidSelectedPolicy
         {
             get
             {
@@ -138,10 +141,103 @@ namespace BVCareManager.ViewModels
             }
         }
 
+        private DateTime? _claimReceivedDate;
+        public DateTime? ClaimReceivedDate {
+            get
+            {
+                return _claimReceivedDate;
+            }
+            set
+            {
+                SetProperty(ref _claimReceivedDate, value);
+            }
+        }
+    #endregion
+
+        #region Update Claim
+        public ObservableCollection<Claim> ClaimList
+        {
+            get
+            {
+                var _allClaims = from claim in claimRepository.FindAllClaims()
+                                     select claim;
+
+                var AllClaims = new ObservableCollection<Claim>();
+
+                foreach (var claim in _allClaims)
+                    AllClaims.Add(claim);
+
+                return AllClaims;
+            }
+        }
+
+        private int _selectedClaimId;
+        public int SelectedClaimId
+        {
+            get
+            {
+                return _selectedClaimId;
+            }
+            set
+            {
+                SetProperty(ref _selectedClaimId, value);
+
+                OnPropertyChanged("UpdateClaimContractId");
+                OnPropertyChanged("IsUpdateExaminationEntered");
+                OnPropertyChanged("UpdateClaimPolicyNumber");
+            }
+        }
+
+        public string UpdateClaimContractId {
+            get
+            {
+                string _updateClaimContractId = String.Empty;
+                Claim claim = new Claim();
+
+                if (SelectedClaimId > 0)
+                {
+                    claim = claimRepository.GetClaimById(SelectedClaimId);
+                    _updateClaimContractId = claim.Policy.ContractId;
+                }
+
+                return _updateClaimContractId;
+            }
+        }
+
+        public int UpdateClaimPolicyNumber
+        {
+            get
+            {
+                int _updateClaimPolicyNumber = 0;
+                Claim claim = new Claim();
+
+                if (SelectedClaimId > 0)
+                {
+                    claim = claimRepository.GetClaimById(SelectedClaimId);
+                    _updateClaimPolicyNumber = claim.Policy.Number;
+                }
+
+                return _updateClaimPolicyNumber;
+            }
+        }
+
+        public bool IsUpdateExaminationEntered
+        {
+            get
+            {
+                if (SelectedClaimId > 0)
+                    return true;
+
+                return false;
+            }
+        }
+
+        #endregion
 
 
         public ClaimBaseViewModel(string searchText)
         {
+            _errorsList.Clear();
             IsShowClaimOptions = false;
             this.SearchText = searchText;
 
@@ -155,6 +251,75 @@ namespace BVCareManager.ViewModels
             {
                 IsShowClaimOptions = true;
             });
+
+        #region Add Command
+            AddCommand = new RelayCommand<object>((p) =>
+            {
+                if (NewExaminationDate == null)
+                    return false;
+
+                if (ClaimReceivedDate == null)
+                    return false;
+
+                if (ValidSelectedPolicy < 1)
+                    return false;
+
+                if (ClaimReceivedDate < NewExaminationDate)
+                {
+                    UpdateResultAsync(Result.HasError, "Ngày nhận hồ sơ phải trùng hoặc sau ngày khám");
+                }
+                else
+                {
+                    UpdateResultAsync(Result.ExcludeError, "Ngày nhận hồ sơ phải trùng hoặc sau ngày khám");
+                }
+
+                if (_errorsList.Count > 0)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }, (p) =>
+            {
+                Claim newClaim = new Claim();
+                newClaim.PolicyId = ValidSelectedPolicy;
+                newClaim.ExaminationDate = (DateTime)NewExaminationDate;
+                newClaim.ReceivedDate = (DateTime)ClaimReceivedDate;
+
+                claimRepository.Add(newClaim);
+                claimRepository.Save();
+
+                Success = "Đã lập hồ sơ bồi thường";
+                UpdateResultAsync(Result.Successful);
+
+                OnPropertyChanged("ClaimList");
+                NewExaminationDate = null;
+                ValidSelectedPolicy = 0;
+                ClaimReceivedDate = null;
+            });
+            #endregion
+
+            #region Update Command
+            UpdateCommand = new RelayCommand<object>((p) =>
+            {
+                
+
+                if (_errorsList.Count > 0)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }, (p) =>
+            {
+                
+            });
+            #endregion
+
         }
     }
 }

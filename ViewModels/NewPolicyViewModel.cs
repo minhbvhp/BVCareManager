@@ -14,6 +14,8 @@ namespace BVCareManager.ViewModels
 {
     class NewPolicyViewModel : NewBaseViewModel
     {
+        private ContractRepository contractRepository = new ContractRepository();
+        private PolicyRepository policyRepository = new PolicyRepository();
         private string _selectedContractId;
         public string SelectedContractId
         {
@@ -24,9 +26,7 @@ namespace BVCareManager.ViewModels
             set
             {
                 SetProperty(ref _selectedContractId, value);
-                ErrorsList.Clear();
-
-                ContractRepository contractRepository = new ContractRepository();
+                ErrorsList.Clear();                
 
                 if (!String.IsNullOrEmpty(value))
                 {
@@ -94,16 +94,12 @@ namespace BVCareManager.ViewModels
 
         public NewPolicyViewModel()
         {
-            ContractRepository contractRepository = new ContractRepository();
-
             var now = DateTime.Now;
 
             InputFromDate = null;
             InputToDate = null;
             
-
-            _errorsList.Clear();
-            PolicyRepository policyRepository = new PolicyRepository();
+            _errorsList.Clear();            
 
             AddCommand = new RelayCommand<object>((p) =>
             {
