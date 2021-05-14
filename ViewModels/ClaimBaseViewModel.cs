@@ -154,7 +154,7 @@ namespace BVCareManager.ViewModels
         }
     #endregion
 
-        #region Update Claim
+    #region Update Claim
         public ObservableCollection<Claim> ClaimList
         {
             get
@@ -232,6 +232,62 @@ namespace BVCareManager.ViewModels
             }
         }
 
+        private string _claimProgressRemarks;
+        public string ClaimProgressRemarks {
+            get
+            {
+                return _claimProgressRemarks;
+            }
+            set
+            {
+                SetProperty(ref _claimProgressRemarks, value);
+            }
+        }
+
+        private DateTime? _claimProgressDate;
+        public DateTime? ClaimProgressDate {
+            get
+            {
+                return _claimProgressDate;
+            }
+            set
+            {
+                SetProperty(ref _claimProgressDate, value);
+            }
+        }
+
+        private int _claimTotalPaid;
+        public int ClaimTotalPaid {
+            get
+            {
+                return _claimTotalPaid;
+            }
+            set
+            {
+                if (IsClaimClosed)
+                {
+                    SetProperty(ref _claimTotalPaid, value);
+                }
+                else
+                {
+                    SetProperty(ref _claimTotalPaid, 0);
+                }
+
+            }
+        }
+
+        private bool _isClaimClosed;
+        public bool IsClaimClosed {
+            get
+            {
+                return _isClaimClosed;
+            }
+            set
+            {
+                SetProperty(ref _isClaimClosed, value);
+            }
+        }
+
         #endregion
 
 
@@ -301,10 +357,36 @@ namespace BVCareManager.ViewModels
             });
             #endregion
 
-            #region Update Command
+        #region Update Command
             UpdateCommand = new RelayCommand<object>((p) =>
             {
-                
+                if (!IsUpdateExaminationEntered)
+                    return false;
+
+                if (String.IsNullOrEmpty(ClaimProgressRemarks) || String.IsNullOrWhiteSpace(ClaimProgressRemarks))
+                    return false;
+
+                if (ClaimProgressDate == null)
+                    return false;
+
+                Claim claim = claimRepository.GetClaimById(SelectedClaimId);
+                if (ClaimProgressDate < claim.ExaminationDate)
+                {
+                    UpdateResultAsync(Result.HasError, "Ngày cập nhật phải sau ngày khám");
+                }
+                else
+                {
+                    UpdateResultAsync(Result.ExcludeError, "Ngày cập nhật phải sau ngày khám");
+                }
+
+                if (IsClaimClosed && ClaimTotalPaid <= 0)
+                {
+                    UpdateResultAsync(Result.HasError, "Số tiền bồi thường phải lớn hơn 0");
+                } 
+                else
+                {
+                    UpdateResultAsync(Result.ExcludeError, "Số tiền bồi thường phải lớn hơn 0");
+                }
 
                 if (_errorsList.Count > 0)
                 {
@@ -318,7 +400,7 @@ namespace BVCareManager.ViewModels
             {
                 
             });
-            #endregion
+        #endregion
 
         }
     }

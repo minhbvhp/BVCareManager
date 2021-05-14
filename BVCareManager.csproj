@@ -142,6 +142,7 @@
     </Compile>
     <Compile Include="Models\Contract.cs" />
     <Compile Include="Models\Policy.cs" />
+    <Compile Include="Repository\ClaimProgressRepository.cs" />
     <Compile Include="Repository\ClaimRepository.cs" />
     <Compile Include="Repository\ContractRepository.cs" />
     <Compile Include="Repository\InsuredRepository.cs" />

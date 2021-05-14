@@ -23,14 +23,14 @@ namespace BVCareManager.Repository
         }
 
         //Insert/Delete Methods
-        public void Add(Claim Claim)
+        public void Add(Claim claim)
         {
-            db.Claims.InsertOnSubmit(Claim);
+            db.Claims.InsertOnSubmit(claim);
         }
 
-        public void Delete(Claim Claim)
+        public void Delete(Claim claim)
         {
-            db.Claims.DeleteOnSubmit(Claim);
+            db.Claims.DeleteOnSubmit(claim);
         }
 
         public void Save()

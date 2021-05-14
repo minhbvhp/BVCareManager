@@ -206,7 +206,7 @@
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
-                        <RowDefinition Height="200"/>
+                        <RowDefinition Height="100"/>
                     </Grid.RowDefinitions>
 
                     <materialDesign:DialogHost CloseOnClickAway="True">
@@ -252,7 +252,7 @@
                                         <Style TargetType="DatePicker" BasedOn="{StaticResource EmptyDatePickerStyle}">
                                             <Setter Property="materialDesign:HintAssist.Hint" Value="Ngày cập nhật"/>
                                             <Style.Triggers>
-                                                <DataTrigger Binding="{Binding IsChecked, ElementName=IsClaimClosed}" Value="True">
+                                                <DataTrigger Binding="{Binding IsChecked, ElementName=IsClaimClosedToogleButton}" Value="True">
                                                     <Setter Property="materialDesign:HintAssist.Hint" Value="Ngày đóng hồ sơ"/>
                                                 </DataTrigger>
                                             </Style.Triggers>
@@ -262,9 +262,9 @@
 
                                 <StackPanel Orientation="Horizontal" Margin="0 50 0 10">
                                     <TextBlock Text="Cập nhật hồ sơ" FontWeight="DemiBold"/>
-                                    <ToggleButton x:Name="IsClaimClosed" 
+                                    <ToggleButton x:Name="IsClaimClosedToogleButton" 
                                           Margin="15, 0" Style="{StaticResource MaterialDesignSwitchAccentToggleButton}"
-                                          IsChecked="True" />
+                                          IsChecked="{Binding IsClaimClosed, FallbackValue=False}" />
 
                                     <TextBlock Text="Đóng hồ sơ" Foreground="#3f8300" FontWeight="SemiBold"/>
                                 </StackPanel>
@@ -274,7 +274,7 @@
                                      materialDesign:HintAssist.Hint="Số tiền bồi thường" 
                                      PreviewTextInput="TotalPaidTextBox_PreviewTextInput"
                                      PreviewKeyDown="TotalPaidTextBox_PreviewKeyDown"
-                                     Visibility="{Binding IsChecked,ElementName=IsClaimClosed,Converter={StaticResource BooleanToVisibilityConverter}}"
+                                     Visibility="{Binding IsChecked,ElementName=IsClaimClosedToogleButton,Converter={StaticResource BooleanToVisibilityConverter}}"
                                      Text="{Binding ClaimTotalPaid, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, 
                                             Converter={StaticResource NumberFormatConverter}, ConverterParameter='N0', ConverterCulture='is-IS'}"/>
                             </StackPanel>
