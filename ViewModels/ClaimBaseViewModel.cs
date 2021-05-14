@@ -18,6 +18,7 @@ namespace BVCareManager.ViewModels
         private InsuredRepository insuredRepository = new InsuredRepository();
         private ClaimRepository claimRepository = new ClaimRepository();
         private PolicyRepository policyRepository = new PolicyRepository();
+        private ClaimProgressRepository claimProgressRepository = new ClaimProgressRepository();
         public ICommand AddCommand { get; set; }
         public ICommand UpdateCommand { get; set; }
         public ICommand ViewCommand { get; set; }
@@ -126,6 +127,7 @@ namespace BVCareManager.ViewModels
             set
             {
                 SetProperty(ref _newExaminationDate, value);
+                ErrorsList.Clear();
                 OnPropertyChanged("ListValidPolicies");
                 OnPropertyChanged("IsNewExaminationEntered");
             }
@@ -171,6 +173,15 @@ namespace BVCareManager.ViewModels
             }
         }
 
+        private Claim selectedClaim
+        {
+            get
+            {
+                return claimRepository.GetClaimById(SelectedClaimId);
+            }
+        }
+
+
         private int _selectedClaimId;
         public int SelectedClaimId
         {
@@ -181,10 +192,13 @@ namespace BVCareManager.ViewModels
             set
             {
                 SetProperty(ref _selectedClaimId, value);
-
+                ErrorsList.Clear();
                 OnPropertyChanged("UpdateClaimContractId");
                 OnPropertyChanged("IsUpdateExaminationEntered");
                 OnPropertyChanged("UpdateClaimPolicyNumber");
+                OnPropertyChanged("ClaimProgressList");
+                OnPropertyChanged("selectedClaim");
+                int a = 0;
             }
         }
 
@@ -196,8 +210,7 @@ namespace BVCareManager.ViewModels
 
                 if (SelectedClaimId > 0)
                 {
-                    claim = claimRepository.GetClaimById(SelectedClaimId);
-                    _updateClaimContractId = claim.Policy.ContractId;
+                    _updateClaimContractId = selectedClaim.Policy.ContractId;
                 }
 
                 return _updateClaimContractId;
@@ -288,6 +301,22 @@ namespace BVCareManager.ViewModels
             }
         }
 
+        public ObservableCollection<ClaimsProgress> ClaimProgressList {
+            get
+            {
+                var _allClaimProgressByClaimId = from claimProgress in claimProgressRepository.FindAllClaimsProgress()
+                                                 where claimProgress.ClaimId == SelectedClaimId
+                                                 orderby claimProgress.Date
+                                                 select claimProgress;
+
+                var AllClaimProgressByClaimId = new ObservableCollection<ClaimsProgress>();
+
+                foreach (var claimProgress in _allClaimProgressByClaimId)
+                    AllClaimProgressByClaimId.Add(claimProgress);
+
+                return AllClaimProgressByClaimId;
+            }
+        }
         #endregion
 
 
@@ -369,8 +398,7 @@ namespace BVCareManager.ViewModels
                 if (ClaimProgressDate == null)
                     return false;
 
-                Claim claim = claimRepository.GetClaimById(SelectedClaimId);
-                if (ClaimProgressDate < claim.ExaminationDate)
+                if (ClaimProgressDate < selectedClaim.ExaminationDate)
                 {
                     UpdateResultAsync(Result.HasError, "Ngày cập nhật phải sau ngày khám");
                 }
@@ -388,6 +416,15 @@ namespace BVCareManager.ViewModels
                     UpdateResultAsync(Result.ExcludeError, "Số tiền bồi thường phải lớn hơn 0");
                 }
 
+                if (selectedClaim.IsClosed)
+                {
+                    UpdateResultAsync(Result.HasError, "Hồ sơ này đã đóng, không thể cập nhật nữa");
+                }
+                else
+                {
+                    UpdateResultAsync(Result.ExcludeError, "Hồ sơ này đã đóng, không thể cập nhật nữa");
+                }
+
                 if (_errorsList.Count > 0)
                 {
                     return false;
@@ -398,7 +435,40 @@ namespace BVCareManager.ViewModels
                 }
             }, (p) =>
             {
-                
+                ClaimsProgress newClaimsProgress = new ClaimsProgress();
+
+                newClaimsProgress.ClaimId = SelectedClaimId;
+                newClaimsProgress.Date = (DateTime)ClaimProgressDate;
+                newClaimsProgress.Remarks = ClaimProgressRemarks;
+
+                if (IsClaimClosed)
+                {
+                    claimProgressRepository.CloseClaim(newClaimsProgress, (DateTime)ClaimProgressDate, ClaimTotalPaid);
+                }
+
+                claimProgressRepository.Add(newClaimsProgress);
+                claimProgressRepository.Save();
+
+                if (IsClaimClosed)
+                {
+                    Success = "Đã đóng hồ sơ bồi thường";                    
+                }
+                else
+                {
+                    Success = "Đã cập nhật hồ sơ bồi thường";
+                }
+
+                OnPropertyChanged("selectedClaim");
+                UpdateResultAsync(Result.Successful);
+
+                SelectedClaimId = 0;
+                ClaimProgressRemarks = String.Empty;
+                ClaimProgressDate = null;
+                IsClaimClosed = false;
+                ClaimTotalPaid = 0;
+
+                OnPropertyChanged("ClaimProgressList");
+
             });
         #endregion
 

@@ -61,7 +61,7 @@ namespace BVCareManager.Controls
             }
             else
             {
-                UpdateClaimComboBox.SelectedItem = String.Empty;
+                UpdateClaimComboBox.SelectedValue = 0;
             }
 
             if (ViewTabItem.IsSelected)

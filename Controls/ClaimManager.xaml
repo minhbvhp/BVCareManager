@@ -14,6 +14,15 @@
         <converter:NumberFormatConverter x:Key="NumberFormatConverter"/>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         <converter:BooleanVisibilityConverter x:Key="visibilityConverter"/>
+
+        <DataTemplate x:Key="ClaimProgressTemplate">
+            <TextBlock>
+                <materialDesign:PackIcon Kind="CalendarRange"/>
+                <Run Text="{Binding Date, StringFormat=dd/MM/yyyy}"/>
+                <LineBreak/>
+                <Run Text="{Binding Remarks}"/>
+            </TextBlock>
+        </DataTemplate>
     </UserControl.Resources>
 
     <Grid>
@@ -216,7 +225,7 @@
                                           materialDesign:HintAssist.Hint="Ngày khám" MinWidth="200"
                                           ItemsSource="{Binding ClaimList}"
                                           ItemStringFormat="{}{0:dd/MM/yyyy}"
-                                          SelectedValue="{Binding SelectedClaimId, Mode=TwoWay, StringFormat=dd/MM/yyyy}"
+                                          SelectedValue="{Binding SelectedClaimId, Mode=TwoWay, StringFormat=dd/MM/yyyy, UpdateSourceTrigger=PropertyChanged}"
                                           SelectedValuePath="Id" DisplayMemberPath="ExaminationDate"/>
 
                                 <Button Margin="20 0 0 0" Style="{StaticResource MaterialDesignIconButton}"
@@ -262,7 +271,7 @@
 
                                 <StackPanel Orientation="Horizontal" Margin="0 50 0 10">
                                     <TextBlock Text="Cập nhật hồ sơ" FontWeight="DemiBold"/>
-                                    <ToggleButton x:Name="IsClaimClosedToogleButton" 
+                                    <ToggleButton x:Name="IsClaimClosedToogleButton" IsTabStop="False"
                                           Margin="15, 0" Style="{StaticResource MaterialDesignSwitchAccentToggleButton}"
                                           IsChecked="{Binding IsClaimClosed, FallbackValue=False}" />
 
@@ -281,7 +290,9 @@
                         </StackPanel>
 
                         <materialDesign:DialogHost.DialogContent>
-                            <TextBlock Text="Lịch sử hồ sơ bồi thường"/>
+                            <ListView ItemsSource="{Binding ClaimProgressList}" 
+                                      ItemTemplate="{StaticResource ClaimProgressTemplate}"
+                                      Margin="5"/>
                         </materialDesign:DialogHost.DialogContent>
 
                     </materialDesign:DialogHost>
@@ -329,7 +340,7 @@
                     <ComboBox x:Name="ViewClaimComboBox" Style="{StaticResource EmptyComboBoxStyle}"
                               materialDesign:HintAssist.Hint="Ngày khám" MinWidth="150"
                               HorizontalAlignment="Left"
-                              ItemsSource="{Binding InsuredList}"/>
+                              ItemsSource="{Binding ClaimList}"/>
 
                     <StackPanel HorizontalAlignment="Left" Margin="30, 0">
                         <TextBox materialDesign:HintAssist.Hint="Số đơn" MinWidth="200"

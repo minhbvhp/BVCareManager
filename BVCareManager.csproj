@@ -140,6 +140,7 @@
     <Compile Include="Models\BVCareManager.cs">
       <DependentUpon>BVCareManager.dbml</DependentUpon>
     </Compile>
+    <Compile Include="Models\Claim.cs" />
     <Compile Include="Models\Contract.cs" />
     <Compile Include="Models\Policy.cs" />
     <Compile Include="Repository\ClaimProgressRepository.cs" />
