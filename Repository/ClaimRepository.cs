@@ -22,6 +22,17 @@ namespace BVCareManager.Repository
             return db.Claims.SingleOrDefault(Claim => Claim.Id == id);
         }
 
+        //Close Claim
+        public void CloseClaim(ClaimsProgress claimsProgress, DateTime paidDate, int totalPaid)
+        {
+            Claim claim = db.Claims.SingleOrDefault(claim => claim.Id == claimsProgress.ClaimId);
+
+            claim.PaidDate = paidDate;
+            claim.TotalPaid = totalPaid;
+
+            Save();
+        }
+
         //Insert/Delete Methods
         public void Add(Claim claim)
         {

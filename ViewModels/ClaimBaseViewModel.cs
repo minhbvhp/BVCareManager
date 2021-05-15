@@ -198,7 +198,6 @@ namespace BVCareManager.ViewModels
                 OnPropertyChanged("UpdateClaimPolicyNumber");
                 OnPropertyChanged("ClaimProgressList");
                 OnPropertyChanged("selectedClaim");
-                int a = 0;
             }
         }
 
@@ -443,7 +442,7 @@ namespace BVCareManager.ViewModels
 
                 if (IsClaimClosed)
                 {
-                    claimProgressRepository.CloseClaim(newClaimsProgress, (DateTime)ClaimProgressDate, ClaimTotalPaid);
+                    claimRepository.CloseClaim(newClaimsProgress, (DateTime)ClaimProgressDate, ClaimTotalPaid);
                 }
 
                 claimProgressRepository.Add(newClaimsProgress);
