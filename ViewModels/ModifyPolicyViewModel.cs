@@ -84,6 +84,16 @@ namespace BVCareManager.ViewModels
             }
         }
 
+        public bool IsInsuredSelected {
+            get
+            {
+                if (!String.IsNullOrEmpty(OnModifyingPolicyInsuredId))
+                    return true;
+
+                return false;
+            }
+        }
+
         private string _onModifyingPolicyInsuredId;
         public  string OnModifyingPolicyInsuredId {
             get
@@ -93,6 +103,7 @@ namespace BVCareManager.ViewModels
             set 
             {
                 SetProperty(ref _onModifyingPolicyInsuredId, value);
+                OnPropertyChanged("IsInsuredSelected");
             } 
         }
 

@@ -9,7 +9,7 @@
       <Column Name="PaidDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
       <Column Name="TotalPaid" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="Claim_ClaimsProgress" Member="ClaimsProgresses" ThisKey="Id" OtherKey="ClaimId" Type="ClaimsProgress" />
-      <Association Name="Policy_Claim" Member="Policy" ThisKey="PolicyId" OtherKey="Id" Type="Policy" IsForeignKey="true" />
+      <Association Name="Policy_Claim" Member="Policy" ThisKey="PolicyId" OtherKey="Id" Type="Policy" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
     </Type>
   </Table>
   <Table Name="dbo.Policies" Member="Policies">
@@ -23,6 +23,15 @@
       <Association Name="Policy_Claim" Member="Claims" ThisKey="Id" OtherKey="PolicyId" Type="Claim" />
       <Association Name="Contract_Policy" Member="Contract" ThisKey="ContractId" OtherKey="Id" Type="Contract" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
       <Association Name="Insured_Policy" Member="Insured" ThisKey="InsuredId" OtherKey="Id" Type="Insured" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ClaimsProgress" Member="ClaimsProgresses">
+    <Type Name="ClaimsProgress">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ClaimId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Date" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="Remarks" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Association Name="Claim_ClaimsProgress" Member="Claim" ThisKey="ClaimId" OtherKey="Id" Type="Claim" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Contracts" Member="Contracts">
@@ -39,15 +48,6 @@
       <Column Name="Id" Type="System.String" DbType="VarChar(30) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
       <Association Name="Insured_Policy" Member="Policies" ThisKey="Id" OtherKey="InsuredId" Type="Policy" />
-    </Type>
-  </Table>
-  <Table Name="dbo.ClaimsProgress" Member="ClaimsProgresses">
-    <Type Name="ClaimsProgress">
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="ClaimId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Date" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
-      <Column Name="Remarks" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
-      <Association Name="Claim_ClaimsProgress" Member="Claim" ThisKey="ClaimId" OtherKey="Id" Type="Claim" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

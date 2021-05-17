@@ -11,6 +11,7 @@
     
     <UserControl.Resources>
         <converter:NumberFormatConverter x:Key="NumberFormatConverter"/>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
     </UserControl.Resources>
     
     <Grid>
@@ -160,7 +161,8 @@
                                       SelectedValue="{Binding OnModifyingPolicyInsuredId, Mode=TwoWay}"
                                       SelectedValuePath="Id" DisplayMemberPath="Name"/>
 
-                                <TextBlock FontWeight="DemiBold" FontStyle="Italic" FontSize="10">
+                                <TextBlock FontWeight="DemiBold" FontStyle="Italic" FontSize="10"
+                                           Visibility="{Binding IsInsuredSelected, Converter={StaticResource BooleanToVisibilityConverter}}">
                                     <Run Text="Số CMT/CCCD:"/>
                                     <Run Text="{Binding ElementName=InsuredListComboBox, Path=SelectedValue}"/>
                                 </TextBlock>

@@ -251,7 +251,6 @@
     <Resource Include="Fonts\Gotham-Thin.otf" />
     <None Include="Models\BVCareManager.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>BVCareManager.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </None>
     <None Include="Models\BVCareManager.dbml.layout">

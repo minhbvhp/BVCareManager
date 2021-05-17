@@ -83,6 +83,7 @@ namespace BVCareManager.ViewModels
                 SetProperty(ref _selectedInsured, value);
                 OnPropertyChanged("IsInsuredSelected");
                 OnPropertyChanged("ListValidPolicies");
+                OnPropertyChanged("ClaimListByInsured");
             }
         }
 
@@ -105,6 +106,16 @@ namespace BVCareManager.ViewModels
             }
         }
 
+        public bool IsPolicySelected {
+            get
+            {
+                if (ValidSelectedPolicy != 0)
+                    return true;
+
+                return false;
+            }
+        }
+
         private int _validSelectedPolicy;
         public int ValidSelectedPolicy
         {
@@ -115,6 +126,7 @@ namespace BVCareManager.ViewModels
             set
             {
                 SetProperty(ref _validSelectedPolicy, value);
+                OnPropertyChanged("IsPolicySelected");
             }
         }
 
@@ -157,17 +169,21 @@ namespace BVCareManager.ViewModels
     #endregion
 
     #region Update Claim
-        public ObservableCollection<Claim> ClaimList
+        public ObservableCollection<Claim> ClaimListByInsured
         {
             get
             {
-                var _allClaims = from claim in claimRepository.FindAllClaims()
-                                     select claim;
-
                 var AllClaims = new ObservableCollection<Claim>();
 
-                foreach (var claim in _allClaims)
-                    AllClaims.Add(claim);
+                if (SelectedInsured != null)
+                {
+                    var _allClaims = from claim in claimRepository.FindAllClaims()
+                                     where claim.Policy.InsuredId == SelectedInsured.Id
+                                     select claim;
+
+                    foreach (var claim in _allClaims)
+                        AllClaims.Add(claim);
+                }           
 
                 return AllClaims;
             }
@@ -181,6 +197,15 @@ namespace BVCareManager.ViewModels
             }
         }
 
+        public bool IsClaimSelected {
+            get
+            {
+                if (SelectedClaimId != 0)
+                    return true;
+
+                return false;
+            }
+        }
 
         private int _selectedClaimId;
         public int SelectedClaimId
@@ -198,6 +223,7 @@ namespace BVCareManager.ViewModels
                 OnPropertyChanged("UpdateClaimPolicyNumber");
                 OnPropertyChanged("ClaimProgressList");
                 OnPropertyChanged("selectedClaim");
+                OnPropertyChanged("IsClaimSelected");
             }
         }
 
@@ -378,7 +404,7 @@ namespace BVCareManager.ViewModels
                 Success = "Đã lập hồ sơ bồi thường";
                 UpdateResultAsync(Result.Successful);
 
-                OnPropertyChanged("ClaimList");
+                OnPropertyChanged("ClaimListByInsured");
                 NewExaminationDate = null;
                 ValidSelectedPolicy = 0;
                 ClaimReceivedDate = null;

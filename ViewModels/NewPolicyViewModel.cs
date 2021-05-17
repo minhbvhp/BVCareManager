@@ -40,6 +40,17 @@ namespace BVCareManager.ViewModels
             }
         }
 
+        public bool IsInsuredSelected
+        {
+            get
+            {
+                if (!String.IsNullOrEmpty(SelectedInsuredId))
+                    return true;
+
+                return false;
+            }
+        }
+
         private string _selectedInsuredId;
         public string SelectedInsuredId
         {
@@ -50,6 +61,7 @@ namespace BVCareManager.ViewModels
             set
             {
                 SetProperty(ref _selectedInsuredId, value);
+                OnPropertyChanged("IsInsuredSelected");
             }
         }
 

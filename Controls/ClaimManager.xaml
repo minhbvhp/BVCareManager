@@ -17,7 +17,7 @@
 
         <DataTemplate x:Key="ClaimProgressTemplate">
             <TextBlock>
-                <materialDesign:PackIcon Kind="CalendarRange"/>
+                <materialDesign:PackIcon Kind="CalendarRange" VerticalAlignment="Top"/>
                 <Run Text="{Binding Date, StringFormat=dd/MM/yyyy}"/>
                 <LineBreak/>
                 <Run Text="{Binding Remarks}"/>
@@ -130,9 +130,11 @@
                                   SelectedValue="{Binding ValidSelectedPolicy, Mode=TwoWay}"
                                   SelectedValuePath="Id" DisplayMemberPath="Number"/>
 
-                                <TextBlock FontWeight="DemiBold" FontStyle="Italic">
-                                <Run Text="Số hợp đồng:"/>
-                                <Run Text="{Binding ElementName=PolicyListComboBox, Path=SelectedItem.ContractId}"/>
+                                <TextBlock FontWeight="DemiBold" FontStyle="Italic" 
+                                           Visibility="{Binding IsPolicySelected,
+                                                Converter={StaticResource BooleanToVisibilityConverter}}">
+                                    <Run Text="Số hợp đồng:"/>
+                                    <Run Text="{Binding ElementName=PolicyListComboBox, Path=SelectedItem.ContractId}"/>
                                 </TextBlock>
 
                                 <StackPanel HorizontalAlignment="Left" Margin="30, 10">
@@ -223,7 +225,7 @@
                             <StackPanel Orientation="Horizontal">
                                 <ComboBox x:Name="UpdateClaimComboBox" Style="{StaticResource EmptyComboBoxStyle}"
                                           materialDesign:HintAssist.Hint="Ngày khám" MinWidth="200"
-                                          ItemsSource="{Binding ClaimList}"
+                                          ItemsSource="{Binding ClaimListByInsured}"
                                           ItemStringFormat="{}{0:dd/MM/yyyy}"
                                           SelectedValue="{Binding SelectedClaimId, Mode=TwoWay, StringFormat=dd/MM/yyyy, UpdateSourceTrigger=PropertyChanged}"
                                           SelectedValuePath="Id" DisplayMemberPath="ExaminationDate"/>
@@ -236,17 +238,18 @@
                                 </Button>
                             </StackPanel>
 
-
-                            <TextBlock FontWeight="DemiBold" FontStyle="Italic">
+                            <StackPanel Visibility="{Binding IsClaimSelected, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                <TextBlock FontWeight="DemiBold" FontStyle="Italic">
                                 <Run Text="Số đơn:"/>
                                 <Run Text="{Binding UpdateClaimPolicyNumber, Mode=OneWay}"/>
-                            </TextBlock>
+                                </TextBlock>
 
-                            <TextBlock FontWeight="DemiBold" FontStyle="Italic">
+                                <TextBlock FontWeight="DemiBold" FontStyle="Italic">
                                 <Run Text="Số hợp đồng:"/>
                                 <Run Text="{Binding UpdateClaimContractId, Mode=OneWay}"/>
-                            </TextBlock>
-
+                                </TextBlock>
+                            </StackPanel>
+                            
                             <StackPanel Visibility="{Binding IsUpdateExaminationEntered, Converter={StaticResource BooleanToVisibilityConverter}}">
                                 <TextBox Margin="0, 30" Style="{StaticResource EmptyTextboxStyle}"
                                      TextWrapping="Wrap" VerticalAlignment="Stretch" AcceptsReturn="True"
@@ -290,9 +293,13 @@
                         </StackPanel>
 
                         <materialDesign:DialogHost.DialogContent>
-                            <ListView ItemsSource="{Binding ClaimProgressList}" 
+                            <ScrollViewer VerticalScrollBarVisibility="Auto" MaxHeight="320" MinWidth="300">
+                                <StackPanel>
+                                    <ListView ItemsSource="{Binding ClaimProgressList}" 
                                       ItemTemplate="{StaticResource ClaimProgressTemplate}"
                                       Margin="5"/>
+                                </StackPanel>
+                            </ScrollViewer>
                         </materialDesign:DialogHost.DialogContent>
 
                     </materialDesign:DialogHost>
