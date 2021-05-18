@@ -189,6 +189,18 @@ namespace BVCareManager.ViewModels
             }
         }
 
+        public DateTime? ReceivedDateOfSelectedClaim {
+            get
+            {
+                if (SelectedClaimId != 0)
+                {
+                    return claimRepository.GetClaimById(SelectedClaimId).ReceivedDate;
+                }
+
+                return null;
+            }
+        }
+
         private Claim selectedClaim
         {
             get
@@ -224,6 +236,7 @@ namespace BVCareManager.ViewModels
                 OnPropertyChanged("ClaimProgressList");
                 OnPropertyChanged("selectedClaim");
                 OnPropertyChanged("IsClaimSelected");
+                OnPropertyChanged("ReceivedDateOfSelectedClaim");
             }
         }
 
@@ -274,7 +287,18 @@ namespace BVCareManager.ViewModels
         public string ClaimProgressRemarks {
             get
             {
-                return _claimProgressRemarks;
+                string afterTrim;
+
+                if (String.IsNullOrEmpty(_claimProgressRemarks))
+                {
+                    afterTrim = String.Empty;
+                }
+                else
+                {
+                    afterTrim = _claimProgressRemarks.Trim();
+                }
+
+                return afterTrim;
             }
             set
             {

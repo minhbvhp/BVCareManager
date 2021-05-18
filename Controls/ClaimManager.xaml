@@ -16,10 +16,12 @@
         <converter:BooleanVisibilityConverter x:Key="visibilityConverter"/>
 
         <DataTemplate x:Key="ClaimProgressTemplate">
-            <TextBlock>
-                <materialDesign:PackIcon Kind="CalendarRange" VerticalAlignment="Top"/>
-                <Run Text="{Binding Date, StringFormat=dd/MM/yyyy}"/>
+            <TextBlock TextWrapping="Wrap"
+                       LineHeight="20" LineStackingStrategy="BlockLineHeight">
+                <materialDesign:PackIcon Kind="CalendarRange" Height="10" Width="10"/>
+                <Run Text="{Binding Date, StringFormat=dd/MM/yyyy, Mode=OneWay}" FontWeight="DemiBold" FontSize="11"/>
                 <LineBreak/>
+                <Run Text="    "/>
                 <Run Text="{Binding Remarks}"/>
             </TextBlock>
         </DataTemplate>
@@ -231,9 +233,10 @@
                                           SelectedValuePath="Id" DisplayMemberPath="ExaminationDate"/>
 
                                 <Button Margin="20 0 0 0" Style="{StaticResource MaterialDesignIconButton}"
-                                ToolTip="Xem lịch sử hồ sơ"
-                                Height="30" Width="30" VerticalAlignment="Bottom"
-                                Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}">
+                                        ToolTip="Xem lịch sử hồ sơ"
+                                        Height="30" Width="30" VerticalAlignment="Bottom"
+                                        Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}"
+                                        Visibility="{Binding IsUpdateExaminationEntered, Converter={StaticResource BooleanToVisibilityConverter}}">
                                     <materialDesign:PackIcon Kind="History" Height="15" Width="15"/>
                                 </Button>
                             </StackPanel>
@@ -249,16 +252,19 @@
                                 <Run Text="{Binding UpdateClaimContractId, Mode=OneWay}"/>
                                 </TextBlock>
                             </StackPanel>
-                            
-                            <StackPanel Visibility="{Binding IsUpdateExaminationEntered, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                <TextBox Margin="0, 30" Style="{StaticResource EmptyTextboxStyle}"
-                                     TextWrapping="Wrap" VerticalAlignment="Stretch" AcceptsReturn="True"
-                                     VerticalScrollBarVisibility="Auto" Height="80"
-                                     materialDesign:HintAssist.Hint="Nội dung cập nhật"
-                                     materialDesign:HintAssist.IsFloating="True"
-                                     Text="{Binding ClaimProgressRemarks}"/>
 
-                                <DatePicker SelectedDate="{Binding ClaimProgressDate}">
+                            <StackPanel Orientation="Horizontal" Margin="0 50 0 10">
+                                <TextBlock Text="Cập nhật hồ sơ" FontWeight="DemiBold"/>
+                                <ToggleButton x:Name="IsClaimClosedToogleButton" IsTabStop="False"
+                                          Margin="15, 0" Style="{StaticResource MaterialDesignSwitchAccentToggleButton}"
+                                          IsChecked="{Binding IsClaimClosed, FallbackValue=False}" />
+
+                                <TextBlock Text="Đóng hồ sơ" Foreground="#3f8300" FontWeight="SemiBold"/>
+                            </StackPanel>
+
+                            <StackPanel Visibility="{Binding IsUpdateExaminationEntered, Converter={StaticResource BooleanToVisibilityConverter}}">
+
+                                <DatePicker SelectedDate="{Binding ClaimProgressDate}" Margin="0, 20">
 
                                     <DatePicker.Style>
                                         <Style TargetType="DatePicker" BasedOn="{StaticResource EmptyDatePickerStyle}">
@@ -272,18 +278,16 @@
                                     </DatePicker.Style>
                                 </DatePicker>
 
-                                <StackPanel Orientation="Horizontal" Margin="0 50 0 10">
-                                    <TextBlock Text="Cập nhật hồ sơ" FontWeight="DemiBold"/>
-                                    <ToggleButton x:Name="IsClaimClosedToogleButton" IsTabStop="False"
-                                          Margin="15, 0" Style="{StaticResource MaterialDesignSwitchAccentToggleButton}"
-                                          IsChecked="{Binding IsClaimClosed, FallbackValue=False}" />
-
-                                    <TextBlock Text="Đóng hồ sơ" Foreground="#3f8300" FontWeight="SemiBold"/>
-                                </StackPanel>
+                                <TextBox Margin="0, 30" Style="{StaticResource EmptyTextboxStyle}"
+                                     TextWrapping="Wrap" VerticalAlignment="Stretch" AcceptsReturn="True"
+                                     VerticalScrollBarVisibility="Auto" Height="80"
+                                     materialDesign:HintAssist.Hint="Ghi chú"
+                                     materialDesign:HintAssist.IsFloating="True"
+                                     Text="{Binding ClaimProgressRemarks}"/>
 
                                 <TextBox x:Name="TotalPaidTextBox"
                                      Style="{StaticResource EmptyTextboxStyle}"
-                                     materialDesign:HintAssist.Hint="Số tiền bồi thường" 
+                                     materialDesign:HintAssist.Hint="Số tiền bồi thường cuối cùng" 
                                      PreviewTextInput="TotalPaidTextBox_PreviewTextInput"
                                      PreviewKeyDown="TotalPaidTextBox_PreviewKeyDown"
                                      Visibility="{Binding IsChecked,ElementName=IsClaimClosedToogleButton,Converter={StaticResource BooleanToVisibilityConverter}}"
@@ -291,13 +295,22 @@
                                             Converter={StaticResource NumberFormatConverter}, ConverterParameter='N0', ConverterCulture='is-IS'}"/>
                             </StackPanel>
                         </StackPanel>
-
+                        
                         <materialDesign:DialogHost.DialogContent>
                             <ScrollViewer VerticalScrollBarVisibility="Auto" MaxHeight="320" MinWidth="300">
                                 <StackPanel>
+                                    <TextBlock Margin="10, 5" VerticalAlignment="Top" TextWrapping="Wrap"
+                                               LineHeight="20" LineStackingStrategy="BlockLineHeight">
+                                        <materialDesign:PackIcon Kind="CalendarRange" Height="10" Width="10"/>
+                                        <Run Text="{Binding ReceivedDateOfSelectedClaim, StringFormat=dd/MM/yyyy, Mode=OneWay}" 
+                                             FontSize="11" FontWeight="DemiBold"/>
+                                        <LineBreak/>
+                                        <Run Text="     Nhận hồ sơ"/>
+                                    </TextBlock>
+
                                     <ListView ItemsSource="{Binding ClaimProgressList}" 
                                       ItemTemplate="{StaticResource ClaimProgressTemplate}"
-                                      Margin="5"/>
+                                      Margin="20, 5"/>
                                 </StackPanel>
                             </ScrollViewer>
                         </materialDesign:DialogHost.DialogContent>
