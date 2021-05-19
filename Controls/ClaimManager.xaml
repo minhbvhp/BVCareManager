@@ -298,19 +298,34 @@
                         
                         <materialDesign:DialogHost.DialogContent>
                             <ScrollViewer VerticalScrollBarVisibility="Auto" MaxHeight="320" MinWidth="300">
-                                <StackPanel>
+                                <StackPanel Margin="20, 30">
+
                                     <TextBlock Margin="10, 5" VerticalAlignment="Top" TextWrapping="Wrap"
-                                               LineHeight="20" LineStackingStrategy="BlockLineHeight">
+                                               LineHeight="20" LineStackingStrategy="BlockLineHeight" Foreground="#1ca7ec">
+                                        <materialDesign:PackIcon Kind="CalendarRange" Height="10" Width="10"/>
+                                        <Run Text="{Binding ReceivedDateOfSelectedClaim, StringFormat=dd/MM/yyyy, Mode=OneWay}" 
+                                             FontSize="11" FontWeight="DemiBold"/>
+                                        
+                                        <materialDesign:PackIcon Kind="BookmarkPlus" Height="14" Width="14"/>
+                                        <LineBreak/>
+                                        <Run Text="     Nhận hồ sơ"/>
+                                        
+                                    </TextBlock>
+
+                                    <ListView ItemsSource="{Binding ClaimProgressList}" 
+                                              ItemTemplate="{StaticResource ClaimProgressTemplate}"
+                                              Margin="20, 5"
+                                              Foreground="#3c4cad"/>
+
+
+                                    <TextBlock Margin="10, 5" VerticalAlignment="Top" TextWrapping="Wrap"
+                                               LineHeight="20" LineStackingStrategy="BlockLineHeight" Foreground="#f04393">
                                         <materialDesign:PackIcon Kind="CalendarRange" Height="10" Width="10"/>
                                         <Run Text="{Binding ReceivedDateOfSelectedClaim, StringFormat=dd/MM/yyyy, Mode=OneWay}" 
                                              FontSize="11" FontWeight="DemiBold"/>
                                         <LineBreak/>
-                                        <Run Text="     Nhận hồ sơ"/>
+                                        <Run Text="     Đóng hồ sơ"/>
                                     </TextBlock>
-
-                                    <ListView ItemsSource="{Binding ClaimProgressList}" 
-                                      ItemTemplate="{StaticResource ClaimProgressTemplate}"
-                                      Margin="20, 5"/>
                                 </StackPanel>
                             </ScrollViewer>
                         </materialDesign:DialogHost.DialogContent>
