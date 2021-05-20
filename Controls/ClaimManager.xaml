@@ -244,12 +244,12 @@
                             <StackPanel Visibility="{Binding IsClaimSelected, Converter={StaticResource BooleanToVisibilityConverter}}">
                                 <TextBlock FontWeight="DemiBold" FontStyle="Italic">
                                 <Run Text="Số đơn:"/>
-                                <Run Text="{Binding UpdateClaimPolicyNumber, Mode=OneWay}"/>
+                                <Run Text="{Binding PolicyNumberOfSelectedClaim, Mode=OneWay}"/>
                                 </TextBlock>
 
                                 <TextBlock FontWeight="DemiBold" FontStyle="Italic">
                                 <Run Text="Số hợp đồng:"/>
-                                <Run Text="{Binding UpdateClaimContractId, Mode=OneWay}"/>
+                                <Run Text="{Binding ContractIdOfSelectedClaim, Mode=OneWay}"/>
                                 </TextBlock>
                             </StackPanel>
 
@@ -388,25 +388,36 @@
                 </TabItem.Header>
 
                 <StackPanel Margin="80 20 80 20" VerticalAlignment="Top">
-                    <ComboBox x:Name="ViewClaimComboBox" Style="{StaticResource EmptyComboBoxStyle}"
-                              materialDesign:HintAssist.Hint="Ngày khám" MinWidth="150"
-                              HorizontalAlignment="Left"
-                              ItemsSource="{Binding ClaimList}"/>
+                    <ComboBox Style="{StaticResource EmptyComboBoxStyle}"
+                              materialDesign:HintAssist.Hint="Ngày khám" MinWidth="200"
+                              ItemsSource="{Binding ClaimListByInsured}"
+                              ItemStringFormat="{}{0:dd/MM/yyyy}"
+                              SelectedValue="{Binding SelectedClaimId, Mode=TwoWay, StringFormat=dd/MM/yyyy, UpdateSourceTrigger=PropertyChanged}"
+                              SelectedValuePath="Id" DisplayMemberPath="ExaminationDate"/>
 
-                    <StackPanel HorizontalAlignment="Left" Margin="30, 0">
-                        <TextBox materialDesign:HintAssist.Hint="Số đơn" MinWidth="200"
-                                 materialDesign:HintAssist.IsFloating="True"
-                                 IsEnabled="False"/>
+                        <StackPanel Visibility="{Binding IsClaimSelected, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <TextBlock FontWeight="DemiBold" FontStyle="Italic">
+                                <Run Text="Số đơn:"/>
+                                <Run Text="{Binding PolicyNumberOfSelectedClaim, Mode=OneWay}"/>
+                        </TextBlock>
+
+                        <TextBlock FontWeight="DemiBold" FontStyle="Italic">
+                                <Run Text="Số hợp đồng:"/>
+                                <Run Text="{Binding ContractIdOfSelectedClaim, Mode=OneWay}"/>
+                        </TextBlock>
                     </StackPanel>
 
-
-                    <GroupBox Header="Hoàn thành" Margin="0, 30">
+                    <GroupBox Margin="0, 50">
                         <GroupBox.HeaderTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
                                     <materialDesign:PackIcon Kind="Done" Height="32" Width="32" VerticalAlignment="Center" />
                                     <TextBlock Margin="8,0,0,0" VerticalAlignment="Center" Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
-                                               Text="{Binding}" />
+                                               Text="Hoàn thành" />
+
+                                    <materialDesign:PackIcon Kind="Done" Height="32" Width="32" VerticalAlignment="Center" />
+                                    <TextBlock Margin="8,0,0,0" VerticalAlignment="Center" Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
+                                               Text="Hoàn thành" />
                                 </StackPanel>
                             </DataTemplate>
                         </GroupBox.HeaderTemplate>

@@ -197,6 +197,16 @@
                         <DockPanel Background="#9B9B9B" Height="100">
                             <StackPanel Orientation="Horizontal"
                                         HorizontalAlignment="Center" Margin="0 25 0 0">
+                                <ComboBox Margin="0 0 30 0" Width="150" Foreground="White" BorderBrush="White"
+                                          VerticalAlignment="Top" HorizontalAlignment="Left"
+                                          materialDesign:ColorZoneAssist.Mode="Custom" Background="#9B9B9B"
+                                          Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                                          SelectedIndex="0">
+
+                                    <ComboBoxItem>Hồ sơ đang giải quyết</ComboBoxItem>
+                                    <ComboBoxItem>Tạo/Cập nhật hồ sơ</ComboBoxItem>
+                                </ComboBox>
+                                
                                 <TextBox x:Name="InsuredTextBox" Width="200"
                                          Foreground="White" BorderBrush="White"
                                          VerticalAlignment="Top" HorizontalAlignment="Left"

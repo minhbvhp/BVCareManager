@@ -230,9 +230,9 @@ namespace BVCareManager.ViewModels
             {
                 SetProperty(ref _selectedClaimId, value);
                 ErrorsList.Clear();
-                OnPropertyChanged("UpdateClaimContractId");
+                OnPropertyChanged("ContractIdOfSelectedClaim");
                 OnPropertyChanged("IsUpdateExaminationEntered");
-                OnPropertyChanged("UpdateClaimPolicyNumber");
+                OnPropertyChanged("PolicyNumberOfSelectedClaim");
                 OnPropertyChanged("ClaimProgressList");
                 OnPropertyChanged("SelectedClaim");
                 OnPropertyChanged("IsClaimSelected");
@@ -240,7 +240,7 @@ namespace BVCareManager.ViewModels
             }
         }
 
-        public string UpdateClaimContractId {
+        public string ContractIdOfSelectedClaim {
             get
             {
                 string _updateClaimContractId = String.Empty;
@@ -255,7 +255,7 @@ namespace BVCareManager.ViewModels
             }
         }
 
-        public int UpdateClaimPolicyNumber
+        public int PolicyNumberOfSelectedClaim
         {
             get
             {
