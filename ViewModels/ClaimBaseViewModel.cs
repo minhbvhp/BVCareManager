@@ -201,7 +201,7 @@ namespace BVCareManager.ViewModels
             }
         }
 
-        private Claim selectedClaim
+        public Claim SelectedClaim
         {
             get
             {
@@ -234,7 +234,7 @@ namespace BVCareManager.ViewModels
                 OnPropertyChanged("IsUpdateExaminationEntered");
                 OnPropertyChanged("UpdateClaimPolicyNumber");
                 OnPropertyChanged("ClaimProgressList");
-                OnPropertyChanged("selectedClaim");
+                OnPropertyChanged("SelectedClaim");
                 OnPropertyChanged("IsClaimSelected");
                 OnPropertyChanged("ReceivedDateOfSelectedClaim");
             }
@@ -248,7 +248,7 @@ namespace BVCareManager.ViewModels
 
                 if (SelectedClaimId > 0)
                 {
-                    _updateClaimContractId = selectedClaim.Policy.ContractId;
+                    _updateClaimContractId = SelectedClaim.Policy.ContractId;
                 }
 
                 return _updateClaimContractId;
@@ -447,7 +447,7 @@ namespace BVCareManager.ViewModels
                 if (ClaimProgressDate == null)
                     return false;
 
-                if (ClaimProgressDate < selectedClaim.ExaminationDate)
+                if (ClaimProgressDate < SelectedClaim.ExaminationDate)
                 {
                     UpdateResultAsync(Result.HasError, "Ngày cập nhật phải sau ngày khám");
                 }
@@ -465,7 +465,7 @@ namespace BVCareManager.ViewModels
                     UpdateResultAsync(Result.ExcludeError, "Số tiền bồi thường phải lớn hơn 0");
                 }
 
-                if (selectedClaim.IsClosed)
+                if (SelectedClaim.IsClosed)
                 {
                     UpdateResultAsync(Result.HasError, "Hồ sơ này đã đóng, không thể cập nhật nữa");
                 }
@@ -485,29 +485,24 @@ namespace BVCareManager.ViewModels
             }, (p) =>
             {
                 ClaimsProgress newClaimsProgress = new ClaimsProgress();
-
                 newClaimsProgress.ClaimId = SelectedClaimId;
-                newClaimsProgress.Date = (DateTime)ClaimProgressDate;
-                newClaimsProgress.Remarks = ClaimProgressRemarks;
 
                 if (IsClaimClosed)
                 {
                     claimRepository.CloseClaim(newClaimsProgress, (DateTime)ClaimProgressDate, ClaimTotalPaid);
-                }
-
-                claimProgressRepository.Add(newClaimsProgress);
-                claimProgressRepository.Save();
-
-                if (IsClaimClosed)
-                {
-                    Success = "Đã đóng hồ sơ bồi thường";                    
+                    Success = "Đã đóng hồ sơ bồi thường";
                 }
                 else
-                {
-                    Success = "Đã cập nhật hồ sơ bồi thường";
-                }
+                {                    
+                    newClaimsProgress.Date = (DateTime)ClaimProgressDate;
+                    newClaimsProgress.Remarks = ClaimProgressRemarks;
 
-                OnPropertyChanged("selectedClaim");
+                    claimProgressRepository.Add(newClaimsProgress);
+                    claimProgressRepository.Save();
+                    Success = "Đã cập nhật hồ sơ bồi thường";
+                }                              
+
+                OnPropertyChanged("SelectedClaim");
                 UpdateResultAsync(Result.Successful);
 
                 SelectedClaimId = 0;
