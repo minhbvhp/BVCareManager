@@ -80,20 +80,17 @@ namespace BVCareManager
             {
                 case "Nhân viên":
                     ModifyDockPanel.Children.Add(new InsuredModify());
-                    if (!(searchAndModifyViewModel is ModifyInsuredViewModel))
-                        searchAndModifyViewModel = new ModifyInsuredViewModel(searchText);
+                    searchAndModifyViewModel = new ModifyInsuredViewModel(searchText);
                     break;
 
                 case "Hợp đồng":
                     ModifyDockPanel.Children.Add(new ContractModify());
-                    if (!(searchAndModifyViewModel is ModifyContractViewModel))
-                        searchAndModifyViewModel = new ModifyContractViewModel(searchText);
+                    searchAndModifyViewModel = new ModifyContractViewModel(searchText);
                     break;
 
                 case "Đơn bảo hiểm":
                     ModifyDockPanel.Children.Add(new PolicyModify());
-                    if (!(searchAndModifyViewModel is ModifyPolicyViewModel))
-                        searchAndModifyViewModel = new ModifyPolicyViewModel(searchText);
+                    searchAndModifyViewModel = new ModifyPolicyViewModel(searchText);
                     break;
             }
 
@@ -121,11 +118,11 @@ namespace BVCareManager
 
             if (ClaimTab.IsSelected == false)
             {
-                if (ClaimManagerDockPanel != null)
-                {
+                //if (ClaimManagerDockPanel != null)
+                //{
                     ClaimManagerDockPanel.Children.Clear();
                     InsuredTextBox.Text = String.Empty;
-                }
+                //}
             }
 
         }
@@ -142,7 +139,7 @@ namespace BVCareManager
 
             if (claimCategory == "Tạo/Cập nhật hồ sơ")
             {
-                string searchText = SearchTextBox.Text;
+                string searchText = InsuredTextBox.Text;
                 ClaimManagerDockPanel.Children.Add(new ClaimManager());
                 ClaimGrid.DataContext = new ClaimBaseViewModel(searchText);
             }

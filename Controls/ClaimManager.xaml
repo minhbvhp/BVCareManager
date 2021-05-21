@@ -254,7 +254,7 @@
                             </StackPanel>
 
                             <StackPanel Visibility="{Binding IsClaimSelected, 
-                                                    Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Visibility}">
+                                                    Converter={StaticResource BooleanToVisibilityConverter}}">
                                 <StackPanel Orientation="Horizontal" Margin="0 30 0 10">
                                     <TextBlock Text="Cập nhật hồ sơ" FontWeight="DemiBold"/>
 
