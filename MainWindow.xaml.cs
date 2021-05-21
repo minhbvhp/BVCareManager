@@ -28,12 +28,14 @@ namespace BVCareManager
     {
         object createNewGroupBoxViewModel;
         object searchAndModifyViewModel;
+        string claimCategory;
         public MainWindow()
         {
             InitializeComponent();
             MyTabs.SelectedIndex = 0;
             CreateNewListBox.SelectedIndex = 0;
             ComboBoxSearchCategory.SelectedIndex = 0;
+            ClaimCategoryComboBox.SelectedIndex = 0;
         }
 
         private void CreateNewListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -137,10 +139,32 @@ namespace BVCareManager
         private void SearchInsured_Click(object sender, RoutedEventArgs e)
         {
             ClaimManagerDockPanel.Children.Clear();
-            string searchText = SearchTextBox.Text;
 
-            ClaimManagerDockPanel.Children.Add(new ClaimManager());
-            ClaimGrid.DataContext = new ClaimBaseViewModel(searchText);
+            if (claimCategory == "Tạo/Cập nhật hồ sơ")
+            {
+                string searchText = SearchTextBox.Text;
+                ClaimManagerDockPanel.Children.Add(new ClaimManager());
+                ClaimGrid.DataContext = new ClaimBaseViewModel(searchText);
+            }
+            else
+            {
+                
+            }
+            
+        }
+
+        private void ClaimCategoryComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            claimCategory = ClaimCategoryComboBox.SelectedValue.ToString();
+            
+            if (claimCategory == "Tạo/Cập nhật hồ sơ")
+            {
+                InsuredTextBox.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                InsuredTextBox.Visibility = Visibility.Collapsed;
+            }
         }
     }
 }
