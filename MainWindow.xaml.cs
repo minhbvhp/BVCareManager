@@ -119,8 +119,11 @@ namespace BVCareManager
 
             if (ClaimTab.IsSelected == false)
             {
-                ClaimManagerDockPanel.Children.Clear();
-                InsuredTextBox.Text = String.Empty;
+                if (ClaimManagerDockPanel != null)
+                {
+                    ClaimManagerDockPanel.Children.Clear();
+                    InsuredTextBox.Text = String.Empty;
+                }
             }
 
         }
