@@ -231,7 +231,6 @@ namespace BVCareManager.ViewModels
                 SetProperty(ref _selectedClaimId, value);
                 ErrorsList.Clear();
                 OnPropertyChanged("ContractIdOfSelectedClaim");
-                OnPropertyChanged("IsUpdateExaminationEntered");
                 OnPropertyChanged("PolicyNumberOfSelectedClaim");
                 OnPropertyChanged("ClaimProgressList");
                 OnPropertyChanged("SelectedClaim");
@@ -269,17 +268,6 @@ namespace BVCareManager.ViewModels
                 }
 
                 return _updateClaimPolicyNumber;
-            }
-        }
-
-        public bool IsUpdateExaminationEntered
-        {
-            get
-            {
-                if (SelectedClaimId > 0)
-                    return true;
-
-                return false;
             }
         }
 
@@ -338,6 +326,13 @@ namespace BVCareManager.ViewModels
             }
         }
 
+        public bool IsClaimOnProgress {
+            get
+            {
+                return !IsClaimClosed;
+            }
+        }
+
         private bool _isClaimClosed;
         public bool IsClaimClosed {
             get
@@ -347,6 +342,7 @@ namespace BVCareManager.ViewModels
             set
             {
                 SetProperty(ref _isClaimClosed, value);
+                OnPropertyChanged("IsClaimOnProgress");
             }
         }
 
@@ -438,10 +434,7 @@ namespace BVCareManager.ViewModels
         #region Update Command
             UpdateCommand = new RelayCommand<object>((p) =>
             {
-                if (!IsUpdateExaminationEntered)
-                    return false;
-
-                if (String.IsNullOrEmpty(ClaimProgressRemarks) || String.IsNullOrWhiteSpace(ClaimProgressRemarks))
+                if (!IsClaimSelected)
                     return false;
 
                 if (ClaimProgressDate == null)
@@ -449,20 +442,11 @@ namespace BVCareManager.ViewModels
 
                 if (ClaimProgressDate < SelectedClaim.ExaminationDate)
                 {
-                    UpdateResultAsync(Result.HasError, "Ngày cập nhật phải sau ngày khám");
+                    UpdateResultAsync(Result.HasError, "Ngày cập nhật/đóng hồ sơ phải sau ngày khám");
                 }
                 else
                 {
-                    UpdateResultAsync(Result.ExcludeError, "Ngày cập nhật phải sau ngày khám");
-                }
-
-                if (IsClaimClosed && ClaimTotalPaid <= 0)
-                {
-                    UpdateResultAsync(Result.HasError, "Số tiền bồi thường phải lớn hơn 0");
-                } 
-                else
-                {
-                    UpdateResultAsync(Result.ExcludeError, "Số tiền bồi thường phải lớn hơn 0");
+                    UpdateResultAsync(Result.ExcludeError, "Ngày cập nhật/đóng hồ sơ phải sau ngày khám");
                 }
 
                 if (SelectedClaim.IsClosed)
@@ -472,6 +456,23 @@ namespace BVCareManager.ViewModels
                 else
                 {
                     UpdateResultAsync(Result.ExcludeError, "Hồ sơ này đã đóng, không thể cập nhật nữa");
+                }
+
+                if (IsClaimClosed)
+                {
+                    if (ClaimTotalPaid <= 0)
+                    {
+                        UpdateResultAsync(Result.HasError, "Số tiền bồi thường phải lớn hơn 0");
+                    }
+                    else
+                    {
+                        UpdateResultAsync(Result.ExcludeError, "Số tiền bồi thường phải lớn hơn 0");
+                    }
+                }
+                else
+                {
+                    if (String.IsNullOrEmpty(ClaimProgressRemarks) || String.IsNullOrWhiteSpace(ClaimProgressRemarks))
+                        return false;
                 }
 
                 if (_errorsList.Count > 0)
