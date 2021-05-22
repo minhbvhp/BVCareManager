@@ -189,44 +189,7 @@
 
                 <TabItem x:Name="ClaimTab" Header="BỒI THƯỜNG">
                     <Grid x:Name="ClaimGrid">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="90"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
-
-                        <DockPanel Background="#9B9B9B" Height="100">
-                            <StackPanel Orientation="Horizontal"
-                                        HorizontalAlignment="Center" Margin="0 25 0 0">
-                                <ComboBox x:Name="ClaimCategoryComboBox" Margin="0 0 30 0" Width="150" Foreground="White" BorderBrush="White"
-                                          VerticalAlignment="Top" HorizontalAlignment="Left"
-                                          materialDesign:ColorZoneAssist.Mode="Custom" Background="#9B9B9B"
-                                          Style="{StaticResource MaterialDesignFloatingHintComboBox}"
-                                          SelectedValuePath="Content"
-                                          SelectionChanged="ClaimCategoryComboBox_SelectionChanged">
-
-                                    <ComboBoxItem Content="Hồ sơ đang giải quyết"></ComboBoxItem>
-                                    <ComboBoxItem Content="Tạo/Cập nhật hồ sơ"></ComboBoxItem>
-                                </ComboBox>
-                                
-                                <TextBox x:Name="InsuredTextBox" Width="200"
-                                         Foreground="White" BorderBrush="White"
-                                         VerticalAlignment="Top" HorizontalAlignment="Left"
-                                         materialDesign:HintAssist.Hint="Tên nhân viên" 
-                                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
-
-                                <Button x:Name="SearchInsured" IsTabStop="False"
-                                        HorizontalAlignment="Left" VerticalAlignment="Top"
-                                        Width="32" Height="32"
-                                        Style="{StaticResource MaterialDesignFloatingActionDarkButton}"
-                                        Click="SearchInsured_Click">
-
-                                    <materialDesign:PackIcon Kind="Search" Height="24" Width="24"/>
-                                </Button>
-                            </StackPanel>
-                        </DockPanel>
-
-                        <DockPanel Grid.Row="1" x:Name="ClaimManagerDockPanel"/>
-
+                        <DockPanel x:Name="ClaimManagerDockPanel"/>
                     </Grid>
                 </TabItem>
 

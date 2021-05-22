@@ -365,11 +365,10 @@ namespace BVCareManager.ViewModels
         #endregion
 
 
-        public ClaimBaseViewModel(string searchText)
+        public ClaimBaseViewModel()
         {
             _errorsList.Clear();
             IsShowClaimOptions = false;
-            this.SearchText = searchText;
 
             ShowClaimOptions = new RelayCommand<object>((p) =>
             {

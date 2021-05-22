@@ -28,218 +28,432 @@
     </UserControl.Resources>
 
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*"/>
-            <ColumnDefinition Width="250"/>
-            <ColumnDefinition Width="4*"/>
-        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
-        <DataGrid x:Name="InsuredsResultDataGrid" ItemsSource="{Binding ListInsureds}" AutoGenerateColumns="False"
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+        
+        <DockPanel Grid.RowSpan="2">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Text="Hồ sơ chưa giải quyết"
+                                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                <DataGrid Grid.Row="1" ItemsSource="{Binding ListInsureds}" AutoGenerateColumns="False"
+                              IsReadOnly="True" ClipboardCopyMode="None" ColumnWidth="*" HeadersVisibility="All"
+                              SelectedItem="{Binding SelectedInsured}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding Id}">
+                            <DataGridTextColumn.Header>
+                                <TextBlock Text="Nhân viên" TextWrapping="Wrap"/>
+                            </DataGridTextColumn.Header>
+                        </DataGridTextColumn>
+
+                        <DataGridTextColumn Binding="{Binding Name}">
+                            <DataGridTextColumn.Header>
+                                <TextBlock Text="Ngày khám" TextWrapping="Wrap"/>
+                            </DataGridTextColumn.Header>
+                        </DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </DockPanel>
+
+        <DockPanel Background="#9B9B9B" Grid.Column="1">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 25 0 0">
+                <TextBox Width="200" Foreground="White" BorderBrush="White"
+                         VerticalAlignment="Top" HorizontalAlignment="Left"
+                         materialDesign:HintAssist.Hint="Tên nhân viên" 
+                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+
+                <Button x:Name="SearchInsured" IsTabStop="False"
+                        HorizontalAlignment="Left" VerticalAlignment="Top"
+                        Width="32" Height="32"
+                        Style="{StaticResource MaterialDesignFloatingActionDarkButton}">
+
+                    <materialDesign:PackIcon Kind="Search" Height="24" Width="24"/>
+                </Button>
+            </StackPanel>
+        </DockPanel>
+
+        <DockPanel Grid.Row="1" Grid.Column="1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="250"/>
+                    <ColumnDefinition Width="4*"/>
+                </Grid.ColumnDefinitions>
+
+                
+
+                <DataGrid x:Name="InsuredsResultDataGrid"
+                  ItemsSource="{Binding ListInsureds}" AutoGenerateColumns="False"
                   Background="#B6B6B6"
                   IsReadOnly="True" ClipboardCopyMode="None" ColumnWidth="*" HeadersVisibility="All"
                   SelectedItem="{Binding SelectedInsured}">
-            <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Id}">
-                    <DataGridTextColumn.Header>
-                        <TextBlock Text="Số CCCD" TextWrapping="Wrap"/>
-                    </DataGridTextColumn.Header>
-                </DataGridTextColumn>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding Id}">
+                            <DataGridTextColumn.Header>
+                                <TextBlock Text="Số CCCD" TextWrapping="Wrap"/>
+                            </DataGridTextColumn.Header>
+                        </DataGridTextColumn>
 
-                <DataGridTextColumn Binding="{Binding Name}">
-                    <DataGridTextColumn.Header>
-                        <TextBlock Text="Họ tên" TextWrapping="Wrap"/>
-                    </DataGridTextColumn.Header>
-                </DataGridTextColumn>
-            </DataGrid.Columns>
-        </DataGrid>
+                        <DataGridTextColumn Binding="{Binding Name}">
+                            <DataGridTextColumn.Header>
+                                <TextBlock Text="Họ tên" TextWrapping="Wrap"/>
+                            </DataGridTextColumn.Header>
+                        </DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
 
-        <StackPanel Grid.Column="1" Background="#D1D1D1" 
+                <StackPanel Grid.Column="1" Background="#D1D1D1" 
                     VerticalAlignment="Stretch" Visibility="{Binding IsInsuredSelected, Converter={StaticResource BooleanToVisibilityConverter}}">
-            <materialDesign:Card VerticalAlignment="Top" HorizontalAlignment="Center" MinWidth="200" Margin="0 40 0 0">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="150"/>
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
+                    <materialDesign:Card VerticalAlignment="Top" HorizontalAlignment="Center" MinWidth="200" Margin="0 40 0 0">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="150"/>
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
 
-                    <materialDesign:ColorZone Mode="PrimaryLight" VerticalAlignment="Stretch">
-                        <StackPanel Margin="5">
-                            <materialDesign:PackIcon Kind="Account" Height="128" Width="128" Margin="0 10 0 0"
+                            <materialDesign:ColorZone Mode="PrimaryLight" VerticalAlignment="Stretch">
+                                <StackPanel Margin="5">
+                                    <materialDesign:PackIcon Kind="Account" Height="128" Width="128" Margin="0 10 0 0"
                                             VerticalAlignment="Center" HorizontalAlignment="Center" />
 
-                        </StackPanel>
-                    </materialDesign:ColorZone>
+                                </StackPanel>
+                            </materialDesign:ColorZone>
 
-                    <StackPanel Grid.Row="1" Margin="20" VerticalAlignment="Top">
-                        <TextBox materialDesign:HintAssist.Hint="Số CMT/CCCD"
+                            <StackPanel Grid.Row="1" Margin="20" VerticalAlignment="Top">
+                                <TextBox materialDesign:HintAssist.Hint="Số CMT/CCCD"
                                  materialDesign:HintAssist.IsFloating="True"
                                  Margin="0 10 0 0"
                                  Text="{Binding SelectedInsured.Id, Mode=OneWay}"
                                  IsEnabled="False"/>
 
-                        <TextBox materialDesign:HintAssist.Hint="Họ tên"
+                                <TextBox materialDesign:HintAssist.Hint="Họ tên"
                              materialDesign:HintAssist.IsFloating="True" 
                              Margin="0 20 0 0"
                              Text="{Binding SelectedInsured.Name, Mode=OneWay}"
                              IsEnabled="False"/>
-                    </StackPanel>
-                </Grid>
-            </materialDesign:Card>
+                            </StackPanel>
+                        </Grid>
+                    </materialDesign:Card>
 
-            <Button Style="{StaticResource MaterialDesignIconButton}"
+                    <Button Style="{StaticResource MaterialDesignIconButton}"
                     Background="{DynamicResource MaterialDesignBackground}"
                     Width="50" HorizontalAlignment="Right" Margin="25"
                     Command="{Binding ShowClaimOptions}">
-                <materialDesign:PackIcon Kind="Play" />
-            </Button>
-        </StackPanel>
+                        <materialDesign:PackIcon Kind="Play" />
+                    </Button>
+                </StackPanel>
 
-        <TabControl x:Name="ClaimTabControl" Grid.Column="2" TabStripPlacement="Right" Background="#E7E7E7"
+                <TabControl x:Name="ClaimTabControl" Grid.Column="2" TabStripPlacement="Right" Background="#E7E7E7"
                     Style="{StaticResource MaterialDesignNavigatilRailTabControl}"
                     Visibility="{Binding IsShowClaimOptions, Converter={StaticResource BooleanToVisibilityConverter}}"
                     SelectionChanged="ClaimTabControl_SelectionChanged">
 
-            <materialDesign:NavigationRailAssist.FloatingContent>
-                <Button x:Name="ClaimActionButton" Style="{StaticResource MaterialDesignFloatingActionAccentButton}" 
+                    <materialDesign:NavigationRailAssist.FloatingContent>
+                        <Button x:Name="ClaimActionButton" Style="{StaticResource MaterialDesignFloatingActionAccentButton}" 
                         Height="50" Width="50" IsTabStop="False" IsDefault="True"
                         Margin="10, 20" Content="{materialDesign:PackIcon Kind=Add}"/>
-            </materialDesign:NavigationRailAssist.FloatingContent>
+                    </materialDesign:NavigationRailAssist.FloatingContent>
 
-            <TabItem x:Name="NewTabItem" Style="{StaticResource MaterialDesignNavigationRailTabItem}">
-                <TabItem.Header>
-                    <StackPanel>
-                        <materialDesign:PackIcon Kind="TextBoxPlusOutline" Height="24" Width="24" HorizontalAlignment="Center"/>
-                        <TextBlock Margin="0 2 0 0" Text="Mới" FontWeight="DemiBold" FontSize="10" HorizontalAlignment="Center"/>
-                    </StackPanel>
-                </TabItem.Header>
+                    <TabItem x:Name="NewTabItem" Style="{StaticResource MaterialDesignNavigationRailTabItem}">
+                        <TabItem.Header>
+                            <StackPanel>
+                                <materialDesign:PackIcon Kind="TextBoxPlusOutline" Height="24" Width="24" HorizontalAlignment="Center"/>
+                                <TextBlock Margin="0 2 0 0" Text="Mới" FontWeight="DemiBold" FontSize="10" HorizontalAlignment="Center"/>
+                            </StackPanel>
+                        </TabItem.Header>
 
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="200"/>
-                    </Grid.RowDefinitions>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="200"/>
+                            </Grid.RowDefinitions>
 
-                    <StackPanel Margin="80 20 80 20" VerticalAlignment="Top">
-                        <DatePicker x:Name="NewClaimDatePicker" Style="{StaticResource EmptyDatePickerStyle}" Margin="0,20"
+                            <StackPanel Margin="80 20 80 20" VerticalAlignment="Top">
+                                <DatePicker x:Name="NewClaimDatePicker" Style="{StaticResource EmptyDatePickerStyle}" Margin="0,20"
                                 materialDesign:HintAssist.Hint="Ngày khám" MinWidth="150" HorizontalAlignment="Left"
                                 SelectedDate="{Binding NewExaminationDate, Mode=TwoWay}"/>
 
-                        <StackPanel Visibility="{Binding IsNewExaminationEntered, Converter={StaticResource BooleanToVisibilityConverter}}">
-                            <StackPanel Margin="0,20">
-                                <ComboBox x:Name="PolicyListComboBox" Style="{StaticResource EmptyComboBoxStyle}"
+                                <StackPanel Visibility="{Binding IsNewExaminationEntered, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                    <StackPanel Margin="0,20">
+                                        <ComboBox x:Name="PolicyListComboBox" Style="{StaticResource EmptyComboBoxStyle}"
                                   materialDesign:HintAssist.Hint="Đơn bảo hiểm (hiệu lực phù hợp ngày khám)"
                                   ItemsSource="{Binding ListValidPolicies}"
                                   SelectedValue="{Binding ValidSelectedPolicy, Mode=TwoWay}"
                                   SelectedValuePath="Id" DisplayMemberPath="Number"/>
 
-                                <TextBlock FontWeight="DemiBold" FontStyle="Italic" 
+                                        <TextBlock FontWeight="DemiBold" FontStyle="Italic" 
                                            Visibility="{Binding IsPolicySelected,
                                                 Converter={StaticResource BooleanToVisibilityConverter}}">
                                     <Run Text="Số hợp đồng:"/>
                                     <Run Text="{Binding ElementName=PolicyListComboBox, Path=SelectedItem.ContractId}"/>
-                                </TextBlock>
+                                        </TextBlock>
 
-                                <StackPanel HorizontalAlignment="Left" Margin="30, 10">
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="30"/>
-                                            <ColumnDefinition Width="Auto"/>
-                                            <ColumnDefinition Width="40"/>
-                                            <ColumnDefinition Width="30"/>
-                                            <ColumnDefinition Width="Auto"/>
-                                        </Grid.ColumnDefinitions>
+                                        <StackPanel HorizontalAlignment="Left" Margin="30, 10">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="30"/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                    <ColumnDefinition Width="40"/>
+                                                    <ColumnDefinition Width="30"/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                </Grid.ColumnDefinitions>
 
-                                        <materialDesign:PackIcon VerticalAlignment="Center" HorizontalAlignment="Center" 
+                                                <materialDesign:PackIcon VerticalAlignment="Center" HorizontalAlignment="Center" 
                                                          Kind="CalendarStart" Height="16" Width="16" Foreground="#0c5500"/>
 
-                                        <materialDesign:PackIcon Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                                                <materialDesign:PackIcon Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center" 
                                                          Kind="CalendarEnd" Height="16" Width="16" Foreground="#de3627"/>
 
-                                        <materialDesign:PackIcon Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5 0 0 0" 
+                                                <materialDesign:PackIcon Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5 0 0 0" 
                                                          Kind="ArrowRightBold" Height="12" Width="12" Foreground="#FF0D47A1"/>
 
-                                        <TextBox Grid.Column="1"
+                                                <TextBox Grid.Column="1"
                                          Foreground="#0c5500" BorderThickness="0" BorderBrush="#0c5500"
                                          IsEnabled="False" FontWeight="DemiBold"
                                          Text="{Binding ElementName=PolicyListComboBox, Path=SelectedItem.FromDate, StringFormat=dd/MM/yyyy}"/>
 
-                                        <TextBox Grid.Column="4"
+                                                <TextBox Grid.Column="4"
                                          Foreground="#de3627" BorderThickness="0" BorderBrush="#de3627"
                                          IsEnabled="False" FontWeight="DemiBold"
                                          Text="{Binding ElementName=PolicyListComboBox, Path=SelectedItem.ToDate, StringFormat=dd/MM/yyyy}"/>
-                                    </Grid>
+                                            </Grid>
+                                        </StackPanel>
+                                    </StackPanel>
+
+                                    <DatePicker Style="{StaticResource EmptyDatePickerStyle}" Margin="0,10"
+                                    materialDesign:HintAssist.Hint="Ngày nhận hồ sơ"
+                                    SelectedDate="{Binding ClaimReceivedDate, Mode=TwoWay}"/>
                                 </StackPanel>
                             </StackPanel>
 
-                            <DatePicker Style="{StaticResource EmptyDatePickerStyle}" Margin="0,10"
-                                    materialDesign:HintAssist.Hint="Ngày nhận hồ sơ"
-                                    SelectedDate="{Binding ClaimReceivedDate, Mode=TwoWay}"/>
-                        </StackPanel>
-                    </StackPanel>
-
-                    <StackPanel Grid.Row="1">
-                        <TextBlock HorizontalAlignment="Left" Margin="80, 0, 0, 0"
+                            <StackPanel Grid.Row="1">
+                                <TextBlock HorizontalAlignment="Left" Margin="80, 0, 0, 0"
                                        Style="{StaticResource SuccessStyle}"
                                        Visibility="{Binding IsOk, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Collapsed}">
                                 <Run Text="√"/>
                                 <Run Text="{Binding Success, Mode=OneWay}"/>
-                        </TextBlock>
+                                </TextBlock>
 
-                        <ListBox HorizontalAlignment="Left" Margin="30, 0, 0, 0"
+                                <ListBox HorizontalAlignment="Left" Margin="30, 0, 0, 0"
                                      ItemsSource="{Binding ErrorsList, Mode=OneWay}"
                                      Focusable="False"
                                      IsEnabled="False">
-                            <ListBox.ItemContainerStyle>
-                                <Style TargetType="ListBoxItem">
-                                    <Setter Property="Focusable" Value="False"/>
-                                </Style>
-                            </ListBox.ItemContainerStyle>
+                                    <ListBox.ItemContainerStyle>
+                                        <Style TargetType="ListBoxItem">
+                                            <Setter Property="Focusable" Value="False"/>
+                                        </Style>
+                                    </ListBox.ItemContainerStyle>
 
-                            <ListBox.ItemTemplate>
-                                <DataTemplate>
-                                    <TextBlock Style="{StaticResource NotificationStyle}">
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Style="{StaticResource NotificationStyle}">
                                             <Run Text="*"/>
                                             <Run Text="{Binding Mode=OneWay}"/>
-                                    </TextBlock>
-                                </DataTemplate>
-                            </ListBox.ItemTemplate>
-                        </ListBox>
-                    </StackPanel>
-                </Grid>
-            </TabItem>
+                                            </TextBlock>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                            </StackPanel>
+                        </Grid>
+                    </TabItem>
 
-            <TabItem x:Name="UpdateTabItem" Style="{StaticResource MaterialDesignNavigationRailTabItem}">
-                <TabItem.Header>
-                    <StackPanel>
-                        <materialDesign:PackIcon Kind="NoteEditOutline" Height="24" Width="24" HorizontalAlignment="Center"/>
-                        <TextBlock Margin="0 2 0 0" Text="Cập nhật" FontWeight="DemiBold" FontSize="10" HorizontalAlignment="Center"/>
-                    </StackPanel>
-                </TabItem.Header>
+                    <TabItem x:Name="UpdateTabItem" Style="{StaticResource MaterialDesignNavigationRailTabItem}">
+                        <TabItem.Header>
+                            <StackPanel>
+                                <materialDesign:PackIcon Kind="NoteEditOutline" Height="24" Width="24" HorizontalAlignment="Center"/>
+                                <TextBlock Margin="0 2 0 0" Text="Cập nhật" FontWeight="DemiBold" FontSize="10" HorizontalAlignment="Center"/>
+                            </StackPanel>
+                        </TabItem.Header>
 
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="100"/>
-                    </Grid.RowDefinitions>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="100"/>
+                            </Grid.RowDefinitions>
 
-                    <materialDesign:DialogHost CloseOnClickAway="True">
-                        <StackPanel Margin="80 20 80 20" VerticalAlignment="Top">
-                            <StackPanel Orientation="Horizontal">
-                                <ComboBox x:Name="UpdateClaimComboBox" Style="{StaticResource EmptyComboBoxStyle}"
+                            <materialDesign:DialogHost CloseOnClickAway="True">
+                                <StackPanel Margin="80 20 80 20" VerticalAlignment="Top">
+                                    <StackPanel Orientation="Horizontal">
+                                        <ComboBox x:Name="UpdateClaimComboBox" Style="{StaticResource EmptyComboBoxStyle}"
                                           materialDesign:HintAssist.Hint="Ngày khám" MinWidth="200"
                                           ItemsSource="{Binding ClaimListByInsured}"
                                           ItemStringFormat="{}{0:dd/MM/yyyy}"
                                           SelectedValue="{Binding SelectedClaimId, Mode=TwoWay, StringFormat=dd/MM/yyyy, UpdateSourceTrigger=PropertyChanged}"
                                           SelectedValuePath="Id" DisplayMemberPath="ExaminationDate"/>
 
-                                <Button Margin="20 0 0 0" Style="{StaticResource MaterialDesignIconButton}"
+                                        <Button Margin="20 0 0 0" Style="{StaticResource MaterialDesignIconButton}"
                                         ToolTip="Xem lịch sử hồ sơ"
                                         Height="30" Width="30" VerticalAlignment="Bottom"
                                         Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}"
                                         Visibility="{Binding IsClaimSelected, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                    <materialDesign:PackIcon Kind="History" Height="15" Width="15"/>
-                                </Button>
+                                            <materialDesign:PackIcon Kind="History" Height="15" Width="15"/>
+                                        </Button>
+                                    </StackPanel>
+
+                                    <StackPanel Visibility="{Binding IsClaimSelected, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                        <TextBlock FontWeight="DemiBold" FontStyle="Italic">
+                                <Run Text="Số đơn:"/>
+                                <Run Text="{Binding PolicyNumberOfSelectedClaim, Mode=OneWay}"/>
+                                        </TextBlock>
+
+                                        <TextBlock FontWeight="DemiBold" FontStyle="Italic">
+                                <Run Text="Số hợp đồng:"/>
+                                <Run Text="{Binding ContractIdOfSelectedClaim, Mode=OneWay}"/>
+                                        </TextBlock>
+                                    </StackPanel>
+
+                                    <StackPanel Visibility="{Binding IsClaimSelected, 
+                                                    Converter={StaticResource BooleanToVisibilityConverter}}">
+                                        <StackPanel Orientation="Horizontal" Margin="0 30 0 10">
+                                            <TextBlock Text="Cập nhật hồ sơ" FontWeight="DemiBold"/>
+
+                                            <ToggleButton x:Name="IsClaimClosedToogleButton" IsTabStop="False"
+                                          Margin="15, 0" Style="{StaticResource MaterialDesignSwitchToggleButton}"
+                                          IsChecked="{Binding IsClaimClosed, FallbackValue=False}">
+
+                                                <materialDesign:ToggleButtonAssist.SwitchTrackOnBackground>
+                                                    <SolidColorBrush Color="Red" />
+                                                </materialDesign:ToggleButtonAssist.SwitchTrackOnBackground>
+
+                                                <materialDesign:ToggleButtonAssist.SwitchTrackOffBackground>
+                                                    <SolidColorBrush Color="Black" />
+                                                </materialDesign:ToggleButtonAssist.SwitchTrackOffBackground>
+
+                                            </ToggleButton>
+
+                                            <TextBlock Text="Đóng hồ sơ" Foreground="#f04393" FontWeight="SemiBold"/>
+                                        </StackPanel>
+
+                                        <DatePicker SelectedDate="{Binding ClaimProgressDate}" Margin="0, 20">
+                                            <DatePicker.Style>
+                                                <Style TargetType="DatePicker" BasedOn="{StaticResource EmptyDatePickerStyle}">
+                                                    <Setter Property="materialDesign:HintAssist.Hint" Value="Ngày cập nhật"/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding IsChecked, ElementName=IsClaimClosedToogleButton}" Value="True">
+                                                            <Setter Property="materialDesign:HintAssist.Hint" Value="Ngày đóng hồ sơ"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </DatePicker.Style>
+                                        </DatePicker>
+
+                                        <TextBox Margin="0 10 0 30" Style="{StaticResource EmptyTextboxStyle}"
+                                         TextWrapping="Wrap" VerticalAlignment="Stretch"
+                                         VerticalScrollBarVisibility="Auto" Height="80"
+                                         materialDesign:HintAssist.Hint="Ghi chú"
+                                         materialDesign:HintAssist.IsFloating="True"
+                                         Text="{Binding ClaimProgressRemarks}"
+                                         Visibility="{Binding IsClaimOnProgress, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+
+                                        <TextBox x:Name="TotalPaidTextBox"
+                                         Style="{StaticResource EmptyTextboxStyle}"
+                                         materialDesign:HintAssist.Hint="Số tiền bồi thường cuối cùng" 
+                                         PreviewTextInput="TotalPaidTextBox_PreviewTextInput"
+                                         PreviewKeyDown="TotalPaidTextBox_PreviewKeyDown"
+                                         Visibility="{Binding IsClaimClosed,Converter={StaticResource BooleanToVisibilityConverter}}"
+                                         Text="{Binding ClaimTotalPaid, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, 
+                                            Converter={StaticResource NumberFormatConverter}, ConverterParameter='N0', ConverterCulture='is-IS'}"/>
+                                    </StackPanel>
+                                </StackPanel>
+
+                                <materialDesign:DialogHost.DialogContent>
+                                    <ScrollViewer VerticalScrollBarVisibility="Auto" MaxHeight="320" MinWidth="300">
+                                        <StackPanel Margin="20, 30">
+
+                                            <TextBlock Margin="10, 5" VerticalAlignment="Top" TextWrapping="Wrap"
+                                               LineHeight="20" LineStackingStrategy="BlockLineHeight" Foreground="#1ca7ec">
+                                        <materialDesign:PackIcon Kind="CalendarRange" Height="10" Width="10"/>
+                                        <Run Text="{Binding ReceivedDateOfSelectedClaim, StringFormat=dd/MM/yyyy, Mode=OneWay}" 
+                                             FontSize="11" FontWeight="DemiBold"/>
+                                        <LineBreak/>
+                                        <Run Text="     Nhận hồ sơ"/>
+
+                                            </TextBlock>
+
+                                            <ListView ItemsSource="{Binding ClaimProgressList}" 
+                                              ItemTemplate="{StaticResource ClaimProgressTemplate}"
+                                              Margin="20, 5"
+                                              Foreground="#3c4cad"/>
+
+
+                                            <TextBlock Margin="10, 5" VerticalAlignment="Top" TextWrapping="Wrap"
+                                               LineHeight="20" LineStackingStrategy="BlockLineHeight" Foreground="#f04393"
+                                               Visibility="{Binding SelectedClaim.IsClosed, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                        <materialDesign:PackIcon Kind="CalendarRange" Height="10" Width="10"/>
+                                        <Run Text="{Binding SelectedClaim.PaidDate, StringFormat=dd/MM/yyyy, Mode=OneWay}" 
+                                             FontSize="11" FontWeight="DemiBold"/>
+                                        <LineBreak/>
+                                        <Run Text="     Đóng hồ sơ"/>
+                                        <LineBreak/>
+                                        <Run Text="     Số tiền:"/>
+                                        <Run Text="{Binding SelectedClaim.TotalPaid, Mode=OneWay, 
+                                                        Converter={StaticResource NumberFormatConverter}, ConverterParameter='N0', ConverterCulture='is-IS'}"/>
+                                            </TextBlock>
+                                        </StackPanel>
+                                    </ScrollViewer>
+                                </materialDesign:DialogHost.DialogContent>
+
+                            </materialDesign:DialogHost>
+
+                            <StackPanel Grid.Row="1">
+                                <TextBlock HorizontalAlignment="Left" Margin="80, 0, 0, 0"
+                                       Style="{StaticResource SuccessStyle}"
+                                       Visibility="{Binding IsOk, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Collapsed}">
+                                <Run Text="√"/>
+                                <Run Text="{Binding Success, Mode=OneWay}"/>
+                                </TextBlock>
+
+                                <ListBox HorizontalAlignment="Left" Margin="30, 0, 0, 0"
+                                     ItemsSource="{Binding ErrorsList, Mode=OneWay}"
+                                     Focusable="False"
+                                     IsEnabled="False">
+                                    <ListBox.ItemContainerStyle>
+                                        <Style TargetType="ListBoxItem">
+                                            <Setter Property="Focusable" Value="False"/>
+                                        </Style>
+                                    </ListBox.ItemContainerStyle>
+
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Style="{StaticResource NotificationStyle}">
+                                            <Run Text="*"/>
+                                            <Run Text="{Binding Mode=OneWay}"/>
+                                            </TextBlock>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
                             </StackPanel>
+                        </Grid>
+                    </TabItem>
+
+                    <TabItem x:Name="ViewTabItem" Style="{StaticResource MaterialDesignNavigationRailTabItem}">
+                        <TabItem.Header>
+                            <StackPanel>
+                                <materialDesign:PackIcon Kind="EyeOutline" Height="24" Width="24" HorizontalAlignment="Center"/>
+                                <TextBlock Margin="0 2 0 0" Text="Xem" FontWeight="DemiBold" FontSize="10" HorizontalAlignment="Center"/>
+                            </StackPanel>
+                        </TabItem.Header>
+
+                        <StackPanel Margin="80 20 80 20" VerticalAlignment="Top">
+                            <ComboBox Style="{StaticResource EmptyComboBoxStyle}"
+                              materialDesign:HintAssist.Hint="Ngày khám" MinWidth="200"
+                              ItemsSource="{Binding ClaimListByInsured}"
+                              ItemStringFormat="{}{0:dd/MM/yyyy}"
+                              SelectedValue="{Binding SelectedClaimId, Mode=TwoWay, StringFormat=dd/MM/yyyy, UpdateSourceTrigger=PropertyChanged}"
+                              SelectedValuePath="Id" DisplayMemberPath="ExaminationDate"/>
 
                             <StackPanel Visibility="{Binding IsClaimSelected, Converter={StaticResource BooleanToVisibilityConverter}}">
                                 <TextBlock FontWeight="DemiBold" FontStyle="Italic">
@@ -253,181 +467,33 @@
                                 </TextBlock>
                             </StackPanel>
 
-                            <StackPanel Visibility="{Binding IsClaimSelected, 
-                                                    Converter={StaticResource BooleanToVisibilityConverter}}">
-                                <StackPanel Orientation="Horizontal" Margin="0 30 0 10">
-                                    <TextBlock Text="Cập nhật hồ sơ" FontWeight="DemiBold"/>
-
-                                    <ToggleButton x:Name="IsClaimClosedToogleButton" IsTabStop="False"
-                                          Margin="15, 0" Style="{StaticResource MaterialDesignSwitchToggleButton}"
-                                          IsChecked="{Binding IsClaimClosed, FallbackValue=False}">
-
-                                        <materialDesign:ToggleButtonAssist.SwitchTrackOnBackground>
-                                            <SolidColorBrush Color="Red" />
-                                        </materialDesign:ToggleButtonAssist.SwitchTrackOnBackground>
-
-                                        <materialDesign:ToggleButtonAssist.SwitchTrackOffBackground>
-                                            <SolidColorBrush Color="Black" />
-                                        </materialDesign:ToggleButtonAssist.SwitchTrackOffBackground>
-
-                                    </ToggleButton>
-
-                                    <TextBlock Text="Đóng hồ sơ" Foreground="#f04393" FontWeight="SemiBold"/>
-                                </StackPanel>
-
-                                <DatePicker SelectedDate="{Binding ClaimProgressDate}" Margin="0, 20">
-                                    <DatePicker.Style>
-                                        <Style TargetType="DatePicker" BasedOn="{StaticResource EmptyDatePickerStyle}">
-                                            <Setter Property="materialDesign:HintAssist.Hint" Value="Ngày cập nhật"/>
-                                            <Style.Triggers>
-                                                <DataTrigger Binding="{Binding IsChecked, ElementName=IsClaimClosedToogleButton}" Value="True">
-                                                    <Setter Property="materialDesign:HintAssist.Hint" Value="Ngày đóng hồ sơ"/>
-                                                </DataTrigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </DatePicker.Style>
-                                </DatePicker>
-
-                                <TextBox Margin="0 10 0 30" Style="{StaticResource EmptyTextboxStyle}"
-                                         TextWrapping="Wrap" VerticalAlignment="Stretch"
-                                         VerticalScrollBarVisibility="Auto" Height="80"
-                                         materialDesign:HintAssist.Hint="Ghi chú"
-                                         materialDesign:HintAssist.IsFloating="True"
-                                         Text="{Binding ClaimProgressRemarks}"
-                                         Visibility="{Binding IsClaimOnProgress, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-
-                                <TextBox x:Name="TotalPaidTextBox"
-                                         Style="{StaticResource EmptyTextboxStyle}"
-                                         materialDesign:HintAssist.Hint="Số tiền bồi thường cuối cùng" 
-                                         PreviewTextInput="TotalPaidTextBox_PreviewTextInput"
-                                         PreviewKeyDown="TotalPaidTextBox_PreviewKeyDown"
-                                         Visibility="{Binding IsClaimClosed,Converter={StaticResource BooleanToVisibilityConverter}}"
-                                         Text="{Binding ClaimTotalPaid, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, 
-                                            Converter={StaticResource NumberFormatConverter}, ConverterParameter='N0', ConverterCulture='is-IS'}"/>
-                            </StackPanel>
-                        </StackPanel>
-                        
-                        <materialDesign:DialogHost.DialogContent>
-                            <ScrollViewer VerticalScrollBarVisibility="Auto" MaxHeight="320" MinWidth="300">
-                                <StackPanel Margin="20, 30">
-
-                                    <TextBlock Margin="10, 5" VerticalAlignment="Top" TextWrapping="Wrap"
-                                               LineHeight="20" LineStackingStrategy="BlockLineHeight" Foreground="#1ca7ec">
-                                        <materialDesign:PackIcon Kind="CalendarRange" Height="10" Width="10"/>
-                                        <Run Text="{Binding ReceivedDateOfSelectedClaim, StringFormat=dd/MM/yyyy, Mode=OneWay}" 
-                                             FontSize="11" FontWeight="DemiBold"/>
-                                        <LineBreak/>
-                                        <Run Text="     Nhận hồ sơ"/>
-                                        
-                                    </TextBlock>
-
-                                    <ListView ItemsSource="{Binding ClaimProgressList}" 
-                                              ItemTemplate="{StaticResource ClaimProgressTemplate}"
-                                              Margin="20, 5"
-                                              Foreground="#3c4cad"/>
-
-
-                                    <TextBlock Margin="10, 5" VerticalAlignment="Top" TextWrapping="Wrap"
-                                               LineHeight="20" LineStackingStrategy="BlockLineHeight" Foreground="#f04393"
-                                               Visibility="{Binding SelectedClaim.IsClosed, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                        <materialDesign:PackIcon Kind="CalendarRange" Height="10" Width="10"/>
-                                        <Run Text="{Binding SelectedClaim.PaidDate, StringFormat=dd/MM/yyyy, Mode=OneWay}" 
-                                             FontSize="11" FontWeight="DemiBold"/>
-                                        <LineBreak/>
-                                        <Run Text="     Đóng hồ sơ"/>
-                                        <LineBreak/>
-                                        <Run Text="     Số tiền:"/>
-                                        <Run Text="{Binding SelectedClaim.TotalPaid, Mode=OneWay, 
-                                                        Converter={StaticResource NumberFormatConverter}, ConverterParameter='N0', ConverterCulture='is-IS'}"/>
-                                    </TextBlock>
-                                </StackPanel>
-                            </ScrollViewer>
-                        </materialDesign:DialogHost.DialogContent>
-
-                    </materialDesign:DialogHost>
-
-                    <StackPanel Grid.Row="1">
-                        <TextBlock HorizontalAlignment="Left" Margin="80, 0, 0, 0"
-                                       Style="{StaticResource SuccessStyle}"
-                                       Visibility="{Binding IsOk, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Collapsed}">
-                                <Run Text="√"/>
-                                <Run Text="{Binding Success, Mode=OneWay}"/>
-                        </TextBlock>
-
-                        <ListBox HorizontalAlignment="Left" Margin="30, 0, 0, 0"
-                                     ItemsSource="{Binding ErrorsList, Mode=OneWay}"
-                                     Focusable="False"
-                                     IsEnabled="False">
-                            <ListBox.ItemContainerStyle>
-                                <Style TargetType="ListBoxItem">
-                                    <Setter Property="Focusable" Value="False"/>
-                                </Style>
-                            </ListBox.ItemContainerStyle>
-
-                            <ListBox.ItemTemplate>
-                                <DataTemplate>
-                                    <TextBlock Style="{StaticResource NotificationStyle}">
-                                            <Run Text="*"/>
-                                            <Run Text="{Binding Mode=OneWay}"/>
-                                    </TextBlock>
-                                </DataTemplate>
-                            </ListBox.ItemTemplate>
-                        </ListBox>
-                    </StackPanel>
-                </Grid>
-            </TabItem>
-
-            <TabItem x:Name="ViewTabItem" Style="{StaticResource MaterialDesignNavigationRailTabItem}">
-                <TabItem.Header>
-                    <StackPanel>
-                        <materialDesign:PackIcon Kind="EyeOutline" Height="24" Width="24" HorizontalAlignment="Center"/>
-                        <TextBlock Margin="0 2 0 0" Text="Xem" FontWeight="DemiBold" FontSize="10" HorizontalAlignment="Center"/>
-                    </StackPanel>
-                </TabItem.Header>
-
-                <StackPanel Margin="80 20 80 20" VerticalAlignment="Top">
-                    <ComboBox Style="{StaticResource EmptyComboBoxStyle}"
-                              materialDesign:HintAssist.Hint="Ngày khám" MinWidth="200"
-                              ItemsSource="{Binding ClaimListByInsured}"
-                              ItemStringFormat="{}{0:dd/MM/yyyy}"
-                              SelectedValue="{Binding SelectedClaimId, Mode=TwoWay, StringFormat=dd/MM/yyyy, UpdateSourceTrigger=PropertyChanged}"
-                              SelectedValuePath="Id" DisplayMemberPath="ExaminationDate"/>
-
-                        <StackPanel Visibility="{Binding IsClaimSelected, Converter={StaticResource BooleanToVisibilityConverter}}">
-                        <TextBlock FontWeight="DemiBold" FontStyle="Italic">
-                                <Run Text="Số đơn:"/>
-                                <Run Text="{Binding PolicyNumberOfSelectedClaim, Mode=OneWay}"/>
-                        </TextBlock>
-
-                        <TextBlock FontWeight="DemiBold" FontStyle="Italic">
-                                <Run Text="Số hợp đồng:"/>
-                                <Run Text="{Binding ContractIdOfSelectedClaim, Mode=OneWay}"/>
-                        </TextBlock>
-                    </StackPanel>
-
-                    <GroupBox Margin="0, 50">
-                        <GroupBox.HeaderTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Horizontal">
-                                    <materialDesign:PackIcon Kind="Done" Height="32" Width="32" VerticalAlignment="Center" />
-                                    <TextBlock Margin="8,0,0,0" VerticalAlignment="Center" Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
+                            <GroupBox Margin="0, 50">
+                                <GroupBox.HeaderTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <materialDesign:PackIcon Kind="Done" Height="32" Width="32" VerticalAlignment="Center" />
+                                            <TextBlock Margin="8,0,0,0" VerticalAlignment="Center" Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
                                                Text="Hoàn thành" />
 
-                                    <materialDesign:PackIcon Kind="Done" Height="32" Width="32" VerticalAlignment="Center" />
-                                    <TextBlock Margin="8,0,0,0" VerticalAlignment="Center" Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
+                                            <materialDesign:PackIcon Kind="Done" Height="32" Width="32" VerticalAlignment="Center" />
+                                            <TextBlock Margin="8,0,0,0" VerticalAlignment="Center" Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
                                                Text="Hoàn thành" />
-                                </StackPanel>
-                            </DataTemplate>
-                        </GroupBox.HeaderTemplate>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </GroupBox.HeaderTemplate>
 
 
-                        <TextBlock TextWrapping="Wrap"
+                                <TextBlock TextWrapping="Wrap"
                             Text="Quá trình đang diễn ra Quá trình đang diễn ra Quá trình đang diễn ra Quá trình đang diễn ra Quá trình đang diễn ra"/>
-                    </GroupBox>
-                </StackPanel>
+                            </GroupBox>
+                        </StackPanel>
 
 
-            </TabItem>
-        </TabControl>
+                    </TabItem>
+                </TabControl>
+            </Grid>
+        </DockPanel>
+
+        
     </Grid>
 </UserControl>

@@ -28,14 +28,14 @@ namespace BVCareManager
     {
         object createNewGroupBoxViewModel;
         object searchAndModifyViewModel;
-        string claimCategory;
         public MainWindow()
         {
             InitializeComponent();
             MyTabs.SelectedIndex = 0;
             CreateNewListBox.SelectedIndex = 0;
             ComboBoxSearchCategory.SelectedIndex = 0;
-            ClaimCategoryComboBox.SelectedIndex = 0;
+            ClaimManagerDockPanel.Children.Add(new ClaimManager());
+            ClaimGrid.DataContext = new ClaimBaseViewModel();
         }
 
         private void CreateNewListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -118,11 +118,10 @@ namespace BVCareManager
 
             if (ClaimTab.IsSelected == false)
             {
-                //if (ClaimManagerDockPanel != null)
-                //{
-                    ClaimManagerDockPanel.Children.Clear();
-                    InsuredTextBox.Text = String.Empty;
-                //}
+                if (ClaimManagerDockPanel != null)
+                {
+                    
+                }
             }
 
         }
@@ -131,37 +130,6 @@ namespace BVCareManager
         {
             if (e.ChangedButton == MouseButton.Left)
                 this.DragMove();
-        }
-
-        private void SearchInsured_Click(object sender, RoutedEventArgs e)
-        {
-            ClaimManagerDockPanel.Children.Clear();
-
-            if (claimCategory == "Tạo/Cập nhật hồ sơ")
-            {
-                string searchText = InsuredTextBox.Text;
-                ClaimManagerDockPanel.Children.Add(new ClaimManager());
-                ClaimGrid.DataContext = new ClaimBaseViewModel(searchText);
-            }
-            else
-            {
-                
-            }
-            
-        }
-
-        private void ClaimCategoryComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            claimCategory = ClaimCategoryComboBox.SelectedValue.ToString();
-            
-            if (claimCategory == "Tạo/Cập nhật hồ sơ")
-            {
-                InsuredTextBox.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                InsuredTextBox.Visibility = Visibility.Collapsed;
-            }
         }
     }
 }
