@@ -93,6 +93,40 @@ namespace BVCareManager.ViewModels
             }
         }
 
+        public ObservableCollection<Claim> ListClosedClaim
+        {
+            get
+            {
+                var _allClaims = from claim in claimRepository.FindAllClaims()
+                                 select claim;
+
+                var _listClosedClaim = new ObservableCollection<Claim>();
+
+                foreach (var claim in _allClaims)
+                {
+                    if (claim.IsClosed == true)
+                        _listClosedClaim.Add(claim);
+                }
+
+                return new ObservableCollection<Claim>(_listClosedClaim);
+            }
+        }
+
+        private Claim _selectedClosedClaim;
+        public Claim SelectedClosedClaim
+        {
+            get
+            {
+                return _selectedClosedClaim;
+            }
+            set
+            {
+                SetProperty(ref _selectedClosedClaim, value);
+
+                
+            }
+        }
+
         #region New Claim
         private bool _isShowClaimOptions;
         public bool IsShowClaimOptions
@@ -410,6 +444,79 @@ namespace BVCareManager.ViewModels
             }
         }
         #endregion
+
+    #region View Claim
+        public Claim SelectedViewClaim
+        {
+            get
+            {
+                return claimRepository.GetClaimById(SelectedClaimIdForView);
+            }
+        }
+
+        public bool IsViewClaimSelected
+        {
+            get
+            {
+                if (SelectedClaimIdForView != 0)
+                    return true;
+
+                return false;
+            }
+        }
+
+        private int _selectedClaimIdForView;
+        public int SelectedClaimIdForView
+        {
+            get
+            {
+                return _selectedClaimIdForView;
+            }
+            set
+            {
+                SetProperty(ref _selectedClaimIdForView, value);
+                ErrorsList.Clear();
+
+                OnPropertyChanged("ContractIdOfViewClaim");
+                OnPropertyChanged("PolicyNumberOfViewClaim");
+                OnPropertyChanged("SelectedViewClaim");
+                OnPropertyChanged("IsViewClaimSelected");
+            }
+        }
+
+        public string ContractIdOfViewClaim
+        {
+            get
+            {
+                string _viewClaimContractId = String.Empty;
+                Claim claim = new Claim();
+
+                if (SelectedClaimIdForView > 0)
+                {
+                    _viewClaimContractId = SelectedViewClaim.Policy.ContractId;
+                }
+
+                return _viewClaimContractId;
+            }
+        }
+
+        public int PolicyNumberOfViewClaim
+        {
+            get
+            {
+                int _viewClaimPolicyNumber = 0;
+                Claim claim = new Claim();
+
+                if (SelectedClaimIdForView > 0)
+                {
+                    claim = claimRepository.GetClaimById(SelectedClaimIdForView);
+                    _viewClaimPolicyNumber = claim.Policy.Number;
+                }
+
+                return _viewClaimPolicyNumber;
+            }
+        }
+    #endregion
 
 
         public ClaimBaseViewModel()

@@ -70,7 +70,7 @@ namespace BVCareManager.Controls
             }
             else
             {
-                
+                ViewClaimComboBox.SelectedValue = 0;
             }
 
         }
