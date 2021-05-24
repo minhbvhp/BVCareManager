@@ -57,6 +57,41 @@ namespace BVCareManager.ViewModels
 
             }
         }
+        public ObservableCollection<Claim> ListNotYetClosedClaim {
+            get
+            {
+                var _allClaims = from claim in claimRepository.FindAllClaims()
+                                 select claim;
+
+                var _listNotYetClosedClaim = new ObservableCollection<Claim>();
+
+                foreach (var claim in _allClaims)
+                {
+                    if (claim.IsClosed == false)
+                        _listNotYetClosedClaim.Add(claim);
+                }
+                    
+                return new ObservableCollection<Claim>(_listNotYetClosedClaim);
+            }
+        }
+
+        private Claim _selectedNotYetClosedClaim;
+        public Claim SelectedNotYetClosedClaim {
+            get
+            {
+                return _selectedNotYetClosedClaim;
+            }
+            set
+            {
+                SetProperty(ref _selectedNotYetClosedClaim, value);
+
+                SelectedInsured = SelectedNotYetClosedClaim.Policy.Insured;
+                OnPropertyChanged("SelectedInsured");
+
+                SelectedClaimId = SelectedNotYetClosedClaim.Id;
+                OnPropertyChanged("SelectedClaimId");
+            }
+        }
 
         #region New Claim
         private bool _isShowClaimOptions;
@@ -436,6 +471,7 @@ namespace BVCareManager.ViewModels
                 UpdateResultAsync(Result.Successful);
 
                 OnPropertyChanged("ClaimListByInsured");
+                OnPropertyChanged("ListNotYetClosedClaim");
                 NewExaminationDate = null;
                 ValidSelectedPolicy = 0;
                 ClaimReceivedDate = null;
@@ -524,7 +560,7 @@ namespace BVCareManager.ViewModels
                 ClaimTotalPaid = 0;
 
                 OnPropertyChanged("ClaimProgressList");
-
+                OnPropertyChanged("ListNotYetClosedClaim");
             });
         #endregion
 

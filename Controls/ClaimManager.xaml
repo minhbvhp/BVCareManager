@@ -39,19 +39,26 @@
         </Grid.ColumnDefinitions>
 
         <StackPanel Grid.RowSpan="2">
-            <Expander HorizontalAlignment="Stretch" Header="Hồ sơ chưa giải quyết">
+            <Expander HorizontalAlignment="Stretch">
+                <Expander.Header>
+                    <TextBlock Text="Tất cả hồ sơ chưa giải quyết" FontWeight="Bold" FontSize="16" 
+                               HorizontalAlignment="Center" Foreground="IndianRed"/>
+                </Expander.Header>
+                
                 <StackPanel Orientation="Vertical" Margin="24,8,24,16">
-                    <DataGrid Grid.Row="1" ItemsSource="{Binding ListInsureds}" AutoGenerateColumns="False"
+                    <DataGrid x:Name="NotYetClosedClaimsDataGrid" Grid.Row="1" 
+                              ItemsSource="{Binding ListNotYetClosedClaim}" AutoGenerateColumns="False"
                               IsReadOnly="True" ClipboardCopyMode="None" ColumnWidth="*" HeadersVisibility="All"
-                              SelectedItem="{Binding SelectedInsured}">
+                              Foreground="IndianRed"
+                              SelectedItem="{Binding SelectedNotYetClosedClaim}">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Binding="{Binding Id}">
+                            <DataGridTextColumn Binding="{Binding Policy.Insured.Name}">
                                 <DataGridTextColumn.Header>
                                     <TextBlock Text="Nhân viên" TextWrapping="Wrap"/>
                                 </DataGridTextColumn.Header>
                             </DataGridTextColumn>
 
-                            <DataGridTextColumn Binding="{Binding Name}">
+                            <DataGridTextColumn Binding="{Binding ExaminationDate, StringFormat=dd/MM/yyyy}">
                                 <DataGridTextColumn.Header>
                                     <TextBlock Text="Ngày khám" TextWrapping="Wrap"/>
                                 </DataGridTextColumn.Header>
@@ -60,6 +67,8 @@
                     </DataGrid>
                 </StackPanel>
             </Expander>
+
+            <Border BorderBrush="{DynamicResource PrimaryHueMidBrush}" BorderThickness="0.5"/>
         </StackPanel>
 
         <DockPanel Background="#9B9B9B" Grid.Column="1">
@@ -79,7 +88,7 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="2*"/>
                     <ColumnDefinition Width="250"/>
-                    <ColumnDefinition Width="4*"/>
+                    <ColumnDefinition Width="5*"/>
                 </Grid.ColumnDefinitions>
 
                 <DataGrid x:Name="InsuredsResultDataGrid"
@@ -114,17 +123,27 @@
                             </materialDesign:ColorZone>
 
                             <StackPanel Grid.Row="1" Margin="20" VerticalAlignment="Top">
-                                <TextBox materialDesign:HintAssist.Hint="Số CMT/CCCD"
-                                 materialDesign:HintAssist.IsFloating="True"
-                                 Margin="0 10 0 0"
-                                 Text="{Binding SelectedInsured.Id, Mode=OneWay}"
-                                 IsEnabled="False"/>
+                                <TextBox materialDesign:HintAssist.IsFloating="True"
+                                         Margin="0 10 0 0"
+                                         Text="{Binding SelectedInsured.Id, Mode=OneWay}"
+                                         FontWeight="DemiBold" Foreground="Red"
+                                         IsEnabled="False">
+                                    
+                                    <materialDesign:HintAssist.Hint>
+                                        <TextBlock Text="Số CMT/CCCD" Foreground="Black"/>
+                                    </materialDesign:HintAssist.Hint>
+                                </TextBox>
 
-                                <TextBox materialDesign:HintAssist.Hint="Họ tên"
-                             materialDesign:HintAssist.IsFloating="True" 
-                             Margin="0 20 0 0"
-                             Text="{Binding SelectedInsured.Name, Mode=OneWay}"
-                             IsEnabled="False"/>
+                                <TextBox materialDesign:HintAssist.IsFloating="True" 
+                                         Margin="0 20 0 0"
+                                         Text="{Binding SelectedInsured.Name, Mode=OneWay}"
+                                         FontWeight="DemiBold" Foreground="Red"
+                                         IsEnabled="False">
+                                    
+                                    <materialDesign:HintAssist.Hint>
+                                        <TextBlock Text="Họ tên" Foreground="Black"/>
+                                    </materialDesign:HintAssist.Hint>
+                                </TextBox>
                             </StackPanel>
                         </Grid>
                     </materialDesign:Card>
@@ -162,7 +181,7 @@
                                 <RowDefinition Height="200"/>
                             </Grid.RowDefinitions>
 
-                            <StackPanel Margin="80 20 80 20" VerticalAlignment="Top">
+                            <StackPanel Margin="80 20 20 20" VerticalAlignment="Top">
                                 <DatePicker x:Name="NewClaimDatePicker" Style="{StaticResource EmptyDatePickerStyle}" Margin="0,20"
                                 materialDesign:HintAssist.Hint="Ngày khám" MinWidth="150" HorizontalAlignment="Left"
                                 SelectedDate="{Binding NewExaminationDate, Mode=TwoWay}"/>
@@ -266,7 +285,7 @@
                             </Grid.RowDefinitions>
 
                             <materialDesign:DialogHost CloseOnClickAway="True">
-                                <StackPanel Margin="80 20 80 20" VerticalAlignment="Top">
+                                <StackPanel Margin="80 20 20 20" VerticalAlignment="Top">
                                     <StackPanel Orientation="Horizontal">
                                         <ComboBox x:Name="UpdateClaimComboBox" Style="{StaticResource EmptyComboBoxStyle}"
                                           materialDesign:HintAssist.Hint="Ngày khám" MinWidth="200"
@@ -428,7 +447,7 @@
                             </StackPanel>
                         </TabItem.Header>
 
-                        <StackPanel Margin="80 20 80 20" VerticalAlignment="Top">
+                        <StackPanel Margin="80 20 20 20" VerticalAlignment="Top">
                             <ComboBox Style="{StaticResource EmptyComboBoxStyle}"
                               materialDesign:HintAssist.Hint="Ngày khám" MinWidth="200"
                               ItemsSource="{Binding ClaimListByInsured}"

@@ -147,12 +147,7 @@ namespace BVCareManager.ViewModels
                 var _allContract = from contract in contractRepository.FindAllContracts()
                                    select contract;
 
-                var AllContract = new ObservableCollection<Contract>();
-
-                foreach (var contract in _allContract)
-                    AllContract.Add(contract);
-
-                return AllContract;
+                return new ObservableCollection<Contract>(_allContract);
             }
         }
         public ObservableCollection<Insured> InsuredList
@@ -163,12 +158,8 @@ namespace BVCareManager.ViewModels
 
                 var _allInsured = from insured in insuredRepository.FindAllInsureds()
                                   select insured;
-                var AllInsured = new ObservableCollection<Insured>();
 
-                foreach (var insured in _allInsured)
-                    AllInsured.Add(insured);
-
-                return AllInsured;
+                return new ObservableCollection<Insured>(_allInsured);
             }
         }        
     }
