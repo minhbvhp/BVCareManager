@@ -37,51 +37,40 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
-        
-        <DockPanel Grid.RowSpan="2">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="50"/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
 
-                <TextBlock Text="Hồ sơ chưa giải quyết"
-                                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
-
-                <DataGrid Grid.Row="1" ItemsSource="{Binding ListInsureds}" AutoGenerateColumns="False"
+        <StackPanel Grid.RowSpan="2">
+            <Expander HorizontalAlignment="Stretch" Header="Hồ sơ chưa giải quyết">
+                <StackPanel Orientation="Vertical" Margin="24,8,24,16">
+                    <DataGrid Grid.Row="1" ItemsSource="{Binding ListInsureds}" AutoGenerateColumns="False"
                               IsReadOnly="True" ClipboardCopyMode="None" ColumnWidth="*" HeadersVisibility="All"
                               SelectedItem="{Binding SelectedInsured}">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Binding="{Binding Id}">
-                            <DataGridTextColumn.Header>
-                                <TextBlock Text="Nhân viên" TextWrapping="Wrap"/>
-                            </DataGridTextColumn.Header>
-                        </DataGridTextColumn>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding Id}">
+                                <DataGridTextColumn.Header>
+                                    <TextBlock Text="Nhân viên" TextWrapping="Wrap"/>
+                                </DataGridTextColumn.Header>
+                            </DataGridTextColumn>
 
-                        <DataGridTextColumn Binding="{Binding Name}">
-                            <DataGridTextColumn.Header>
-                                <TextBlock Text="Ngày khám" TextWrapping="Wrap"/>
-                            </DataGridTextColumn.Header>
-                        </DataGridTextColumn>
-                    </DataGrid.Columns>
-                </DataGrid>
-            </Grid>
-        </DockPanel>
+                            <DataGridTextColumn Binding="{Binding Name}">
+                                <DataGridTextColumn.Header>
+                                    <TextBlock Text="Ngày khám" TextWrapping="Wrap"/>
+                                </DataGridTextColumn.Header>
+                            </DataGridTextColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </StackPanel>
+            </Expander>
+        </StackPanel>
 
         <DockPanel Background="#9B9B9B" Grid.Column="1">
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 25 0 0">
-                <TextBox Width="200" Foreground="White" BorderBrush="White"
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="20 25 0 0">
+                <materialDesign:PackIcon Kind="Search" Margin="0 15 0 0" Foreground="{Binding ElementName=InsuredNameTextBox, Path=BorderBrush}"/>
+                
+                <TextBox x:Name="InsuredNameTextBox" Width="150" Foreground="White" BorderBrush="White"
                          VerticalAlignment="Top" HorizontalAlignment="Left"
                          materialDesign:HintAssist.Hint="Tên nhân viên" 
-                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
-
-                <Button x:Name="SearchInsured" IsTabStop="False"
-                        HorizontalAlignment="Left" VerticalAlignment="Top"
-                        Width="32" Height="32"
-                        Style="{StaticResource MaterialDesignFloatingActionDarkButton}">
-
-                    <materialDesign:PackIcon Kind="Search" Height="24" Width="24"/>
-                </Button>
+                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                         Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
         </DockPanel>
 
@@ -93,23 +82,15 @@
                     <ColumnDefinition Width="4*"/>
                 </Grid.ColumnDefinitions>
 
-                
-
                 <DataGrid x:Name="InsuredsResultDataGrid"
                   ItemsSource="{Binding ListInsureds}" AutoGenerateColumns="False"
                   Background="#B6B6B6"
                   IsReadOnly="True" ClipboardCopyMode="None" ColumnWidth="*" HeadersVisibility="All"
                   SelectedItem="{Binding SelectedInsured}">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Binding="{Binding Id}">
-                            <DataGridTextColumn.Header>
-                                <TextBlock Text="Số CCCD" TextWrapping="Wrap"/>
-                            </DataGridTextColumn.Header>
-                        </DataGridTextColumn>
-
                         <DataGridTextColumn Binding="{Binding Name}">
                             <DataGridTextColumn.Header>
-                                <TextBlock Text="Họ tên" TextWrapping="Wrap"/>
+                                <TextBlock Text="Nhân viên" TextWrapping="Wrap"/>
                             </DataGridTextColumn.Header>
                         </DataGridTextColumn>
                     </DataGrid.Columns>

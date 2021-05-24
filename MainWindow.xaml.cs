@@ -115,15 +115,6 @@ namespace BVCareManager
                 ModifyDockPanel.Children.Clear();
                 SearchTextBox.Text = String.Empty;
             }
-
-            if (ClaimTab.IsSelected == false)
-            {
-                if (ClaimManagerDockPanel != null)
-                {
-                    
-                }
-            }
-
         }
 
         private void TopControlBar_MouseDown(object sender, MouseButtonEventArgs e)

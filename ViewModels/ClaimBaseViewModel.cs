@@ -24,19 +24,17 @@ namespace BVCareManager.ViewModels
         public ICommand ViewCommand { get; set; }
         public ICommand DeleteCommand { get; set; }
         public ICommand ShowClaimOptions { get; set; }
-        public string SearchText { get; set; }
 
-    #region New Claim
-        private bool _isShowClaimOptions;
-        public bool IsShowClaimOptions
-        {
+        private string _searchText;
+        public string SearchText {
             get
             {
-                return _isShowClaimOptions;
+                return _searchText;
             }
             set
             {
-                SetProperty(ref _isShowClaimOptions, value);
+                SetProperty(ref _searchText, value);
+                OnPropertyChanged("ListInsureds");
             }
         }
 
@@ -57,6 +55,20 @@ namespace BVCareManager.ViewModels
 
                 return new ObservableCollection<Insured>(_listInsureds);
 
+            }
+        }
+
+        #region New Claim
+        private bool _isShowClaimOptions;
+        public bool IsShowClaimOptions
+        {
+            get
+            {
+                return _isShowClaimOptions;
+            }
+            set
+            {
+                SetProperty(ref _isShowClaimOptions, value);
             }
         }
 
