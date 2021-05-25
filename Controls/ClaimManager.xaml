@@ -80,8 +80,8 @@
                     <DataGrid Grid.Row="1" 
                               ItemsSource="{Binding ListClosedClaim}" AutoGenerateColumns="False"
                               IsReadOnly="True" ClipboardCopyMode="None" ColumnWidth="*" HeadersVisibility="All"
-                              Foreground="IndianRed"
-                              SelectedItem="{Binding SelectedNotYetClosedClaim}">
+                              Foreground="DarkGreen"
+                              SelectedItem="{Binding SelectedClosedClaim}">
                         <DataGrid.Columns>
                             <DataGridTextColumn Binding="{Binding Policy.Insured.Name}">
                                 <DataGridTextColumn.Header>
@@ -124,10 +124,10 @@
                 </Grid.ColumnDefinitions>
 
                 <DataGrid x:Name="InsuredsResultDataGrid"
-                  ItemsSource="{Binding ListInsureds}" AutoGenerateColumns="False"
-                  Background="#B6B6B6"
-                  IsReadOnly="True" ClipboardCopyMode="None" ColumnWidth="*" HeadersVisibility="All"
-                  SelectedItem="{Binding SelectedInsured}">
+                          ItemsSource="{Binding ListInsureds}" AutoGenerateColumns="False"
+                          Background="#B6B6B6"
+                          IsReadOnly="True" ClipboardCopyMode="None" ColumnWidth="*" HeadersVisibility="All"
+                          SelectedItem="{Binding SelectedInsured}">
                     <DataGrid.Columns>
                         <DataGridTextColumn Binding="{Binding Name}">
                             <DataGridTextColumn.Header>
@@ -227,16 +227,48 @@
                                 </TextBlock>
                             </StackPanel>
 
-                            <GroupBox Margin="0, 50">
-                                <GroupBox.HeaderTemplate>
+                            <GroupBox Margin="0, 50" Visibility="{Binding IsViewClaimSelected, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                <GroupBox.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <StackPanel x:Name="IsViewClaimClosedStackPanel" Orientation="Horizontal"
+                                                        Visibility="{Binding SelectedViewClaim.IsClosed, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                            <materialDesign:PackIcon Kind="Done" Height="12" Width="12" 
+                                                                     VerticalAlignment="Center" Foreground="White"/>
+                                            <TextBlock Margin="8,0,0,0" VerticalAlignment="Center" Text="Hoàn thành" 
+                                                       Foreground="White" FontWeight="DemiBold" FontSize="14"/>
+                                        </StackPanel>
+
+                                        <StackPanel Orientation="Horizontal">
+                                            <StackPanel.Style>
+                                                <Style TargetType="StackPanel">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding ElementName=IsViewClaimClosedStackPanel, Path=Visibility}" Value="Visible">
+                                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                                        </DataTrigger>
+
+                                                        <DataTrigger Binding="{Binding ElementName=IsViewClaimClosedStackPanel, Path=Visibility}" Value="Collapsed">
+                                                            <Setter Property="Visibility" Value="Visible"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </StackPanel.Style>
+
+                                            <materialDesign:PackIcon Kind="ProgressAlert" Height="12" Width="12" 
+                                                                     VerticalAlignment="Center" Foreground="White" />
+                                            <TextBlock Margin="8,0,0,0" VerticalAlignment="Center" Text="Đang giải quyết"
+                                                       Foreground="White" FontWeight="DemiBold" FontSize="14"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </GroupBox.Header>
+                                
+                                <!--<GroupBox.HeaderTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal">
                                             <StackPanel x:Name="IsViewClaimClosedStackPanel" Orientation="Horizontal" 
-                                                        Visibility="{Binding SelectedViewClaim.IsClosed, 
-                                                Converter={StaticResource BooleanToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}">
-                                                <materialDesign:PackIcon Kind="Done" Height="32" Width="32" VerticalAlignment="Center" />
+                                                        Visibility="{Binding SelectedViewClaim.IsClosed, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Visible}">
+                                                <materialDesign:PackIcon Kind="Done" Height="32" Width="32" VerticalAlignment="Center"/>
                                                 <TextBlock Margin="8,0,0,0" VerticalAlignment="Center" Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
-                                               Text="Hoàn thành" />
+                                               Text="Hoàn thành"/>
                                             </StackPanel>
 
                                             <StackPanel Orientation="Horizontal">
@@ -258,11 +290,11 @@
                                             </StackPanel>
                                         </StackPanel>
                                     </DataTemplate>
-                                </GroupBox.HeaderTemplate>
+                                </GroupBox.HeaderTemplate>-->
 
 
-                                <TextBlock TextWrapping="Wrap"
-                            Text="Quá trình đang diễn ra Quá trình đang diễn ra Quá trình đang diễn ra Quá trình đang diễn ra Quá trình đang diễn ra"/>
+                                <TextBlock TextWrapping="Wrap" Visibility="{Binding SelectedViewClaim.IsClosed, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                           Text="Quá trình đang diễn ra Quá trình đang diễn ra Quá trình đang diễn ra Quá trình đang diễn ra Quá trình đang diễn ra"/>
                             </GroupBox>
                         </StackPanel>
 

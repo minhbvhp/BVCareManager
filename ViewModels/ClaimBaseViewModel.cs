@@ -85,11 +85,14 @@ namespace BVCareManager.ViewModels
             {
                 SetProperty(ref _selectedNotYetClosedClaim, value);
 
-                SelectedInsured = SelectedNotYetClosedClaim.Policy.Insured;
-                OnPropertyChanged("SelectedInsured");
+                if (SelectedNotYetClosedClaim != null)
+                {
+                    SelectedInsured = SelectedNotYetClosedClaim.Policy.Insured;
+                    OnPropertyChanged("SelectedInsured");
 
-                SelectedClaimId = SelectedNotYetClosedClaim.Id;
-                OnPropertyChanged("SelectedClaimId");
+                    SelectedClaimId = SelectedNotYetClosedClaim.Id;
+                    OnPropertyChanged("SelectedClaimId");
+                }                
             }
         }
 
@@ -123,7 +126,14 @@ namespace BVCareManager.ViewModels
             {
                 SetProperty(ref _selectedClosedClaim, value);
 
-                
+                if (SelectedClosedClaim != null)
+                {
+                    SelectedInsured = SelectedClosedClaim.Policy.Insured;
+                    OnPropertyChanged("SelectedInsured");
+
+                    SelectedClaimId = SelectedClosedClaim.Id;
+                    OnPropertyChanged("SelectedClaimId");
+                }
             }
         }
 
@@ -172,16 +182,23 @@ namespace BVCareManager.ViewModels
         {
             get
             {
-                var _validPolicies = from policy in policyRepository.FindAllPolicies()
-                                        where policy.Insured == SelectedInsured &&
-                                              policy.FromDate <= NewExaminationDate &&
-                                              policy.ToDate >= NewExaminationDate
-                                        select policy;
-
                 var ValidPolicies = new ObservableCollection<Policy>();
 
-                foreach (var policy in _validPolicies)
-                    ValidPolicies.Add(policy);
+                //fix DateTime min and max value between sql and c# 
+                DateTime MinDateTimeOfSql = new DateTime(1753, 1, 1);
+                DateTime MaxDateTimeOfSql = new DateTime(9999, 12, 31);
+
+                if (NewExaminationDate > MinDateTimeOfSql && NewExaminationDate < MaxDateTimeOfSql)
+                {
+                    var _validPolicies = from policy in policyRepository.FindAllPolicies()
+                                         where policy.Insured == SelectedInsured &&
+                                               policy.FromDate <= NewExaminationDate &&
+                                               policy.ToDate >= NewExaminationDate
+                                         select policy;
+
+                    foreach (var policy in _validPolicies)
+                        ValidPolicies.Add(policy);
+                }
 
                 return ValidPolicies;
             }
@@ -668,6 +685,7 @@ namespace BVCareManager.ViewModels
 
                 OnPropertyChanged("ClaimProgressList");
                 OnPropertyChanged("ListNotYetClosedClaim");
+                OnPropertyChanged("ListClosedClaim");
             });
         #endregion
 
