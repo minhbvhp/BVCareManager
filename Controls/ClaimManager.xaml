@@ -46,10 +46,11 @@
                 </Expander.Header>
                 
                 <StackPanel Orientation="Vertical" Margin="24,8,24,16">
-                    <DataGrid Grid.Row="1" 
+                    <DataGrid x:Name="NotYetClosedClaimDataGrid" Grid.Row="1" 
                               ItemsSource="{Binding ListNotYetClosedClaim}" AutoGenerateColumns="False"
                               IsReadOnly="True" ClipboardCopyMode="None" ColumnWidth="*" HeadersVisibility="All"
                               Foreground="IndianRed"
+                              LostFocus="NotYetClosedClaimDataGrid_LostFocus"
                               SelectedItem="{Binding SelectedNotYetClosedClaim}">
                         <DataGrid.Columns>
                             <DataGridTextColumn Binding="{Binding Policy.Insured.Name}">
@@ -77,10 +78,11 @@
                 </Expander.Header>
 
                 <StackPanel Orientation="Vertical" Margin="24,8,24,16">
-                    <DataGrid Grid.Row="1" 
+                    <DataGrid x:Name="ClosedDataGrid" Grid.Row="1" 
                               ItemsSource="{Binding ListClosedClaim}" AutoGenerateColumns="False"
                               IsReadOnly="True" ClipboardCopyMode="None" ColumnWidth="*" HeadersVisibility="All"
                               Foreground="DarkGreen"
+                              LostFocus="ClosedDataGrid_LostFocus"
                               SelectedItem="{Binding SelectedClosedClaim}">
                         <DataGrid.Columns>
                             <DataGridTextColumn Binding="{Binding Policy.Insured.Name}">
@@ -127,6 +129,7 @@
                           ItemsSource="{Binding ListInsureds}" AutoGenerateColumns="False"
                           Background="#B6B6B6"
                           IsReadOnly="True" ClipboardCopyMode="None" ColumnWidth="*" HeadersVisibility="All"
+                          LostFocus="InsuredsResultDataGrid_LostFocus"
                           SelectedItem="{Binding SelectedInsured}">
                     <DataGrid.Columns>
                         <DataGridTextColumn Binding="{Binding Name}">
@@ -227,18 +230,17 @@
                                 </TextBlock>
                             </StackPanel>
 
-                            <GroupBox Margin="0, 50"
+                            <GroupBox Margin="0, 50" materialDesign:ColorZoneAssist.Mode="Custom"
                                       Visibility="{Binding IsViewClaimSelected, Converter={StaticResource BooleanToVisibilityConverter}}">
                                 <GroupBox.Style>
-                                    <Style TargetType="GroupBox">
-                                        <Setter Property="materialDesign:ColorZoneAssist.Mode" Value="Custom"/>
+                                    <Style TargetType="GroupBox" BasedOn="{StaticResource MaterialDesignGroupBox}">
                                         <Style.Triggers>
                                             <DataTrigger Binding="{Binding ElementName=IsViewClaimClosedStackPanel, Path=Visibility}" Value="Visible">
                                                 <Setter Property="materialDesign:ColorZoneAssist.Background" Value="DarkGreen"/>
                                             </DataTrigger>
 
                                             <DataTrigger Binding="{Binding ElementName=IsViewClaimClosedStackPanel, Path=Visibility}" Value="Collapsed">
-                                                <Setter Property="materialDesign:ColorZoneAssist.Background" Value="HotPink"/>
+                                                <Setter Property="materialDesign:ColorZoneAssist.Background" Value="#f04393"/>
                                             </DataTrigger>
                                         </Style.Triggers>
                                     </Style>
@@ -292,10 +294,10 @@
                                             <ListView ItemsSource="{Binding ClaimProgressViewList}" 
                                                       ItemTemplate="{StaticResource ClaimProgressTemplate}"
                                                       Margin="20, 5"
-                                                      Foreground="#3c4cad"/>
+                                                      Foreground="#f04393"/>
 
                                             <TextBlock Margin="10, 5" VerticalAlignment="Top" TextWrapping="Wrap"
-                                                       LineHeight="20" LineStackingStrategy="BlockLineHeight" Foreground="#f04393"
+                                                       LineHeight="20" LineStackingStrategy="BlockLineHeight" Foreground="DarkGreen"
                                                        Visibility="{Binding SelectedViewClaim.IsClosed, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
                                                 <materialDesign:PackIcon Kind="CalendarRange" Height="10" Width="10"/>
                                                 <Run Text="{Binding SelectedViewClaim.PaidDate, StringFormat=dd/MM/yyyy, Mode=OneWay}" 
@@ -304,7 +306,7 @@
                                                 <Run Text="     Đóng hồ sơ"/>
                                                 <LineBreak/>
                                                 <Run Text="     Số tiền:"/>
-                                                <Run Text="{Binding SelectedClaim.TotalPaid, Mode=OneWay, 
+                                                <Run Text="{Binding SelectedViewClaim.TotalPaid, Mode=OneWay, 
                                                     Converter={StaticResource NumberFormatConverter}, ConverterParameter='N0', ConverterCulture='is-IS'}"/>
                                             </TextBlock>
                                         </StackPanel>
@@ -367,11 +369,11 @@
                                             <TextBlock Text="Cập nhật hồ sơ" FontWeight="DemiBold"/>
 
                                             <ToggleButton x:Name="IsClaimClosedToogleButton" IsTabStop="False"
-                                          Margin="15, 0" Style="{StaticResource MaterialDesignSwitchToggleButton}"
-                                          IsChecked="{Binding IsClaimClosed, FallbackValue=False}">
+                                                          Margin="15, 0" Style="{StaticResource MaterialDesignSwitchToggleButton}"
+                                                          IsChecked="{Binding IsClaimClosed, FallbackValue=False}">
 
                                                 <materialDesign:ToggleButtonAssist.SwitchTrackOnBackground>
-                                                    <SolidColorBrush Color="Red" />
+                                                    <SolidColorBrush Color="DarkGreen" />
                                                 </materialDesign:ToggleButtonAssist.SwitchTrackOnBackground>
 
                                                 <materialDesign:ToggleButtonAssist.SwitchTrackOffBackground>
@@ -380,7 +382,7 @@
 
                                             </ToggleButton>
 
-                                            <TextBlock Text="Đóng hồ sơ" Foreground="#f04393" FontWeight="SemiBold"/>
+                                            <TextBlock Text="Đóng hồ sơ" Foreground="DarkGreen" FontWeight="SemiBold"/>
                                         </StackPanel>
 
                                         <DatePicker SelectedDate="{Binding ClaimProgressDate}" Margin="0, 20">
@@ -432,21 +434,21 @@
                                             <ListView ItemsSource="{Binding ClaimProgressList}" 
                                               ItemTemplate="{StaticResource ClaimProgressTemplate}"
                                               Margin="20, 5"
-                                              Foreground="#3c4cad"/>
+                                              Foreground="#f04393"/>
 
 
                                             <TextBlock Margin="10, 5" VerticalAlignment="Top" TextWrapping="Wrap"
-                                               LineHeight="20" LineStackingStrategy="BlockLineHeight" Foreground="#f04393"
+                                               LineHeight="20" LineStackingStrategy="BlockLineHeight" Foreground="DarkGreen"
                                                Visibility="{Binding SelectedClaim.IsClosed, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                        <materialDesign:PackIcon Kind="CalendarRange" Height="10" Width="10"/>
-                                        <Run Text="{Binding SelectedClaim.PaidDate, StringFormat=dd/MM/yyyy, Mode=OneWay}" 
-                                             FontSize="11" FontWeight="DemiBold"/>
-                                        <LineBreak/>
-                                        <Run Text="     Đóng hồ sơ"/>
-                                        <LineBreak/>
-                                        <Run Text="     Số tiền:"/>
-                                        <Run Text="{Binding SelectedClaim.TotalPaid, Mode=OneWay, 
-                                                        Converter={StaticResource NumberFormatConverter}, ConverterParameter='N0', ConverterCulture='is-IS'}"/>
+                                                <materialDesign:PackIcon Kind="CalendarRange" Height="10" Width="10"/>
+                                                <Run Text="{Binding SelectedClaim.PaidDate, StringFormat=dd/MM/yyyy, Mode=OneWay}" 
+                                                     FontSize="11" FontWeight="DemiBold"/>
+                                                <LineBreak/>
+                                                <Run Text="     Đóng hồ sơ"/>
+                                                <LineBreak/>
+                                                <Run Text="     Số tiền:"/>
+                                                <Run Text="{Binding SelectedClaim.TotalPaid, Mode=OneWay, 
+                                                    Converter={StaticResource NumberFormatConverter}, ConverterParameter='N0', ConverterCulture='is-IS'}"/>
                                             </TextBlock>
                                         </StackPanel>
                                     </ScrollViewer>
