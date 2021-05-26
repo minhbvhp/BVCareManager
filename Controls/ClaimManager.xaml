@@ -227,12 +227,28 @@
                                 </TextBlock>
                             </StackPanel>
 
-                            <GroupBox Margin="0, 50" Visibility="{Binding IsViewClaimSelected, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <GroupBox Margin="0, 50"
+                                      Visibility="{Binding IsViewClaimSelected, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                <GroupBox.Style>
+                                    <Style TargetType="GroupBox">
+                                        <Setter Property="materialDesign:ColorZoneAssist.Mode" Value="Custom"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding ElementName=IsViewClaimClosedStackPanel, Path=Visibility}" Value="Visible">
+                                                <Setter Property="materialDesign:ColorZoneAssist.Background" Value="DarkGreen"/>
+                                            </DataTrigger>
+
+                                            <DataTrigger Binding="{Binding ElementName=IsViewClaimClosedStackPanel, Path=Visibility}" Value="Collapsed">
+                                                <Setter Property="materialDesign:ColorZoneAssist.Background" Value="HotPink"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </GroupBox.Style>
+                                
                                 <GroupBox.Header>
                                     <StackPanel Orientation="Horizontal">
                                         <StackPanel x:Name="IsViewClaimClosedStackPanel" Orientation="Horizontal"
                                                         Visibility="{Binding SelectedViewClaim.IsClosed, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                            <materialDesign:PackIcon Kind="Done" Height="12" Width="12" 
+                                            <materialDesign:PackIcon Kind="Done" Height="20" Width="20" 
                                                                      VerticalAlignment="Center" Foreground="White"/>
                                             <TextBlock Margin="8,0,0,0" VerticalAlignment="Center" Text="Hoàn thành" 
                                                        Foreground="White" FontWeight="DemiBold" FontSize="14"/>
@@ -253,48 +269,47 @@
                                                 </Style>
                                             </StackPanel.Style>
 
-                                            <materialDesign:PackIcon Kind="ProgressAlert" Height="12" Width="12" 
+                                            <materialDesign:PackIcon Kind="ProgressAlert" Height="20" Width="20" 
                                                                      VerticalAlignment="Center" Foreground="White" />
                                             <TextBlock Margin="8,0,0,0" VerticalAlignment="Center" Text="Đang giải quyết"
                                                        Foreground="White" FontWeight="DemiBold" FontSize="14"/>
                                         </StackPanel>
                                     </StackPanel>
                                 </GroupBox.Header>
-                                
-                                <!--<GroupBox.HeaderTemplate>
-                                    <DataTemplate>
-                                        <StackPanel Orientation="Horizontal">
-                                            <StackPanel x:Name="IsViewClaimClosedStackPanel" Orientation="Horizontal" 
-                                                        Visibility="{Binding SelectedViewClaim.IsClosed, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Visible}">
-                                                <materialDesign:PackIcon Kind="Done" Height="32" Width="32" VerticalAlignment="Center"/>
-                                                <TextBlock Margin="8,0,0,0" VerticalAlignment="Center" Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
-                                               Text="Hoàn thành"/>
-                                            </StackPanel>
 
-                                            <StackPanel Orientation="Horizontal">
-                                                <StackPanel.Style>
-                                                    <Style TargetType="StackPanel">
-                                                        <Setter Property="Visibility" Value="Collapsed"/>
-                                                        <Style.Triggers>
-                                                            <DataTrigger Binding="{Binding Visibility, ElementName=IsViewClaimClosedStackPanel}" Value="Collapsed">
-                                                                <Setter Property="Visibility" Value="Visible"/>
-                                                            </DataTrigger>
-                                                        </Style.Triggers>
-                                                    </Style>
-                                                </StackPanel.Style>
+                                <StackPanel>
+                                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                        <StackPanel>
+                                            <TextBlock Margin="10, 5" VerticalAlignment="Top" TextWrapping="Wrap"
+                                               LineHeight="20" LineStackingStrategy="BlockLineHeight" Foreground="#1ca7ec">
+                                                <materialDesign:PackIcon Kind="CalendarRange" Height="10" Width="10"/>
+                                                <Run Text="{Binding ReceivedDateOfSelectedViewClaim, StringFormat=dd/MM/yyyy, Mode=OneWay}" 
+                                                     FontSize="11" FontWeight="DemiBold"/>
+                                                <LineBreak/>
+                                                <Run Text="     Nhận hồ sơ"/>
+                                            </TextBlock>
 
-                                                <materialDesign:PackIcon Kind="ProgressAlert" Height="32" Width="32" VerticalAlignment="Center" />
-                                                <TextBlock Margin="8,0,0,0" VerticalAlignment="Center" 
-                                                           Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
-                                                           Text="Đang giải quyết" />
-                                            </StackPanel>
+                                            <ListView ItemsSource="{Binding ClaimProgressViewList}" 
+                                                      ItemTemplate="{StaticResource ClaimProgressTemplate}"
+                                                      Margin="20, 5"
+                                                      Foreground="#3c4cad"/>
+
+                                            <TextBlock Margin="10, 5" VerticalAlignment="Top" TextWrapping="Wrap"
+                                                       LineHeight="20" LineStackingStrategy="BlockLineHeight" Foreground="#f04393"
+                                                       Visibility="{Binding SelectedViewClaim.IsClosed, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                                <materialDesign:PackIcon Kind="CalendarRange" Height="10" Width="10"/>
+                                                <Run Text="{Binding SelectedViewClaim.PaidDate, StringFormat=dd/MM/yyyy, Mode=OneWay}" 
+                                                     FontSize="11" FontWeight="DemiBold"/>
+                                                <LineBreak/>
+                                                <Run Text="     Đóng hồ sơ"/>
+                                                <LineBreak/>
+                                                <Run Text="     Số tiền:"/>
+                                                <Run Text="{Binding SelectedClaim.TotalPaid, Mode=OneWay, 
+                                                    Converter={StaticResource NumberFormatConverter}, ConverterParameter='N0', ConverterCulture='is-IS'}"/>
+                                            </TextBlock>
                                         </StackPanel>
-                                    </DataTemplate>
-                                </GroupBox.HeaderTemplate>-->
-
-
-                                <TextBlock TextWrapping="Wrap" Visibility="{Binding SelectedViewClaim.IsClosed, Converter={StaticResource BooleanToVisibilityConverter}}"
-                                           Text="Quá trình đang diễn ra Quá trình đang diễn ra Quá trình đang diễn ra Quá trình đang diễn ra Quá trình đang diễn ra"/>
+                                    </ScrollViewer>
+                                </StackPanel>
                             </GroupBox>
                         </StackPanel>
 

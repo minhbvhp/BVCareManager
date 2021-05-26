@@ -133,12 +133,6 @@ namespace BVCareManager.ViewModels
                 {
                     SelectedInsured = SelectedClosedClaim.Policy.Insured;
                     OnPropertyChanged("SelectedInsured");
-
-                    SelectedClaimId = SelectedClosedClaim.Id;
-                    OnPropertyChanged("SelectedClaimId");
-
-                    SelectedClaimIdForView = SelectedClosedClaim.Id;
-                    OnPropertyChanged("SelectedClaimIdForView");
                 }
             }
         }
@@ -181,6 +175,12 @@ namespace BVCareManager.ViewModels
                 OnPropertyChanged("IsInsuredSelected");
                 OnPropertyChanged("ListValidPolicies");
                 OnPropertyChanged("ClaimListByInsured");
+
+                SelectedClaimIdForView = 0;
+                OnPropertyChanged("SelectedClaimIdForView");
+
+                SelectedClaimId = 0;
+                OnPropertyChanged("SelectedClaimId");
             }
         }
 
@@ -504,6 +504,8 @@ namespace BVCareManager.ViewModels
                 OnPropertyChanged("PolicyNumberOfViewClaim");
                 OnPropertyChanged("SelectedViewClaim");
                 OnPropertyChanged("IsViewClaimSelected");
+                OnPropertyChanged("ReceivedDateOfSelectedViewClaim");
+                OnPropertyChanged("ClaimProgressViewList");
             }
         }
 
@@ -539,7 +541,39 @@ namespace BVCareManager.ViewModels
                 return _viewClaimPolicyNumber;
             }
         }
-    #endregion
+
+        public DateTime? ReceivedDateOfSelectedViewClaim
+        {
+            get
+            {
+                if (SelectedClaimIdForView != 0)
+                {
+                    return claimRepository.GetClaimById(SelectedClaimIdForView).ReceivedDate;
+                }
+
+                return null;
+            }
+        }
+
+        public ObservableCollection<ClaimsProgress> ClaimProgressViewList
+        {
+            get
+            {
+                var _allClaimProgressByClaimId = from claimProgress in claimProgressRepository.FindAllClaimsProgress()
+                                                 where claimProgress.ClaimId == SelectedClaimIdForView
+                                                 orderby claimProgress.Date
+                                                 select claimProgress;
+
+                var AllClaimProgressByClaimId = new ObservableCollection<ClaimsProgress>();
+
+                foreach (var claimProgress in _allClaimProgressByClaimId)
+                    AllClaimProgressByClaimId.Add(claimProgress);
+
+                return AllClaimProgressByClaimId;
+            }
+        }
+
+        #endregion
 
 
         public ClaimBaseViewModel()
