@@ -92,6 +92,9 @@ namespace BVCareManager.ViewModels
 
                     SelectedClaimId = SelectedNotYetClosedClaim.Id;
                     OnPropertyChanged("SelectedClaimId");
+
+                    SelectedClaimIdForView = SelectedNotYetClosedClaim.Id;
+                    OnPropertyChanged("SelectedClaimIdForView");
                 }                
             }
         }
@@ -133,6 +136,9 @@ namespace BVCareManager.ViewModels
 
                     SelectedClaimId = SelectedClosedClaim.Id;
                     OnPropertyChanged("SelectedClaimId");
+
+                    SelectedClaimIdForView = SelectedClosedClaim.Id;
+                    OnPropertyChanged("SelectedClaimIdForView");
                 }
             }
         }
