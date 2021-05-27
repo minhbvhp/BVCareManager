@@ -87,7 +87,7 @@ namespace BVCareManager.Controls
 
         private void InsuredsResultDataGrid_LostFocus(object sender, RoutedEventArgs e)
         {
-            InsuredsResultDataGrid.UnselectAll();
+            
         }
     }
 }
