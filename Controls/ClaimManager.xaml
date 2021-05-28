@@ -129,7 +129,6 @@
                           ItemsSource="{Binding ListInsureds}" AutoGenerateColumns="False"
                           Background="#B6B6B6"
                           IsReadOnly="True" ClipboardCopyMode="None" ColumnWidth="*" HeadersVisibility="All"
-                          LostFocus="InsuredsResultDataGrid_LostFocus"
                           SelectedItem="{Binding SelectedInsured}">
                     <DataGrid.Columns>
                         <DataGridTextColumn Binding="{Binding Name}">
