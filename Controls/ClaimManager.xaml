@@ -45,7 +45,7 @@
                                HorizontalAlignment="Center" Foreground="#f04393"/>
                 </Expander.Header>
                 
-                <StackPanel Orientation="Vertical" Margin="24,8,24,16">
+                <DockPanel Margin="24,8,24,16" ScrollViewer.VerticalScrollBarVisibility="Auto" MaxHeight="200">
                     <DataGrid x:Name="NotYetClosedClaimDataGrid" Grid.Row="1" 
                               ItemsSource="{Binding ListNotYetClosedClaim}" AutoGenerateColumns="False"
                               IsReadOnly="True" ClipboardCopyMode="None" ColumnWidth="*" HeadersVisibility="All"
@@ -66,7 +66,7 @@
                             </DataGridTextColumn>
                         </DataGrid.Columns>
                     </DataGrid>
-                </StackPanel>
+                </DockPanel>
             </Expander>
 
             <Border BorderBrush="{DynamicResource PrimaryHueMidBrush}" BorderThickness="0.5"/>
@@ -77,7 +77,7 @@
                                HorizontalAlignment="Center" Foreground="DarkGreen"/>
                 </Expander.Header>
 
-                <StackPanel Orientation="Vertical" Margin="24,8,24,16">
+                <DockPanel Margin="24,8,24,16" ScrollViewer.VerticalScrollBarVisibility="Auto" MaxHeight="200">
                     <DataGrid x:Name="ClosedDataGrid" Grid.Row="1" 
                               ItemsSource="{Binding ListClosedClaim}" AutoGenerateColumns="False"
                               IsReadOnly="True" ClipboardCopyMode="None" ColumnWidth="*" HeadersVisibility="All"
@@ -98,7 +98,7 @@
                             </DataGridTextColumn>
                         </DataGrid.Columns>
                     </DataGrid>
-                </StackPanel>
+                </DockPanel>
             </Expander>
 
             <Border BorderBrush="{DynamicResource PrimaryHueMidBrush}" BorderThickness="0.5"/>
@@ -125,19 +125,20 @@
                     <ColumnDefinition Width="5*"/>
                 </Grid.ColumnDefinitions>
 
-                <DataGrid x:Name="InsuredsResultDataGrid"
-                          ItemsSource="{Binding ListInsureds}" AutoGenerateColumns="False"
-                          Background="#B6B6B6"
-                          IsReadOnly="True" ClipboardCopyMode="None" ColumnWidth="*" HeadersVisibility="All"
+                <DockPanel>
+                    <DataGrid x:Name="InsuredsResultDataGrid" Background="#B6B6B6"
+                          ItemsSource="{Binding ListInsureds}" AutoGenerateColumns="False"                          
+                          IsReadOnly="True" ClipboardCopyMode="None" HeadersVisibility="All"
                           SelectedItem="{Binding SelectedInsured}">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Binding="{Binding Name}">
-                            <DataGridTextColumn.Header>
-                                <TextBlock Text="Nhân viên" TextWrapping="Wrap"/>
-                            </DataGridTextColumn.Header>
-                        </DataGridTextColumn>
-                    </DataGrid.Columns>
-                </DataGrid>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding Name}">
+                                <DataGridTextColumn.Header>
+                                    <TextBlock Text="Nhân viên" TextWrapping="Wrap"/>
+                                </DataGridTextColumn.Header>
+                            </DataGridTextColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </DockPanel>
 
                 <StackPanel Grid.Column="1" Background="#D1D1D1" 
                     VerticalAlignment="Stretch" Visibility="{Binding IsInsuredSelected, Converter={StaticResource BooleanToVisibilityConverter}}">

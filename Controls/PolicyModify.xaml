@@ -26,7 +26,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Column="0" Margin="0 0 100 0">
+        <DockPanel Grid.Column="0" Margin="0 0 100 0" ScrollViewer.VerticalScrollBarVisibility="Auto">
             <DataGrid x:Name="PoliciesResultDataGrid" ItemsSource="{Binding ListPolicies}" AutoGenerateColumns="False" 
                       IsReadOnly="True" ClipboardCopyMode="None" ColumnWidth="*" HeadersVisibility="All"
                       LoadingRow="PoliciesResultDataGrid_LoadingRow" SelectedItem="{Binding SelectedPolicy}">
@@ -78,7 +78,7 @@
                     </DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
-        </StackPanel>
+        </DockPanel>
 
         <materialDesign:DialogHost Grid.Column="1" IsOpen="{Binding IsModifyDialogOpen}"
                                    Height="Auto" Width="200" VerticalAlignment="Top"
