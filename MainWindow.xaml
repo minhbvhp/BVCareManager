@@ -195,7 +195,7 @@
 
                 <TabItem x:Name="ReportTab" Header="SỐ LIỆU TỔNG QUAN">
                     <DockPanel x:Name="ReportDockPanel">
-                        
+                        <controls:Report/>
                     </DockPanel>
                 </TabItem>
                 

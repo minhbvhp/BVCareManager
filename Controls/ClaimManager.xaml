@@ -13,7 +13,6 @@
     <UserControl.Resources>
         <converter:NumberFormatConverter x:Key="NumberFormatConverter"/>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
-        <converter:BooleanVisibilityConverter x:Key="visibilityConverter"/>
 
         <DataTemplate x:Key="ClaimProgressTemplate">
             <TextBlock TextWrapping="Wrap"
