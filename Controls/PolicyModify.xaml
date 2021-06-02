@@ -22,12 +22,13 @@
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="7*"/>
+            <RowDefinition Height="4*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <DockPanel Grid.Column="0" Margin="0 0 100 0" ScrollViewer.VerticalScrollBarVisibility="Auto">
             <DataGrid x:Name="PoliciesResultDataGrid" ItemsSource="{Binding ListPolicies}" AutoGenerateColumns="False" 
+                      MaxHeight="370" VerticalAlignment="Top" Background="#FFCFCFCF"
                       IsReadOnly="True" ClipboardCopyMode="None" ColumnWidth="*" HeadersVisibility="All"
                       LoadingRow="PoliciesResultDataGrid_LoadingRow" SelectedItem="{Binding SelectedPolicy}">
                 <DataGrid.Columns>

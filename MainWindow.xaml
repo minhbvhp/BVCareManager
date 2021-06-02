@@ -33,7 +33,7 @@
             <dragablz:TabablzControl x:Name="MyTabs" SelectionChanged="MyTabs_SelectionChanged">
 
                 <TabItem x:Name="NewTab" Header="TẠO MỚI">
-                    <Grid x:Name="CreateNewGrid">
+                    <Grid x:Name="CreateNewGrid" Background="#FFCFCFCF">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="5*"/>
                             <ColumnDefinition Width="*"/>
@@ -49,10 +49,10 @@
                         <materialDesign:PackIcon Width="50" Height="50" Margin="0, 32, 0, 0"
                                                  Kind="ArrowRightThick" Grid.Column="1"
                                                  HorizontalAlignment="Center" VerticalAlignment="Top"
-                                                 Foreground="{StaticResource PrimaryHueLightBrush}"/>
+                                                 Foreground="{StaticResource PrimaryHueMidBrush}"/>
 
                         <GroupBox Header="Mục" MaxWidth="350" MaxHeight="200" VerticalAlignment="Top"
-                                  Style="{DynamicResource MaterialDesignGroupBox}" Margin="32"
+                                  Style="{DynamicResource MaterialDesignCardGroupBox}" Margin="32"
                                   materialDesign:ColorZoneAssist.Mode="SecondaryMid">
                             <ListBox x:Name="CreateNewListBox" 
                                      SelectionChanged="CreateNewListBox_SelectionChanged">
@@ -108,7 +108,7 @@
                 </TabItem>
 
                 <TabItem x:Name="ModifyTab" Margin="50" Header="KHAI THÁC (SỬA)">
-                    <Grid x:Name="ModifyGrid" Margin="25">
+                    <Grid x:Name="ModifyGrid" Background="#FFCFCFCF">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="2*"/>
                             <ColumnDefinition Width="*"/>
@@ -120,7 +120,7 @@
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
 
-                        <DockPanel Grid.Column="0">
+                        <DockPanel Grid.Column="0" Margin="0 25 0 0">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="2*"/>
@@ -155,7 +155,7 @@
                             </Grid>
                         </DockPanel>
 
-                        <DockPanel x:Name="ModifyDockPanel" Grid.RowSpan="2" Grid.Row="1" Grid.ColumnSpan="2"/>
+                        <DockPanel x:Name="ModifyDockPanel" Grid.RowSpan="2" Grid.Row="1" Grid.ColumnSpan="2" Margin="20"/>
 
                         <StackPanel Grid.Row="2" Grid.ColumnSpan="2" Grid.Column="0">
                             <TextBlock HorizontalAlignment="Left" Margin="30, 0, 0, 0"
@@ -188,13 +188,13 @@
                 </TabItem>
 
                 <TabItem x:Name="ClaimTab" Header="BỒI THƯỜNG">
-                    <Grid x:Name="ClaimGrid">
+                    <Grid x:Name="ClaimGrid" Background="#FFCFCFCF">
                         <DockPanel x:Name="ClaimManagerDockPanel"/>
                     </Grid>
                 </TabItem>
 
                 <TabItem x:Name="ReportTab" Header="SỐ LIỆU TỔNG QUAN">
-                    <DockPanel x:Name="ReportDockPanel">
+                    <DockPanel x:Name="ReportDockPanel" Background="#FFCFCFCF">
                         <controls:Report/>
                     </DockPanel>
                 </TabItem>
