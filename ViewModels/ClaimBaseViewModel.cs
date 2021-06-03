@@ -663,18 +663,7 @@ namespace BVCareManager.ViewModels
                     UpdateResultAsync(Result.ExcludeError, "Hồ sơ này đã đóng, không thể cập nhật nữa");
                 }
 
-                if (IsClaimClosed)
-                {
-                    if (ClaimTotalPaid <= 0)
-                    {
-                        UpdateResultAsync(Result.HasError, "Số tiền bồi thường phải lớn hơn 0");
-                    }
-                    else
-                    {
-                        UpdateResultAsync(Result.ExcludeError, "Số tiền bồi thường phải lớn hơn 0");
-                    }
-                }
-                else
+                if (!IsClaimClosed)
                 {
                     if (String.IsNullOrEmpty(ClaimProgressRemarks) || String.IsNullOrWhiteSpace(ClaimProgressRemarks))
                         return false;

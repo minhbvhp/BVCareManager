@@ -36,13 +36,29 @@ namespace BVCareManager.Models
             }
         }
 
+        public bool HasCoveredClaim
+        {
+            get
+            {
+                if (this.Claims.Count == 0)
+                    return true;
+
+                return false;
+            }
+        }
+
         public int RefundPremium {
             get
             {
-                double refundDays = (this.Contract.ToDate - this.ToDate).TotalDays;
-                double _refundPremium = this.Contract.AnnualPremiumPerInsured * refundDays / 365;
+                if (HasCoveredClaim)
+                {
+                    double refundDays = (this.Contract.ToDate - this.ToDate).TotalDays;
+                    double _refundPremium = this.Contract.AnnualPremiumPerInsured * refundDays / 365;
 
-                return (int)Math.Round(_refundPremium, MidpointRounding.AwayFromZero);
+                    return (int)Math.Round(_refundPremium, MidpointRounding.AwayFromZero);
+                }
+
+                return 0;
             }
         }
 

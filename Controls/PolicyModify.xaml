@@ -77,6 +77,13 @@
                             <TextBlock Text="Phí" TextWrapping="Wrap"/>
                         </DataGridTextColumn.Header>
                     </DataGridTextColumn>
+
+                    <DataGridTextColumn Binding="{Binding RefundPremium, 
+                        Converter={StaticResource NumberFormatConverter}, ConverterParameter='N0', ConverterCulture='is-IS'}">
+                        <DataGridTextColumn.Header>
+                            <TextBlock Text="Phí hoàn" TextWrapping="Wrap"/>
+                        </DataGridTextColumn.Header>
+                    </DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
         </DockPanel>
@@ -96,6 +103,13 @@
                     <StackPanel VerticalAlignment="Center">
                         <materialDesign:PackIcon HorizontalAlignment="Center" Margin="0 0 0 5"
                                                  Kind="Warning" Height="40" Width="40" Foreground="Red"/>
+
+                        <TextBlock Grid.Row="1" HorizontalAlignment="Center" 
+                                   TextWrapping="Wrap" TextAlignment="Justify" Foreground="Red">
+                            <Run Text="Toàn bộ"/>
+                            <Run FontWeight="Bold" Text="Bồi thường"/>
+                            <Run Text="của đơn này cũng sẽ bị xóa."/>
+                        </TextBlock>
                     </StackPanel>
 
                     <TextBlock Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center"

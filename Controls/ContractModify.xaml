@@ -82,6 +82,8 @@
                                    TextWrapping="Wrap" TextAlignment="Justify" Foreground="Red">                            
                             <Run Text="Toàn bộ"/>
                             <Run FontWeight="Bold" Text="Đơn bảo hiểm"/>
+                            <Run Text="và"/>
+                            <Run FontWeight="Bold" Text="Bồi thường"/>
                             <Run Text="của Hợp đồng này cũng sẽ bị xóa."/>
                         </TextBlock>
                     </StackPanel>
