@@ -36,21 +36,30 @@ namespace BVCareManager.Models
             }
         }
 
-        public bool HasCoveredClaim
+        public bool CouldBeRefunded
         {
             get
             {
                 if (this.Claims.Count == 0)
+                {
                     return true;
-
-                return false;
+                }
+                else
+                {
+                    foreach (Claim claim in this.Claims)
+                    {
+                        if (claim.TotalPaid != 0)
+                            return false;                        
+                    }
+                    return true;
+                }
             }
         }
 
         public int RefundPremium {
             get
             {
-                if (HasCoveredClaim)
+                if (CouldBeRefunded)
                 {
                     double refundDays = (this.Contract.ToDate - this.ToDate).TotalDays;
                     double _refundPremium = this.Contract.AnnualPremiumPerInsured * refundDays / 365;
