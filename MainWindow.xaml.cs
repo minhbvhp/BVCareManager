@@ -36,6 +36,7 @@ namespace BVCareManager
             ComboBoxSearchCategory.SelectedIndex = 0;
             ClaimManagerDockPanel.Children.Add(new ClaimManager());
             ClaimGrid.DataContext = new ClaimBaseViewModel();
+            ReportDockPanel.DataContext = new ReviewViewModel();
         }
 
         private void CreateNewListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)

@@ -36,7 +36,7 @@ namespace BVCareManager.Models
             }
         }
 
-        public bool CouldBeRefunded
+        private bool CouldBeRefunded
         {
             get
             {
@@ -79,10 +79,21 @@ namespace BVCareManager.Models
             
         }
 
-        public bool IsShortTerm {
+        public bool IsFollowingAdded {
             get
             {
-                if (this.FromDate > this.Contract.FromDate || this.ToDate < this.Contract.ToDate)
+                if (this.FromDate > this.Contract.FromDate)
+                    return true;
+
+                return false;
+            }
+        }
+
+        public bool IsEarlyResigned
+        {
+            get
+            {
+                if (this.ToDate < this.Contract.ToDate)
                     return true;
 
                 return false;

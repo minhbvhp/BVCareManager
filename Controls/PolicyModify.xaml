@@ -28,7 +28,7 @@
 
         <DockPanel Grid.Column="0" Margin="0 0 100 0" ScrollViewer.VerticalScrollBarVisibility="Auto">
             <DataGrid x:Name="PoliciesResultDataGrid" ItemsSource="{Binding ListPolicies}" AutoGenerateColumns="False" 
-                      MaxHeight="370" VerticalAlignment="Top" Background="#FFCFCFCF"
+                      MaxHeight="370" VerticalAlignment="Top" Background="#FFCFCFCF" SelectionMode="Single"
                       IsReadOnly="True" ClipboardCopyMode="None" ColumnWidth="*" HeadersVisibility="All"
                       LoadingRow="PoliciesResultDataGrid_LoadingRow" SelectedItem="{Binding SelectedPolicy}">
                 <DataGrid.Columns>
@@ -75,13 +75,6 @@
                         Converter={StaticResource NumberFormatConverter}, ConverterParameter='N0', ConverterCulture='is-IS'}">
                         <DataGridTextColumn.Header>
                             <TextBlock Text="Phí" TextWrapping="Wrap"/>
-                        </DataGridTextColumn.Header>
-                    </DataGridTextColumn>
-
-                    <DataGridTextColumn Binding="{Binding RefundPremium, 
-                        Converter={StaticResource NumberFormatConverter}, ConverterParameter='N0', ConverterCulture='is-IS'}">
-                        <DataGridTextColumn.Header>
-                            <TextBlock Text="Phí hoàn" TextWrapping="Wrap"/>
                         </DataGridTextColumn.Header>
                     </DataGridTextColumn>
                 </DataGrid.Columns>

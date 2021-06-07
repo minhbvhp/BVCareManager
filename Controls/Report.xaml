@@ -21,27 +21,30 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Grid>
-            <DockPanel Margin="0 25 0 0">
-                <Grid>
-                    <DockPanel HorizontalAlignment="Center">
-                        <Button IsDefault="True" IsTabStop="False"
-                                HorizontalAlignment="Left" VerticalAlignment="Top"
-                                Width="32" Height="32"
-                                Style="{StaticResource MaterialDesignFloatingActionDarkButton}">
-                            <materialDesign:PackIcon Kind="Refresh" Height="24" Width="24"/>
-                        </Button>
+        <Grid Background="#FFFBE7E7">
+            <Border BorderThickness="0 0 0 1.5" BorderBrush="#673ab7">
+                <DockPanel>
+                    <ComboBox x:Name="ContractIdComboBox" Width="250" Margin="40 0 30 0"
+                              Grid.Column="0"  materialDesign:HintAssist.Hint="Số hợp đồng" 
+                              VerticalAlignment="Center" HorizontalAlignment="Center"
+                              Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                              SelectionChanged="ContractIdComboBox_SelectionChanged"
+                              ItemsSource="{Binding ContractList}"
+                              SelectedValue="{Binding SelectedContractId, Mode=TwoWay}"
+                              SelectedValuePath="Id" DisplayMemberPath="Id">
+                    </ComboBox>
 
-                        <ComboBox Width="250"
-                                  Grid.Column="0"  materialDesign:HintAssist.Hint="Số hợp đồng" 
-                                  VerticalAlignment="Top" HorizontalAlignment="Right"
-                                  Style="{StaticResource MaterialDesignFloatingHintComboBox}" 
-                                  Margin="15, 0, 0, 0">
-                        </ComboBox>
-
-                    </DockPanel>
-                </Grid>
-            </DockPanel>
+                    <Button x:Name="RefreshButton" IsDefault="True" IsTabStop="False"
+                            HorizontalAlignment="Left" VerticalAlignment="Center"
+                            Width="32" Height="32"
+                            Style="{StaticResource MaterialDesignIconForegroundButton}"
+                            Click="RefreshButton_Click"
+                            Command="{Binding RefreshCommand}">
+                        <materialDesign:PackIcon Kind="Autorenew" Height="24" Width="24"/>
+                    </Button>
+                </DockPanel>
+            </Border>
+            
         </Grid>
 
         <DockPanel Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top">
@@ -62,7 +65,10 @@
                     <TextBlock Text="Tổng số đơn" HorizontalAlignment="Right" FontFamily="Champagne &amp; Limousines" Margin="10" VerticalAlignment="Top" Foreground="Gray"/>
 
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10 0 10 15">
-                        <TextBlock Text="63" FontFamily="Champagne &amp; Limousines" VerticalAlignment="Center" Foreground="DarkSlateGray" FontSize="50" FontWeight="DemiBold"/>
+                        <TextBlock Text="{Binding SelectedContract.Policies.Count}" 
+                                   FontFamily="Champagne &amp; Limousines" 
+                                   VerticalAlignment="Center" Foreground="DarkSlateGray"
+                                   FontSize="50" FontWeight="DemiBold"/>
                     </StackPanel>
                 </Grid>
             </Grid>
@@ -84,7 +90,11 @@
                     <TextBlock Text="Phí tăng/hoàn" HorizontalAlignment="Right" FontFamily="Champagne &amp; Limousines" Margin="10" VerticalAlignment="Top" Foreground="Gray"/>
 
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10 0 0 25">
-                        <TextBlock Text="(200.000.000)" FontFamily="Champagne &amp; Limousines" VerticalAlignment="Center" Foreground="DarkSlateGray" FontSize="30" FontWeight="DemiBold"/>
+                        <TextBlock Text="{Binding Balance, Converter={StaticResource NumberFormatConverter}, ConverterParameter='N0', ConverterCulture='is-IS'}" 
+                                   FontFamily="Champagne &amp; Limousines" 
+                                   VerticalAlignment="Center" 
+                                   Foreground="DarkSlateGray" 
+                                   FontSize="30" FontWeight="DemiBold"/>
                     </StackPanel>
                 </Grid>
             </Grid>
@@ -112,8 +122,8 @@
             </Grid>
         </DockPanel>
 
-        <Grid Grid.Row="2" Margin="0 0 0 50">
-            <Border x:Name="DetailsBorder" CornerRadius="20" Margin="25 30 15 15" Width="600" HorizontalAlignment="Left" Visibility="Collapsed">
+        <Grid Grid.Row="2" Margin="0 0 0 50" x:Name="DetailsGrid" Visibility="Collapsed">
+            <Border x:Name="DetailsBorder" CornerRadius="20" Margin="25 30 15 15" Width="600" HorizontalAlignment="Left">
                 <Border.Effect>
                     <DropShadowEffect BlurRadius="20" Color="#FFDEDEDE" RenderingBias="Quality" ShadowDepth="1"/>
                 </Border.Effect>

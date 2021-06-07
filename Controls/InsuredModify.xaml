@@ -21,7 +21,7 @@
 
         <DockPanel Grid.Column="0" Margin="0 0 100 0" ScrollViewer.VerticalScrollBarVisibility="Auto">
             <DataGrid x:Name="InsuredsResultDataGrid" ItemsSource="{Binding ListInsureds}" AutoGenerateColumns="False" 
-                      MaxHeight="370" VerticalAlignment="Top" Background="#FFCFCFCF"
+                      MaxHeight="370" VerticalAlignment="Top" Background="#FFCFCFCF" SelectionMode="Single"
                       IsReadOnly="True" ClipboardCopyMode="None" ColumnWidth="*" HeadersVisibility="All" 
                       LoadingRow="InsuredsResultDataGrid_LoadingRow" SelectedItem="{Binding SelectedInsured}">
                 <DataGrid.Columns>

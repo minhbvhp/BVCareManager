@@ -163,6 +163,7 @@
     <Compile Include="ViewModels\NewInsuredViewModel.cs" />
     <Compile Include="ViewModels\NewPolicyViewModel.cs" />
     <Compile Include="Converter\Result.cs" />
+    <Compile Include="ViewModels\ReviewViewModel.cs" />
     <Page Include="Controls\ClaimManager.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

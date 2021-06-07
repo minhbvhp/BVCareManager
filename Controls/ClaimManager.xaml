@@ -48,7 +48,7 @@
                     <DataGrid x:Name="NotYetClosedClaimDataGrid" Grid.Row="1" 
                               ItemsSource="{Binding ListNotYetClosedClaim}" AutoGenerateColumns="False"
                               IsReadOnly="True" ClipboardCopyMode="None" ColumnWidth="*" HeadersVisibility="All"
-                              Foreground="IndianRed"
+                              Foreground="IndianRed" SelectionMode="Single"
                               LostFocus="NotYetClosedClaimDataGrid_LostFocus"
                               SelectedItem="{Binding SelectedNotYetClosedClaim}">
                         <DataGrid.Columns>
@@ -80,7 +80,7 @@
                     <DataGrid x:Name="ClosedDataGrid" Grid.Row="1" 
                               ItemsSource="{Binding ListClosedClaim}" AutoGenerateColumns="False"
                               IsReadOnly="True" ClipboardCopyMode="None" ColumnWidth="*" HeadersVisibility="All"
-                              Foreground="DarkGreen"
+                              Foreground="DarkGreen" SelectionMode="Single"
                               LostFocus="ClosedDataGrid_LostFocus"
                               SelectedItem="{Binding SelectedClosedClaim}">
                         <DataGrid.Columns>
@@ -125,7 +125,7 @@
                 </Grid.ColumnDefinitions>
 
                 <DockPanel>
-                    <DataGrid x:Name="InsuredsResultDataGrid" Background="#B6B6B6"
+                    <DataGrid x:Name="InsuredsResultDataGrid" Background="#B6B6B6" SelectionMode="Single"
                           ItemsSource="{Binding ListInsureds}" AutoGenerateColumns="False"                          
                           IsReadOnly="True" ClipboardCopyMode="None" HeadersVisibility="All"
                           SelectedItem="{Binding SelectedInsured}">

@@ -27,20 +27,31 @@ namespace BVCareManager.Controls
 
         private void TotalPoliciesGrid_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            DetailsBorder.Visibility = Visibility.Visible;
+            DetailsGrid.Visibility = Visibility.Visible;
             DetailsBorder.Background = TotalPoliciesColor.Background;
         }
 
         private void PremiumChangeGrid_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            DetailsBorder.Visibility = Visibility.Visible;
+            DetailsGrid.Visibility = Visibility.Visible;
             DetailsBorder.Background = PremiumChangeColor.Background;
         }
 
         private void LossRateGrid_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            DetailsBorder.Visibility = Visibility.Visible;
+            DetailsGrid.Visibility = Visibility.Visible;
             DetailsBorder.Background = LossRateColor.Background;
+        }
+
+        private void RefreshButton_Click(object sender, RoutedEventArgs e)
+        {
+            DetailsGrid.Visibility = Visibility.Collapsed;
+
+        }
+
+        private void ContractIdComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            DetailsGrid.Visibility = Visibility.Collapsed;
         }
     }
 }
