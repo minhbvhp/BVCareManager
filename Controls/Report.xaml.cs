@@ -27,16 +27,19 @@ namespace BVCareManager.Controls
 
         private void TotalPoliciesGrid_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
+            DetailsBorder.Visibility = Visibility.Visible;
             DetailsBorder.Background = TotalPoliciesColor.Background;
         }
 
         private void PremiumChangeGrid_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
+            DetailsBorder.Visibility = Visibility.Visible;
             DetailsBorder.Background = PremiumChangeColor.Background;
         }
 
         private void LossRateGrid_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
+            DetailsBorder.Visibility = Visibility.Visible;
             DetailsBorder.Background = LossRateColor.Background;
         }
     }
