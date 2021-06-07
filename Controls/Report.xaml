@@ -17,6 +17,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="100"/>
+            <RowDefinition Height="180"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
@@ -30,7 +31,7 @@
                                 Style="{StaticResource MaterialDesignFloatingActionDarkButton}">
                             <materialDesign:PackIcon Kind="Refresh" Height="24" Width="24"/>
                         </Button>
-                        
+
                         <ComboBox Width="250"
                                   Grid.Column="0"  materialDesign:HintAssist.Hint="Số hợp đồng" 
                                   VerticalAlignment="Top" HorizontalAlignment="Right"
@@ -38,48 +39,39 @@
                                   Margin="15, 0, 0, 0">
                         </ComboBox>
 
-                        
                     </DockPanel>
                 </Grid>
             </DockPanel>
         </Grid>
 
-        <Grid>
-            <Grid.ColumnDefinitions>
-                
-            </Grid.ColumnDefinitions>
+        <DockPanel Grid.Row="1" HorizontalAlignment="Left">
+            <Grid Width="300" Grid.Row="1">
+                <Rectangle Height="120" Margin="20" Fill="White" RadiusY="10" RadiusX="10" >
+                    <Rectangle.Effect>
+                        <DropShadowEffect BlurRadius="20" Color="#FFDEDEDE" RenderingBias="Quality" ShadowDepth="1"/>
+                    </Rectangle.Effect>
+                </Rectangle>
 
-            <Grid.RowDefinitions>
-                
-            </Grid.RowDefinitions>
-        </Grid>
+                <Grid Margin="25" Height="120">
+                    <Grid Width="35" Height="50" Background="#FFFFAF24" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20 0">
+                        <Grid.Effect>
+                            <DropShadowEffect BlurRadius="20" Color="#FFECECEC" RenderingBias="Quality" ShadowDepth="1"/>
+                        </Grid.Effect>
+                        <materialDesign:PackIcon Kind="ContentCopy" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="5" Foreground="White" Width="20" Height="20"/>
+                    </Grid>
+                    <TextBlock Text="Số đơn" HorizontalAlignment="Right" FontFamily="Champagne &amp; Limousines" Margin="5" VerticalAlignment="Top" Foreground="Gray"/>
 
-        <Grid Width="300" Grid.Row="1">
-            <Rectangle Height="120" Margin="20" Fill="White" RadiusY="10" RadiusX="10" >
-                <Rectangle.Effect>
-                    <DropShadowEffect BlurRadius="20" Color="#FFDEDEDE" RenderingBias="Quality" ShadowDepth="1"/>
-                </Rectangle.Effect>
-            </Rectangle>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10 20">
+                        <TextBlock Text="63" FontFamily="Champagne &amp; Limousines" VerticalAlignment="Center" Foreground="Gray" FontSize="50"/>
+                        <!--<TextBlock Text="đơn" FontFamily="Champagne &amp; Limousines" Margin="0 5" Foreground="Gray" FontSize="20" VerticalAlignment="Bottom"/>-->
+                    </StackPanel>
 
-            <Grid Margin="25" Height="120">
-                <Grid Width="35" Height="50" Background="#FFFFAF24" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20 0">
-                    <Grid.Effect>
-                        <DropShadowEffect BlurRadius="20" Color="#FFECECEC" RenderingBias="Quality" ShadowDepth="1"/>
-                    </Grid.Effect>
-                    <materialDesign:PackIcon Kind="ContentCopy" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="5" Foreground="White" Width="20" Height="20"/>
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Margin="20">
+                        <materialDesign:PackIcon Kind="InfoCircle" Foreground="#FF8522BD" Width="10" Height="10" VerticalAlignment="Center" Margin="5 0"/>
+                        <TextBlock Text="10 đơn mới" FontSize="8" Foreground="#FF8522BD"/>
+                    </StackPanel>
                 </Grid>
-                <TextBlock Text="Số đơn" HorizontalAlignment="Right" FontFamily="Champagne &amp; Limousines" Margin="5" VerticalAlignment="Top" Foreground="Gray"/>
-
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10 20">
-                    <TextBlock Text="63" FontFamily="Champagne &amp; Limousines" VerticalAlignment="Center" Foreground="Gray" FontSize="50"/>
-                    <!--<TextBlock Text="đơn" FontFamily="Champagne &amp; Limousines" Margin="0 5" Foreground="Gray" FontSize="20" VerticalAlignment="Bottom"/>-->
-                </StackPanel>
-
-                <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Margin="20">
-                    <materialDesign:PackIcon Kind="InfoCircle" Foreground="#FF8522BD" Width="10" Height="10" VerticalAlignment="Center" Margin="5 0"/>
-                    <TextBlock Text="10 đơn mới" FontSize="8" Foreground="#FF8522BD"/>
-                </StackPanel>
             </Grid>
-        </Grid>
+        </DockPanel>
     </Grid>
 </UserControl>
