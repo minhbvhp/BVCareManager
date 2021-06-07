@@ -24,5 +24,20 @@ namespace BVCareManager.Controls
         {
             InitializeComponent();
         }
+
+        private void TotalPoliciesGrid_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            DetailsBorder.Background = TotalPoliciesColor.Background;
+        }
+
+        private void PremiumChangeGrid_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            DetailsBorder.Background = PremiumChangeColor.Background;
+        }
+
+        private void LossRateGrid_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            DetailsBorder.Background = LossRateColor.Background;
+        }
     }
 }

@@ -45,7 +45,7 @@
         </Grid>
 
         <DockPanel Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top">
-            <Grid Width="250">
+            <Grid x:Name="TotalPoliciesGrid" Width="250" Cursor="Hand" UIElement.PreviewMouseDown="TotalPoliciesGrid_PreviewMouseDown">
                 <Rectangle Height="120" Margin="20" Fill="White" RadiusY="10" RadiusX="10">
                     <Rectangle.Effect>
                         <DropShadowEffect BlurRadius="20" Color="#FFDEDEDE" RenderingBias="Quality" ShadowDepth="1"/>
@@ -53,21 +53,21 @@
                 </Rectangle>
 
                 <Grid Margin="25" Height="120">
-                    <Grid Width="35" Height="50" Background="#FF41A43C" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20 0">
+                    <Grid x:Name="TotalPoliciesColor" Width="35" Height="50" Background="#FF41A43C" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20 0">
                         <Grid.Effect>
                             <DropShadowEffect BlurRadius="20" Color="#FFECECEC" RenderingBias="Quality" ShadowDepth="1"/>
                         </Grid.Effect>
                         <materialDesign:PackIcon Kind="ContentCopy" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="5" Foreground="White" Width="20" Height="20"/>
                     </Grid>
-                    <TextBlock Text="Đơn hiện tại" HorizontalAlignment="Right" FontFamily="Champagne &amp; Limousines" Margin="10" VerticalAlignment="Top" Foreground="Gray"/>
+                    <TextBlock Text="Tổng số đơn" HorizontalAlignment="Right" FontFamily="Champagne &amp; Limousines" Margin="10" VerticalAlignment="Top" Foreground="Gray"/>
 
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10 0 10 15">
-                        <TextBlock Text="63" FontFamily="Champagne &amp; Limousines" VerticalAlignment="Center" FontSize="50" FontWeight="DemiBold"/>
+                        <TextBlock Text="63" FontFamily="Champagne &amp; Limousines" VerticalAlignment="Center" Foreground="DarkSlateGray" FontSize="50" FontWeight="DemiBold"/>
                     </StackPanel>
                 </Grid>
             </Grid>
 
-            <Grid Width="250">
+            <Grid x:Name="PremiumChangeGrid" Width="250" Cursor="Hand" UIElement.PreviewMouseDown="PremiumChangeGrid_PreviewMouseDown">
                 <Rectangle Height="120" Margin="20" Fill="White" RadiusY="10" RadiusX="10">
                     <Rectangle.Effect>
                         <DropShadowEffect BlurRadius="20" Color="#FFDEDEDE" RenderingBias="Quality" ShadowDepth="1"/>
@@ -75,7 +75,7 @@
                 </Rectangle>
 
                 <Grid Margin="25" Height="120">
-                    <Grid Width="35" Height="50" Background="#FFFFAF24" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20 0">
+                    <Grid x:Name="PremiumChangeColor" Width="35" Height="50" Background="#FFFFAF24" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20 0">
                         <Grid.Effect>
                             <DropShadowEffect BlurRadius="20" Color="#FFECECEC" RenderingBias="Quality" ShadowDepth="1"/>
                         </Grid.Effect>
@@ -84,12 +84,12 @@
                     <TextBlock Text="Phí tăng/hoàn" HorizontalAlignment="Right" FontFamily="Champagne &amp; Limousines" Margin="10" VerticalAlignment="Top" Foreground="Gray"/>
 
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10 0 0 25">
-                        <TextBlock Text="(200.000.000)" FontFamily="Champagne &amp; Limousines" VerticalAlignment="Center" FontSize="30" FontWeight="DemiBold"/>
+                        <TextBlock Text="(200.000.000)" FontFamily="Champagne &amp; Limousines" VerticalAlignment="Center" Foreground="DarkSlateGray" FontSize="30" FontWeight="DemiBold"/>
                     </StackPanel>
                 </Grid>
             </Grid>
 
-            <Grid Width="250">
+            <Grid x:Name="LossRateGrid" Width="250" Cursor="Hand" UIElement.PreviewMouseDown="LossRateGrid_PreviewMouseDown">
                 <Rectangle Height="120" Margin="20" Fill="White" RadiusY="10" RadiusX="10">
                     <Rectangle.Effect>
                         <DropShadowEffect BlurRadius="20" Color="#FFDEDEDE" RenderingBias="Quality" ShadowDepth="1"/>
@@ -97,7 +97,7 @@
                 </Rectangle>
 
                 <Grid Margin="25" Height="120">
-                    <Grid Width="35" Height="50" Background="#FFCF1F1F" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20 0">
+                    <Grid x:Name="LossRateColor" Width="35" Height="50" Background="#FFCF1F1F" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20 0">
                         <Grid.Effect>
                             <DropShadowEffect BlurRadius="20" Color="#FFECECEC" RenderingBias="Quality" ShadowDepth="1"/>
                         </Grid.Effect>
@@ -106,10 +106,24 @@
                     <TextBlock Text="Tỷ lệ bồi thường" HorizontalAlignment="Right" FontFamily="Champagne &amp; Limousines" Margin="10" VerticalAlignment="Top" Foreground="Gray"/>
 
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10 0 10 15">
-                        <TextBlock Text="63%" FontFamily="Champagne &amp; Limousines" VerticalAlignment="Center" FontSize="50" FontWeight="DemiBold"/>
+                        <TextBlock Text="63%" FontFamily="Champagne &amp; Limousines" VerticalAlignment="Center" Foreground="DarkSlateGray" FontSize="50" FontWeight="DemiBold"/>
                     </StackPanel>
                 </Grid>
             </Grid>
         </DockPanel>
+
+        <Grid Grid.Row="2" Margin="0 0 0 30">
+            <Border x:Name="DetailsBorder" CornerRadius="20" Background="#FFCF1F1F" Margin="20" Width="600" HorizontalAlignment="Left">
+                <Border.Effect>
+                    <DropShadowEffect BlurRadius="20" Color="#FFDEDEDE" RenderingBias="Quality" ShadowDepth="1"/>
+                </Border.Effect>
+
+                <Border CornerRadius="20" Background="White" Margin="0 0 0 4" Width="600" HorizontalAlignment="Left">
+                    <Border.Effect>
+                        <DropShadowEffect BlurRadius="20" Color="#FFDEDEDE" RenderingBias="Quality" ShadowDepth="1"/>
+                    </Border.Effect>
+                </Border>
+            </Border>
+        </Grid>
     </Grid>
 </UserControl>
