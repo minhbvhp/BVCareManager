@@ -60,7 +60,7 @@
                         <Grid.Effect>
                             <DropShadowEffect BlurRadius="20" Color="#FFECECEC" RenderingBias="Quality" ShadowDepth="1"/>
                         </Grid.Effect>
-                        <materialDesign:PackIcon Kind="ContentCopy" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="5" Foreground="White" Width="20" Height="20"/>
+                        <materialDesign:PackIcon Kind="FileDocumentBoxes" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="5" Foreground="White" Width="20" Height="20"/>
                     </Grid>
                     <TextBlock Text="Tổng số đơn" HorizontalAlignment="Right" FontFamily="Champagne &amp; Limousines" Margin="10" VerticalAlignment="Top" Foreground="Gray"/>
 
@@ -85,7 +85,7 @@
                         <Grid.Effect>
                             <DropShadowEffect BlurRadius="20" Color="#FFECECEC" RenderingBias="Quality" ShadowDepth="1"/>
                         </Grid.Effect>
-                        <materialDesign:PackIcon Kind="ContentCopy" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="5" Foreground="White" Width="20" Height="20"/>
+                        <materialDesign:PackIcon Kind="ScaleBalance" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="5" Foreground="White" Width="20" Height="20"/>
                     </Grid>
                     <TextBlock Text="Phí tăng/hoàn" HorizontalAlignment="Right" FontFamily="Champagne &amp; Limousines" Margin="10" VerticalAlignment="Top" Foreground="Gray"/>
 
@@ -111,7 +111,7 @@
                         <Grid.Effect>
                             <DropShadowEffect BlurRadius="20" Color="#FFECECEC" RenderingBias="Quality" ShadowDepth="1"/>
                         </Grid.Effect>
-                        <materialDesign:PackIcon Kind="ContentCopy" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="5" Foreground="White" Width="20" Height="20"/>
+                        <materialDesign:PackIcon Kind="PercentOutline" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="5" Foreground="White" Width="20" Height="20"/>
                     </Grid>
                     <TextBlock Text="Tỷ lệ bồi thường" HorizontalAlignment="Right" FontFamily="Champagne &amp; Limousines" Margin="10" VerticalAlignment="Top" Foreground="Gray"/>
 
@@ -122,7 +122,7 @@
             </Grid>
         </DockPanel>
 
-        <Grid Grid.Row="2" Margin="0 0 0 50" x:Name="DetailsGrid" Visibility="Collapsed">
+        <Grid Grid.Row="2" Margin="0 0 0 50" x:Name="DetailsGrid" Visibility="Visible">
             <Border x:Name="DetailsBorder" CornerRadius="20" Margin="25 30 15 15" Width="600" HorizontalAlignment="Left">
                 <Border.Effect>
                     <DropShadowEffect BlurRadius="20" Color="#FFDEDEDE" RenderingBias="Quality" ShadowDepth="1"/>
@@ -133,6 +133,23 @@
                 <Border.Effect>
                     <DropShadowEffect BlurRadius="20" Color="#FFDEDEDE" RenderingBias="Quality" ShadowDepth="1"/>
                 </Border.Effect>
+
+                <DockPanel Margin="20">
+                    <Grid x:Name="DetailsTotalPolicies">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <ListView HorizontalAlignment="Center" VerticalAlignment="Center"
+                                  ItemsSource="{Binding FollowingAddedPolicies}" SelectionMode="Single"/>
+
+                        <ListView Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                  ItemsSource="{Binding EarlyResignedPolices}" SelectionMode="Single"/>
+
+
+                    </Grid>
+                </DockPanel>
             </Border>
         </Grid>
     </Grid>
