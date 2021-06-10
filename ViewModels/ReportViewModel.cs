@@ -31,6 +31,7 @@ namespace BVCareManager.ViewModels
                 OnPropertyChanged("Balance");
                 OnPropertyChanged("FollowingAddedPolicies");
                 OnPropertyChanged("EarlyResignedPolices");
+                OnPropertyChanged("AllPolicies");
             }
         }
         public Contract SelectedContract 
@@ -90,6 +91,24 @@ namespace BVCareManager.ViewModels
             get
             {
                 return TotalAdditionalPremium - TotalRefundPremium;
+            }
+        }
+
+        public ObservableCollection<Policy> AllPolicies
+        {
+            get
+            {
+                PolicyRepository policyRepository = new PolicyRepository();
+                if (!String.IsNullOrEmpty(SelectedContractId))
+                {
+                    var _allPoliciesOfContract = from policy in policyRepository.FindAllPolicies()
+                                                 where policy.ContractId == SelectedContractId
+                                                 select policy;
+
+                    return new ObservableCollection<Policy>(_allPoliciesOfContract);
+                }
+
+                return null;
             }
         }
 

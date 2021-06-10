@@ -99,7 +99,7 @@
                 </Grid>
             </Grid>
 
-            <Grid x:Name="LossRateGrid" Width="250" Cursor="Hand" UIElement.PreviewMouseDown="LossRateGrid_PreviewMouseDown">
+            <Grid x:Name="LossRatioGrid" Width="250" Cursor="Hand" UIElement.PreviewMouseDown="LossRatioGrid_PreviewMouseDown">
                 <Rectangle Height="120" Margin="20" Fill="White" RadiusY="10" RadiusX="10">
                     <Rectangle.Effect>
                         <DropShadowEffect BlurRadius="20" Color="#FFDEDEDE" RenderingBias="Quality" ShadowDepth="1"/>
@@ -122,20 +122,157 @@
             </Grid>
         </DockPanel>
 
-        <Grid Grid.Row="2" Margin="0 0 0 50" x:Name="DetailsGrid" Visibility="Visible">
-            <Border x:Name="DetailsBorder" CornerRadius="20" Margin="25 30 15 15" Width="900" HorizontalAlignment="Left">
+        <Grid Grid.Row="2" Margin="0 0 0 5" x:Name="DetailsGrid" Visibility="Visible">
+            <Border x:Name="DetailsBorder" CornerRadius="20" Margin="25 30 15 15" Width="1000" HorizontalAlignment="Left">
                 <Border.Effect>
                     <DropShadowEffect BlurRadius="20" Color="#FFDEDEDE" RenderingBias="Quality" ShadowDepth="1"/>
                 </Border.Effect>
             </Border>
 
-            <Border CornerRadius="20" Background="White" Margin="20" Width="900" HorizontalAlignment="Left">
+            <Border CornerRadius="20" Background="White" Margin="20" Width="1000" HorizontalAlignment="Left">
                 <Border.Effect>
                     <DropShadowEffect BlurRadius="20" Color="#FFDEDEDE" RenderingBias="Quality" ShadowDepth="1"/>
                 </Border.Effect>
 
-                <DockPanel Margin="20">
-                    <Grid x:Name="DetailsTotalPolicies">
+                <StackPanel Margin="20">
+                    <Grid x:Name="DetailsTotalPolicies" Visibility="Collapsed">
+                        <DockPanel Margin="10">
+                            <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="5" Height="200">
+                                <DataGrid x:Name="PoliciesDataGrid"
+                                      ItemsSource="{Binding AllPolicies}" SelectionMode="Single"
+                                      AutoGenerateColumns="False" LoadingRow="PoliciesDataGrid_LoadingRow">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Binding="{Binding Number}" Width="75">
+                                            <DataGridTextColumn.Header>
+                                                <TextBlock Text="Số đơn" TextWrapping="Wrap"/>
+                                            </DataGridTextColumn.Header>
+                                        </DataGridTextColumn>
+
+                                        <DataGridTextColumn Binding="{Binding Insured.Id}">
+                                            <DataGridTextColumn.Header>
+                                                <TextBlock Text="Số CMT/CCCD" TextWrapping="Wrap"/>
+                                            </DataGridTextColumn.Header>
+                                        </DataGridTextColumn>
+
+                                        <DataGridTextColumn Binding="{Binding Insured.Name}">
+                                            <DataGridTextColumn.Header>
+                                                <TextBlock Text="Họ tên" TextWrapping="Wrap"/>
+                                            </DataGridTextColumn.Header>
+                                        </DataGridTextColumn>
+
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </Border>
+                        </DockPanel>
+                    </Grid>
+                    
+                    <Grid x:Name="DetailsPremiumChange" Visibility="Visible">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Margin="10">
+                            <TextBlock Text="Tăng:" FontWeight="DemiBold" Margin="0 0 0 5"/>
+
+                            <DockPanel>
+                                <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="5" Height="200">
+                                    <DataGrid ItemsSource="{Binding FollowingAddedPolicies}" SelectionMode="Single"
+                                              AutoGenerateColumns="False" IsReadOnly="True" SelectionUnit="Cell">
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn Binding="{Binding Number}" Width="75">
+                                                <DataGridTextColumn.Header>
+                                                    <TextBlock Text="Số đơn" TextWrapping="Wrap"/>
+                                                </DataGridTextColumn.Header>
+                                            </DataGridTextColumn>
+
+                                            <DataGridTextColumn Binding="{Binding Insured.Name}">
+                                                <DataGridTextColumn.Header>
+                                                    <TextBlock Text="Họ tên" TextWrapping="Wrap"/>
+                                                </DataGridTextColumn.Header>
+                                            </DataGridTextColumn>
+
+                                            <DataGridTextColumn Binding="{Binding FromDate, StringFormat='dd/MM/yyyy'}">
+                                                <DataGridTextColumn.Header>
+                                                    <TextBlock Text="Ngày tăng" TextWrapping="Wrap"/>
+                                                </DataGridTextColumn.Header>
+                                            </DataGridTextColumn>
+
+                                            <DataGridTextColumn Binding="{Binding AdditionalPremium, 
+                                            Converter={StaticResource NumberFormatConverter}, ConverterParameter='N0', ConverterCulture='is-IS'}">
+                                                <DataGridTextColumn.ElementStyle>
+                                                    <Style TargetType="{x:Type TextBlock}">
+                                                        <Setter Property="HorizontalAlignment" Value="Right"/>
+                                                    </Style>
+                                                </DataGridTextColumn.ElementStyle>
+                                                
+                                                <DataGridTextColumn.Header>
+                                                    <TextBlock Text="Phí tăng" TextWrapping="Wrap"/>
+                                                </DataGridTextColumn.Header>
+                                            </DataGridTextColumn>
+                                        </DataGrid.Columns>
+                                    </DataGrid>
+                                </Border>
+                            </DockPanel>
+
+                            <TextBlock HorizontalAlignment="Right" Margin="0 5 10 0">
+                                <Run Text="Tổng:"/>
+                                <Run FontWeight="SemiBold" Text="120.000.000"/>
+                            </TextBlock>
+                        </StackPanel>
+
+
+                        <StackPanel Margin="10" Grid.Column="1">
+                            <TextBlock Text="Giảm:" FontWeight="DemiBold" Margin="0 0 0 5"/>
+
+                            <DockPanel>
+                                <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="5" Height="200">
+                                    <DataGrid ItemsSource="{Binding EarlyResignedPolices}" SelectionMode="Single"
+                                              AutoGenerateColumns="False" IsReadOnly="True" SelectionUnit="Cell">
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn Binding="{Binding Number}" Width="75">
+                                                <DataGridTextColumn.Header>
+                                                    <TextBlock Text="Số đơn" TextWrapping="Wrap"/>
+                                                </DataGridTextColumn.Header>
+                                            </DataGridTextColumn>
+
+                                            <DataGridTextColumn Binding="{Binding Insured.Name}">
+                                                <DataGridTextColumn.Header>
+                                                    <TextBlock Text="Họ tên" TextWrapping="Wrap"/>
+                                                </DataGridTextColumn.Header>
+                                            </DataGridTextColumn>
+
+                                            <DataGridTextColumn Binding="{Binding ToDate, StringFormat='dd/MM/yyyy'}">
+                                                <DataGridTextColumn.Header>
+                                                    <TextBlock Text="Ngày giảm" TextWrapping="Wrap"/>
+                                                </DataGridTextColumn.Header>
+                                            </DataGridTextColumn>
+
+                                            <DataGridTextColumn Binding="{Binding RefundPremium, 
+                                            Converter={StaticResource NumberFormatConverter}, ConverterParameter='N0', ConverterCulture='is-IS'}">
+                                                <DataGridTextColumn.ElementStyle>
+                                                    <Style TargetType="{x:Type TextBlock}">
+                                                        <Setter Property="HorizontalAlignment" Value="Right"/>
+                                                    </Style>
+                                                </DataGridTextColumn.ElementStyle>
+                                                
+                                                <DataGridTextColumn.Header>
+                                                    <TextBlock Text="Phí giảm" TextWrapping="Wrap"/>
+                                                </DataGridTextColumn.Header>
+                                            </DataGridTextColumn>
+                                        </DataGrid.Columns>
+                                    </DataGrid>
+                                </Border>
+                            </DockPanel>
+
+                            <TextBlock HorizontalAlignment="Right" Margin="0 5 10 0">
+                                <Run Text="Tổng:"/>
+                                <Run FontWeight="SemiBold" Text="120.000.000"/>
+                            </TextBlock>
+                        </StackPanel>
+                    </Grid>
+
+                    <Grid x:Name="DetailsLossRatio" Visibility="Collapsed">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
@@ -186,7 +323,7 @@
                             </DataGrid>
                         </StackPanel>
                     </Grid>
-                </DockPanel>
+                </StackPanel>
             </Border>
         </Grid>
     </Grid>

@@ -130,11 +130,7 @@
                           IsReadOnly="True" ClipboardCopyMode="None" HeadersVisibility="All"
                           SelectedItem="{Binding SelectedInsured}">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Binding="{Binding Name}">
-                                <DataGridTextColumn.Header>
-                                    <TextBlock Text="Nhân viên" TextWrapping="Wrap"/>
-                                </DataGridTextColumn.Header>
-                            </DataGridTextColumn>
+                            <DataGridTextColumn Binding="{Binding Name}"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </DockPanel>
