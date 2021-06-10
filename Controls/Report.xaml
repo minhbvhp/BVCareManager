@@ -123,13 +123,13 @@
         </DockPanel>
 
         <Grid Grid.Row="2" Margin="0 0 0 50" x:Name="DetailsGrid" Visibility="Visible">
-            <Border x:Name="DetailsBorder" CornerRadius="20" Margin="25 30 15 15" Width="600" HorizontalAlignment="Left">
+            <Border x:Name="DetailsBorder" CornerRadius="20" Margin="25 30 15 15" Width="900" HorizontalAlignment="Left">
                 <Border.Effect>
                     <DropShadowEffect BlurRadius="20" Color="#FFDEDEDE" RenderingBias="Quality" ShadowDepth="1"/>
                 </Border.Effect>
             </Border>
 
-            <Border CornerRadius="20" Background="White" Margin="20" Width="600" HorizontalAlignment="Left">
+            <Border CornerRadius="20" Background="White" Margin="20" Width="900" HorizontalAlignment="Left">
                 <Border.Effect>
                     <DropShadowEffect BlurRadius="20" Color="#FFDEDEDE" RenderingBias="Quality" ShadowDepth="1"/>
                 </Border.Effect>
@@ -141,13 +141,50 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
 
-                        <ListView HorizontalAlignment="Center" VerticalAlignment="Center"
-                                  ItemsSource="{Binding FollowingAddedPolicies}" SelectionMode="Single"/>
+                        <StackPanel Margin="10">
+                            <TextBlock Text="Tăng:" FontWeight="DemiBold" Margin="0 0 0 5"/>
 
-                        <ListView Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"
-                                  ItemsSource="{Binding EarlyResignedPolices}" SelectionMode="Single"/>
+                            <DataGrid HorizontalAlignment="Left" VerticalAlignment="Top" Width="300"
+                                  ItemsSource="{Binding FollowingAddedPolicies}" SelectionMode="Single"
+                                  AutoGenerateColumns="False">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Binding="{Binding Number}" Width="75">
+                                        <DataGridTextColumn.Header>
+                                            <TextBlock Text="Số đơn" TextWrapping="Wrap"/>
+                                        </DataGridTextColumn.Header>
+                                    </DataGridTextColumn>
+
+                                    <DataGridTextColumn Binding="{Binding Insured.Name}">
+                                        <DataGridTextColumn.Header>
+                                            <TextBlock Text="Họ tên" TextWrapping="Wrap"/>
+                                        </DataGridTextColumn.Header>
+                                    </DataGridTextColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </StackPanel>
 
 
+                        <StackPanel Margin="10" Grid.Column="1">
+                            <TextBlock Text="Giảm:" FontWeight="DemiBold" Margin="0 0 0 5"/>
+
+                            <DataGrid HorizontalAlignment="Left" VerticalAlignment="Top" Width="300"
+                                  ItemsSource="{Binding EarlyResignedPolices}" SelectionMode="Single"
+                                  AutoGenerateColumns="False">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Binding="{Binding Number}" Width="75">
+                                        <DataGridTextColumn.Header>
+                                            <TextBlock Text="Số đơn" TextWrapping="Wrap"/>
+                                        </DataGridTextColumn.Header>
+                                    </DataGridTextColumn>
+
+                                    <DataGridTextColumn Binding="{Binding Insured.Name}">
+                                        <DataGridTextColumn.Header>
+                                            <TextBlock Text="Họ tên" TextWrapping="Wrap"/>
+                                        </DataGridTextColumn.Header>
+                                    </DataGridTextColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </StackPanel>
                     </Grid>
                 </DockPanel>
             </Border>

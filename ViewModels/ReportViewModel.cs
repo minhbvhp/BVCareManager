@@ -2,6 +2,7 @@
 using BVCareManager.Repository;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,7 +10,7 @@ using System.Windows.Input;
 
 namespace BVCareManager.ViewModels
 {
-    class ReviewViewModel : BaseViewModel
+    class ReportViewModel : BaseViewModel
     {
        
         public ICommand RefreshCommand { get; set; }
@@ -28,6 +29,8 @@ namespace BVCareManager.ViewModels
                 OnPropertyChanged("TotalAdditionalPremium");
                 OnPropertyChanged("TotalRefundPremium");
                 OnPropertyChanged("Balance");
+                OnPropertyChanged("FollowingAddedPolicies");
+                OnPropertyChanged("EarlyResignedPolices");
             }
         }
         public Contract SelectedContract 
@@ -90,7 +93,58 @@ namespace BVCareManager.ViewModels
             }
         }
 
-        public ReviewViewModel()
+        public ObservableCollection<Policy> FollowingAddedPolicies
+        {
+            get
+            {
+                PolicyRepository policyRepository = new PolicyRepository();
+                if (!String.IsNullOrEmpty(SelectedContractId))
+                {
+                    var _allPoliciesOfContract = from policy in policyRepository.FindAllPolicies()
+                                                 where policy.ContractId == SelectedContractId
+                                                 select policy;
+
+                    var _followingAddedPolicies = new ObservableCollection<Policy>();
+
+                    foreach (Policy policy in _allPoliciesOfContract)
+                    {
+                        if (policy.IsFollowingAdded)
+                            _followingAddedPolicies.Add(policy);
+                    }
+
+                    return new ObservableCollection<Policy>(_followingAddedPolicies);
+                }
+
+                return null;
+            }
+        }
+
+        public ObservableCollection<Policy> EarlyResignedPolices
+        {
+            get
+            {
+                PolicyRepository policyRepository = new PolicyRepository();
+                if (!String.IsNullOrEmpty(SelectedContractId))
+                {
+                    var _allPoliciesOfContract = from policy in policyRepository.FindAllPolicies()
+                                                 where policy.ContractId == SelectedContractId
+                                                 select policy;
+
+                    var _earlyAddedPolicies = new ObservableCollection<Policy>();
+
+                    foreach (Policy policy in _allPoliciesOfContract)
+                    {
+                        if (policy.IsEarlyResigned)
+                            _earlyAddedPolicies.Add(policy);
+                    }
+
+                    return new ObservableCollection<Policy>(_earlyAddedPolicies);
+                }
+
+                return null;
+            }
+        }
+        public ReportViewModel()
         {
             #region RefreshCommand
             RefreshCommand = new RelayCommand<object>((p) =>
