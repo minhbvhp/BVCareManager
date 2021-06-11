@@ -18,7 +18,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="100"/>
             <RowDefinition Height="180"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="340"/>
         </Grid.RowDefinitions>
 
         <Grid Background="#FFFBE7E7">
@@ -215,9 +215,10 @@
                                 </Border>
                             </DockPanel>
 
-                            <TextBlock HorizontalAlignment="Right" Margin="0 5 10 0">
+                            <TextBlock HorizontalAlignment="Right" Margin="0 5 20 0">
                                 <Run Text="Tổng:"/>
-                                <Run FontWeight="SemiBold" Text="120.000.000"/>
+                                <Run FontWeight="SemiBold" Text="{Binding TotalAdditionalPremium, Mode=OneWay,
+                                            Converter={StaticResource NumberFormatConverter}, ConverterParameter='N0', ConverterCulture='is-IS'}"/>
                             </TextBlock>
                         </StackPanel>
 
@@ -265,9 +266,10 @@
                                 </Border>
                             </DockPanel>
 
-                            <TextBlock HorizontalAlignment="Right" Margin="0 5 10 0">
+                            <TextBlock HorizontalAlignment="Right" Margin="0 5 20 0">
                                 <Run Text="Tổng:"/>
-                                <Run FontWeight="SemiBold" Text="120.000.000"/>
+                                <Run FontWeight="SemiBold" Text="{Binding TotalRefundPremium, Mode=OneWay,
+                                            Converter={StaticResource NumberFormatConverter}, ConverterParameter='N0', ConverterCulture='is-IS'}"/>
                             </TextBlock>
                         </StackPanel>
                     </Grid>
