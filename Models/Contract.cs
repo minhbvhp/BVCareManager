@@ -27,5 +27,28 @@ namespace BVCareManager.Models
                 return totalPremium;
             } 
         }
+
+        public int InitialTotalPremium
+        {
+            get
+            {
+                int initialTotalPremium = 0;
+
+                if (this.Policies.Count > 0)
+                {
+                    foreach (Policy policy in this.Policies)
+                    {
+                        if (policy.FromDate == this.FromDate)
+                            initialTotalPremium += policy.Premium;
+                    }
+                }
+                else
+                {
+                    initialTotalPremium = 0;
+                }
+
+                return initialTotalPremium;
+            }
+        }
     }
 }

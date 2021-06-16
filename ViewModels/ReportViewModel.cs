@@ -94,6 +94,19 @@ namespace BVCareManager.ViewModels
             }
         }
 
+        public float LossRatio
+        {
+            get
+            {
+                if (!String.IsNullOrEmpty(SelectedContractId))
+                {
+                    return SelectedContract.InitialTotalPremium;
+                }
+
+                return 0;
+            }
+        }
+
         public ObservableCollection<Policy> AllPolicies
         {
             get
