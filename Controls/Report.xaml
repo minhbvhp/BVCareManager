@@ -116,10 +116,10 @@
                     <TextBlock Text="Tỷ lệ bồi thường" HorizontalAlignment="Right" FontFamily="Champagne &amp; Limousines" Margin="10" VerticalAlignment="Top" Foreground="Gray"/>
 
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10 0 10 15">
-                        <TextBlock Text="{Binding LossRatio}"
+                        <TextBlock Text="{Binding LossRatio, StringFormat={}{0:#0.00'%'}}"
                                    FontFamily="Champagne &amp; Limousines" 
                                    VerticalAlignment="Center" Foreground="DarkSlateGray" 
-                                   FontSize="50" FontWeight="DemiBold"/>
+                                   FontSize="42" FontWeight="DemiBold"/>
                     </StackPanel>
                 </Grid>
             </Grid>

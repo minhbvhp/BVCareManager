@@ -82,7 +82,7 @@ namespace BVCareManager.Controls
 
         private void ClosedDataGrid_LostFocus(object sender, RoutedEventArgs e)
         {
-            NotYetClosedClaimDataGrid.UnselectAll();
+            ClosedDataGrid.UnselectAll();
         }
     }
 }

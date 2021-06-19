@@ -89,6 +89,15 @@ namespace BVCareManager.ViewModels
                 {
                     SelectedInsured = SelectedNotYetClosedClaim.Policy.Insured;
                     OnPropertyChanged("SelectedInsured");
+
+                    if (SelectedNotYetClosedClaim.ExaminationDate != null)
+                    {
+                        SelectedClaimIdForView = SelectedNotYetClosedClaim.Id;
+                        OnPropertyChanged("SelectedClaimIdForView");
+
+                        SelectedClaimId = SelectedNotYetClosedClaim.Id;
+                        OnPropertyChanged("SelectedClaimId");
+                    }
                 }                
             }
         }
@@ -104,7 +113,7 @@ namespace BVCareManager.ViewModels
 
                 foreach (var claim in _allClaims)
                 {
-                    if (claim.IsClosed == true)
+                    if (claim.IsClosed)
                         _listClosedClaim.Add(claim);
                 }
 
@@ -127,6 +136,15 @@ namespace BVCareManager.ViewModels
                 {
                     SelectedInsured = SelectedClosedClaim.Policy.Insured;
                     OnPropertyChanged("SelectedInsured");
+
+                    if (SelectedClosedClaim.ExaminationDate != null)
+                    {
+                        SelectedClaimIdForView = SelectedClosedClaim.Id;
+                        OnPropertyChanged("SelectedClaimIdForView");
+
+                        SelectedClaimId = SelectedClosedClaim.Id;
+                        OnPropertyChanged("SelectedClaimId");
+                    }
                 }
             }
         }

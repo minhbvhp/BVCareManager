@@ -29,6 +29,7 @@ namespace BVCareManager.ViewModels
                 OnPropertyChanged("TotalAdditionalPremium");
                 OnPropertyChanged("TotalRefundPremium");
                 OnPropertyChanged("Balance");
+                OnPropertyChanged("LossRatio");
                 OnPropertyChanged("FollowingAddedPolicies");
                 OnPropertyChanged("EarlyResignedPolices");
                 OnPropertyChanged("AllPolicies");
@@ -59,7 +60,7 @@ namespace BVCareManager.ViewModels
                     foreach (Policy policy in SelectedContract.Policies)
                     {
                         if (policy.IsFollowingAdded)
-                            _totalAdditionalPremium = _totalAdditionalPremium + policy.AdditionalPremium;
+                            _totalAdditionalPremium += policy.AdditionalPremium;
                     }
                 }
 
@@ -78,7 +79,7 @@ namespace BVCareManager.ViewModels
                     foreach (Policy policy in SelectedContract.Policies)
                     {
                         if (policy.IsEarlyResigned)
-                            _totalRefundPremium = _totalRefundPremium + policy.RefundPremium;
+                            _totalRefundPremium += policy.RefundPremium;
                     }
                 }
 
@@ -98,12 +99,27 @@ namespace BVCareManager.ViewModels
         {
             get
             {
+                float lossRatio = 0;
+
                 if (!String.IsNullOrEmpty(SelectedContractId))
                 {
-                    return SelectedContract.InitialTotalPremium;
+                    float totalPaid = 0;
+                    ClaimRepository claimRepository = new ClaimRepository();
+
+                    var _allClaim = from claim in claimRepository.FindAllClaims()
+                                   select claim;
+
+                    foreach (var claim in _allClaim)
+                    {
+                        if (claim.IsClosed)
+                            totalPaid += (int)claim.TotalPaid;
+                    }
+
+                    lossRatio = (totalPaid / SelectedContract.InitialTotalPremium) * 100;
+
                 }
 
-                return 0;
+                return lossRatio;
             }
         }
 

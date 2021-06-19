@@ -38,7 +38,7 @@
         </Grid.ColumnDefinitions>
 
         <StackPanel Grid.RowSpan="2" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto">
-            <Expander HorizontalAlignment="Stretch">
+            <Expander HorizontalAlignment="Stretch" IsExpanded="True">
                 <Expander.Header>
                     <TextBlock Text="Hồ sơ chưa giải quyết" FontWeight="Bold" FontSize="16" 
                                HorizontalAlignment="Center" Foreground="#f04393"/>
@@ -70,7 +70,7 @@
 
             <Border BorderBrush="{DynamicResource PrimaryHueMidBrush}" BorderThickness="0.5"/>
 
-            <Expander HorizontalAlignment="Stretch">
+            <Expander HorizontalAlignment="Stretch" IsExpanded="True">
                 <Expander.Header>
                     <TextBlock Text="Hồ sơ đã giải quyết" FontWeight="Bold" FontSize="16" 
                                HorizontalAlignment="Center" Foreground="DarkGreen"/>
