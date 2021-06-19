@@ -194,9 +194,7 @@
                 </TabItem>
 
                 <TabItem x:Name="ReportTab" Header="SỐ LIỆU TỔNG QUAN">
-                    <DockPanel x:Name="ReportDockPanel" Background="#FFCFCFCF">
-                        <controls:Report/>
-                    </DockPanel>
+                    <DockPanel x:Name="ReportDockPanel" Background="#FFCFCFCF"/>
                 </TabItem>
                 
                 

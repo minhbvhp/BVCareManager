@@ -34,7 +34,6 @@ namespace BVCareManager
             MyTabs.SelectedIndex = 0;
             CreateNewListBox.SelectedIndex = 0;
             ComboBoxSearchCategory.SelectedIndex = 0;
-            ReportDockPanel.DataContext = new ReportViewModel();
         }
 
         private void CreateNewListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -126,8 +125,21 @@ namespace BVCareManager
                 {
                     ClaimManagerDockPanel.Children.Add(new ClaimManager());
                     ClaimGrid.DataContext = new ClaimBaseViewModel();
+                }                    
+            }
+
+            if (ReportTab.IsSelected == false)
+            {
+                ReportDockPanel.Children.Clear();
+            }
+
+            if (ReportTab.IsSelected == true)
+            {
+                if (ReportDockPanel.Children.Count == 0)
+                {
+                    ReportDockPanel.Children.Add(new Report());
+                    ReportDockPanel.DataContext = new ReportViewModel();
                 }
-                    
             }
         }
 

@@ -125,7 +125,7 @@
             </Grid>
         </DockPanel>
 
-        <Grid Grid.Row="2" Margin="0 0 0 5" x:Name="DetailsGrid" Visibility="Visible">
+        <Grid Grid.Row="2" Margin="0 0 0 5" x:Name="DetailsGrid" Visibility="Collapsed">
             <Border x:Name="DetailsBorder" CornerRadius="20" Margin="25 30 15 15" Width="1000" HorizontalAlignment="Left">
                 <Border.Effect>
                     <DropShadowEffect BlurRadius="20" Color="#FFDEDEDE" RenderingBias="Quality" ShadowDepth="1"/>
@@ -169,7 +169,7 @@
                         </DockPanel>
                     </Grid>
                     
-                    <Grid x:Name="DetailsPremiumChange" Visibility="Visible">
+                    <Grid x:Name="DetailsPremiumChange" Visibility="Collapsed">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
@@ -278,55 +278,34 @@
                     </Grid>
 
                     <Grid x:Name="DetailsLossRatio" Visibility="Collapsed">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
+                        <DockPanel Margin="10">
+                            <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="5" Height="200">
+                                <DataGrid x:Name="ClaimsDataGrid"
+                                      ItemsSource="{Binding AllPolicies}" SelectionMode="Single"
+                                      AutoGenerateColumns="False" LoadingRow="PoliciesDataGrid_LoadingRow">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Binding="{Binding Number}" Width="75">
+                                            <DataGridTextColumn.Header>
+                                                <TextBlock Text="Số đơn" TextWrapping="Wrap"/>
+                                            </DataGridTextColumn.Header>
+                                        </DataGridTextColumn>
 
-                        <StackPanel Margin="10">
-                            <TextBlock Text="Tăng:" FontWeight="DemiBold" Margin="0 0 0 5"/>
+                                        <DataGridTextColumn Binding="{Binding Insured.Id}">
+                                            <DataGridTextColumn.Header>
+                                                <TextBlock Text="Số CMT/CCCD" TextWrapping="Wrap"/>
+                                            </DataGridTextColumn.Header>
+                                        </DataGridTextColumn>
 
-                            <DataGrid HorizontalAlignment="Left" VerticalAlignment="Top" Width="300"
-                                  ItemsSource="{Binding FollowingAddedPolicies}" SelectionMode="Single"
-                                  AutoGenerateColumns="False">
-                                <DataGrid.Columns>
-                                    <DataGridTextColumn Binding="{Binding Number}" Width="75">
-                                        <DataGridTextColumn.Header>
-                                            <TextBlock Text="Số đơn" TextWrapping="Wrap"/>
-                                        </DataGridTextColumn.Header>
-                                    </DataGridTextColumn>
+                                        <DataGridTextColumn Binding="{Binding Insured.Name}">
+                                            <DataGridTextColumn.Header>
+                                                <TextBlock Text="Họ tên" TextWrapping="Wrap"/>
+                                            </DataGridTextColumn.Header>
+                                        </DataGridTextColumn>
 
-                                    <DataGridTextColumn Binding="{Binding Insured.Name}">
-                                        <DataGridTextColumn.Header>
-                                            <TextBlock Text="Họ tên" TextWrapping="Wrap"/>
-                                        </DataGridTextColumn.Header>
-                                    </DataGridTextColumn>
-                                </DataGrid.Columns>
-                            </DataGrid>
-                        </StackPanel>
-
-
-                        <StackPanel Margin="10" Grid.Column="1">
-                            <TextBlock Text="Giảm:" FontWeight="DemiBold" Margin="0 0 0 5"/>
-
-                            <DataGrid HorizontalAlignment="Left" VerticalAlignment="Top" Width="300"
-                                  ItemsSource="{Binding EarlyResignedPolices}" SelectionMode="Single"
-                                  AutoGenerateColumns="False">
-                                <DataGrid.Columns>
-                                    <DataGridTextColumn Binding="{Binding Number}" Width="75">
-                                        <DataGridTextColumn.Header>
-                                            <TextBlock Text="Số đơn" TextWrapping="Wrap"/>
-                                        </DataGridTextColumn.Header>
-                                    </DataGridTextColumn>
-
-                                    <DataGridTextColumn Binding="{Binding Insured.Name}">
-                                        <DataGridTextColumn.Header>
-                                            <TextBlock Text="Họ tên" TextWrapping="Wrap"/>
-                                        </DataGridTextColumn.Header>
-                                    </DataGridTextColumn>
-                                </DataGrid.Columns>
-                            </DataGrid>
-                        </StackPanel>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </Border>
+                        </DockPanel>
                     </Grid>
                 </StackPanel>
             </Border>
