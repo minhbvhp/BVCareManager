@@ -21,7 +21,6 @@ namespace BVCareManager.ViewModels
         private ClaimProgressRepository claimProgressRepository = new ClaimProgressRepository();
         public ICommand AddCommand { get; set; }
         public ICommand UpdateCommand { get; set; }
-        public ICommand ViewCommand { get; set; }
         public ICommand DeleteCommand { get; set; }
         public ICommand ShowClaimOptions { get; set; }
 
@@ -90,6 +89,7 @@ namespace BVCareManager.ViewModels
                     SelectedInsured = SelectedNotYetClosedClaim.Policy.Insured;
                     OnPropertyChanged("SelectedInsured");
 
+
                     if (SelectedNotYetClosedClaim.ExaminationDate != null)
                     {
                         SelectedClaimIdForView = SelectedNotYetClosedClaim.Id;
@@ -135,6 +135,7 @@ namespace BVCareManager.ViewModels
                 if (SelectedClosedClaim != null)
                 {
                     SelectedInsured = SelectedClosedClaim.Policy.Insured;
+                    OnPropertyChanged("ListInsureds");
                     OnPropertyChanged("SelectedInsured");
 
                     if (SelectedClosedClaim.ExaminationDate != null)
@@ -149,7 +150,7 @@ namespace BVCareManager.ViewModels
             }
         }
 
-        #region New Claim
+    #region New Claim
         private bool _isShowClaimOptions;
         public bool IsShowClaimOptions
         {
@@ -728,8 +729,7 @@ namespace BVCareManager.ViewModels
                 OnPropertyChanged("ListNotYetClosedClaim");
                 OnPropertyChanged("ListClosedClaim");
             });
-        #endregion
-
+            #endregion
         }
     }
 }

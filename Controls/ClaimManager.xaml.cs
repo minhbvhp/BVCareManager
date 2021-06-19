@@ -48,6 +48,8 @@ namespace BVCareManager.Controls
         {
             if (NewTabItem.IsSelected)
             {
+                ClaimActionButton.Visibility = Visibility.Visible;
+                ClaimActionButton.IsEnabled = true;
                 ClaimActionButton.SetBinding(Button.CommandProperty, new Binding("AddCommand"));
             }
             else
@@ -57,20 +59,15 @@ namespace BVCareManager.Controls
 
             if (UpdateTabItem.IsSelected)
             {
+                ClaimActionButton.Visibility = Visibility.Visible;
+                ClaimActionButton.IsEnabled = true;
                 ClaimActionButton.SetBinding(Button.CommandProperty, new Binding("UpdateCommand"));
-            }
-            else
-            {
-                UpdateClaimComboBox.SelectedValue = 0;
             }
 
             if (ViewTabItem.IsSelected)
             {
-                ClaimActionButton.SetBinding(Button.CommandProperty, new Binding("ViewCommand"));
-            }
-            else
-            {
-                ViewClaimComboBox.SelectedValue = 0;
+                ClaimActionButton.IsEnabled = false;
+                ClaimActionButton.Visibility = Visibility.Hidden;
             }
 
         }

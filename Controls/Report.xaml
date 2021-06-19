@@ -281,8 +281,8 @@
                         <DockPanel Margin="10">
                             <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="5" Height="200">
                                 <DataGrid x:Name="ClaimsDataGrid"
-                                      ItemsSource="{Binding AllPolicies}" SelectionMode="Single"
-                                      AutoGenerateColumns="False" LoadingRow="PoliciesDataGrid_LoadingRow">
+                                          ItemsSource="{Binding AllPolicies}" SelectionMode="Single"
+                                          AutoGenerateColumns="False" LoadingRow="PoliciesDataGrid_LoadingRow">
                                     <DataGrid.Columns>
                                         <DataGridTextColumn Binding="{Binding Number}" Width="75">
                                             <DataGridTextColumn.Header>

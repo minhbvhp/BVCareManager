@@ -123,7 +123,7 @@ namespace BVCareManager.ViewModels
             }
         }
 
-        public ObservableCollection<Policy> AllPolicies
+        public List<Policy> AllPolicies
         {
             get
             {
@@ -134,14 +134,14 @@ namespace BVCareManager.ViewModels
                                                  where policy.ContractId == SelectedContractId
                                                  select policy;
 
-                    return new ObservableCollection<Policy>(_allPoliciesOfContract);
+                    return new List<Policy>(_allPoliciesOfContract);
                 }
 
                 return null;
             }
         }
 
-        public ObservableCollection<Policy> FollowingAddedPolicies
+        public List<Policy> FollowingAddedPolicies
         {
             get
             {
@@ -152,7 +152,7 @@ namespace BVCareManager.ViewModels
                                                  where policy.ContractId == SelectedContractId
                                                  select policy;
 
-                    var _followingAddedPolicies = new ObservableCollection<Policy>();
+                    var _followingAddedPolicies = new List<Policy>();
 
                     foreach (Policy policy in _allPoliciesOfContract)
                     {
@@ -160,14 +160,14 @@ namespace BVCareManager.ViewModels
                             _followingAddedPolicies.Add(policy);
                     }
 
-                    return new ObservableCollection<Policy>(_followingAddedPolicies);
+                    return new List<Policy>(_followingAddedPolicies);
                 }
 
                 return null;
             }
         }
 
-        public ObservableCollection<Policy> EarlyResignedPolices
+        public List<Policy> EarlyResignedPolices
         {
             get
             {
@@ -178,7 +178,7 @@ namespace BVCareManager.ViewModels
                                                  where policy.ContractId == SelectedContractId
                                                  select policy;
 
-                    var _earlyAddedPolicies = new ObservableCollection<Policy>();
+                    var _earlyAddedPolicies = new List<Policy>();
 
                     foreach (Policy policy in _allPoliciesOfContract)
                     {
@@ -186,10 +186,30 @@ namespace BVCareManager.ViewModels
                             _earlyAddedPolicies.Add(policy);
                     }
 
-                    return new ObservableCollection<Policy>(_earlyAddedPolicies);
+                    return new List<Policy>(_earlyAddedPolicies);
                 }
 
                 return null;
+            }
+        }
+
+        public List<Claim> ListClosedClaim
+        {
+            get
+            {
+                ClaimRepository claimRepository = new ClaimRepository();
+                var _allClaims = from claim in claimRepository.FindAllClaims()
+                                 select claim;
+
+                var _listClosedClaim = new List<Claim>();
+
+                foreach (var claim in _allClaims)
+                {
+                    if (claim.IsClosed)
+                        _listClosedClaim.Add(claim);
+                }
+
+                return new List<Claim>(_listClosedClaim);
             }
         }
         public ReportViewModel()

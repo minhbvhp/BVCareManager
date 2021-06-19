@@ -47,7 +47,7 @@
                 <DockPanel Margin="24,8,24,16" ScrollViewer.VerticalScrollBarVisibility="Auto" MaxHeight="200">
                     <DataGrid x:Name="NotYetClosedClaimDataGrid" Grid.Row="1" 
                               ItemsSource="{Binding ListNotYetClosedClaim}" AutoGenerateColumns="False"
-                              IsReadOnly="True" ClipboardCopyMode="None" ColumnWidth="*" HeadersVisibility="All"
+                              IsReadOnly="True" ClipboardCopyMode="None"
                               Foreground="IndianRed" SelectionMode="Single"
                               LostFocus="NotYetClosedClaimDataGrid_LostFocus"
                               SelectedItem="{Binding SelectedNotYetClosedClaim}">
@@ -79,7 +79,7 @@
                 <DockPanel Margin="24,8,24,16" ScrollViewer.VerticalScrollBarVisibility="Auto" MaxHeight="200">
                     <DataGrid x:Name="ClosedDataGrid" Grid.Row="1" 
                               ItemsSource="{Binding ListClosedClaim}" AutoGenerateColumns="False"
-                              IsReadOnly="True" ClipboardCopyMode="None" ColumnWidth="*" HeadersVisibility="All"
+                              IsReadOnly="True" ClipboardCopyMode="None"
                               Foreground="DarkGreen" SelectionMode="Single"
                               LostFocus="ClosedDataGrid_LostFocus"
                               SelectedItem="{Binding SelectedClosedClaim}">
@@ -126,9 +126,10 @@
 
                 <DockPanel>
                     <DataGrid x:Name="InsuredsResultDataGrid" Background="#B6B6B6" SelectionMode="Single"
-                          ItemsSource="{Binding ListInsureds}" AutoGenerateColumns="False"                          
-                          IsReadOnly="True" ClipboardCopyMode="None" HeadersVisibility="All"
-                          SelectedItem="{Binding SelectedInsured}">
+                              ItemsSource="{Binding ListInsureds}" AutoGenerateColumns="False"                          
+                              IsReadOnly="True" ClipboardCopyMode="None"
+                              SelectedItem="{Binding SelectedInsured, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                              IsSynchronizedWithCurrentItem="True">
                         <DataGrid.Columns>
                             <DataGridTextColumn Binding="{Binding Name}"/>
                         </DataGrid.Columns>
@@ -207,11 +208,12 @@
 
                         <StackPanel Margin="80 20 20 20" VerticalAlignment="Top">
                             <ComboBox x:Name="ViewClaimComboBox" Style="{StaticResource EmptyComboBoxStyle}"
-                              materialDesign:HintAssist.Hint="Ngày khám" MinWidth="200" HorizontalAlignment="Left"
-                              ItemsSource="{Binding ClaimListByInsured}"
-                              ItemStringFormat="{}{0:dd/MM/yyyy}"
-                              SelectedValue="{Binding SelectedClaimIdForView, Mode=TwoWay, StringFormat=dd/MM/yyyy}"
-                              SelectedValuePath="Id" DisplayMemberPath="ExaminationDate"/>
+                                      materialDesign:HintAssist.Hint="Ngày khám" MinWidth="200" HorizontalAlignment="Left"
+                                      ItemsSource="{Binding ClaimListByInsured}"
+                                      ItemStringFormat="{}{0:dd/MM/yyyy}"
+                                      SelectedValue="{Binding SelectedClaimIdForView, Mode=TwoWay, StringFormat=dd/MM/yyyy}"
+                                      SelectedValuePath="Id" DisplayMemberPath="ExaminationDate"
+                                      IsSynchronizedWithCurrentItem="True"/>
 
                             <StackPanel Visibility="{Binding IsViewClaimSelected, Converter={StaticResource BooleanToVisibilityConverter}}">
                                 <TextBlock FontWeight="DemiBold" FontStyle="Italic">
@@ -331,11 +333,12 @@
                                 <StackPanel Margin="80 20 20 20" VerticalAlignment="Top">
                                     <StackPanel Orientation="Horizontal">
                                         <ComboBox x:Name="UpdateClaimComboBox" Style="{StaticResource EmptyComboBoxStyle}"
-                                          materialDesign:HintAssist.Hint="Ngày khám" MinWidth="200"
-                                          ItemsSource="{Binding ClaimListByInsured}"
-                                          ItemStringFormat="{}{0:dd/MM/yyyy}"
-                                          SelectedValue="{Binding SelectedClaimId, Mode=TwoWay, StringFormat=dd/MM/yyyy, UpdateSourceTrigger=PropertyChanged}"
-                                          SelectedValuePath="Id" DisplayMemberPath="ExaminationDate"/>
+                                                  materialDesign:HintAssist.Hint="Ngày khám" MinWidth="200"
+                                                  ItemsSource="{Binding ClaimListByInsured}"
+                                                  ItemStringFormat="{}{0:dd/MM/yyyy}"
+                                                  SelectedValue="{Binding SelectedClaimId, Mode=TwoWay, StringFormat=dd/MM/yyyy, UpdateSourceTrigger=PropertyChanged}"
+                                                  SelectedValuePath="Id" DisplayMemberPath="ExaminationDate"
+                                                  IsSynchronizedWithCurrentItem="True"/>
 
                                         <Button Margin="20 0 0 0" Style="{StaticResource MaterialDesignIconButton}"
                                         ToolTip="Xem lịch sử hồ sơ"
