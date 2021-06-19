@@ -34,8 +34,6 @@ namespace BVCareManager
             MyTabs.SelectedIndex = 0;
             CreateNewListBox.SelectedIndex = 0;
             ComboBoxSearchCategory.SelectedIndex = 0;
-            ClaimManagerDockPanel.Children.Add(new ClaimManager());
-            ClaimGrid.DataContext = new ClaimBaseViewModel();
             ReportDockPanel.DataContext = new ReportViewModel();
         }
 
@@ -115,6 +113,21 @@ namespace BVCareManager
             {
                 ModifyDockPanel.Children.Clear();
                 SearchTextBox.Text = String.Empty;
+            }
+
+            if (ClaimTab.IsSelected == false)
+            {
+                ClaimManagerDockPanel.Children.Clear();
+            }
+
+            if (ClaimTab.IsSelected == true)
+            {
+                if (ClaimManagerDockPanel.Children.Count == 0)
+                {
+                    ClaimManagerDockPanel.Children.Add(new ClaimManager());
+                    ClaimGrid.DataContext = new ClaimBaseViewModel();
+                }
+                    
             }
         }
 
