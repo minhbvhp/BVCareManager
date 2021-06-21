@@ -102,19 +102,21 @@ namespace BVCareManager.ViewModels
 
                 if (SelectedNotYetClosedClaim != null)
                 {
+                    Claim _tempNotYetClosedClaim = SelectedNotYetClosedClaim;
+
                     SelectedInsuredListBox = null;
                     OnPropertyChanged("SelectedInsuredListBox");
 
-                    SelectedInsured = SelectedNotYetClosedClaim.Policy.Insured;
+                    SelectedInsured = _tempNotYetClosedClaim.Policy.Insured;
                     OnPropertyChanged("SelectedInsured");
 
 
-                    if (SelectedNotYetClosedClaim.ExaminationDate != null)
+                    if (_tempNotYetClosedClaim.ExaminationDate != null)
                     {
-                        SelectedClaimIdForView = SelectedNotYetClosedClaim.Id;
+                        SelectedClaimIdForView = _tempNotYetClosedClaim.Id;
                         OnPropertyChanged("SelectedClaimIdForView");
 
-                        SelectedClaimId = SelectedNotYetClosedClaim.Id;
+                        SelectedClaimId = _tempNotYetClosedClaim.Id;
                         OnPropertyChanged("SelectedClaimId");
                     }
                 }                
@@ -169,18 +171,20 @@ namespace BVCareManager.ViewModels
 
                 if (SelectedClosedClaim != null)
                 {
+                    Claim _tempClosedClaim = SelectedClosedClaim;
+
                     SelectedInsuredListBox = null;
                     OnPropertyChanged("SelectedInsuredListBox");
 
-                    SelectedInsured = SelectedClosedClaim.Policy.Insured;
+                    SelectedInsured = _tempClosedClaim.Policy.Insured;
                     OnPropertyChanged("SelectedInsured");
 
-                    if (SelectedClosedClaim.ExaminationDate != null)
+                    if (_tempClosedClaim.ExaminationDate != null)
                     {
-                        SelectedClaimIdForView = SelectedClosedClaim.Id;
+                        SelectedClaimIdForView = _tempClosedClaim.Id;
                         OnPropertyChanged("SelectedClaimIdForView");
 
-                        SelectedClaimId = SelectedClosedClaim.Id;
+                        SelectedClaimId = _tempClosedClaim.Id;
                         OnPropertyChanged("SelectedClaimId");
                     }
                 }
@@ -245,6 +249,12 @@ namespace BVCareManager.ViewModels
             set
             {
                 SetProperty(ref _selectedInsuredListBox, value);
+
+                SelectedNotYetClosedClaim = null;
+                OnPropertyChanged("SelectedNotYetClosedClaim");
+
+                SelectedClosedClaim = null;
+                OnPropertyChanged("SelectedClosedClaim");
 
                 SelectedInsured = SelectedInsuredListBox;
                 OnPropertyChanged("SelectedInsured");

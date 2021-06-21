@@ -46,14 +46,14 @@
                         <Run Text="{Binding TotalNotYetClosedClaim, Mode=OneWay}"/>
                     </TextBlock>
                 </Expander.Header>
-                
+
                 <DockPanel Margin="24,8,24,16" ScrollViewer.VerticalScrollBarVisibility="Auto" MaxHeight="200">
                     <DataGrid x:Name="NotYetClosedClaimDataGrid" Grid.Row="1" 
                               ItemsSource="{Binding ListNotYetClosedClaim}" AutoGenerateColumns="False"
                               IsReadOnly="True" ClipboardCopyMode="None"
                               Foreground="IndianRed" SelectionMode="Single"
-                              LostFocus="NotYetClosedClaimDataGrid_LostFocus"
-                              SelectedItem="{Binding SelectedNotYetClosedClaim}">
+                              SelectedValue="{Binding SelectedNotYetClosedClaim}"
+                              IsSynchronizedWithCurrentItem="True">
                         <DataGrid.Columns>
                             <DataGridTextColumn Binding="{Binding Policy.Insured.Name}">
                                 <DataGridTextColumn.Header>
@@ -87,8 +87,8 @@
                               ItemsSource="{Binding ListClosedClaim}" AutoGenerateColumns="False"
                               IsReadOnly="True" ClipboardCopyMode="None"
                               Foreground="DarkGreen" SelectionMode="Single"
-                              LostFocus="ClosedDataGrid_LostFocus"
-                              SelectedItem="{Binding SelectedClosedClaim}">
+                              SelectedValue="{Binding SelectedClosedClaim}"
+                              IsSynchronizedWithCurrentItem="True">
                         <DataGrid.Columns>
                             <DataGridTextColumn Binding="{Binding Policy.Insured.Name}">
                                 <DataGridTextColumn.Header>
