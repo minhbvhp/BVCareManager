@@ -507,6 +507,8 @@ namespace BVCareManager.ViewModels
             }
         }
 
+
+
         public bool IsClaimOnProgress {
             get
             {
@@ -523,7 +525,31 @@ namespace BVCareManager.ViewModels
             set
             {
                 SetProperty(ref _isClaimClosed, value);
+
+                if (IsClaimClosed)
+                {
+                    IsPaid = true;
+                }
+                else
+                {
+                    IsPaid = false;
+                }
+
+                OnPropertyChanged("IsPaid");
                 OnPropertyChanged("IsClaimOnProgress");
+            }
+        }
+
+        private bool _isPaid;
+        public bool IsPaid
+        {
+            get
+            {
+                return _isPaid;
+            }
+            set
+            {
+                SetProperty(ref _isPaid, value);
             }
         }
 
@@ -748,6 +774,15 @@ namespace BVCareManager.ViewModels
                     UpdateResultAsync(Result.ExcludeError, "Hồ sơ này đã đóng, không thể cập nhật nữa");
                 }
 
+                if (IsPaid && ClaimTotalPaid <= 0)
+                {
+                    UpdateResultAsync(Result.HasError, "Số tiền bồi thường phải lớn hơn 0");
+                }
+                else
+                {
+                    UpdateResultAsync(Result.ExcludeError, "Số tiền bồi thường phải lớn hơn 0");
+                }
+
                 if (!IsClaimClosed)
                 {
                     if (String.IsNullOrEmpty(ClaimProgressRemarks) || String.IsNullOrWhiteSpace(ClaimProgressRemarks))
@@ -769,7 +804,15 @@ namespace BVCareManager.ViewModels
 
                 if (IsClaimClosed)
                 {
-                    claimRepository.CloseClaim(newClaimsProgress, (DateTime)ClaimProgressDate, ClaimTotalPaid);
+                    if (IsPaid)
+                    {
+                        claimRepository.CloseClaim(newClaimsProgress, (DateTime)ClaimProgressDate, ClaimTotalPaid);
+                    }
+                    else
+                    {
+                        claimRepository.CloseClaim(newClaimsProgress, (DateTime)ClaimProgressDate, 0);
+                    }
+
                     Success = "Đã đóng hồ sơ bồi thường";
                 }
                 else
