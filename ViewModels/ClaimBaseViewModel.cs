@@ -102,6 +102,9 @@ namespace BVCareManager.ViewModels
 
                 if (SelectedNotYetClosedClaim != null)
                 {
+                    SelectedInsuredListBox = null;
+                    OnPropertyChanged("SelectedInsuredListBox");
+
                     SelectedInsured = SelectedNotYetClosedClaim.Policy.Insured;
                     OnPropertyChanged("SelectedInsured");
 
@@ -166,6 +169,9 @@ namespace BVCareManager.ViewModels
 
                 if (SelectedClosedClaim != null)
                 {
+                    SelectedInsuredListBox = null;
+                    OnPropertyChanged("SelectedInsuredListBox");
+
                     SelectedInsured = SelectedClosedClaim.Policy.Insured;
                     OnPropertyChanged("SelectedInsured");
 
@@ -216,6 +222,7 @@ namespace BVCareManager.ViewModels
             set
             {
                 SetProperty(ref _selectedInsured, value);
+
                 OnPropertyChanged("IsInsuredSelected");
                 OnPropertyChanged("ListValidPolicies");
                 OnPropertyChanged("ClaimListByInsured");
@@ -225,6 +232,22 @@ namespace BVCareManager.ViewModels
 
                 SelectedClaimId = 0;
                 OnPropertyChanged("SelectedClaimId");
+            }
+        }
+
+        private Insured _selectedInsuredListBox;
+        public Insured SelectedInsuredListBox
+        {
+            get
+            {
+                return _selectedInsuredListBox;
+            }
+            set
+            {
+                SetProperty(ref _selectedInsuredListBox, value);
+
+                SelectedInsured = SelectedInsuredListBox;
+                OnPropertyChanged("SelectedInsured");
             }
         }
 

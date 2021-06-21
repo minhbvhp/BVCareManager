@@ -101,6 +101,12 @@
                                     <TextBlock Text="Ngày khám" TextWrapping="Wrap"/>
                                 </DataGridTextColumn.Header>
                             </DataGridTextColumn>
+
+                            <DataGridTextColumn Binding="{Binding TotalPaid, Converter={StaticResource NumberFormatConverter}, ConverterParameter='N0', ConverterCulture='is-IS'}">
+                                <DataGridTextColumn.Header>
+                                    <TextBlock Text="Số tiền" TextWrapping="Wrap"/>
+                                </DataGridTextColumn.Header>
+                            </DataGridTextColumn>
                         </DataGrid.Columns>
                     </DataGrid>
                 </DockPanel>
@@ -134,7 +140,7 @@
 
                     <ListBox x:Name="InsuredsResultDataGrid" Background="#B6B6B6"
                              ItemsSource="{Binding ListInsureds}" 
-                             SelectedItem="{Binding SelectedInsured, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                             SelectedValue="{Binding SelectedInsuredListBox, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                              DisplayMemberPath="Name"
                              IsSynchronizedWithCurrentItem="True"/>
                 </DockPanel>
@@ -209,7 +215,7 @@
                             </StackPanel>
                         </TabItem.Header>
 
-                        <StackPanel Margin="80 20 20 20" VerticalAlignment="Top">
+                        <StackPanel Margin="50 20 50 20" VerticalAlignment="Top">
                             <ComboBox x:Name="ViewClaimComboBox" Style="{StaticResource EmptyComboBoxStyle}"
                                       materialDesign:HintAssist.Hint="Ngày khám" MinWidth="200" HorizontalAlignment="Left"
                                       ItemsSource="{Binding ClaimListByInsured}"
@@ -333,7 +339,7 @@
                             </Grid.RowDefinitions>
 
                             <materialDesign:DialogHost CloseOnClickAway="True">
-                                <StackPanel Margin="80 20 20 20" VerticalAlignment="Top">
+                                <StackPanel Margin="50 20 50 20" VerticalAlignment="Top">
                                     <StackPanel Orientation="Horizontal">
                                         <ComboBox x:Name="UpdateClaimComboBox" Style="{StaticResource EmptyComboBoxStyle}"
                                                   materialDesign:HintAssist.Hint="Ngày khám" MinWidth="200"
@@ -502,7 +508,7 @@
                                 <RowDefinition Height="200"/>
                             </Grid.RowDefinitions>
 
-                            <StackPanel Margin="80 20 20 20" VerticalAlignment="Top">
+                            <StackPanel Margin="50 20 50 20" VerticalAlignment="Top">
                                 <DatePicker x:Name="NewClaimDatePicker" Style="{StaticResource EmptyDatePickerStyle}" Margin="0,20"
                                 materialDesign:HintAssist.Hint="Ngày khám" MinWidth="150" HorizontalAlignment="Left"
                                 SelectedDate="{Binding NewExaminationDate, Mode=TwoWay}"/>
