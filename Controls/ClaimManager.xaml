@@ -288,16 +288,16 @@
                                 </GroupBox.Style>
                                 
                                 <GroupBox.Header>
-                                    <StackPanel Orientation="Horizontal">
+                                    <DockPanel>
                                         <StackPanel x:Name="IsViewClaimClosedStackPanel" Orientation="Horizontal"
                                                         Visibility="{Binding SelectedViewClaim.IsClosed, Converter={StaticResource BooleanToVisibilityConverter}}">
                                             <materialDesign:PackIcon Kind="Done" Height="20" Width="20" 
                                                                      VerticalAlignment="Center" Foreground="White"/>
-                                            <TextBlock Margin="8,0,0,0" VerticalAlignment="Center" Text="Hoàn thành" 
+                                            <TextBlock Margin="8,0,0,0" VerticalAlignment="Center" Text="Hoàn thành"
                                                        Foreground="White" FontWeight="DemiBold" FontSize="14"/>
                                         </StackPanel>
 
-                                        <StackPanel Orientation="Horizontal">
+                                        <StackPanel x:Name="IsViewClaimOnprogressStackPanel" Orientation="Horizontal">
                                             <StackPanel.Style>
                                                 <Style TargetType="StackPanel">
                                                     <Style.Triggers>
@@ -317,7 +317,13 @@
                                             <TextBlock Margin="8,0,0,0" VerticalAlignment="Center" Text="Đang giải quyết"
                                                        Foreground="White" FontWeight="DemiBold" FontSize="14"/>
                                         </StackPanel>
-                                    </StackPanel>
+
+                                        <Button Height="20" Width="20" HorizontalAlignment="Right"
+                                                ToolTip="Xóa" IsTabStop="False"
+                                                Style="{StaticResource MaterialDesignIconForegroundButton}">
+                                            <materialDesign:PackIcon Kind="Delete" Height="18" Width="18" Foreground="White"/>
+                                        </Button>
+                                    </DockPanel>
                                 </GroupBox.Header>
 
                                 <StackPanel>
