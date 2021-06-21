@@ -38,17 +38,17 @@
         </Grid.ColumnDefinitions>
 
         <StackPanel Grid.RowSpan="2" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto">
-            <Expander HorizontalAlignment="Stretch" IsExpanded="True">
+            <Expander HorizontalAlignment="Stretch" IsExpanded="False">
                 <Expander.Header>
                     <TextBlock FontWeight="Bold" FontSize="16" 
                                HorizontalAlignment="Center" Foreground="#f04393">
-                        <Run Text="Hồ sơ chưa giải quyết"/>
+                        <Run Text="Đang giải quyết"/>
                         <Run Text="{Binding TotalNotYetClosedClaim, Mode=OneWay}"/>
                     </TextBlock>
                 </Expander.Header>
 
-                <DockPanel Margin="24,8,24,16" ScrollViewer.VerticalScrollBarVisibility="Auto" MaxHeight="200">
-                    <DataGrid x:Name="NotYetClosedClaimDataGrid" Grid.Row="1" 
+                <DockPanel Margin="10,0,10,5" ScrollViewer.VerticalScrollBarVisibility="Auto" MaxHeight="200">
+                    <DataGrid x:Name="NotYetClosedClaimDataGrid"
                               ItemsSource="{Binding ListNotYetClosedClaim}" AutoGenerateColumns="False"
                               IsReadOnly="True" ClipboardCopyMode="None"
                               Foreground="IndianRed" SelectionMode="Single"
@@ -73,21 +73,21 @@
 
             <Border BorderBrush="{DynamicResource PrimaryHueMidBrush}" BorderThickness="0.5"/>
 
-            <Expander HorizontalAlignment="Stretch" IsExpanded="True">
+            <Expander HorizontalAlignment="Stretch" IsExpanded="False">
                 <Expander.Header>
                     <TextBlock FontWeight="Bold" FontSize="16" 
                                HorizontalAlignment="Center" Foreground="DarkGreen">
-                        <Run Text="Hồ sơ đã giải quyết"/>
-                        <Run Text="{Binding TotalClosedClaim, Mode=OneWay}"/>
+                        <Run Text="Đã bồi thường"/>
+                        <Run Text="{Binding TotalPaidClaim, Mode=OneWay}"/>
                     </TextBlock>
                 </Expander.Header>
 
-                <DockPanel Margin="24,8,24,16" ScrollViewer.VerticalScrollBarVisibility="Auto" MaxHeight="200">
-                    <DataGrid x:Name="ClosedDataGrid" Grid.Row="1" 
-                              ItemsSource="{Binding ListClosedClaim}" AutoGenerateColumns="False"
+                <DockPanel Margin="10,0,10,5" ScrollViewer.VerticalScrollBarVisibility="Auto" MaxHeight="220">
+                    <DataGrid x:Name="PaidDataGrid"
+                              ItemsSource="{Binding ListPaidClaim}" AutoGenerateColumns="False"
                               IsReadOnly="True" ClipboardCopyMode="None"
                               Foreground="DarkGreen" SelectionMode="Single"
-                              SelectedValue="{Binding SelectedClosedClaim}"
+                              SelectedValue="{Binding SelectedPaidClaim}"
                               IsSynchronizedWithCurrentItem="True">
                         <DataGrid.Columns>
                             <DataGridTextColumn Binding="{Binding Policy.Insured.Name}">
@@ -105,6 +105,41 @@
                             <DataGridTextColumn Binding="{Binding TotalPaid, Converter={StaticResource NumberFormatConverter}, ConverterParameter='N0', ConverterCulture='is-IS'}">
                                 <DataGridTextColumn.Header>
                                     <TextBlock Text="Số tiền" TextWrapping="Wrap"/>
+                                </DataGridTextColumn.Header>
+                            </DataGridTextColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </DockPanel>
+            </Expander>
+
+            <Border BorderBrush="{DynamicResource PrimaryHueMidBrush}" BorderThickness="0.5"/>
+
+            <Expander HorizontalAlignment="Stretch" IsExpanded="False">
+                <Expander.Header>
+                    <TextBlock FontWeight="Bold" FontSize="16" 
+                               HorizontalAlignment="Center" Foreground="DarkRed">
+                        <Run Text="Từ chối"/>
+                        <Run Text="{Binding TotalDeniedClaim, Mode=OneWay}"/>
+                    </TextBlock>
+                </Expander.Header>
+
+                <DockPanel Margin="10,0,10,5" ScrollViewer.VerticalScrollBarVisibility="Auto" MaxHeight="200">
+                    <DataGrid x:Name="DeniedDataGrid" Grid.Row="1" 
+                              ItemsSource="{Binding ListDeniedClaim}" AutoGenerateColumns="False"
+                              IsReadOnly="True" ClipboardCopyMode="None"
+                              Foreground="DarkRed" SelectionMode="Single"
+                              SelectedValue="{Binding SelectedDeniedClaim}"
+                              IsSynchronizedWithCurrentItem="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding Policy.Insured.Name}">
+                                <DataGridTextColumn.Header>
+                                    <TextBlock Text="Nhân viên" TextWrapping="Wrap"/>
+                                </DataGridTextColumn.Header>
+                            </DataGridTextColumn>
+
+                            <DataGridTextColumn Binding="{Binding ExaminationDate, StringFormat=dd/MM/yyyy}">
+                                <DataGridTextColumn.Header>
+                                    <TextBlock Text="Ngày khám" TextWrapping="Wrap"/>
                                 </DataGridTextColumn.Header>
                             </DataGridTextColumn>
                         </DataGrid.Columns>

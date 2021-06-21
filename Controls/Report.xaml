@@ -273,7 +273,7 @@
                         <DockPanel Margin="10">
                             <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="5" Height="200">
                                 <DataGrid x:Name="ClaimsDataGrid"
-                                          ItemsSource="{Binding ListClosedClaim}" SelectionMode="Single" SelectionUnit="Cell"
+                                          ItemsSource="{Binding ListPaidClaim}" SelectionMode="Single" SelectionUnit="Cell"
                                           AutoGenerateColumns="False" LoadingRow="PoliciesDataGrid_LoadingRow"
                                           IsReadOnly="True">
                                     <DataGrid.Columns>

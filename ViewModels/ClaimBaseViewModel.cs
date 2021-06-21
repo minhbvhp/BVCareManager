@@ -56,6 +56,8 @@ namespace BVCareManager.ViewModels
 
             }
         }
+
+        #region Not Yet Closed Claim
         public ObservableCollection<Claim> ListNotYetClosedClaim {
             get
             {
@@ -107,6 +109,12 @@ namespace BVCareManager.ViewModels
                     SelectedInsuredListBox = null;
                     OnPropertyChanged("SelectedInsuredListBox");
 
+                    SelectedPaidClaim = null;
+                    OnPropertyChanged("SelectedPaidClaim");
+
+                    SelectedDeniedClaim = null;
+                    OnPropertyChanged("SelectedDeniedClaim");
+
                     SelectedInsured = _tempNotYetClosedClaim.Policy.Insured;
                     OnPropertyChanged("SelectedInsured");
 
@@ -122,76 +130,161 @@ namespace BVCareManager.ViewModels
                 }                
             }
         }
+        #endregion
 
-        public ObservableCollection<Claim> ListClosedClaim
+        #region Paid Claim
+        public ObservableCollection<Claim> ListPaidClaim
         {
             get
             {
                 var _allClaims = from claim in claimRepository.FindAllClaims()
                                  select claim;
 
-                var _listClosedClaim = new ObservableCollection<Claim>();
+                var _listPaidClaim = new ObservableCollection<Claim>();
 
                 foreach (var claim in _allClaims)
                 {
-                    if (claim.IsClosed)
-                        _listClosedClaim.Add(claim);
+                    if (claim.IsPaid)
+                        _listPaidClaim.Add(claim);
                 }
 
-                return new ObservableCollection<Claim>(_listClosedClaim);
+                return new ObservableCollection<Claim>(_listPaidClaim);
             }
         }
 
-        public string TotalClosedClaim
+        public string TotalPaidClaim
         {
             get
             {
-                string _totalClosedClaim;
+                string _totalPaidClaim;
 
-                if (ListClosedClaim.Count > 0)
+                if (ListPaidClaim.Count > 0)
                 {
-                    _totalClosedClaim = String.Format("({0})", ListClosedClaim.Count);
-                    return _totalClosedClaim;
+                    _totalPaidClaim = String.Format("({0})", ListPaidClaim.Count);
+                    return _totalPaidClaim;
                 }
 
                 return String.Empty;
             }
         }
 
-        private Claim _selectedClosedClaim;
-        public Claim SelectedClosedClaim
+        private Claim _selectedPaidClaim;
+        public Claim SelectedPaidClaim
         {
             get
             {
-                return _selectedClosedClaim;
+                return _selectedPaidClaim;
             }
             set
             {
-                SetProperty(ref _selectedClosedClaim, value);
+                SetProperty(ref _selectedPaidClaim, value);
 
-                if (SelectedClosedClaim != null)
+                if (SelectedPaidClaim != null)
                 {
-                    Claim _tempClosedClaim = SelectedClosedClaim;
+                    Claim _tempPaidClaim = SelectedPaidClaim;
 
                     SelectedInsuredListBox = null;
                     OnPropertyChanged("SelectedInsuredListBox");
 
-                    SelectedInsured = _tempClosedClaim.Policy.Insured;
+                    SelectedNotYetClosedClaim = null;
+                    OnPropertyChanged("SelectedNotYetClosedClaim");
+
+                    SelectedDeniedClaim = null;
+                    OnPropertyChanged("SelectedDeniedClaim");
+
+                    SelectedInsured = _tempPaidClaim.Policy.Insured;
                     OnPropertyChanged("SelectedInsured");
 
-                    if (_tempClosedClaim.ExaminationDate != null)
+                    if (_tempPaidClaim.ExaminationDate != null)
                     {
-                        SelectedClaimIdForView = _tempClosedClaim.Id;
+                        SelectedClaimIdForView = _tempPaidClaim.Id;
                         OnPropertyChanged("SelectedClaimIdForView");
 
-                        SelectedClaimId = _tempClosedClaim.Id;
+                        SelectedClaimId = _tempPaidClaim.Id;
                         OnPropertyChanged("SelectedClaimId");
                     }
                 }
             }
         }
+        #endregion
 
-    #region New Claim
+        #region Denied Claim
+        public ObservableCollection<Claim> ListDeniedClaim
+        {
+            get
+            {
+                var _allClaims = from claim in claimRepository.FindAllClaims()
+                                 select claim;
+
+                var _listDeniedClaim = new ObservableCollection<Claim>();
+
+                foreach (var claim in _allClaims)
+                {
+                    if (claim.IsDenied)
+                        _listDeniedClaim.Add(claim);
+                }
+
+                return new ObservableCollection<Claim>(_listDeniedClaim);
+            }
+        }
+
+        public string TotalDeniedClaim
+        {
+            get
+            {
+                string _totalDeniedClaim;
+
+                if (ListDeniedClaim.Count > 0)
+                {
+                    _totalDeniedClaim = String.Format("({0})", ListDeniedClaim.Count);
+                    return _totalDeniedClaim;
+                }
+
+                return String.Empty;
+            }
+        }
+
+        private Claim _selectedDeniedClaim;
+        public Claim SelectedDeniedClaim
+        {
+            get
+            {
+                return _selectedDeniedClaim;
+            }
+            set
+            {
+                SetProperty(ref _selectedDeniedClaim, value);
+
+                if (SelectedDeniedClaim != null)
+                {
+                    Claim _tempDeniedClaim = SelectedDeniedClaim;
+
+                    SelectedInsuredListBox = null;
+                    OnPropertyChanged("SelectedInsuredListBox");
+
+                    SelectedNotYetClosedClaim = null;
+                    OnPropertyChanged("SelectedNotYetClosedClaim");
+
+                    SelectedPaidClaim = null;
+                    OnPropertyChanged("SelectedPaidClaim");
+
+                    SelectedInsured = _tempDeniedClaim.Policy.Insured;
+                    OnPropertyChanged("SelectedInsured");
+
+                    if (_tempDeniedClaim.ExaminationDate != null)
+                    {
+                        SelectedClaimIdForView = _tempDeniedClaim.Id;
+                        OnPropertyChanged("SelectedClaimIdForView");
+
+                        SelectedClaimId = _tempDeniedClaim.Id;
+                        OnPropertyChanged("SelectedClaimId");
+                    }
+                }
+            }
+        }
+        #endregion
+
+        #region New Claim
         private bool _isShowClaimOptions;
         public bool IsShowClaimOptions
         {
@@ -253,8 +346,8 @@ namespace BVCareManager.ViewModels
                 SelectedNotYetClosedClaim = null;
                 OnPropertyChanged("SelectedNotYetClosedClaim");
 
-                SelectedClosedClaim = null;
-                OnPropertyChanged("SelectedClosedClaim");
+                SelectedPaidClaim = null;
+                OnPropertyChanged("SelectedPaidClaim");
 
                 SelectedInsured = SelectedInsuredListBox;
                 OnPropertyChanged("SelectedInsured");
@@ -740,7 +833,7 @@ namespace BVCareManager.ViewModels
                 OnPropertyChanged("ClaimListByInsured");
                 OnPropertyChanged("ListNotYetClosedClaim");
                 OnPropertyChanged("TotalNotYetClosedClaim");
-                OnPropertyChanged("TotalClosedClaim");
+                OnPropertyChanged("TotalPaidClaim");
                 NewExaminationDate = null;
                 ValidSelectedPolicy = 0;
                 ClaimReceivedDate = null;
@@ -835,10 +928,15 @@ namespace BVCareManager.ViewModels
                 ClaimTotalPaid = 0;
 
                 OnPropertyChanged("ClaimProgressList");
+
                 OnPropertyChanged("ListNotYetClosedClaim");
-                OnPropertyChanged("ListClosedClaim");
                 OnPropertyChanged("TotalNotYetClosedClaim");
-                OnPropertyChanged("TotalClosedClaim");
+
+                OnPropertyChanged("ListPaidClaim");
+                OnPropertyChanged("TotalPaidClaim");
+
+                OnPropertyChanged("ListDeniedClaim");
+                OnPropertyChanged("TotalDeniedClaim");
             });
             #endregion
         }

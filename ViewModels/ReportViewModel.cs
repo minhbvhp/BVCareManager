@@ -193,7 +193,7 @@ namespace BVCareManager.ViewModels
             }
         }
 
-        public List<Claim> ListClosedClaim
+        public List<Claim> ListPaidClaim
         {
             get
             {
@@ -201,15 +201,15 @@ namespace BVCareManager.ViewModels
                 var _allClaims = from claim in claimRepository.FindAllClaims()
                                  select claim;
 
-                var _listClosedClaim = new List<Claim>();
+                var _listPaidClaim = new List<Claim>();
 
                 foreach (var claim in _allClaims)
                 {
                     if (claim.IsClosed)
-                        _listClosedClaim.Add(claim);
+                        _listPaidClaim.Add(claim);
                 }
 
-                return new List<Claim>(_listClosedClaim);
+                return new List<Claim>(_listPaidClaim);
             }
         }
         public ReportViewModel()
