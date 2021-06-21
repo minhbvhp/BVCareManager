@@ -40,8 +40,11 @@
         <StackPanel Grid.RowSpan="2" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto">
             <Expander HorizontalAlignment="Stretch" IsExpanded="True">
                 <Expander.Header>
-                    <TextBlock Text="Hồ sơ chưa giải quyết" FontWeight="Bold" FontSize="16" 
-                               HorizontalAlignment="Center" Foreground="#f04393"/>
+                    <TextBlock FontWeight="Bold" FontSize="16" 
+                               HorizontalAlignment="Center" Foreground="#f04393">
+                        <Run Text="Hồ sơ chưa giải quyết"/>
+                        <Run Text="{Binding TotalNotYetClosedClaim, Mode=OneWay}"/>
+                    </TextBlock>
                 </Expander.Header>
                 
                 <DockPanel Margin="24,8,24,16" ScrollViewer.VerticalScrollBarVisibility="Auto" MaxHeight="200">
@@ -72,8 +75,11 @@
 
             <Expander HorizontalAlignment="Stretch" IsExpanded="True">
                 <Expander.Header>
-                    <TextBlock Text="Hồ sơ đã giải quyết" FontWeight="Bold" FontSize="16" 
-                               HorizontalAlignment="Center" Foreground="DarkGreen"/>
+                    <TextBlock FontWeight="Bold" FontSize="16" 
+                               HorizontalAlignment="Center" Foreground="DarkGreen">
+                        <Run Text="Hồ sơ đã giải quyết"/>
+                        <Run Text="{Binding TotalClosedClaim, Mode=OneWay}"/>
+                    </TextBlock>
                 </Expander.Header>
 
                 <DockPanel Margin="24,8,24,16" ScrollViewer.VerticalScrollBarVisibility="Auto" MaxHeight="200">
@@ -125,15 +131,12 @@
                 </Grid.ColumnDefinitions>
 
                 <DockPanel>
-                    <DataGrid x:Name="InsuredsResultDataGrid" Background="#B6B6B6" SelectionMode="Single"
-                              ItemsSource="{Binding ListInsureds}" AutoGenerateColumns="False"                          
-                              IsReadOnly="True" ClipboardCopyMode="None"
-                              SelectedItem="{Binding SelectedInsured, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
-                              IsSynchronizedWithCurrentItem="True">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Binding="{Binding Name}"/>
-                        </DataGrid.Columns>
-                    </DataGrid>
+
+                    <ListBox x:Name="InsuredsResultDataGrid" Background="#B6B6B6"
+                             ItemsSource="{Binding ListInsureds}" 
+                             SelectedItem="{Binding SelectedInsured, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                             DisplayMemberPath="Name"
+                             IsSynchronizedWithCurrentItem="True"/>
                 </DockPanel>
 
                 <StackPanel Grid.Column="1" Background="#D1D1D1" 
@@ -507,10 +510,11 @@
                                 <StackPanel Visibility="{Binding IsNewExaminationEntered, Converter={StaticResource BooleanToVisibilityConverter}}">
                                     <StackPanel Margin="0,20">
                                         <ComboBox x:Name="PolicyListComboBox" Style="{StaticResource EmptyComboBoxStyle}"
-                                  materialDesign:HintAssist.Hint="Đơn bảo hiểm (hiệu lực phù hợp ngày khám)"
-                                  ItemsSource="{Binding ListValidPolicies}"
-                                  SelectedValue="{Binding ValidSelectedPolicy, Mode=TwoWay}"
-                                  SelectedValuePath="Id" DisplayMemberPath="Number"/>
+                                                  materialDesign:HintAssist.Hint="Đơn bảo hiểm (hiệu lực phù hợp ngày khám)"
+                                                  ItemsSource="{Binding ListValidPolicies}"
+                                                  SelectedValue="{Binding ValidSelectedPolicy, Mode=TwoWay}"
+                                                  SelectedValuePath="Id" DisplayMemberPath="Number"
+                                                  IsSynchronizedWithCurrentItem="True"/>
 
                                         <TextBlock FontWeight="DemiBold" FontStyle="Italic" 
                                            Visibility="{Binding IsPolicySelected,

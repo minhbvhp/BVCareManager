@@ -74,6 +74,22 @@ namespace BVCareManager.ViewModels
             }
         }
 
+        public string TotalNotYetClosedClaim 
+        {
+            get
+            {
+                string _totalNotYetClosedClaim;
+
+                if (ListNotYetClosedClaim.Count > 0)
+                {
+                    _totalNotYetClosedClaim = String.Format("({0})", ListNotYetClosedClaim.Count);
+                    return _totalNotYetClosedClaim;
+                }
+
+                return String.Empty;
+            }
+        }
+
         private Claim _selectedNotYetClosedClaim;
         public Claim SelectedNotYetClosedClaim {
             get
@@ -121,6 +137,22 @@ namespace BVCareManager.ViewModels
             }
         }
 
+        public string TotalClosedClaim
+        {
+            get
+            {
+                string _totalClosedClaim;
+
+                if (ListClosedClaim.Count > 0)
+                {
+                    _totalClosedClaim = String.Format("({0})", ListClosedClaim.Count);
+                    return _totalClosedClaim;
+                }
+
+                return String.Empty;
+            }
+        }
+
         private Claim _selectedClosedClaim;
         public Claim SelectedClosedClaim
         {
@@ -135,7 +167,6 @@ namespace BVCareManager.ViewModels
                 if (SelectedClosedClaim != null)
                 {
                     SelectedInsured = SelectedClosedClaim.Policy.Insured;
-                    OnPropertyChanged("ListInsureds");
                     OnPropertyChanged("SelectedInsured");
 
                     if (SelectedClosedClaim.ExaminationDate != null)
@@ -649,11 +680,13 @@ namespace BVCareManager.ViewModels
 
                 OnPropertyChanged("ClaimListByInsured");
                 OnPropertyChanged("ListNotYetClosedClaim");
+                OnPropertyChanged("TotalNotYetClosedClaim");
+                OnPropertyChanged("TotalClosedClaim");
                 NewExaminationDate = null;
                 ValidSelectedPolicy = 0;
                 ClaimReceivedDate = null;
             });
-            #endregion
+        #endregion
 
         #region Update Command
             UpdateCommand = new RelayCommand<object>((p) =>
@@ -728,6 +761,8 @@ namespace BVCareManager.ViewModels
                 OnPropertyChanged("ClaimProgressList");
                 OnPropertyChanged("ListNotYetClosedClaim");
                 OnPropertyChanged("ListClosedClaim");
+                OnPropertyChanged("TotalNotYetClosedClaim");
+                OnPropertyChanged("TotalClosedClaim");
             });
             #endregion
         }
