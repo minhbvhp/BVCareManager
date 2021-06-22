@@ -175,7 +175,7 @@ namespace BVCareManager
                 }
                 catch
                 {
-                    MessageBox.Show("Phiên bản SQL Server LocalDB hiện tại không phù hợp. Hãy cài đặt phiên bản 12.0");
+                    MessageBox.Show("Phiên bản SQL Server LocalDB hiện tại không phù hợp. Hãy cài đặt phiên bản 12.0 (SQL Server 2014 Express LocalDb)");
                     Environment.Exit(1);
                 }
             }
@@ -190,7 +190,7 @@ namespace BVCareManager
                 }
                 catch
                 {
-                    MessageBox.Show("Phiên bản SQL Server LocalDB hiện tại không phù hợp. Hãy cài đặt phiên bản 12.0");
+                    MessageBox.Show("Phiên bản SQL Server LocalDB hiện tại không phù hợp. Hãy cài đặt phiên bản 12.0 (SQL Server 2014 Express LocalDb)");
                     Environment.Exit(1);
                 }
             }
