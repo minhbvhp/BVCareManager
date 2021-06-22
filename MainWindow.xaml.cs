@@ -176,7 +176,7 @@ namespace BVCareManager
                 catch
                 {
                     MessageBox.Show("Phiên bản SQL Server LocalDB hiện tại không phù hợp. Hãy cài đặt phiên bản 12.0");
-                    Environment.Exit(0);
+                    Environment.Exit(1);
                 }
             }
             else if (localDbVersion != "0." && localDbVersion != "12")
@@ -191,7 +191,7 @@ namespace BVCareManager
                 catch
                 {
                     MessageBox.Show("Phiên bản SQL Server LocalDB hiện tại không phù hợp. Hãy cài đặt phiên bản 12.0");
-                    Environment.Exit(0);
+                    Environment.Exit(1);
                 }
             }
 
