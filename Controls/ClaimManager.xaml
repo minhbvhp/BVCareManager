@@ -271,7 +271,7 @@
                                 </TextBlock>
                             </StackPanel>
 
-                            <materialDesign:DialogHost Margin="0 50 0 10">
+                            <materialDesign:DialogHost Margin="0 50 0 10" IsOpen="{Binding IsDeleteDialogOpen}">
                                 <materialDesign:DialogHost.DialogContent>
                                     <Grid Width="150" Margin="20 20 20 10">
                                         <Grid.RowDefinitions>
