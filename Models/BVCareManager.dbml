@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="BVCareManagerx86" Class="BVCareManagerDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=(LocalDB)\v12.0;AttachDbFilename=|DataDirectory|\data\BVCareManagerx86.mdf;Integrated Security=True;Connect Timeout=10;Packet Size=1000" SettingsObjectName="BVCareManager.Properties.Settings" SettingsPropertyName="BVCareManagerConnectionString" Provider="System.Data.SqlClient" />
+  <Connection Mode="AppSettings" ConnectionString="Data Source=(LocalDB)\BVCareManager;AttachDbFilename=|DataDirectory|\data\BVCareManagerx86.mdf;Integrated Security=True;Connect Timeout=10;Packet Size=1000" SettingsObjectName="BVCareManager.Properties.Settings" SettingsPropertyName="BVCareManagerConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.Claims" Member="Claims">
     <Type Name="Claim">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />

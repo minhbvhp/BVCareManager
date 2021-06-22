@@ -26,8 +26,8 @@ namespace BVCareManager.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=(LocalDB)\\v12.0;AttachDbFilename=|DataDirectory|\\data\\BVCareManagerx8" +
-            "6.mdf;Integrated Security=True;Connect Timeout=10;Packet Size=1000")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=(LocalDB)\\BVCareManager;AttachDbFilename=|DataDirectory|\\data\\BVCareM" +
+            "anagerx86.mdf;Integrated Security=True;Connect Timeout=10;Packet Size=1000")]
         public string BVCareManagerConnectionString {
             get {
                 return ((string)(this["BVCareManagerConnectionString"]));
