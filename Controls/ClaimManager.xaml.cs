@@ -1,5 +1,4 @@
-﻿using MaterialDesignThemes.Wpf;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -64,19 +63,11 @@ namespace BVCareManager.Controls
                 ClaimActionButton.IsEnabled = true;
                 ClaimActionButton.SetBinding(Button.CommandProperty, new Binding("UpdateCommand"));
             }
-            else
-            {
-                DialogHost.CloseDialogCommand.Execute(null, null);
-            }
 
             if (ViewTabItem.IsSelected)
             {
                 ClaimActionButton.IsEnabled = false;
                 ClaimActionButton.Visibility = Visibility.Hidden;
-            }
-            else
-            {
-                DialogHost.CloseDialogCommand.Execute(null, null);
             }
 
         }

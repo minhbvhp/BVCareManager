@@ -57,7 +57,7 @@ namespace BVCareManager.ViewModels
             }
         }
 
-    #region Not Yet Closed Claim
+        #region Not Yet Closed Claim
         public ObservableCollection<Claim> ListNotYetClosedClaim {
             get
             {
@@ -132,7 +132,7 @@ namespace BVCareManager.ViewModels
         }
         #endregion
 
-    #region Paid Claim
+        #region Paid Claim
         public ObservableCollection<Claim> ListPaidClaim
         {
             get
@@ -208,7 +208,7 @@ namespace BVCareManager.ViewModels
         }
         #endregion
 
-    #region Denied Claim
+        #region Denied Claim
         public ObservableCollection<Claim> ListDeniedClaim
         {
             get
@@ -284,7 +284,7 @@ namespace BVCareManager.ViewModels
         }
         #endregion
 
-    #region New Claim
+        #region New Claim
         private bool _isShowClaimOptions;
         public bool IsShowClaimOptions
         {
@@ -771,26 +771,9 @@ namespace BVCareManager.ViewModels
 
         #endregion
 
-    #region Delete Claim
-
-        private bool _isDeleteDialogOpen;
-        public bool IsDeleteDialogOpen 
-        {
-            get
-            {
-                return _isDeleteDialogOpen;
-            }
-            set
-            {
-                SetProperty(ref _isDeleteDialogOpen, value);
-            }
-        }
-        #endregion
-
 
         public ClaimBaseViewModel()
         {
-            IsDeleteDialogOpen = false;
             _errorsList.Clear();
             IsShowClaimOptions = false;
 
@@ -956,35 +939,6 @@ namespace BVCareManager.ViewModels
                 OnPropertyChanged("TotalDeniedClaim");
             });
             #endregion
-
-            #region Delete Command
-            DeleteCommand = new RelayCommand<object>((p) =>
-            {
-                if (SelectedViewClaim == null)
-                    return false;
-
-                return true;
-            }, (p) =>
-            {
-                IsDeleteDialogOpen = false;
-
-                claimRepository.Delete(SelectedViewClaim);
-                claimRepository.Save();
-
-                Success = "Đã xóa hồ sơ bồi thường";
-                UpdateResultAsync(Result.Successful);
-
-                SelectedClaimIdForView = 0;
-                OnPropertyChanged("SelectedClaimIdForView");
-                OnPropertyChanged("ListNotYetClosedClaim");
-                OnPropertyChanged("ListPaidClaim");
-                OnPropertyChanged("ListDeniedClaim");
-                OnPropertyChanged("TotalNotYetClosedClaim");
-                OnPropertyChanged("TotalPaidClaim");
-                OnPropertyChanged("TotalDeniedClaim");
-            });
-            #endregion
-
         }
     }
 }
