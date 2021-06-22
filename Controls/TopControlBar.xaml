@@ -9,7 +9,7 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Grid Height="60" VerticalAlignment="Top" Background="#FF31577E">
-            <TextBlock Text="Công ty TNHH Federal Mogul" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"
+            <TextBlock Text="Bao Viet Care Manager" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"
                        FontSize="22" FontFamily="{StaticResource iCielGothamThin}" FontWeight="DemiBold"/>
 
             <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
