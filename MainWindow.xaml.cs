@@ -17,6 +17,7 @@ using BVCareManager.ViewModels;
 using BVCareManager.Repository;
 using BVCareManager.Controls;
 using BVCareManager.Converter;
+using MartinCostello.SqlLocalDb;
 
 namespace BVCareManager
 {
@@ -31,6 +32,7 @@ namespace BVCareManager
         public MainWindow()
         {
             InitializeComponent();
+            CreateLocalDb();
             MyTabs.SelectedIndex = 0;
             CreateNewListBox.SelectedIndex = 0;
             ComboBoxSearchCategory.SelectedIndex = 0;
@@ -149,54 +151,53 @@ namespace BVCareManager
                 this.DragMove();
         }
 
-        //private void CreateLocalDb()
-        //{
-        //    string connection = System.Configuration.ConfigurationManager.ConnectionStrings["BVCareManager.Properties.Settings.BVCareManagerConnectionString"].ConnectionString;
-        //    string localDbstring = @"(LocalDB)\";
+        private void CreateLocalDb()
+        {
+            string connection = System.Configuration.ConfigurationManager.ConnectionStrings["BVCareManager.Properties.Settings.BVCareManagerConnectionString"].ConnectionString;
+            string localDbstring = @"(LocalDB)\";
 
-        //    int pFrom = connection.IndexOf(localDbstring) + localDbstring.Length;
-        //    int pTo = connection.LastIndexOf(";AttachDbFilename");
+            int pFrom = connection.IndexOf(localDbstring) + localDbstring.Length;
+            int pTo = connection.LastIndexOf(";AttachDbFilename");
 
-        //    string resultLocalDb = connection.Substring(pFrom, pTo - pFrom);
+            string resultLocalDb = connection.Substring(pFrom, pTo - pFrom);
 
-        //    #region SqlLocalDb Handle
-        //    var localDb = new SqlLocalDbApi();
+            #region SqlLocalDb Handle
+            var localDb = new SqlLocalDbApi();
 
-        //    ISqlLocalDbInstanceInfo localDbInstance = localDb.GetInstanceInfo(resultLocalDb);
-        //    string localDbVersion = localDbInstance.LocalDbVersion.ToString().Substring(0, 2);
+            ISqlLocalDbInstanceInfo localDbInstance = localDb.GetInstanceInfo(resultLocalDb);
+            string localDbVersion = localDbInstance.LocalDbVersion.ToString().Substring(0, 2);
 
-        //    if (localDbVersion == "0.")
-        //    {
-        //        try
-        //        {
-        //            localDb.CreateInstance(resultLocalDb, "12.0");
-        //        }
-        //        catch
-        //        {
-        //            MessageBox.Show("Phiên bản SQL Server LocalDB hiện tại không phù hợp. Hãy cài đặt phiên bản 12.0");
-        //            Environment.Exit(0);
-        //        }
-        //    }
-        //    else if (localDbVersion != "0." && localDbVersion != "12")
-        //    {
-        //        localDb.StopInstance(resultLocalDb);
-        //        localDb.DeleteInstance(resultLocalDb);
+            if (localDbVersion == "0.")
+            {
+                try
+                {
+                    localDb.CreateInstance(resultLocalDb, "12.0");
+                }
+                catch
+                {
+                    MessageBox.Show("Phiên bản SQL Server LocalDB hiện tại không phù hợp. Hãy cài đặt phiên bản 12.0");
+                    Environment.Exit(0);
+                }
+            }
+            else if (localDbVersion != "0." && localDbVersion != "12")
+            {
+                localDb.StopInstance(resultLocalDb);
+                localDb.DeleteInstance(resultLocalDb);
 
-        //        try
-        //        {
-        //            localDb.CreateInstance(resultLocalDb, "12.0");
-        //        }
-        //        catch
-        //        {
-        //            MessageBox.Show("Phiên bản SQL Server LocalDB hiện tại không phù hợp. Hãy cài đặt phiên bản 12.0");
-        //            Environment.Exit(0);
-        //        }
-        //    }
+                try
+                {
+                    localDb.CreateInstance(resultLocalDb, "12.0");
+                }
+                catch
+                {
+                    MessageBox.Show("Phiên bản SQL Server LocalDB hiện tại không phù hợp. Hãy cài đặt phiên bản 12.0");
+                    Environment.Exit(0);
+                }
+            }
 
 
-        //    localDb.StartInstance(resultLocalDb);
-        //    MessageBox.Show("Da tao LocalDb: " + resultLocalDb);
-        //    #endregion
-        //}
+            localDb.StartInstance(resultLocalDb);
+            #endregion
+        }
     }
 }
