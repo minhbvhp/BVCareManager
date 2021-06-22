@@ -439,6 +439,8 @@
                                             </ToggleButton>
 
                                             <TextBlock Text="Đóng hồ sơ" Foreground="#7d4dcd" FontWeight="SemiBold"/>
+                                            
+                                            
                                         </StackPanel>
 
                                         <StackPanel Orientation="Horizontal" Margin="0 10 0 10"
@@ -523,9 +525,17 @@
                                                 <LineBreak/>
                                                 <Run Text="     Đóng hồ sơ"/>
                                                 <LineBreak/>
-                                                <Run Text="     Số tiền:"/>
-                                                <Run Text="{Binding SelectedClaim.TotalPaid, Mode=OneWay, 
-                                                    Converter={StaticResource NumberFormatConverter}, ConverterParameter='N0', ConverterCulture='is-IS'}"/>
+                                                <StackPanel>
+                                                    <TextBlock Text="     Từ chối bồi thường" FontWeight="DemiBold"
+                                                               Visibility="{Binding SelectedClaim.IsDenied, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                                               Foreground="DarkRed"/>
+                                                    
+                                                    <TextBlock Visibility="{Binding SelectedClaim.IsPaid, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                                        <Run Text="     Số tiền:"/>
+                                                        <Run Text="{Binding SelectedClaim.TotalPaid, Mode=OneWay, 
+                                                            Converter={StaticResource NumberFormatConverter}, ConverterParameter='N0', ConverterCulture='is-IS'}"/>
+                                                    </TextBlock>
+                                                </StackPanel>
                                             </TextBlock>
                                         </StackPanel>
                                     </ScrollViewer>

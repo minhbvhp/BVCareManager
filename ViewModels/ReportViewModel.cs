@@ -33,6 +33,7 @@ namespace BVCareManager.ViewModels
                 OnPropertyChanged("FollowingAddedPolicies");
                 OnPropertyChanged("EarlyResignedPolices");
                 OnPropertyChanged("AllPolicies");
+                OnPropertyChanged("ListPaidClaim");
             }
         }
         public Contract SelectedContract 
@@ -198,32 +199,25 @@ namespace BVCareManager.ViewModels
             get
             {
                 ClaimRepository claimRepository = new ClaimRepository();
-                var _allClaims = from claim in claimRepository.FindAllClaims()
-                                 select claim;
-
-                var _listPaidClaim = new List<Claim>();
-
-                foreach (var claim in _allClaims)
+                if (!String.IsNullOrEmpty(SelectedContractId))
                 {
-                    if (claim.IsClosed)
-                        _listPaidClaim.Add(claim);
+                    var _allClaims = from claim in claimRepository.FindAllClaims()
+                                     where claim.Policy.ContractId == SelectedContractId
+                                     select claim;
+
+                    var _listPaidClaim = new List<Claim>();
+
+                    foreach (var claim in _allClaims)
+                    {
+                        if (claim.IsPaid)
+                            _listPaidClaim.Add(claim);
+                    }
+
+                    return new List<Claim>(_listPaidClaim);
                 }
 
-                return new List<Claim>(_listPaidClaim);
+                return null;
             }
-        }
-        public ReportViewModel()
-        {
-            #region RefreshCommand
-            RefreshCommand = new RelayCommand<object>((p) =>
-            {
-                return true;
-            }, (p) =>
-            {
-                OnPropertyChanged("ContractList");
-            });
-
-            #endregion
         }
     }
 }

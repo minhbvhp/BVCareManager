@@ -132,12 +132,12 @@
                     <Grid x:Name="DetailsTotalPolicies" Visibility="Collapsed">
                         <DockPanel Margin="10">
                             <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="5" Height="200">
-                                <DataGrid x:Name="PoliciesDataGrid"
+                                <DataGrid x:Name="PoliciesDataGrid" Background="Transparent" Margin="10 0 10 0"
                                           ItemsSource="{Binding AllPolicies}" SelectionMode="Single" SelectionUnit="Cell"
-                                          AutoGenerateColumns="False" LoadingRow="PoliciesDataGrid_LoadingRow"
+                                          AutoGenerateColumns="False" LoadingRow="PoliciesDataGrid_LoadingRow" HeadersVisibility="All"
                                           IsReadOnly="True">
                                     <DataGrid.Columns>
-                                        <DataGridTextColumn Binding="{Binding Number}" Width="75">
+                                        <DataGridTextColumn Binding="{Binding Number}">
                                             <DataGridTextColumn.Header>
                                                 <TextBlock Text="Số đơn" TextWrapping="Wrap"/>
                                             </DataGridTextColumn.Header>
@@ -272,9 +272,9 @@
                     <Grid x:Name="DetailsLossRatio" Visibility="Collapsed">
                         <DockPanel Margin="10">
                             <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="5" Height="200">
-                                <DataGrid x:Name="ClaimsDataGrid"
+                                <DataGrid x:Name="ClaimsDataGrid" HeadersVisibility="All" Margin="10 0 10 0" Background="Transparent"
                                           ItemsSource="{Binding ListPaidClaim}" SelectionMode="Single" SelectionUnit="Cell"
-                                          AutoGenerateColumns="False" LoadingRow="PoliciesDataGrid_LoadingRow"
+                                          AutoGenerateColumns="False" LoadingRow="ClaimsDataGrid_LoadingRow"
                                           IsReadOnly="True">
                                     <DataGrid.Columns>
                                         <DataGridTextColumn Binding="{Binding Policy.Insured.Name}">
