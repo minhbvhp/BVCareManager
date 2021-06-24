@@ -52,7 +52,7 @@
                               ItemsSource="{Binding ListNotYetClosedClaim}" AutoGenerateColumns="False"
                               IsReadOnly="True" ClipboardCopyMode="None"
                               Foreground="IndianRed" SelectionMode="Single"
-                              SelectedItem="{Binding SelectedNotYetClosedClaim}"
+                              SelectedItem="{Binding SelectedNotYetClosedClaim, Mode=TwoWay}"
                               IsSynchronizedWithCurrentItem="True">
                         <DataGrid.Columns>
                             <DataGridTextColumn Binding="{Binding Policy.Insured.Name}">
@@ -87,7 +87,7 @@
                               ItemsSource="{Binding ListPaidClaim}" AutoGenerateColumns="False"
                               IsReadOnly="True" ClipboardCopyMode="None"
                               Foreground="DarkGreen" SelectionMode="Single"
-                              SelectedItem="{Binding SelectedPaidClaim}"
+                              SelectedItem="{Binding SelectedPaidClaim, Mode=TwoWay}"
                               IsSynchronizedWithCurrentItem="True">
                         <DataGrid.Columns>
                             <DataGridTextColumn Binding="{Binding Policy.Insured.Name}">
@@ -128,7 +128,7 @@
                               ItemsSource="{Binding ListDeniedClaim}" AutoGenerateColumns="False"
                               IsReadOnly="True" ClipboardCopyMode="None"
                               Foreground="DarkRed" SelectionMode="Single"
-                              SelectedItem="{Binding SelectedDeniedClaim}"
+                              SelectedItem="{Binding SelectedDeniedClaim, Mode=TwoWay}"
                               IsSynchronizedWithCurrentItem="True">
                         <DataGrid.Columns>
                             <DataGridTextColumn Binding="{Binding Policy.Insured.Name}">
