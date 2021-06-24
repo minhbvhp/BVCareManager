@@ -349,8 +349,12 @@ namespace BVCareManager.ViewModels
                 SelectedPaidClaim = null;
                 OnPropertyChanged("SelectedPaidClaim");
 
+                SelectedDeniedClaim = null;
+                OnPropertyChanged("SelectedDeniedClaim");
+
                 SelectedInsured = SelectedInsuredListBox;
                 OnPropertyChanged("SelectedInsured");
+
             }
         }
 
