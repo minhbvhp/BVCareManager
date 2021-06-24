@@ -81,5 +81,29 @@ namespace BVCareManager.Controls
 
         }
 
+        private void NotYetClosedClaimDataGrid_GotFocus(object sender, RoutedEventArgs e)
+        {
+            PaidDataGrid.UnselectAll();
+            DeniedDataGrid.UnselectAll();
+        }
+
+        private void PaidDataGrid_GotFocus(object sender, RoutedEventArgs e)
+        {
+            NotYetClosedClaimDataGrid.UnselectAll();
+            DeniedDataGrid.UnselectAll();
+        }
+
+        private void DeniedDataGrid_GotFocus(object sender, RoutedEventArgs e)
+        {
+            NotYetClosedClaimDataGrid.UnselectAll();
+            PaidDataGrid.UnselectAll();
+        }
+
+        private void InsuredsResultDataGrid_GotFocus(object sender, RoutedEventArgs e)
+        {
+            NotYetClosedClaimDataGrid.UnselectAll();
+            PaidDataGrid.UnselectAll();
+            DeniedDataGrid.UnselectAll();
+        }
     }
 }

@@ -53,7 +53,8 @@
                               IsReadOnly="True" ClipboardCopyMode="None"
                               Foreground="IndianRed" SelectionMode="Single"
                               SelectedItem="{Binding SelectedNotYetClosedClaim, Mode=TwoWay}"
-                              IsSynchronizedWithCurrentItem="True">
+                              IsSynchronizedWithCurrentItem="True"
+                              GotFocus="NotYetClosedClaimDataGrid_GotFocus">
                         <DataGrid.Columns>
                             <DataGridTextColumn Binding="{Binding Policy.Insured.Name}">
                                 <DataGridTextColumn.Header>
@@ -88,7 +89,8 @@
                               IsReadOnly="True" ClipboardCopyMode="None"
                               Foreground="DarkGreen" SelectionMode="Single"
                               SelectedItem="{Binding SelectedPaidClaim, Mode=TwoWay}"
-                              IsSynchronizedWithCurrentItem="True">
+                              IsSynchronizedWithCurrentItem="True"
+                              GotFocus="PaidDataGrid_GotFocus">
                         <DataGrid.Columns>
                             <DataGridTextColumn Binding="{Binding Policy.Insured.Name}">
                                 <DataGridTextColumn.Header>
@@ -129,7 +131,8 @@
                               IsReadOnly="True" ClipboardCopyMode="None"
                               Foreground="DarkRed" SelectionMode="Single"
                               SelectedItem="{Binding SelectedDeniedClaim, Mode=TwoWay}"
-                              IsSynchronizedWithCurrentItem="True">
+                              IsSynchronizedWithCurrentItem="True"
+                              GotFocus="DeniedDataGrid_GotFocus">
                         <DataGrid.Columns>
                             <DataGridTextColumn Binding="{Binding Policy.Insured.Name}">
                                 <DataGridTextColumn.Header>
@@ -177,7 +180,8 @@
                              ItemsSource="{Binding ListInsureds}" 
                              SelectedValue="{Binding SelectedInsuredListBox, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                              DisplayMemberPath="Name"
-                             IsSynchronizedWithCurrentItem="True"/>
+                             IsSynchronizedWithCurrentItem="True"
+                             GotFocus="InsuredsResultDataGrid_GotFocus"/>
                 </DockPanel>
 
                 <StackPanel Grid.Column="1" Background="#D1D1D1" 

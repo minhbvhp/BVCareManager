@@ -109,11 +109,11 @@ namespace BVCareManager.ViewModels
                     SelectedInsuredListBox = null;
                     OnPropertyChanged("SelectedInsuredListBox");
 
-                    SelectedPaidClaim = null;
-                    OnPropertyChanged("SelectedPaidClaim");
+                    //SelectedPaidClaim = null;
+                    //OnPropertyChanged("SelectedPaidClaim");
 
-                    SelectedDeniedClaim = null;
-                    OnPropertyChanged("SelectedDeniedClaim");
+                    //SelectedDeniedClaim = null;
+                    //OnPropertyChanged("SelectedDeniedClaim");
 
                     SelectedInsured = _tempNotYetClosedClaim.Policy.Insured;
                     OnPropertyChanged("SelectedInsured");
@@ -186,11 +186,11 @@ namespace BVCareManager.ViewModels
                     SelectedInsuredListBox = null;
                     OnPropertyChanged("SelectedInsuredListBox");
 
-                    SelectedNotYetClosedClaim = null;
-                    OnPropertyChanged("SelectedNotYetClosedClaim");
+                    //SelectedNotYetClosedClaim = null;
+                    //OnPropertyChanged("SelectedNotYetClosedClaim");
 
-                    SelectedDeniedClaim = null;
-                    OnPropertyChanged("SelectedDeniedClaim");
+                    //SelectedDeniedClaim = null;
+                    //OnPropertyChanged("SelectedDeniedClaim");
 
                     SelectedInsured = _tempPaidClaim.Policy.Insured;
                     OnPropertyChanged("SelectedInsured");
@@ -262,11 +262,11 @@ namespace BVCareManager.ViewModels
                     SelectedInsuredListBox = null;
                     OnPropertyChanged("SelectedInsuredListBox");
 
-                    SelectedNotYetClosedClaim = null;
-                    OnPropertyChanged("SelectedNotYetClosedClaim");
+                    //SelectedNotYetClosedClaim = null;
+                    //OnPropertyChanged("SelectedNotYetClosedClaim");
 
-                    SelectedPaidClaim = null;
-                    OnPropertyChanged("SelectedPaidClaim");
+                    //SelectedPaidClaim = null;
+                    //OnPropertyChanged("SelectedPaidClaim");
 
                     SelectedInsured = _tempDeniedClaim.Policy.Insured;
                     OnPropertyChanged("SelectedInsured");
@@ -342,15 +342,6 @@ namespace BVCareManager.ViewModels
             set
             {
                 SetProperty(ref _selectedInsuredListBox, value);
-
-                SelectedNotYetClosedClaim = null;
-                OnPropertyChanged("SelectedNotYetClosedClaim");
-
-                SelectedPaidClaim = null;
-                OnPropertyChanged("SelectedPaidClaim");
-
-                SelectedDeniedClaim = null;
-                OnPropertyChanged("SelectedDeniedClaim");
 
                 SelectedInsured = SelectedInsuredListBox;
                 OnPropertyChanged("SelectedInsured");
