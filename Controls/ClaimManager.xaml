@@ -520,6 +520,7 @@
                                          materialDesign:HintAssist.Hint="Ghi chú"
                                          materialDesign:HintAssist.IsFloating="True"
                                          Text="{Binding ClaimProgressRemarks}"
+                                         AcceptsReturn="True"        
                                          Visibility="{Binding IsClaimOnProgress, Converter={StaticResource BooleanToVisibilityConverter}}"/>
 
                                         <TextBox x:Name="TotalPaidTextBox"
@@ -550,7 +551,9 @@
                                             <ListView ItemsSource="{Binding ClaimProgressList}" 
                                               ItemTemplate="{StaticResource ClaimProgressTemplate}"
                                               Margin="20, 5"
-                                              Foreground="#f04393"/>
+                                              Foreground="#f04393"
+                                              ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                              MaxWidth="300"/>
 
 
                                             <TextBlock Margin="10, 5" VerticalAlignment="Top" TextWrapping="Wrap"

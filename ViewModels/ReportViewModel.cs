@@ -110,7 +110,11 @@ namespace BVCareManager.ViewModels
                     var _allClaim = from claim in claimRepository.FindAllClaims()
                                    select claim;
 
-                    foreach (var claim in _allClaim)
+                    var _allClaimsOfContract = from claim in _allClaim
+                                               where claim.Policy.ContractId == SelectedContract.Id
+                                               select claim;
+
+                    foreach (var claim in _allClaimsOfContract)
                     {
                         if (claim.IsClosed)
                             totalPaid += (int)claim.TotalPaid;

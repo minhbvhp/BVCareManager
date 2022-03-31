@@ -159,7 +159,7 @@
                         <StackPanel Grid.Row="1" Margin="20 10 20 20" VerticalAlignment="Top">
                             <TextBox materialDesign:HintAssist.Hint="Số đơn"
                                  materialDesign:HintAssist.IsFloating="True"
-                                 Text="{Binding SelectedPolicy.Id, Mode=OneWay}"
+                                 Text="{Binding SelectedPolicy.Number, Mode=OneWay}"
                                  IsEnabled="False"/>
 
                             <StackPanel>
